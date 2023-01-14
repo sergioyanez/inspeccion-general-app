@@ -21,8 +21,9 @@ class ExpedienteFactory extends Factory
             'nro_comercio'=>$this->faker->randomNumber(8),
             'actividad_ppal'=>$this->faker->sentence(),
             'anexo'=>$this->faker->sentence(),
+            'persona_juridica_id'=>$this->faker->numberBetween(1,5),
         //    'id_inmueble_afectado'
-        //    'id_estado_habilitacion'
+            'estado_habilitacion_id'=>$this->faker->numberBetween(1,5),
             'fecha_habilitacion'=>$this->faker->date(),
         //    'baja');
         //    'id_estado_baja',

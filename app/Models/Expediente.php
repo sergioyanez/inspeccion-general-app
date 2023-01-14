@@ -14,4 +14,13 @@ class Expediente extends Model
     public function contribuyentes(){
         return $this->belongsToMany('App\Models\Contribuyente');
     }
+    //Relacion uno a muchos
+    public function estadoHabilitacion(){
+        return $this->belongsTo('App\Models\Estado_habilitacion');
+    }
+
+    //Relacion muchos a uno
+    public function personaJuridica(){
+        return $this->belongsTo('App\Models\Persona_juridica');
+    }
 }

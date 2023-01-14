@@ -18,13 +18,22 @@ return new class extends Migration
             $table->string('nro_expediente');
             $table->string('nro_comercio');
             $table->string('actividad_ppal');
-        //    $table->bigInteger('id_persona_juridica')->nullable();
+
+            $table->unsignedBigInteger('persona_juridica_id')->nullable();
+            $table->foreign('persona_juridica_id')->references('id')->on('personas_juridicas')->onDelete('set null');
+
             $table->string('anexo')->nullable();
         //    $table->bigInteger('id_inmueble_afectado')->nullable();
-        //    $table->bigInteger('id_estado_habilitacion');
+
+            $table->unsignedBigInteger('estado_habilitacion_id')->nullable();
+            $table->foreign('estado_habilitacion_id')->references('id')->on('estados_habilitacion')->onDelete('set null');
+
             $table->date('fecha_habilitacion');
         //    $table->bigInteger('baja')->nullable();
-        //    $table->bigInteger('id_estado_baja')->nullable();
+
+            // $table->unsignedBigInteger('estado_baja_id')->nullable();
+            // $table->foreign('estado_baja_id')->references('id')->on('estados_baja')->onDelete('set null');
+
             $table->string('pdf_solicitud');
         //    $table->bigInteger('id_catastro')->nullable();
             $table->string('bienes_de_uso')->nullable();
