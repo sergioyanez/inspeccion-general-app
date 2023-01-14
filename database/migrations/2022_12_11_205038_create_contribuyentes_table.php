@@ -14,19 +14,25 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contribuyentes', function (Blueprint $table) {
-            $table->id('id_contribuyentes');
-            $table->bigInteger('id_tipo_dni');
+            $table->id('id');
+
+            $table->unsignedBigInteger('tiposdni_id');
+            $table->foreign('tiposdni_id')->references('id')->on('tipos_dni')->onDelete('cascade');
+
             $table->bigInteger('numero_dni');
             $table->string('nombre');
             $table->string('apellido');
             $table->bigInteger('cuit_contribuyente');
-            $table->bigInteger('telefono_contribuyente');
+            $table->bigInteger('telefono_contribuyente')->nullable();
             $table->date('fecha_nacimiento');
             $table->string('ingresos_brutos');
-            $table->bigInteger('id_estado_civil');
-            $table->string('nombre_conyuge');
-            $table->string('apellido_conyuge');
-            $table->bigInteger('dni_conyuge');
+
+            $table->unsignedBigInteger('estados_civiles_id');
+            $table->foreign('estados_civiles_id')->references('id')->on('estados_civiles')->onDelete('cascade');
+
+            $table->string('nombre_conyuge')->nullable();
+            $table->string('apellido_conyuge')->nullable();
+            $table->bigInteger('dni_conyuge')->nullable();
             $table->timestamps();
         });
     }
@@ -39,5 +45,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('contribuyentes');
+
     }
 };

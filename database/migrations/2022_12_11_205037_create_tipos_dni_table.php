@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('estado_baja', function (Blueprint $table) {
-            $table->id('id_estado_baja');
-            $table->bigInteger('id_tipo_baja');
-            $table->float('deuda');
-            $table->date('fecha_baja');
-            $table->string('pdf_informe_dueda');
-            $table->string('pdf_solicitud_baja');
+        Schema::create('tipos_dni', function (Blueprint $table) {
+            $table->id();
+            $table->string('descripcion',50);
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estado_baja');
+        Schema::dropIfExists('tipos_dni');
     }
 };

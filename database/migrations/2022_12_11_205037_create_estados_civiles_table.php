@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('expediente_contribuyente', function (Blueprint $table) {
-            $table->id('id_expediente_contribuyente');
-            $table->bigInteger('id_expedientes');
-            $table->bigInteger('id_contribuyentes');
+        Schema::create('estados_civiles', function (Blueprint $table) {
+            $table->id();
+            $table->string('descripcion',50);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('expediente_contribuyente');
+        Schema::dropIfExists('estados_civiles');
     }
 };
