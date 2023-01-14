@@ -10,4 +10,8 @@ class Expediente extends Model
     use HasFactory;
 
     protected $table = 'expedientes';
+
+    public function contribuyentes(){
+        return $this->belongsToMany('App\Models\Contribuyente');
+    }
 }

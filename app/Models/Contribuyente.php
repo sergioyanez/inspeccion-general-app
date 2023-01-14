@@ -20,4 +20,9 @@ class Contribuyente extends Model
         return $this->belongsTo('App\Models\Estado_civil');
     }
 
+    //Relacion muchos a muchos
+    public function expedientes(){
+        return $this->belongsToMany('App\Models\Expediente');
+    }
+
 }
