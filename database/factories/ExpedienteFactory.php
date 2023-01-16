@@ -26,7 +26,7 @@ class ExpedienteFactory extends Factory
             'estado_habilitacion_id'=>$this->faker->numberBetween(1,5),
             'fecha_habilitacion'=>$this->faker->date(),
         //    'baja');
-        //    'id_estado_baja',
+            'estado_baja_id'=>$this->faker->numberBetween(1,10),
             'pdf_solicitud'=>$this->faker->url(),
         //    'id_catastro',
             'bienes_de_uso'=>$this->faker->paragraph(),

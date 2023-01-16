@@ -31,8 +31,8 @@ return new class extends Migration
             $table->date('fecha_habilitacion');
         //    $table->bigInteger('baja')->nullable();
 
-            // $table->unsignedBigInteger('estado_baja_id')->nullable();
-            // $table->foreign('estado_baja_id')->references('id')->on('estados_baja')->onDelete('set null');
+             $table->unsignedBigInteger('estado_baja_id')->nullable();
+             $table->foreign('estado_baja_id')->references('id')->on('estados_baja')->onDelete('set null');
 
             $table->string('pdf_solicitud');
         //    $table->bigInteger('id_catastro')->nullable();
