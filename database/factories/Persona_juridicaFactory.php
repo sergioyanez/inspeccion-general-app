@@ -17,11 +17,11 @@ class Persona_juridicaFactory extends Factory
     public function definition()
     {
         return [
-            'cuit'=> $this->faker->randomNumber(8),
-            'nombre_repesentante'=> $this->faker->name(),
-            'apellido_repesentante'=> $this->faker->lastName(),
-            'dni_representante'=> $this->faker->randomNumber(8),
-            'telefono'=> $this->faker->randomNumber(8)
+            'cuit'=>$this->faker->numberBetween(20000000000,33999999999),
+            'nombre_representante'=>$this->faker->name(),
+            'apellido_representante'=>$this->faker->lastName(),
+            'dni_representante'=>$this->faker->randomNumber(8),
+            'telefono'=>$this->faker->numberBetween(1000000000,9999999999)
         ];
     }
 }

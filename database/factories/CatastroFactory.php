@@ -31,6 +31,7 @@ class CatastroFactory extends Factory
 
 
 
+
         ];
     }
 }

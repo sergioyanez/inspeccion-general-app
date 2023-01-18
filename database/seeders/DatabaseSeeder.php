@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoPermisoSeeder::class);
         Inmueble::factory(10)->create();
         Catastro::factory(10)->create();
-        // Estado_baja::factory(10)->create();
+        Persona_juridica::factory(10)->create();
         // Contribuyente::factory(10)->create();
         // Expediente::factory(5)->create();
     }
