@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Tipo_dni;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use App\Models\Tipo_dni;
 class TipoDniSeeder extends Seeder
 {
     /**

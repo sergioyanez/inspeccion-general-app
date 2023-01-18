@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Tipo_baja;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class TipoBajaSeeder extends Seeder
 {
@@ -15,14 +15,12 @@ class TipoBajaSeeder extends Seeder
      */
     public function run()
     {
-        $data = [
-            [
-                'descripcion' => "Provisoria",
-            ],
-            [
-                'descripcion' => "Permanente"
-            ]
-            ];
-            DB::table('tipos_baja')->insert($data);
+        $baja1 = new Tipo_baja();
+        $baja1->descripcion = "Provisoria";
+        $baja1->save();
+
+        $baja2 = new Tipo_baja();
+        $baja2->descripcion = "Permanente";
+        $baja2->save();
     }
 }

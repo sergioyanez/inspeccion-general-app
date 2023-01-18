@@ -16,19 +16,24 @@ class EstadoCivilSeeder extends Seeder
     public function run()
     {
         $estadoCivil1 = new Estado_civil();
-        $estadoCivil1->descripcion = "S (soltero/a)";
+        $estadoCivil1->descripcion = "Soltero/a";
         $estadoCivil1->save();
 
-        $estadoCivil1 = new Estado_civil();
-        $estadoCivil1->descripcion = "C (casado/a)";
-        $estadoCivil1->save();
+        $estadoCivil2 = new Estado_civil();
+        $estadoCivil2->descripcion = "Casado/a";
+        $estadoCivil2->save();
 
-        $estadoCivil1 = new Estado_civil();
-        $estadoCivil1->descripcion = "V (viudo/a)";
-        $estadoCivil1->save();
+        $estadoCivil3 = new Estado_civil();
+        $estadoCivil3->descripcion = "Viudo/a";
+        $estadoCivil3->save();
 
-        $estadoCivil1 = new Estado_civil();
-        $estadoCivil1->descripcion = "D (divorciado/a)";
-        $estadoCivil1->save();
+        $estadoCivil4 = new Estado_civil();
+        $estadoCivil4->descripcion = "Divorciado/a";
+        $estadoCivil4->save();
+
+        $estadoCivil5 = new Estado_civil();
+        $estadoCivil5->descripcion = "Separado/a ";
+        $estadoCivil5->save();
     }
+
 }

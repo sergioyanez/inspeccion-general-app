@@ -6,7 +6,10 @@ namespace Database\Seeders;
 
 use App\Models\Contribuyente;
 use App\Models\Estado_baja;
+use App\Models\Estado_civil;
 use App\Models\Expediente;
+use App\Models\Inmueble;
+use App\Models\Catastro;
 use App\Models\Persona_juridica;
 use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
@@ -18,13 +21,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(TipoDniSeeder::class);
+        $this->call(TipoHabilitacionSeeder::class);
+        $this->call(TipoEstadoSeeder::class);
         $this->call(EstadoCivilSeeder::class);
-        $this->call(EstadoHabilitacionSeeder::class);
+        $this->call(TipoDniSeeder::class);
+        $this->call(TipoDependenciaSeeder::class);
+        $this->call(TipoInmuebleSeeder::class);
         $this->call(TipoBajaSeeder::class);
-        Persona_juridica::factory(5)->create();
-        Estado_baja::factory(10)->create();
-        Contribuyente::factory(10)->create();
-        Expediente::factory(5)->create();
+        $this->call(TipoPermisoSeeder::class);
+        Inmueble::factory(10)->create();
+        Catastro::factory(10)->create();
+        // Estado_baja::factory(10)->create();
+        // Contribuyente::factory(10)->create();
+        // Expediente::factory(5)->create();
     }
 }
