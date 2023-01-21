@@ -27,7 +27,7 @@ class CatastroFactory extends Factory
             'sub_parcela'=>$this->faker->text(10),
             'observacion'=>$this->faker->sentence(),
             'fecha_informe'=>$this->faker->date(),
-            'pdf_informe'=>$this->faker->sentence(),
+            'pdf_informe'=>$this->faker->filePath(),
 
 
 

@@ -9,4 +9,8 @@ class Tipo_estado extends Model
 {
     use HasFactory;
     protected $table = 'tipos_estados';
+
+    public function detallesHabilitaciones(){
+        return $this->hasMany('App\Models\Detalle_habilitacion');
+    }
 }

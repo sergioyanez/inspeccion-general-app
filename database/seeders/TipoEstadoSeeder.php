@@ -17,22 +17,17 @@ class TipoEstadoSeeder extends Seeder
     {
         $data = [
             [
-                'descripcion' => "Baja definitiva",
-                'created_at'=>now(),
-                'updated_at'=>now()
-            ],
-            [
-                'descripcion' => "Baja provisoria",
-                'created_at'=>now(),
-                'updated_at'=>now()
-            ],
-            [
                 'descripcion' => "En tramite",
                 'created_at'=>now(),
                 'updated_at'=>now()
             ],
             [
                 'descripcion' => "Habilitado",
+                'created_at'=>now(),
+                'updated_at'=>now()
+            ],
+            [
+                'descripcion' => "Vencida",
                 'created_at'=>now(),
                 'updated_at'=>now()
             ]

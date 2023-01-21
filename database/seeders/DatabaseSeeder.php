@@ -10,6 +10,7 @@ use App\Models\Estado_civil;
 use App\Models\Expediente;
 use App\Models\Inmueble;
 use App\Models\Catastro;
+use App\Models\Detalle_habilitacion;
 use App\Models\Detalle_inmueble;
 use App\Models\Persona_juridica;
 use App\Models\User;
@@ -37,7 +38,8 @@ class DatabaseSeeder extends Seeder
         Persona_juridica::factory(10)->create();
         Detalle_inmueble::factory(10)->create();
         Estado_baja::factory(10)->create();
-        // Contribuyente::factory(10)->create();
+        Detalle_habilitacion::factory(10)->create();
+        Contribuyente::factory(10)->create();
         // Expediente::factory(5)->create();
     }
 }

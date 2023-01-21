@@ -9,4 +9,10 @@ class Tipo_dni extends Model
 {
     use HasFactory;
     protected $table = 'tipos_dni';
+
+
+     //Relacion uno a muchos
+    public function contribuyentes(){
+        return $this->hasMany('App\Models\Contribuyente');
+    }
 }
