@@ -9,4 +9,10 @@ class Tipo_inmueble extends Model
 {
     use HasFactory;
     protected $table = 'tipos_inmuebles';
+
+    //Relacion uno a muchos
+
+    public function detallesInmuebles(){
+        return $this->hasMany('App\Models\Detalle_inmueble');
+    }
 }

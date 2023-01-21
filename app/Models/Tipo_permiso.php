@@ -9,4 +9,10 @@ class Tipo_permiso extends Model
 {
     use HasFactory;
     protected $table = 'tipos_permisos';
+
+
+    //Relacion uno a muchos
+    public function usuarios(){
+        return $this->hasMany('App\Models\User');
+    }
 }

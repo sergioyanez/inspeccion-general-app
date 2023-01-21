@@ -10,7 +10,9 @@ use App\Models\Estado_civil;
 use App\Models\Expediente;
 use App\Models\Inmueble;
 use App\Models\Catastro;
+use App\Models\Detalle_inmueble;
 use App\Models\Persona_juridica;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
@@ -29,9 +31,12 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoInmuebleSeeder::class);
         $this->call(TipoBajaSeeder::class);
         $this->call(TipoPermisoSeeder::class);
+        User::factory(5)->create();
         Inmueble::factory(10)->create();
         Catastro::factory(10)->create();
         Persona_juridica::factory(10)->create();
+        Detalle_inmueble::factory(10)->create();
+        Estado_baja::factory(10)->create();
         // Contribuyente::factory(10)->create();
         // Expediente::factory(5)->create();
     }

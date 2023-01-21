@@ -17,13 +17,13 @@ class Estado_bajaFactory extends Factory
     public function definition()
     {
         return [
-
+            'tipo_baja_id'=>$this->faker->numberBetween(1,2),
             'deuda'=>$this->faker->randomFloat(2,10000,1000000),
             'fecha_baja'=>$this->faker->date(),
             'pdf_acta_solicitud_baja'=>$this->faker->url(),
             'pdf_informe_deuda'=>$this->faker->url(),
             'pdf_solicitud_baja'=>$this->faker->url(),
-            'tipos_baja_id'=>$this->faker->numberBetween(1,2)
+
         ];
     }
 }
