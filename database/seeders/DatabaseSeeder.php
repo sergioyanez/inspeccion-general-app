@@ -12,6 +12,7 @@ use App\Models\Inmueble;
 use App\Models\Catastro;
 use App\Models\Detalle_habilitacion;
 use App\Models\Detalle_inmueble;
+use App\Models\Informe_dependencias;
 use App\Models\Persona_juridica;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -37,9 +38,13 @@ class DatabaseSeeder extends Seeder
         Catastro::factory(10)->create();
         Persona_juridica::factory(10)->create();
         Detalle_inmueble::factory(10)->create();
-        Estado_baja::factory(10)->create();
         Detalle_habilitacion::factory(10)->create();
         Contribuyente::factory(10)->create();
-        // Expediente::factory(5)->create();
+     //  $this->call(InformeDependenciasSeeder::class);
+    //    $this->call(ExpedienteSeeder::class);
+        Expediente::factory(10)->create();
+        Estado_baja::factory(10)->create();
+        Informe_dependencias::factory(10)->create();
+       
     }
 }

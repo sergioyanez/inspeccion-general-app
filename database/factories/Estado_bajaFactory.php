@@ -23,6 +23,7 @@ class Estado_bajaFactory extends Factory
             'pdf_acta_solicitud_baja'=>$this->faker->filePath(),
             'pdf_informe_deuda'=>$this->faker->filePath(),
             'pdf_solicitud_baja'=>$this->faker->filePath(),
+            'expediente_id' => $this->faker->numberBetween(1,2),
 
         ];
     }

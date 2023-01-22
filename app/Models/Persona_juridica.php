@@ -9,4 +9,9 @@ class Persona_juridica extends Model
 {
     use HasFactory;
     protected $table = 'personas_juridicas';
+
+    //Relacion muchos a muchos
+   public function expedientes(){
+       return $this->belongsToMany('App\Models\Expediente');
+   }
 }

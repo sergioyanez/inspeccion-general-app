@@ -15,4 +15,11 @@ class Estado_baja extends Model
     public function tipoBaja(){
         return $this->belongsTo('App\Models\Tipo_baja');
     }
+    //Relacion muchos a uno
+
+    public function Expediente(){
+        return $this->belongsTo('App\Models\expediente');
+    }
+
+    
 }
