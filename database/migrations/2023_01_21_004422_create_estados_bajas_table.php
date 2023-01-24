@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('pdf_acta_solicitud_baja');
             $table->string('pdf_informe_deuda');
             $table->string('pdf_solicitud_baja');
-            $table->unsignedBigInteger('expediente_id');
-            $table->foreign('expediente_id')->references('id')->on('expedientes');
+         //   $table->unsignedBigInteger('expediente_id');
+         //   $table->foreign('expediente_id')->references('id')->on('expedientes');
             $table->timestamps();
         });
     }

@@ -24,7 +24,7 @@ class Informe_dependenciasFactory extends Factory
             'pdf_informe'=>$this->faker->url(),
             'fecha_informe'=>$this->faker->date(),
             'observaciones'=>$this->faker->paragraph(),
-            'expediente_id'=>$this->faker-> numberBetween(1,10),
+            'expediente_id'=>$this->faker-> numberBetween(1,4),
            
         ];
     }

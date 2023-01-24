@@ -40,10 +40,11 @@ class DatabaseSeeder extends Seeder
         Detalle_inmueble::factory(10)->create();
         Detalle_habilitacion::factory(10)->create();
         Contribuyente::factory(10)->create();
-     //  $this->call(InformeDependenciasSeeder::class);
-    //    $this->call(ExpedienteSeeder::class);
-        Expediente::factory(10)->create();
         Estado_baja::factory(10)->create();
+     //  $this->call(InformeDependenciasSeeder::class);
+        $this->call(ExpedienteSeeder::class);
+    //    Expediente::factory(10)->create();
+       
         Informe_dependencias::factory(10)->create();
        
     }

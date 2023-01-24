@@ -15,9 +15,9 @@ class Expediente extends Model
     public function personas_juridicas(){
        return $this->belongsToMany('App\Models\Persona_juridica');
    }
-   //Relacion uno a muchos
+   //Relacion uno a uno
    public function estado_baja(){
-    return $this->hasMany('App\Models\Estado_baja');   
+    return $this->hasOne('App\Models\Estado_baja');   
     }
 
     //Relacion uno a uno
