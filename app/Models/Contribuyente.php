@@ -12,16 +12,16 @@ class Contribuyente extends Model
 
     //Relacion uno a muchos inversa. O relacion muchos a uno
     public function tipoDni(){
-        return $this->belongsTo('App\Models\Tipo_dni');
+        return $this->belongsTo('App\Models\Tipo_dni','tipo_dni_id');
     }
 
      //Relacion uno a muchos inversa. O relacion muchos a uno
     public function estadoCivil(){
-        return $this->belongsTo('App\Models\Estado_civil');
+        return $this->belongsTo('App\Models\Estado_civil','estado_civil_id');
     }
     //Relacion muchos a muchos
     public function expedientes(){
-        return $this->belongsToMany('App/Models/Expediente');
+        return $this->belongsToMany('App/Models/Expediente','expediente_contribuyente');
        }
 
 }

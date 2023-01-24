@@ -13,6 +13,6 @@ class Tipo_dni extends Model
 
      //Relacion uno a muchos
     public function contribuyentes(){
-        return $this->hasMany('App\Models\Contribuyente');
+        return $this->hasMany('App\Models\Contribuyente','tipo_dni_id');
     }
 }

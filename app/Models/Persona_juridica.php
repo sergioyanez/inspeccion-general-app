@@ -12,6 +12,6 @@ class Persona_juridica extends Model
 
     //Relacion muchos a muchos
    public function expedientes(){
-       return $this->belongsToMany('App\Models\Expediente');
+       return $this->belongsToMany('App\Models\Expediente','expedientes_personas_juridicas');
    }
 }

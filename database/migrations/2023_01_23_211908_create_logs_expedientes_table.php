@@ -25,6 +25,7 @@ return new class extends Migration
             $table->longText('bienes_de_uso')->nullable();
             $table->string('observaciones_grales')->nullable();
             $table->bigInteger('detalle_de_habilitacion_id');
+            $table->bigInteger('estado_baja_id');
             $table->bigInteger('detalle_inmueble_id');
             $table->char('accion',1);
             $table->date('fecha_creacion');

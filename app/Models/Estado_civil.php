@@ -14,6 +14,6 @@ class Estado_civil extends Model
 
     //Relacion uno a muchos
     public function contribuyentes(){
-        return $this->hasMany('App\Models\Contribuyente');
+        return $this->hasMany('App\Models\Contribuyente','estado_civil_id');
     }
 }
