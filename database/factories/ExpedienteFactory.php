@@ -25,10 +25,10 @@ class ExpedienteFactory extends Factory
             'pdf_solicitud'=>$this->faker->url(),
             'bienes_de_uso'=>$this->faker->paragraph(),
             'observaciones_grales'=>$this->faker->paragraph(),
-            'detalle_de_habilitacion_id'=>$this->faker-> numberBetween(1,10),
+            'detalle_habilitacion_id'=>$this->faker-> numberBetween(1,10),
             'detalle_inmueble_id'=>$this->faker-> numberBetween(1,10),
             'estado_baja_id'=>$this->faker-> numberBetween(1,10)
-           
+
         ];
     }
 }

@@ -24,7 +24,7 @@ class ExpedienteSeeder extends Seeder
         $expediente1-> pdf_solicitud = "enlace1.com";
         $expediente1-> bienes_de_uso = "auto 150000, estanterias 50000";
         $expediente1-> observaciones_grales = "";
-        $expediente1-> detalle_de_habilitacion_id = 1;
+        $expediente1-> detalle_habilitacion_id = 1;
         $expediente1-> detalle_inmueble_id = 1;
         $expediente1->estado_baja_id = 1;
         $expediente1->save();
@@ -38,7 +38,7 @@ class ExpedienteSeeder extends Seeder
         $expediente2-> pdf_solicitud = "enlace1.com";
         $expediente2-> bienes_de_uso = "auto 150000, estanterias 50000";
         $expediente2-> observaciones_grales = "";
-        $expediente2-> detalle_de_habilitacion_id = 2;
+        $expediente2-> detalle_habilitacion_id = 2;
         $expediente2-> detalle_inmueble_id = 2;
         $expediente2->estado_baja_id = 2;
         $expediente2->save();
@@ -52,7 +52,7 @@ class ExpedienteSeeder extends Seeder
         $expediente3-> pdf_solicitud = "enlace1.com";
         $expediente3-> bienes_de_uso = "auto 150000, estanterias 50000";
         $expediente3-> observaciones_grales = "";
-        $expediente3-> detalle_de_habilitacion_id = 3;
+        $expediente3-> detalle_habilitacion_id = 3;
         $expediente3-> detalle_inmueble_id = 3;
         $expediente3->estado_baja_id = 3;
         $expediente3->save();
@@ -66,7 +66,7 @@ class ExpedienteSeeder extends Seeder
         $expediente4-> pdf_solicitud = "enlace1.com";
         $expediente4-> bienes_de_uso = "auto 150000, estanterias 50000";
         $expediente4-> observaciones_grales = "";
-        $expediente4-> detalle_de_habilitacion_id = 4;
+        $expediente4-> detalle_habilitacion_id = 4;
         $expediente4-> detalle_inmueble_id = 4;
         $expediente4->estado_baja_id = 4;
         $expediente4->save();
@@ -80,11 +80,11 @@ class ExpedienteSeeder extends Seeder
         $expediente5-> pdf_solicitud = "enlace1.com";
         $expediente5-> bienes_de_uso = "auto 150000, estanterias 50000";
         $expediente5-> observaciones_grales = "";
-        $expediente5-> detalle_de_habilitacion_id = 5;
+        $expediente5-> detalle_habilitacion_id = 5;
         $expediente5-> detalle_inmueble_id = 5;
         $expediente5->estado_baja_id = 5;
         $expediente5->save();
 
-       
+
     }
 }

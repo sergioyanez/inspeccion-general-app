@@ -9,4 +9,8 @@ class Catastro extends Model
 {
     use HasFactory;
     protected $table ='catastros';
+
+    public function expediente(){
+        return $this->hasOne('App\Models\Expediente');
+    }
 }
