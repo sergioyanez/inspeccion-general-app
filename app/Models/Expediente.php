@@ -33,7 +33,7 @@ public function detalleHabilitacion(){
 
      //Relacion muchos a muchos
      public function contribuyentes(){
-        return $this->belongsToMany('App/Models/Contribuyente','expediente_contribuyente','expediente_id','contribuyente_id');
+        return $this->belongsToMany('App\Models\Contribuyente','expediente_contribuyente','expediente_id','contribuyente_id');
        }
 
         //Relacion muchos a muchos
