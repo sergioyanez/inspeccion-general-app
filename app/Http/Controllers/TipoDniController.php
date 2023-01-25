@@ -8,79 +8,49 @@ use App\Http\Requests\UpdateTipo_dniRequest;
 
 class TipoDniController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Crea un nuevo tipo DNI
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function create(Tipo_dni $tipo_dni){
+
+        $tipo_dni.save();
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTipo_dniRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreTipo_dniRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Muestra los tipos de DNI
      *
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function show(Tipo_dni $tipo_dni)
-    {
-        //
+    public function show(){
+
+        $tipo_dni = Tipo_dni::all();
+        return $tipo_dni; // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tipo_dni  $tipo_dni
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tipo_dni $tipo_dni)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     * Eición de un tipo de DNI
      *
      * @param  \App\Http\Requests\UpdateTipo_dniRequest  $request
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTipo_dniRequest $request, Tipo_dni $tipo_dni)
-    {
-        //
+    public function update(Tipo_dni $tipo_dni){
+
+       $tipo_dni.save();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un tipo de DNI
      *
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipo_dni $tipo_dni)
-    {
-        //
+    public function destroy(Tipo_dni $tipo_dni){
+
+        $tipo_dni->delete();
     }
 }
