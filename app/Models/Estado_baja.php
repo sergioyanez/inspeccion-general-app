@@ -17,9 +17,9 @@ class Estado_baja extends Model
     }
     //Relacion muchos a uno
 
- /*   public function Expediente(){
-        return $this->belongsTo('App\Models\etxpediente');
-    }*/
+    public function Expediente(){
+        return $this->hasOne('App\Models\Expediente');
+    }
 
 
 }
