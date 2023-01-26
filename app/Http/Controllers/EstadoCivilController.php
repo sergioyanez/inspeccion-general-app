@@ -20,9 +20,9 @@ class EstadoCivilController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Crea un nuevo estado civil
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function create(Request $request)
     {
@@ -51,14 +51,15 @@ class EstadoCivilController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * retorna un Json de estado civiles
      *
-     * @param  \App\Models\Estado_civil  $estado_civil
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Estado_civil $estado_civil)
+    public function show()
     {
-        //
+        $estado_civil = Estado_civil::all();
+        
+        return response()->json($estado_civil, 200); 
     }
 
     /**
