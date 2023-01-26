@@ -34,16 +34,16 @@ class TipoDniController extends Controller
     public function show(){
 
         $tipo_dni = Tipo_dni::all();
-        return response()->json($tipo_dni, 200); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        return view('home', ['dnis'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
     }
 
     /**
      * Guarda en tabla log
      *
-     * @param  \App\Http\Requests\StoreCatastroRequest  $request
+     * @param  \App\Http\Requests\StoreTipo_dniRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCatastroRequest $request) {
+    public function store(StoreTipo_dniRequest $request) {
         //
     }
 

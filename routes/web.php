@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TipoDniController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('getDni', [TipoDniController::class, 'show'])->name('home');
+Route::post('newDni', [TipoDniController::class, 'create']);
+Route::get('delete/{id}', [TipoDniController::class, 'destroy'])->name('delete');
