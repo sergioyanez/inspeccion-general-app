@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Tipo_dni;
 use App\Http\Requests\StoreTipo_dniRequest;
 use App\Http\Requests\UpdateTipo_dniRequest;
+//use App\Http\Controllers\LogsTipoDniController;
 
 class TipoDniController extends Controller
 {
@@ -40,10 +41,10 @@ class TipoDniController extends Controller
     /**
      * Guarda en tabla log
      *
-     * @param  \App\Http\Requests\StoreCatastroRequest  $request
+     * @param  \App\Http\Requests\StoreTipo_dniRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCatastroRequest $request) {
+    public function store(StoreTipo_dniRequest $request) {
         //
     }
 
