@@ -26,7 +26,7 @@ class InformeDependenciasController extends Controller
      */
     public function create()
     {
-        //
+        return "create informe de dependencias";
     }
 
     /**
@@ -37,7 +37,7 @@ class InformeDependenciasController extends Controller
      */
     public function store(Storeinforme_dependenciasRequest $request)
     {
-        //
+        return "store informe de dependencias";
     }
 
     /**

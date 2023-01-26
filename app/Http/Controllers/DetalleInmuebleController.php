@@ -25,7 +25,7 @@ class DetalleInmuebleController extends Controller
      */
     public function create()
     {
-        //
+        return "create detalle inmueble";
     }
 
     /**
@@ -36,7 +36,7 @@ class DetalleInmuebleController extends Controller
      */
     public function store(StoreDetalle_inmuebleRequest $request)
     {
-        //
+        return "show detalle inmueble";
     }
 
     /**

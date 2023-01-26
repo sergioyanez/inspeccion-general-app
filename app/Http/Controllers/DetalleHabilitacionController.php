@@ -25,7 +25,7 @@ class DetalleHabilitacionController extends Controller
      */
     public function create()
     {
-        //
+        return "create detalle habilitacion";
     }
 
     /**
@@ -36,7 +36,7 @@ class DetalleHabilitacionController extends Controller
      */
     public function store(StoreDetalle_habilitacionRequest $request)
     {
-        //
+        return "store detalle habilitacion";
     }
 
     /**

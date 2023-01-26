@@ -15,7 +15,7 @@ class ContribuyenteController extends Controller
      */
     public function index()
     {
-        //
+        return "index contribuyente";
     }
 
     /**
@@ -25,7 +25,7 @@ class ContribuyenteController extends Controller
      */
     public function create()
     {
-        //
+        return "create contribuyente";
     }
 
     /**
@@ -36,7 +36,7 @@ class ContribuyenteController extends Controller
      */
     public function store(StoreContribuyenteRequest $request)
     {
-        //
+        return "store contribuyente";
     }
 
     /**
@@ -47,7 +47,7 @@ class ContribuyenteController extends Controller
      */
     public function show(Contribuyente $contribuyente)
     {
-        //
+        return "show contribuyente";
     }
 
     /**
@@ -58,7 +58,7 @@ class ContribuyenteController extends Controller
      */
     public function edit(Contribuyente $contribuyente)
     {
-        //
+        return "edit contribuyente";
     }
 
     /**
@@ -70,7 +70,7 @@ class ContribuyenteController extends Controller
      */
     public function update(UpdateContribuyenteRequest $request, Contribuyente $contribuyente)
     {
-        //
+        return "update contribuyente";
     }
 
     /**
@@ -81,6 +81,6 @@ class ContribuyenteController extends Controller
      */
     public function destroy(Contribuyente $contribuyente)
     {
-        //
+        return "destroy contribuyente";
     }
 }

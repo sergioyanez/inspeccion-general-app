@@ -25,7 +25,7 @@ class InmuebleController extends Controller
      */
     public function create()
     {
-        //
+        return "create inmueble";
     }
 
     /**
@@ -36,7 +36,7 @@ class InmuebleController extends Controller
      */
     public function store(StoreInmuebleRequest $request)
     {
-        //
+        return "store inmueble";
     }
 
     /**

@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Estado_baja;
-use App\Http\Requests\StoreEstado_bajaRequest;
-use App\Http\Requests\UpdateEstado_bajaRequest;
+use App\Models\User;
+use App\Http\Requests\StoreUsuarioRequest;
+use App\Http\Requests\UpdateUsuarioRequest;
 
-class EstadoBajaController extends Controller
+class UsuarioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class EstadoBajaController extends Controller
      */
     public function index()
     {
-        //
+        return "index usuario";
     }
 
     /**
@@ -25,62 +25,62 @@ class EstadoBajaController extends Controller
      */
     public function create()
     {
-        return "create estado baja";
+        return "create usuario";
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreEstado_bajaRequest  $request
+     * @param  \App\Http\Requests\StoreUsuarioRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreEstado_bajaRequest $request)
+    public function store(StoreUsuarioRequest $request)
     {
-        return "store estado baja";
+        return "store usuario";
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Estado_baja  $estado_baja
+     * @param  \App\Models\User  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function show(Estado_baja $estado_baja)
+    public function show(User $usuario)
     {
-        //
+        return "show usuario";
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Estado_baja  $estado_baja
+     * @param  \App\Models\User  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function edit(Estado_baja $estado_baja)
+    public function edit(User $usuario)
     {
-        //
+        return "edit usuario";
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateEstado_bajaRequest  $request
-     * @param  \App\Models\Estado_baja  $estado_baja
+     * @param  \App\Http\Requests\UpdateUsuarioRequest  $request
+     * @param  \App\Models\User  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEstado_bajaRequest $request, Estado_baja $estado_baja)
+    public function update(UpdateUsuarioRequest $request, User $usuario)
     {
-        //
+        return "update usuario";
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Estado_baja  $estado_baja
+     * @param  \App\Models\User  $usuario
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Estado_baja $estado_baja)
+    public function destroy(User $usuario)
     {
-        //
+        return "destroy usuario";
     }
 }

@@ -25,7 +25,7 @@ class CatastroController extends Controller
      */
     public function create()
     {
-        //
+        return "create catastro";
     }
 
     /**
@@ -36,7 +36,7 @@ class CatastroController extends Controller
      */
     public function store(StoreCatastroRequest $request)
     {
-        //
+        return "store catastro";
     }
 
     /**

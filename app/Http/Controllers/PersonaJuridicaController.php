@@ -15,7 +15,7 @@ class PersonaJuridicaController extends Controller
      */
     public function index()
     {
-        //
+        return "index persona juridica";
     }
 
     /**
@@ -25,7 +25,7 @@ class PersonaJuridicaController extends Controller
      */
     public function create()
     {
-        //
+        return "create persona juridica";
     }
 
     /**
@@ -36,7 +36,7 @@ class PersonaJuridicaController extends Controller
      */
     public function store(StorePersona_juridicaRequest $request)
     {
-        //
+        return "store persona juridica";
     }
 
     /**
@@ -47,7 +47,7 @@ class PersonaJuridicaController extends Controller
      */
     public function show(Persona_juridica $persona_juridica)
     {
-        //
+        return "show persona juridica";
     }
 
     /**
@@ -58,7 +58,7 @@ class PersonaJuridicaController extends Controller
      */
     public function edit(Persona_juridica $persona_juridica)
     {
-        //
+        return "edit persona juridica";
     }
 
     /**
@@ -70,7 +70,7 @@ class PersonaJuridicaController extends Controller
      */
     public function update(UpdatePersona_juridicaRequest $request, Persona_juridica $persona_juridica)
     {
-        //
+        return "update persona juridica";
     }
 
     /**
@@ -81,6 +81,6 @@ class PersonaJuridicaController extends Controller
      */
     public function destroy(Persona_juridica $persona_juridica)
     {
-        //
+        return "destroy persona juridica";
     }
 }
