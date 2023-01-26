@@ -60,7 +60,11 @@ class TipoDniController extends Controller{
      */
     public function update(Tipo_dni $tipo_dni){
 
-       $tipo_dni->save();
+        $log = new LogsTipoDniController();
+        
+        $tipo_dni->save();
+
+        $log->create($tipo_dni, 'u');
     }
 
     /**
@@ -71,9 +75,12 @@ class TipoDniController extends Controller{
      */
     public function destroy($id){
 
-        $tipo_dni = Tipo_dni::find($id);
+        $log = new LogsTipoDniController();
 
+        $tipo_dni = Tipo_dni::find($id);
         $tipo_dni->delete();
+
+        $log->create($tipo_dni, 'd');
 
         return 'eliminado correctamente';
     }
