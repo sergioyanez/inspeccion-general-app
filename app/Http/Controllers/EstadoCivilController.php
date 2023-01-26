@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Estado_civil;
 use App\Http\Requests\StoreEstado_civilRequest;
 use App\Http\Requests\UpdateEstado_civilRequest;
@@ -23,9 +24,19 @@ class EstadoCivilController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $request->validate( [
+            'descripcion' => 'required' | 'string' | 'max:25',
+        ]);
+
+        $estado_civil = new Estado_civil();
+        $estado_civil->descripcion = $request->descripcion;
+
+        if ($estado_civil->save()){
+            return back()->with('success','Estado civil se creó correctamente');
+        }
+        return back()->with('fail','No se pudo cargar el estado civil');
     }
 
     /**
