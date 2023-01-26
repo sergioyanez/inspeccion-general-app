@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Tipo_dni;
 use App\Http\Requests\StoreTipo_dniRequest;
 use App\Http\Requests\UpdateTipo_dniRequest;
@@ -14,9 +15,14 @@ class TipoDniController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Tipo_dni $tipo_dni){
+    public function create(Request $request){
 
-        $tipo_dni.save();
+        $tipo_dni = new Tipo_dni();
+        $tipo_dni->descripcion = $request->descripcion;
+
+        $tipo_dni->save();
+
+        return 'Se creó correctamente';
     }
 
     /**
@@ -28,7 +34,17 @@ class TipoDniController extends Controller
     public function show(){
 
         $tipo_dni = Tipo_dni::all();
-        return $tipo_dni; // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        return response()->json($tipo_dni, 200); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+    }
+
+    /**
+     * Guarda en tabla log
+     *
+     * @param  \App\Http\Requests\StoreCatastroRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(StoreCatastroRequest $request) {
+        //
     }
 
     /**
@@ -40,7 +56,7 @@ class TipoDniController extends Controller
      */
     public function update(Tipo_dni $tipo_dni){
 
-       $tipo_dni.save();
+       $tipo_dni->save();
     }
 
     /**
@@ -49,8 +65,12 @@ class TipoDniController extends Controller
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipo_dni $tipo_dni){
+    public function destroy($id){
+
+        $tipo_dni = Tipo_dni::find($id);
 
         $tipo_dni->delete();
+
+        return 'eliminado correctamente';
     }
 }
