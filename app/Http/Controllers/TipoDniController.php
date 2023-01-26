@@ -6,10 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Tipo_dni;
 use App\Http\Requests\StoreTipo_dniRequest;
 use App\Http\Requests\UpdateTipo_dniRequest;
-//use App\Http\Controllers\LogsTipoDniController;
+use App\Http\Controllers\LogsTipoDniController;
 
-class TipoDniController extends Controller
-{
+class TipoDniController extends Controller{
 
     /**
      * Crea un nuevo tipo DNI
@@ -18,10 +17,14 @@ class TipoDniController extends Controller
      */
     public function create(Request $request){
 
+        $log = new LogsTipoDniController();
+
         $tipo_dni = new Tipo_dni();
         $tipo_dni->descripcion = $request->descripcion;
 
         $tipo_dni->save();
+
+        $log->create($tipo_dni, 'c');
 
         return 'Se creó correctamente';
     }
