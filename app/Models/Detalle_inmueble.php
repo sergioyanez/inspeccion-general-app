@@ -19,4 +19,8 @@ class Detalle_inmueble extends Model
     public function tipoInmueble(){
         return $this->belongsTo('App\Models\Tipo_inmueble');
     }
+
+    public function expediente(){
+        return $this->hasOne('App\Models\Expediente');
+    }
 }

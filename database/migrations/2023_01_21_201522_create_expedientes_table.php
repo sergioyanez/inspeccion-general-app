@@ -24,14 +24,14 @@ return new class extends Migration
             $table->string('pdf_solicitud');
             $table->longText('bienes_de_uso')->nullable();
             $table->longText('observaciones_grales')->nullable();
-            $table->unsignedBigInteger('detalle_de_habilitacion_id')->unique();
+            $table->unsignedBigInteger('detalle_habilitacion_id')->unique();
             $table->unsignedBigInteger('detalle_inmueble_id')->unique();
 
            $table ->foreign('catastro_id')->references('id')->on('catastros')->onDelete('set null');
-           $table ->foreign('detalle_de_habilitacion_id')->references('id')->on('detalles_habilitaciones');
+           $table ->foreign('detalle_habilitacion_id')->references('id')->on('detalles_habilitaciones');
             $table ->foreign('detalle_inmueble_id')->references('id')->on('detalles_inmuebles');
             $table ->foreign('estado_baja_id')->references('id')->on('estados_bajas')->onDelete('set null');
-            
+
 
             $table->timestamps();
         });

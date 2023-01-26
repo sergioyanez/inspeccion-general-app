@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
     //    Expediente::factory(10)->create();
        
         Informe_dependencias::factory(10)->create();
-       
+        $this->call(ExpedientePersonaJuridicaSeeder::class);
+        $this->call(ExpedienteContribuyenteSeeder::class);
     }
 }

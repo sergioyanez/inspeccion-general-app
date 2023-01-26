@@ -19,4 +19,8 @@ class Detalle_habilitacion extends Model
     public function tipoEstado(){
         return $this->belongsTo('App\Models\Tipo_estado');
     }
+
+    public function expediente(){
+        return $this->hasOne('App\Models\Expediente');
+    }
 }
