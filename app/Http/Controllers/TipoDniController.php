@@ -42,6 +42,18 @@ class TipoDniController extends Controller{
     }
 
     /**
+     * Muestra un solo tipo de DNI
+     *
+     * @param  \App\Models\Tipo_dni  $tipo_dni
+     * @return \Illuminate\Http\Response
+     */
+    public function showOne($id){
+
+        $tipo_dni = Tipo_dni::find($id);
+        return response()->json($tipo_dni, 200); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+    }
+
+    /**
      * Eición de un tipo de DNI
      *
      * @param  \App\Http\Requests\UpdateTipo_dniRequest  $request
