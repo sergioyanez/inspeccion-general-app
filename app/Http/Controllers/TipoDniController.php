@@ -42,27 +42,17 @@ class TipoDniController extends Controller{
     }
 
     /**
-     * Guarda en tabla log
-     *
-     * @param  \App\Http\Requests\StoreTipo_dniRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreTipo_dniRequest $request) {
-        //
-    }
-
-    /**
      * Eición de un tipo de DNI
      *
      * @param  \App\Http\Requests\UpdateTipo_dniRequest  $request
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function update(Tipo_dni $tipo_dni){
+    public function update(Request $request, Tipo_dni $tipo_dni){
 
         $log = new LogsTipoDniController();
         
-        $tipo_dni->save();
+        $tipo_dni->update($request->all());
 
         $log->create($tipo_dni, 'u');
     }
