@@ -60,11 +60,13 @@ class TipoDniController extends Controller{
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tipo_dni $tipo_dni){
+    public function update(Request $request){
 
         $log = new LogsTipoDniController();
         
-        $tipo_dni->update($request->all());
+        $tipo_dni = Tipo_dni::find($request->id);
+        $tipo_dni->descripcion = $request->descripcion;
+        $tipo_dni->save();
 
         $log->create($tipo_dni, 'u');
     }
