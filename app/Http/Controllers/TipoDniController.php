@@ -38,7 +38,7 @@ class TipoDniController extends Controller{
     public function show(){
 
         $tipo_dni = Tipo_dni::all();
-        return response()->json($tipo_dni, 200); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        return view('home', ['dnis'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
     }
 
     /**
@@ -50,7 +50,7 @@ class TipoDniController extends Controller{
     public function showOne($id){
 
         $tipo_dni = Tipo_dni::find($id);
-        return response()->json($tipo_dni, 200); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        return view('editDni', ['dni'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
     }
 
     /**
@@ -65,10 +65,13 @@ class TipoDniController extends Controller{
         $log = new LogsTipoDniController();
         
         $tipo_dni = Tipo_dni::find($request->id);
+
         $tipo_dni->descripcion = $request->descripcion;
         $tipo_dni->save();
 
         $log->create($tipo_dni, 'u');
+
+        return 'actualizado correctamente';
     }
 
     /**
