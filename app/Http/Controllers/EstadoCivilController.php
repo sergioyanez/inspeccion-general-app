@@ -45,10 +45,10 @@ class EstadoCivilController extends Controller
     /**
      * Retorna un solo tipo de estado civil
      * 
-     * @param  \App\Models\Estado_civil 
+     * @param  int $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function showOne(mixed $id){
+    public function showOne(int $id){
         $estado_civil = Estado_civil::find($id);
         return response()->json($estado_civil, 200);
     }
@@ -69,13 +69,13 @@ class EstadoCivilController extends Controller
     /**
      * Eliminar un estado civil
      *
-     * @param  \App\Models\Estado_civil
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Estado_civil $request) {
+    public function destroy(int $id) {
        
         $log = new LogsEstadoCivilController();
-        $estado_civil = Estado_civil::find($request->id);
+        $estado_civil = Estado_civil::find($id);
 
         $estado_civil->delete();
 
