@@ -4,24 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Estado_civil;
-use App\Http\Requests\StoreEstado_civilRequest;
-use App\Http\Requests\UpdateEstado_civilRequest;
+use App\Http\Controllers\LogsEstadoCivilController;
 
 class EstadoCivilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Crea un nuevo estado civil
-     *
+     * @param  \App\Http\Requests\Request 
      * @return \Illuminate\Http\RedirectResponse
      */
     public function create(Request $request)
@@ -34,65 +24,62 @@ class EstadoCivilController extends Controller
         $estado_civil->descripcion = $request->descripcion;
 
         if ($estado_civil->save()){
+            $log = new LogsEstadoCivilController();
+            $log->create($estado_civil, 'c');
             return back()->with('success','Estado civil se creó correctamente');
         }
         return back()->with('fail','No se pudo cargar el estado civil');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreEstado_civilRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreEstado_civilRequest $request)
-    {
-        //
-    }
-
-    /**
-     * retorna un Json de estado civiles
+     * Retorna un Json de estados civiles
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function show()
     {
-        $estado_civil = Estado_civil::all();
-        
-        return response()->json($estado_civil, 200); 
+        $estados_civil = Estado_civil::all();
+        return response()->json($estados_civil, 200); 
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Estado_civil  $estado_civil
-     * @return \Illuminate\Http\Response
+     * Retorna un solo tipo de estado civil
+     * 
+     * @param  \App\Models\Estado_civil 
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function edit(Estado_civil $estado_civil)
-    {
-        //
+    public function showOne(mixed $id){
+        $estado_civil = Estado_civil::find($id);
+        return response()->json($estado_civil, 200);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Método para editar un estado civil
      *
-     * @param  \App\Http\Requests\UpdateEstado_civilRequest  $request
-     * @param  \App\Models\Estado_civil  $estado_civil
+     * @param  \App\Http\Requests\Request 
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEstado_civilRequest $request, Estado_civil $estado_civil)
-    {
-        //
+    public function update(Request $request) {
+        $log = new LogsEstadoCivilController();
+        $estado_civil = Estado_civil::find($request->id);
+        $estado_civil->save();
+        $log->create($estado_civil, 'u');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Eliminar un estado civil
      *
-     * @param  \App\Models\Estado_civil  $estado_civil
+     * @param  \App\Models\Estado_civil
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Estado_civil $estado_civil)
-    {
-        //
+    public function destroy(Estado_civil $request) {
+       
+        $log = new LogsEstadoCivilController();
+        $estado_civil = Estado_civil::find($request->id);
+
+        $estado_civil->delete();
+
+        $log->create($estado_civil, 'd');
     }
+
 }
