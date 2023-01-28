@@ -2,85 +2,93 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\Tipo_dni;
 use App\Http\Requests\StoreTipo_dniRequest;
 use App\Http\Requests\UpdateTipo_dniRequest;
+use App\Http\Controllers\LogsTipoDniController;
 
-class TipoDniController extends Controller
-{
+class TipoDniController extends Controller{
+
     /**
-     * Display a listing of the resource.
+     * Crea un nuevo tipo DNI
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function create(Request $request){
+
+        $log = new LogsTipoDniController();
+
+        $tipo_dni = new Tipo_dni();
+        $tipo_dni->descripcion = $request->descripcion;
+
+        $tipo_dni->save();
+
+        $log->create($tipo_dni, 'c');
+
+        return 'Se creó correctamente';
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTipo_dniRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreTipo_dniRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
+     * Muestra los tipos de DNI
      *
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function show(Tipo_dni $tipo_dni)
-    {
-        //
+    public function show(){
+
+        $tipo_dni = Tipo_dni::all();
+        return view('home', ['dnis'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra un solo tipo de DNI
      *
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tipo_dni $tipo_dni)
-    {
-        //
+    public function showOne($id){
+
+        $tipo_dni = Tipo_dni::find($id);
+        return view('editDni', ['dni'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
     }
 
     /**
-     * Update the specified resource in storage.
+     * Eición de un tipo de DNI
      *
      * @param  \App\Http\Requests\UpdateTipo_dniRequest  $request
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTipo_dniRequest $request, Tipo_dni $tipo_dni)
-    {
-        //
+    public function update(Request $request){
+
+        $log = new LogsTipoDniController();
+        
+        $tipo_dni = Tipo_dni::find($request->id);
+
+        $tipo_dni->descripcion = $request->descripcion;
+        $tipo_dni->save();
+
+        $log->create($tipo_dni, 'u');
+
+        return 'actualizado correctamente';
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un tipo de DNI
      *
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipo_dni $tipo_dni)
-    {
-        //
+    public function destroy($id){
+
+        $log = new LogsTipoDniController();
+
+        $tipo_dni = Tipo_dni::find($id);
+        $tipo_dni->delete();
+
+        $log->create($tipo_dni, 'd');
+
+        return 'eliminado correctamente';
     }
 }
