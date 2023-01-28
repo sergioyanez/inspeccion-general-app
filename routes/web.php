@@ -21,3 +21,5 @@ Route::get('/', function () {
 Route::get('getDni', [TipoDniController::class, 'show'])->name('home');
 Route::post('newDni', [TipoDniController::class, 'create']);
 Route::get('delete/{id}', [TipoDniController::class, 'destroy'])->name('delete');
+Route::get('edit/{id}', [TipoDniController::class, 'showOne'])->name('edit');
+Route::post('edit/{id}', [TipoDniController::class, 'update'])->name('editarNuevoDni');

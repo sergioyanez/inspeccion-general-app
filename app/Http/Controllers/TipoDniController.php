@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Tipo_dni;
 use App\Http\Requests\StoreTipo_dniRequest;
 use App\Http\Requests\UpdateTipo_dniRequest;
+use App\Http\Controllers\LogsTipoDniController;
 
-class TipoDniController extends Controller
-{
+class TipoDniController extends Controller{
 
     /**
      * Crea un nuevo tipo DNI
@@ -17,10 +17,14 @@ class TipoDniController extends Controller
      */
     public function create(Request $request){
 
+        $log = new LogsTipoDniController();
+
         $tipo_dni = new Tipo_dni();
         $tipo_dni->descripcion = $request->descripcion;
 
         $tipo_dni->save();
+
+        $log->create($tipo_dni, 'c');
 
         return 'Se creó correctamente';
     }
@@ -38,13 +42,15 @@ class TipoDniController extends Controller
     }
 
     /**
-     * Guarda en tabla log
+     * Muestra un solo tipo de DNI
      *
-     * @param  \App\Http\Requests\StoreTipo_dniRequest  $request
+     * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTipo_dniRequest $request) {
-        //
+    public function showOne($id){
+
+        $tipo_dni = Tipo_dni::find($id);
+        return view('editDni', ['dni'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
     }
 
     /**
@@ -54,9 +60,18 @@ class TipoDniController extends Controller
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function update(Tipo_dni $tipo_dni){
+    public function update(Request $request){
 
-       $tipo_dni->save();
+        $log = new LogsTipoDniController();
+        
+        $tipo_dni = Tipo_dni::find($request->id);
+
+        $tipo_dni->descripcion = $request->descripcion;
+        $tipo_dni->save();
+
+        $log->create($tipo_dni, 'u');
+
+        return 'actualizado correctamente';
     }
 
     /**
@@ -67,9 +82,12 @@ class TipoDniController extends Controller
      */
     public function destroy($id){
 
-        $tipo_dni = Tipo_dni::find($id);
+        $log = new LogsTipoDniController();
 
+        $tipo_dni = Tipo_dni::find($id);
         $tipo_dni->delete();
+
+        $log->create($tipo_dni, 'd');
 
         return 'eliminado correctamente';
     }
