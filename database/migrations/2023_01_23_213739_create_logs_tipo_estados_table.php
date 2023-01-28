@@ -18,8 +18,6 @@ return new class extends Migration
             $table->bigInteger('tipo_estado_id');
             $table->string('descripcion');
             $table->char('accion',1);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
             $table->bigInteger('usuario_id');
             $table->string('usuario_nombre');
             $table->timestamps();

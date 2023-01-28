@@ -24,8 +24,6 @@ return new class extends Migration
             $table->string('pdf_solicitud_baja');
             $table->bigInteger('expediente_id');
             $table->char('accion',1);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
             $table->bigInteger('usuario_id');
             $table->string('usuario_nombre');
             $table->string('tipo',25);
