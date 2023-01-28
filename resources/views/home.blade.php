@@ -13,7 +13,7 @@
         <a href="{{ route('edit', $dni->id) }}">Editar</a>
     @endforeach
 
-    <form method="post"action="/newDni">
+    <form method="post"action="newDni">
         
         @csrf <!-- token de seguridad, para evitar el envío de varios registros-->
 
