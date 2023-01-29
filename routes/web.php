@@ -27,7 +27,7 @@ Route::controller(TipoDniController::class)->group(function(){
 });
 
 Route::controller(TipoEstadoController::class)->group(function(){
-    Route::get('getEstadoHabilitacion','show')->name('home');
+    Route::get('getEstadoHabilitacion','show')->name('estadoHabilitacion');
     Route::post('newEstadoHabilitacion','create');
     Route::get('deleteEstadoHabilitacion/{id}','destroy')->name('delete');
     Route::get('editEstadoHabilitacion/{id}','showOne')->name('edit');
