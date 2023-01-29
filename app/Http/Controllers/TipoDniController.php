@@ -38,7 +38,7 @@ class TipoDniController extends Controller{
     public function show(){
 
         $tipo_dni = Tipo_dni::all();
-        return view('home', ['dnis'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        return view('dni', ['dnis'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
     }
 
     /**
@@ -56,14 +56,13 @@ class TipoDniController extends Controller{
     /**
      * Eición de un tipo de DNI
      *
-     * @param  \App\Http\Requests\UpdateTipo_dniRequest  $request
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request){
 
         $log = new LogsTipoDniController();
-        
+
         $tipo_dni = Tipo_dni::find($request->id);
 
         $tipo_dni->descripcion = $request->descripcion;
@@ -71,7 +70,7 @@ class TipoDniController extends Controller{
 
         $log->create($tipo_dni, 'u');
 
-        return 'actualizado correctamente';
+        return 'dni actualizado correctamente';
     }
 
     /**

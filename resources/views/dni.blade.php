@@ -9,11 +9,11 @@
 <body>
     @foreach ($dnis as $dni)
         <li>{{ $dni->descripcion }}</li>
-        <a href="{{ route('delete', $dni->id) }}">Eliminar</a>
-        <a href="{{ route('edit', $dni->id) }}">Editar</a>
+        <a href="{{ route('deleteDni', $dni->id) }}">Eliminar</a>
+        <a href="{{ route('editDni', $dni->id) }}">Editar</a>
     @endforeach
 
-    <form method="post"action="/newDni">
+    <form method="post"action="newDni">
 
         @csrf <!-- token de seguridad, para evitar el envío de varios registros-->
 

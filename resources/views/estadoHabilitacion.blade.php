@@ -9,8 +9,8 @@
 <body>
     @foreach ($estados as $estado)
         <li>{{ $estado->descripcion }}</li>
-        <a href="{{ route('delete', $estado->id) }}">Eliminar Estado</a>
-        <a href="{{ route('edit', $estado->id) }}">Editar Estado</a>
+        <a href="{{ route('deleteEstado', $estado->id) }}">Eliminar Estado</a>
+        <a href="{{ route('editEstado', $estado->id) }}">Editar Estado</a>
     @endforeach
 
     <form method="post"action="newEstadoHabilitacion">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +10,7 @@
     <form action="{{ route('editarNuevoDni', $dni->id) }}" method="post">
         @csrf <!-- token de seguridad, para evitar el envío de varios registros-->
         <input type="text" value="{{ $dni->descripcion }}" name="descripcion">
-        <input type="submit" value="Envar">
+        <input type="submit" value="Editar">
     </form>
 </body>
 </html>

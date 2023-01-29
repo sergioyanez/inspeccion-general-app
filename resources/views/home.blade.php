@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
 
         @csrf <!-- token de seguridad, para evitar el envío de varios registros-->
 
-        <label>descripcion</label>
+        <label>descripcion Estado</label>
         <input type="text" name="descripcion">
         <input type="submit" value="enviar">
     </form> --}}

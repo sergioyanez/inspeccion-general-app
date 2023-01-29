@@ -19,17 +19,17 @@ Route::get('/', function () {
 });
 
 Route::controller(TipoDniController::class)->group(function(){
-    Route::get('getDni','show')->name('home');
+    Route::get('getDni','show')->name('dni');
     Route::post('newDni','create');
-    Route::get('delete/{id}','destroy')->name('delete');
-    Route::get('edit/{id}','showOne')->name('edit');
+    Route::get('delete/{id}','destroy')->name('deleteDni');
+    Route::get('edit/{id}','showOne')->name('editDni');
     Route::post('edit/{id}','update')->name('editarNuevoDni');
 });
 
 Route::controller(TipoEstadoController::class)->group(function(){
     Route::get('getEstadoHabilitacion','show')->name('estadoHabilitacion');
     Route::post('newEstadoHabilitacion','create');
-    Route::get('deleteEstadoHabilitacion/{id}','destroy')->name('delete');
-    Route::get('editEstadoHabilitacion/{id}','showOne')->name('edit');
+    Route::get('deleteEstadoHabilitacion/{id}','destroy')->name('deleteEstado');
+    Route::get('editEstadoHabilitacion/{id}','showOne')->name('editEstado');
     Route::post('editEstadoHabilitacion/{id}','update')->name('editarEstadoHabilitacion');
 });
