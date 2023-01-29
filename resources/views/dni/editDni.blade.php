@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ route('editarNuevoDni', $dni->id) }}" method="post">
+    <form action="{{ route('dni.editarNuevoDni', $dni->id) }}" method="post">
         @csrf <!-- token de seguridad, para evitar el envío de varios registros-->
         <input type="text" value="{{ $dni->descripcion }}" name="descripcion">
         <input type="submit" value="Editar">

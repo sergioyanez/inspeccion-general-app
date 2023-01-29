@@ -47,7 +47,7 @@ class TipoEstadoController extends Controller
     {
 
         $tipo_estado = Tipo_estado::all();
-        return view('estadoHabilitacion', ['estados'=>$tipo_estado]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        return view('estadoHabilitacion.estadoHabilitacion', ['estados'=>$tipo_estado]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
     }
 
     /**
@@ -58,7 +58,7 @@ class TipoEstadoController extends Controller
     public function showOne($id){
 
         $tipo_estado = Tipo_estado::find($id);
-        return view('editEstadoHabilitacion', ['estado'=>$tipo_estado]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        return view('estadoHabilitacion.editEstadoHabilitacion', ['estado'=>$tipo_estado]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
     }
 
     /**
