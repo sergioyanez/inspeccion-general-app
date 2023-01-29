@@ -7,9 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="{{ route('editarNuevoDni', $dni->id) }}" method="post">
+    <form action="{{ route('editarEstadoHabilitacion', $estado->id) }}" method="post">
         @csrf <!-- token de seguridad, para evitar el envío de varios registros-->
-        <input type="text" value="{{ $dni->descripcion }}" name="descripcion">
+        <input type="text" value="{{ $estado->descripcion }}" name="descripcion">
         <input type="submit" value="Editar">
     </form>
 </body>

@@ -24,9 +24,23 @@ class LogsTipoEstadosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create($tipo_estado, $char) {
+
+        $logs_tipo_estado = new logs_tipo_estados();
+        //$user = auth()->user();
+
+        $logs_tipo_estado->tipo_estado_id = $tipo_estado->id;
+        $logs_tipo_estado->descripcion = $tipo_estado->descripcion;
+        $logs_tipo_estado->accion = $char;
+        //$logs_tipo_dni->fecha_creacion = date();  -> NO VA
+        //$logs_tipo_dni->fecha_modificacion = date(); -> NO VA
+        //$logs_tipo_dni->usuario_id = $user->id; -> PORBAR CON USUARIO
+        //$logs_tipo_dni->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
+
+        $logs_tipo_estado->save();
+
+
+        return 'log estado guardado';
     }
 
     /**

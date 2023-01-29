@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    @foreach ($dnis as $dni)
-        <li>{{ $dni->descripcion }}</li>
-        <a href="{{ route('delete', $dni->id) }}">Eliminar</a>
-        <a href="{{ route('edit', $dni->id) }}">Editar</a>
+    @foreach ($estados as $estado)
+        <li>{{ $estado->descripcion }}</li>
+        <a href="{{ route('delete', $estado->id) }}">Eliminar Estado</a>
+        <a href="{{ route('edit', $estado->id) }}">Editar Estado</a>
     @endforeach
 
-    <form method="post"action="newDni">
-        
+    <form method="post"action="newEstadoHabilitacion">
+
         @csrf <!-- token de seguridad, para evitar el envío de varios registros-->
 
-        <label>descripcion</label>
+        <label>descripcion Estado</label>
         <input type="text" name="descripcion">
-        <input type="submit" value="enviar">
+        <input type="submit" value="crear">
     </form>
 </body>
 </html>
