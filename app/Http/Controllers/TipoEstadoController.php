@@ -27,7 +27,7 @@ class TipoEstadoController extends Controller
 
         $log->create($tipo_estado, 'c');
 
-        return 'El estado de habilitación se creó correctamente';
+        return redirect()->route('estadoHabilitacion.estadoHabilitacion')->with('success','Estado de Habilitación se creó correctamente');
     }
 
     /**
@@ -78,7 +78,7 @@ class TipoEstadoController extends Controller
 
         $log->create($tipo_estado, 'u');
 
-        return 'Estado de habilitación actualizado correctamente';
+        return redirect()->route('estadoHabilitacion.estadoHabilitacion')->with('success','Estado de Habilitación se actualizó correctamente');
     }
 
     /**
@@ -96,6 +96,6 @@ class TipoEstadoController extends Controller
 
         $log->create($tipo_estado, 'd');
 
-        return 'Estado de habilitación eliminado correctamente';
+        return redirect()->route('estadoHabilitacion.estadoHabilitacion')->with('success','Estado de Habilitación se eliminó correctamente');
     }
 }

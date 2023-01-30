@@ -26,7 +26,7 @@ class TipoDniController extends Controller{
 
         $log->create($tipo_dni, 'c');
 
-        return 'Se creó correctamente';
+        return redirect()->route('dni.dni')->with('success','Dni se creó correctamente');
     }
 
     /**
@@ -70,7 +70,7 @@ class TipoDniController extends Controller{
 
         $log->create($tipo_dni, 'u');
 
-        return 'dni actualizado correctamente';
+        return redirect()->route('dni.dni')->with('success','Dni se actualizó correctamente');
     }
 
     /**
@@ -88,6 +88,6 @@ class TipoDniController extends Controller{
 
         $log->create($tipo_dni, 'd');
 
-        return 'Dni eliminado correctamente';
+        return redirect()->route('dni.dni')->with('success','Dni se eliminó correctamente');
     }
 }
