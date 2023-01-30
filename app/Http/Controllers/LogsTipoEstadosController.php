@@ -34,7 +34,7 @@ class LogsTipoEstadosController extends Controller
         $logs_tipo_estado->accion = $char;
         //$logs_tipo_dni->fecha_creacion = date();  -> NO VA
         //$logs_tipo_dni->fecha_modificacion = date(); -> NO VA
-        //$logs_tipo_dni->usuario_id = $user->id; -> PORBAR CON USUARIO
+        //$logs_tipo_dni->usuario_id = $user->id; -> PROBAR CON USUARIO
         //$logs_tipo_dni->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
 
         $logs_tipo_estado->save();
