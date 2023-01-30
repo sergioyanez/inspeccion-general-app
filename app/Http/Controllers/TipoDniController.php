@@ -88,6 +88,6 @@ class TipoDniController extends Controller{
 
         $log->create($tipo_dni, 'd');
 
-        return 'eliminado correctamente';
+        return 'Dni eliminado correctamente';
     }
 }
