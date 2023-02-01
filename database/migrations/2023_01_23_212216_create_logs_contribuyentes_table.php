@@ -29,10 +29,8 @@ return new class extends Migration
             $table->string('apellido_conyuge',50)->nullable();
             $table->bigInteger('dni_conyuge')->nullable();
             $table->char('accion',1);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
-            $table->bigInteger('usuario_id');
-            $table->string('usuario_nombre');
+            //$table->bigInteger('usuario_id');
+            //$table->string('usuario_nombre');
             $table->timestamps();
         });
     }
