@@ -86,7 +86,7 @@ class ExpedienteController extends Controller
         $detalleHabilitaciones = Detalle_habilitacion::all();
         $detalleInmuebles = Detalle_inmueble::all();
         $estadosBaja = Estado_baja::all();
-        return view('expediente.crear', ['expediente'=>$expediente,
+        return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'catastro'=>$catastro, 
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
