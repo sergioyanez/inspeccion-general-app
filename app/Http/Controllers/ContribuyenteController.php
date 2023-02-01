@@ -61,7 +61,7 @@ class ContribuyenteController extends Controller
 
         $contribuyente->save();
 
-        $log->create($contribuyente, 'c');
+        $log->store($contribuyente, 'c');
 
         return redirect()->route('contribuyentes');
     }
@@ -107,7 +107,7 @@ class ContribuyenteController extends Controller
 
         $contribuyente->save();
 
-        $log->create($contribuyente, 'c');
+        $log->store($contribuyente, 'u');
 
         return redirect()->route('contribuyentes');
     }
@@ -118,8 +118,17 @@ class ContribuyenteController extends Controller
      * @param  \App\Models\Contribuyente  $contribuyente
      * @return \Illuminate\Http\Response
      */
-    /*public function destroy(Contribuyente $contribuyente)
+    public function destroy($id)
     {
-        //
-    }*/
+        $log = new LogsContribuyenteController();
+
+        $contribuyente = Contribuyente::find($id);
+        $contribuyente->delete();
+
+        $log->store($contribuyente, 'd');
+
+        return redirect()->route('contribuyentes');
+
+        
+    }
 }
