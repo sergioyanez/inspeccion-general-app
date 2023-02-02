@@ -7,6 +7,7 @@ use App\Http\Controllers\EstadoCivilController;
 use App\Http\Controllers\ContribuyenteController;
 use App\Http\Controllers\TipoDependenciaController;
 use App\Http\Controllers\CatastroController;
+use App\Http\Controllers\PersonaJuridicaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,6 +76,15 @@ Route::controller(CatastroController::class)->group(function(){
     Route::get('catastro/mostrar/{id}','show')->name('catastros-mostrar');
     Route::post('catastro/actualizar','update')->name('catastros-actualizar');
     Route::get('catastro/eliminar/{id}','destroy')->name('catastros-eliminar');
+});
+
+Route::controller(PersonaJuridicaController::class)->group(function(){
+    Route::get('personaJuridica','index')->name('personasJuridicas');
+    Route::get('personaJuridica/create','create')->name('personasJuridicas-crear');
+    Route::post('personaJuridica/guardar','store')->name('personasJuridicas-guardar');
+    Route::get('personaJuridica/mostrar/{id}','show')->name('personasJuridicas-mostrar');
+    Route::post('personaJuridica/actualizar','update')->name('personasJuridicas-actualizar');
+    Route::get('personaJuridica/eliminar/{id}','destroy')->name('personasJuridicas-eliminar');
 });
 
 
