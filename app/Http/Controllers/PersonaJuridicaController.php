@@ -69,7 +69,6 @@ class PersonaJuridicaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-
         $personaJuridica = Persona_juridica::find($id);
         return view('personaJuridica.mostrar', ['personaJuridica'=>$personaJuridica]);
     }
