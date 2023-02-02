@@ -23,19 +23,19 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nombre del Representante</label>
-                                <input required type="text" name="nombreRepre" class="form-control" id="basic-default-nombreRepre" value="{{$personaJuridica->nombre_representante}}"/>
+                                <input required type="text" name="nombre_representante" class="form-control" id="basic-default-nombreRepre" value="{{$personaJuridica->nombre_representante}}"/>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Apellido del Representante</label>
-                                <input required type="text" name="apellidoReprea" class="form-control" id="basic-default-apellidoReprea" value="{{$personaJuridica->apellido_representante}}"/>
+                                <input required type="text" name="apellido_representante" class="form-control" id="basic-default-apellidoReprea" value="{{$personaJuridica->apellido_representante}}"/>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Dni del Representante</label>
-                                <input required type="text" name="dniRepre" class="form-control" id="basic-default-dniRepre" value="{{$personaJuridica->dni_representante}}"/>
+                                <input required type="text" name="dni_representante" class="form-control" id="basic-default-dniRepre" value="{{$personaJuridica->dni_representante}}"/>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Telefono</label>
-                                <input required type="text" name="telefonoRepre" class="form-control" id="basic-default-telefonoRepre" value="{{$personaJuridica->telefono}}"/>
+                                <input required type="text" name="telefono" class="form-control" id="basic-default-telefonoRepre" value="{{$personaJuridica->telefono}}"/>
                             </div>
                             <button type="submit" class="btn btn-primary">Actualizar</button>
                         </form>
