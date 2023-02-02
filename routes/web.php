@@ -8,6 +8,7 @@ use App\Http\Controllers\ContribuyenteController;
 use App\Http\Controllers\TipoDependenciaController;
 use App\Http\Controllers\CatastroController;
 use App\Http\Controllers\PersonaJuridicaController;
+use App\Http\Controllers\TipoPermisoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,6 +88,14 @@ Route::controller(PersonaJuridicaController::class)->group(function(){
     Route::get('personaJuridica/eliminar/{id}','destroy')->name('personasJuridicas-eliminar');
 });
 
+Route::controller(TipoPermisoController::class)->group(function(){
+    Route::get('tipoPermiso','index')->name('tiposPermisos');
+    Route::get('tipoPermiso/create','create')->name('tiposPermisos-crear');
+    Route::post('tipoPermiso/guardar','store')->name('tiposPermisos-guardar');
+    Route::get('tipoPermiso/mostrar/{id}','show')->name('tiposPermisos-mostrar');
+    Route::post('tipoPermiso/actualizar','update')->name('tiposPermisos-actualizar');
+    Route::get('tipoPermiso/eliminar/{id}','destroy')->name('tiposPermisos-eliminar');
+});
 
 
 

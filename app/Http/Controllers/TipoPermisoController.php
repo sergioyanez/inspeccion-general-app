@@ -3,74 +3,94 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tipo_permiso;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreTipo_permisoRequest;
 use App\Http\Requests\UpdateTipo_permisoRequest;
+use App\Http\Controllers\LogsTipoPermisoController;
+use Illuminate\Http\Response;
 
-class TipoPermisoController extends Controller
-{
+class TipoPermisoController extends Controller {
+
     /**
-     * Display a listing of the resource.
+     * Método que retorna todos los tipos de permisos
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+
+        $tiposPermisos = Tipo_permiso::all();
+        return view('tipoPermiso.tiposPermisos', ['tiposPermisos'=>$tiposPermisos]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra un formulario para crear un tipo de permiso
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('tipoPermiso.crear');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTipo_permisoRequest  $request
+     * Método para crear un nuevo tipo de permiso
+     *@param  \App\Http\Requests\UpdateTipo_permisoRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTipo_permisoRequest $request)
-    {
-        //
+    public function store(Request $request) {
+
+        $this->validate($request,[
+            'tipo'=>'required|string|max:25',
+         ]);
+
+        $tipo_permiso = new Tipo_permiso();
+        $tipo_permiso->tipo = $request->tipo;
+
+        if($tipo_permiso->save()){
+            $log = new LogsTipoPermisoController();
+            $log->create($tipo_permiso, 'c');
+            return redirect()->route('tiposPermisos');
+        }
+
+        return back()->with('fail','No se pudo cargar el tipo de permiso');
     }
 
+
+
     /**
-     * Display the specified resource.
+     * Método que retorna un solo tipo de permiso
      *
      * @param  \App\Models\Tipo_permiso  $tipo_permiso
      * @return \Illuminate\Http\Response
      */
-    public function show(Tipo_permiso $tipo_permiso)
-    {
-        //
+    public function show($id) {
+
+        $tipoPermiso = Tipo_permiso::find($id);
+        return view('tipoPermiso.mostrar', ['tipoPermiso'=>$tipoPermiso]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tipo_permiso  $tipo_permiso
+     * Método para editar un tipo de permiso
+     *@param  \App\Http\Requests\UpdateTipo_permisoRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function edit(Tipo_permiso $tipo_permiso)
-    {
-        //
-    }
+    public function update(Request $request) {
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTipo_permisoRequest  $request
-     * @param  \App\Models\Tipo_permiso  $tipo_permiso
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateTipo_permisoRequest $request, Tipo_permiso $tipo_permiso)
-    {
-        //
+        $this->validate($request,[
+            'tipo'=>'required|string|max:25',
+         ]);
+
+        $log = new LogsTipoPermisoController();
+
+        $tipo_permiso = Tipo_permiso::find($request->id);
+        $tipo_permiso->tipo = $request->tipo;
+
+        $tipo_permiso->save();
+
+        $log->create($tipo_permiso, 'u');
+
+        return redirect()->route('tiposPermisos');
     }
 
     /**
@@ -79,8 +99,15 @@ class TipoPermisoController extends Controller
      * @param  \App\Models\Tipo_permiso  $tipo_permiso
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Tipo_permiso $tipo_permiso)
-    {
-        //
+    public function destroy($id) {
+
+        $log = new LogsTipoPermisoController();
+
+        $tipo_permiso = Tipo_permiso::find($id);
+        $tipo_permiso->delete();
+
+        $log->create($tipo_permiso, 'd');
+
+        return redirect()->route('tiposPermisos');
     }
 }
