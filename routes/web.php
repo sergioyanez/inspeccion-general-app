@@ -24,9 +24,9 @@ Route::controller(TipoDniController::class)->group(function(){
     Route::get('dni','index')->name('dnis');
     Route::get('dni/create','create')->name('dnis-crear');
     Route::post('dni/guardar','store')->name('dnis-guardar');
-    Route::get('dni/mostrar/{contribuyente_id}','show')->name('dnis-mostrar');
+    Route::get('dni/mostrar/{id}','show')->name('dnis-mostrar');
     Route::post('dni/actualizar','update')->name('dnis-actualizar');
-    Route::get('dni/eliminar/{contribuyente_id}','destroy')->name('dnis-eliminar');
+    Route::get('dni/eliminar/{id}','destroy')->name('dnis-eliminar');
 });
 
 Route::controller(TipoEstadoController::class)->group(function(){

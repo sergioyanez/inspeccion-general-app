@@ -7,15 +7,42 @@ use App\Models\Tipo_dni;
 use App\Http\Requests\StoreTipo_dniRequest;
 use App\Http\Requests\UpdateTipo_dniRequest;
 use App\Http\Controllers\LogsTipoDniController;
+use Illuminate\Http\Response;
 
 class TipoDniController extends Controller{
 
     /**
-     * Crea un nuevo tipo DNI
+     * Muestra los tipos de DNI
+     *
+     * @param  \App\Models\Tipo_dni  $tipo_dni
+     * @return \Illuminate\Http\Response
+     */
+    public function index(){
+
+        $tipo_dni = Tipo_dni::all();
+        return view('dni.tiposDni', ['dnis'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+    }
+
+    /**
+     * Muestra un formulario para crear un nuevo tipo DNI
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request){
+    public function create() {
+        return view('dni.crear');
+    }
+
+    /**
+     * Crea un nuevo tipo DNI
+     * @param  \App\Http\Requests\UpdateTipo_dniRequest  $request
+     * @param  \App\Http\Requests\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request){
+
+        $this->validate($request,[
+            'descripcion'=>'required|string|max:50',
+        ]);
 
         $log = new LogsTipoDniController();
 
@@ -26,19 +53,7 @@ class TipoDniController extends Controller{
 
         $log->create($tipo_dni, 'c');
 
-        return redirect()->route('dni.dni')->with('success','Dni se creó correctamente');
-    }
-
-    /**
-     * Muestra los tipos de DNI
-     *
-     * @param  \App\Models\Tipo_dni  $tipo_dni
-     * @return \Illuminate\Http\Response
-     */
-    public function show(){
-
-        $tipo_dni = Tipo_dni::all();
-        return view('dni.dni', ['dnis'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        return redirect()->route('dnis');
     }
 
     /**
@@ -47,19 +62,24 @@ class TipoDniController extends Controller{
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
-    public function showOne($id){
+    public function show($id){
 
         $tipo_dni = Tipo_dni::find($id);
-        return view('dni.editDni', ['dni'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        return view('dni.mostrar', ['dni'=>$tipo_dni]);
     }
 
     /**
      * Eición de un tipo de DNI
      *
+     * @param  \App\Http\Requests\UpdateTipo_dniRequest  $request
      * @param  \App\Models\Tipo_dni  $tipo_dni
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request){
+
+        $this->validate($request,[
+            'descripcion'=>'required|string|max:50',
+        ]);
 
         $log = new LogsTipoDniController();
 
@@ -70,7 +90,7 @@ class TipoDniController extends Controller{
 
         $log->create($tipo_dni, 'u');
 
-        return redirect()->route('dni.dni')->with('success','Dni se actualizó correctamente');
+        return redirect()->route('dnis');
     }
 
     /**
@@ -88,6 +108,6 @@ class TipoDniController extends Controller{
 
         $log->create($tipo_dni, 'd');
 
-        return redirect()->route('dni.dni')->with('success','Dni se eliminó correctamente');
+        return redirect()->route('dnis');
     }
 }

@@ -17,7 +17,7 @@ class TipoEstadoController extends Controller
     public function index()
     {
         $tiposEstadosHabilitacion = Tipo_estado::all();
-        return view('estadoHabilitacion.estadoshabilitacion', ['estadosHabilitacion' => $tiposEstadosHabilitacion]);
+        return view('estadoHabilitacion.estadosHabilitacion', ['estadosHabilitacion' => $tiposEstadosHabilitacion]);
     }
     /**
      * Crea un nuevo Tipo de estado de habilitacion.
