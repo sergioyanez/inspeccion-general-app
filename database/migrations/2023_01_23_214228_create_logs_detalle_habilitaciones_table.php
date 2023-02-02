@@ -22,10 +22,8 @@ return new class extends Migration
             $table->date('fecha_primer_habilitacion');
             $table->string('pdf_certificado_habilitacion');
             $table->char('accion',1);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
-            $table->bigInteger('usuario_id');
-            $table->string('usuario_nombre');
+            // $table->bigInteger('usuario_id');
+            // $table->string('usuario_nombre');
             $table->timestamps();
         });
     }

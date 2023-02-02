@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('logs_estados_civiles', function (Blueprint $table) {
+        Schema::create('logs_tipos_habilitaciones', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('estado_civil_id');
+            $table->bigInteger('tipo_habilitacion_id');
             $table->string('descripcion',25);
+            $table->integer('plazo_vencimiento')->nullable();
             $table->char('accion',1);
-            // $table->date('fecha_creacion');
-            // $table->date('fecha_modificacion');
             // $table->bigInteger('usuario_id');
             // $table->string('usuario_nombre');
             $table->timestamps();
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('logs_estados_civiles');
+        Schema::dropIfExists('logs_tipos_habilitaciones');
     }
 };
