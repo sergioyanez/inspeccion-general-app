@@ -19,7 +19,7 @@ class CatastroController extends Controller {
     public function index() {
 
         $catastro = Catastro::all();
-        return view('catastro.catastro', ['catastros'=>$catastro]);
+        return view('catastro.catastros', ['catastros'=>$catastro]);
     }
 
     /**
@@ -71,7 +71,7 @@ class CatastroController extends Controller {
         if($catastro->save()){
             $log = new LogsCatastroController();
             $log->create($catastro, 'c');
-            return redirect()->view('catastro.catastro');
+            return redirect()->route('catastros');
         }
 
         return back()->with('fail','No se pudo cargar el catastro');
@@ -87,7 +87,7 @@ class CatastroController extends Controller {
     public function show($id){
 
         $catastro = Catastro::find($id);
-        return view('catastro.catastro', ['catastro'=>$catastro]);
+        return view('catastro.mostrar', ['catastro'=>$catastro]);
     }
 
     /**
@@ -113,7 +113,7 @@ class CatastroController extends Controller {
             'pdf_informe'=>'required|string|max:255',
          ]);
 
-        $log = new LogsCatastroController();
+
 
         $catastro = Catastro::find($request->id);
         $catastro->circunscripcion = $request->circunscripcion;
@@ -128,11 +128,12 @@ class CatastroController extends Controller {
         $catastro->fecha_informe = $request->fecha_informe;
         $catastro->pdf_informe = $request->pdf_informe;
 
-        $catastro->save();
-
-        $log->create($catastro, 'u');
-
-        return redirect()->view('catastro.catastro');
+        if($catastro->save()){
+            $log = new LogsCatastroController();
+            $log->create($catastro, 'u');
+            return redirect()->route('catastros');
+        }
+        return back()->with('fail','No se pudo actualizar el catastro');
     }
 
     /**
@@ -150,6 +151,6 @@ class CatastroController extends Controller {
 
         $log->create($catastro, 'd');
 
-        return redirect()->view('catastro.catastro');
+        return redirect()->route('catastros');
     }
 }

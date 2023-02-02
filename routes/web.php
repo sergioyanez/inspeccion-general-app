@@ -6,6 +6,7 @@ use App\Http\Controllers\TipoEstadoController;
 use App\Http\Controllers\EstadoCivilController;
 use App\Http\Controllers\ContribuyenteController;
 use App\Http\Controllers\TipoDependenciaController;
+use App\Http\Controllers\CatastroController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -65,6 +66,15 @@ Route::controller(TipoDependenciaController::class)->group(function(){
     Route::get('tipoDependencia/mostrar/{id}','show')->name('tiposDependencias-mostrar');
     Route::post('tipoDependencia/actualizar','update')->name('tiposDependencias-actualizar');
     Route::get('tipoDependencia/eliminar/{id}','destroy')->name('tiposDependencias-eliminar');
+});
+
+Route::controller(CatastroController::class)->group(function(){
+    Route::get('catastro','index')->name('catastros');
+    Route::get('catastro/create','create')->name('catastros-crear');
+    Route::post('catastro/guardar','store')->name('catastros-guardar');
+    Route::get('catastro/mostrar/{id}','show')->name('catastros-mostrar');
+    Route::post('catastro/actualizar','update')->name('catastros-actualizar');
+    Route::get('catastro/eliminar/{id}','destroy')->name('catastros-eliminar');
 });
 
 
