@@ -31,12 +31,15 @@ class TipoEstadoController extends Controller
 
     /**
      * Guarda el tipo de estado de habilitacion creado en la base de datos
-     *
+     * @param  \App\Http\Requests\UpdateContribuyenteRequest  $request
      * @param  \App\Http\Requests\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'descripcion'=>'required|string|max:50',
+        ]);
         $log = new LogsTipoEstadosController();
 
         $tipo_estado = new Tipo_estado();
@@ -70,6 +73,9 @@ class TipoEstadoController extends Controller
      */
     public function update(Request $request)
     {
+        $this->validate($request,[
+            'descripcion'=>'required|string|max:50',
+        ]);
         $log = new LogsTipoEstadosController();
 
         $tipo_estado = Tipo_estado::find($request->id);
