@@ -5,6 +5,7 @@ use App\Http\Controllers\TipoDniController;
 use App\Http\Controllers\TipoEstadoController;
 use App\Http\Controllers\EstadoCivilController;
 use App\Http\Controllers\ContribuyenteController;
+use App\Http\Controllers\TipoDependenciaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +56,15 @@ Route::controller(ContribuyenteController::class)->group(function(){
     Route::get('contribuyente/mostrar/{contribuyente_id}','show')->name('contribuyentes-mostrar');
     Route::post('contribuyente/actualizar','update')->name('contribuyentes-actualizar');
     Route::get('contribuyente/eliminar/{contribuyente_id}','destroy')->name('contribuyentes-eliminar');
+});
+
+Route::controller(TipoDependenciaController::class)->group(function(){
+    Route::get('tipoDependencia','index')->name('tiposDependencias');
+    Route::get('tipoDependencia/create','create')->name('tiposDependencias-crear');
+    Route::post('tipoDependencia/guardar','store')->name('tiposDependencias-guardar');
+    Route::get('tipoDependencia/mostrar/{id}','show')->name('tiposDependencias-mostrar');
+    Route::post('tipoDependencia/actualizar','update')->name('tiposDependencias-actualizar');
+    Route::get('tipoDependencia/eliminar/{id}','destroy')->name('tiposDependencias-eliminar');
 });
 
 
