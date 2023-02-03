@@ -10,6 +10,8 @@ use App\Http\Controllers\CatastroController;
 use App\Http\Controllers\PersonaJuridicaController;
 use App\Http\Controllers\TipoPermisoController;
 use App\Http\Controllers\TipoBajaController;
+use App\Http\Controllers\TipoInmuebleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -105,6 +107,15 @@ Route::controller(TipoBajaController::class)->group(function(){
     Route::get('tipoBaja/mostrar/{id}','show')->name('tiposBajas-mostrar');
     Route::post('tipoBaja/actualizar','update')->name('tiposBajas-actualizar');
     Route::get('tipoBaja/eliminar/{id}','destroy')->name('tiposBajas-eliminar');
+});
+
+Route::controller(TipoInmuebleController::class)->group(function(){
+    Route::get('tipoInmueble','index')->name('tiposInmuebles');
+    Route::get('tipoInmueble/create','create')->name('tiposInmuebles-crear');
+    Route::post('tipoInmueble/guardar','store')->name('tiposInmuebles-guardar');
+    Route::get('tipoInmueble/mostrar/{id}','show')->name('tiposInmuebles-mostrar');
+    Route::post('tipoInmueble/actualizar','update')->name('tiposInmuebles-actualizar');
+    Route::get('tipoInmueble/eliminar/{id}','destroy')->name('tiposInmuebles-eliminar');
 });
 
 
