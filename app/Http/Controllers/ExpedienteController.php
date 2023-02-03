@@ -20,10 +20,29 @@ class ExpedienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    /*public function index()
     {
         $expedientes = Expediente::all();
         return view('expediente.expedientes', ['expedientes' => $expedientes]);
+    }*/
+
+    public function index() {
+        $expedientes = Expediente::query()
+            ->with(['contribuyentes', 'personasJuridicas'])
+            ->when(request('buscarporcomercio'), function ($query) {
+                return $query->where('actividad_ppal', 'LIKE', '%' . request('buscarporcomercio') . '%')
+                    ->orWhereHas('contribuyentes', function ($c) {
+                            $c->where('nombre', 'LIKE', '%' . request('buscarporcomercio') . '%');
+                        }
+                    )
+                    ->orWhereHas('personasJuridicas', function ($c) {
+                            $c->where('nombre_representante', 'LIKE', '%' . request('buscarporcomercio') . '%');
+                        }
+                    );
+                    
+            })
+            ->paginate(200);
+            return view('expediente.expedientes', ['expedientes' => $expedientes]);
     }
 
     /**
