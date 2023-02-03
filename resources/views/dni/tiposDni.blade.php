@@ -20,12 +20,12 @@
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @foreach($dnis as $dni)
+                    @foreach($tiposDni as $tipoDni)
                         <tr>
-                            <td>{{$dni->descripcion}}</td>
-                            <td>{{$dni->created_at}}</td>
-                            <td><a href="{{route('dnis-mostrar', $dni->id)}}">Editar</a></td>
-                            <td><a href="{{route('dnis-eliminar', $dni->id)}}">Eliminar</a></td>
+                            <td>{{$tipoDni->descripcion}}</td>
+                            <td>{{$tipoDni->created_at}}</td>
+                            <td><a href="{{route('dnis-mostrar', $tipoDni->id)}}">Editar</a></td>
+                            <td><a href="{{route('dnis-eliminar', $tipoDni->id)}}">Eliminar</a></td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -19,8 +19,9 @@ class TipoDniController extends Controller{
      */
     public function index(){
 
-        $tipo_dni = Tipo_dni::all();
-        return view('dni.tiposDni', ['dnis'=>$tipo_dni]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        $tiposDni = Tipo_dni::all();
+        return view('dni.tiposDni', ['tiposDni'=>$tiposDni]);
+
     }
 
     /**
@@ -29,7 +30,9 @@ class TipoDniController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function create() {
+
         return view('dni.crear');
+
     }
 
     /**
@@ -44,16 +47,16 @@ class TipoDniController extends Controller{
             'descripcion'=>'required|string|max:50',
         ]);
 
-        $log = new LogsTipoDniController();
+        $tipoDni = new Tipo_dni();
+        $tipoDni->descripcion = $request->descripcion;
 
-        $tipo_dni = new Tipo_dni();
-        $tipo_dni->descripcion = $request->descripcion;
+        if($tipoDni->save()){
+            $log = new LogsTipoDniController();
+            $log->create($tipoDni, 'u');
+            return redirect()->route('dnis');
+        }
 
-        $tipo_dni->save();
-
-        $log->create($tipo_dni, 'c');
-
-        return redirect()->route('dnis');
+        return back()->with('fail','No se pudo crear el dni');
     }
 
     /**
@@ -64,8 +67,9 @@ class TipoDniController extends Controller{
      */
     public function show($id){
 
-        $tipo_dni = Tipo_dni::find($id);
-        return view('dni.mostrar', ['dni'=>$tipo_dni]);
+        $tipoDni = Tipo_dni::find($id);
+        return view('dni.mostrar', ['dni'=>$tipoDni]);
+
     }
 
     /**
@@ -81,16 +85,16 @@ class TipoDniController extends Controller{
             'descripcion'=>'required|string|max:50',
         ]);
 
-        $log = new LogsTipoDniController();
+        $tipoDni = Tipo_dni::find($request->id);
+        $tipoDni->descripcion = $request->descripcion;
 
-        $tipo_dni = Tipo_dni::find($request->id);
+        if($tipoDni->save()){
+            $log = new LogsTipoDniController();
+            $log->create($tipoDni, 'u');
+            return redirect()->route('dnis');
+        }
 
-        $tipo_dni->descripcion = $request->descripcion;
-        $tipo_dni->save();
-
-        $log->create($tipo_dni, 'u');
-
-        return redirect()->route('dnis');
+        return back()->with('fail','No se pudo editar el dni');
     }
 
     /**
@@ -100,14 +104,12 @@ class TipoDniController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-
-        $log = new LogsTipoDniController();
-
-        $tipo_dni = Tipo_dni::find($id);
-        $tipo_dni->delete();
-
-        $log->create($tipo_dni, 'd');
-
-        return redirect()->route('dnis');
+        $tipoDni = Tipo_dni::find($id);
+        if($tipoDni->delete()){
+            $log = new LogsTipoDniController();
+            $log->create($tipoDni, 'd');
+            return redirect()->route('dnis');
+        }
+        return back()->with('fail','No se pudo eliminar el dni');
     }
 }

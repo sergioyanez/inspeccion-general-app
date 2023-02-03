@@ -41,12 +41,12 @@ class EstadoCivilController extends Controller
             'descripcion' => 'required|string|max:25',
         ]);
 
-        $estado_civil = new Estado_civil();
-        $estado_civil->descripcion = $request->descripcion;
+        $estadoCivil = new Estado_civil();
+        $estadoCivil->descripcion = $request->descripcion;
 
-        if ($estado_civil->save()){
+        if ($estadoCivil->save()){
             $log = new LogsEstadoCivilController();
-            $log->create($estado_civil, 'c');
+            $log->create($estadoCivil, 'c');
             return redirect()->route('estadosCiviles');
         }
         return back()->with('fail','No se pudo cargar el estado civil');
@@ -76,12 +76,12 @@ class EstadoCivilController extends Controller
             'descripcion' => 'required|string|max:25',
         ]);
 
-        $estado_civil = Estado_civil::find($request->id);
-        $estado_civil->descripcion = $request->descripcion;
+        $estadoCivil = Estado_civil::find($request->id);
+        $estadoCivil->descripcion = $request->descripcion;
 
-        if($estado_civil->save()){
+        if($estadoCivil->save()){
             $log = new LogsEstadoCivilController();
-            $log->create($estado_civil, 'u');
+            $log->create($estadoCivil, 'u');
             return redirect()->route('estadosCiviles');
         }
 
@@ -96,10 +96,10 @@ class EstadoCivilController extends Controller
      */
     public function destroy(int $id) {
 
-        $estado_civil = Estado_civil::find($id);
-        if ($estado_civil->delete()){
+        $estadoCivil = Estado_civil::find($id);
+        if ($estadoCivil->delete()){
             $log = new LogsEstadoCivilController();
-            $log->create($estado_civil, 'd');
+            $log->create($estadoCivil, 'd');
             return redirect()->route('estadosCiviles');
         }
         return back()->with('fail','No se pudo eliminar el estado civil');
