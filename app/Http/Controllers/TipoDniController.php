@@ -43,16 +43,12 @@ class TipoDniController extends Controller{
      */
     public function store(Request $request){
 
-        $this->validate($request,[
-            'descripcion'=>'required|string|max:50',
-        ]);
-
         $tipoDni = new Tipo_dni();
         $tipoDni->descripcion = $request->descripcion;
 
         if($tipoDni->save()){
             $log = new LogsTipoDniController();
-            $log->create($tipoDni, 'u');
+            $log->create($tipoDni, 'c');
             return redirect()->route('dnis');
         }
 
@@ -80,10 +76,6 @@ class TipoDniController extends Controller{
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request){
-
-        $this->validate($request,[
-            'descripcion'=>'required|string|max:50',
-        ]);
 
         $tipoDni = Tipo_dni::find($request->id);
         $tipoDni->descripcion = $request->descripcion;

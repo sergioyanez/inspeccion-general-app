@@ -18,8 +18,8 @@ class TipoDependenciaController extends Controller{
      */
     public function index() {
 
-        $tiposDependencia = Tipo_dependencia::all();
-        return view('tipoDependencia.tiposDependencia', ['tiposDependencias'=>$tiposDependencia]);
+        $tiposDependencias = Tipo_dependencia::all();
+        return view('tipoDependencia.tiposDependencias', ['tiposDependencias'=>$tiposDependencias]);
     }
 
     /**
@@ -33,22 +33,21 @@ class TipoDependenciaController extends Controller{
 
     /**
      * Crea un nuevo tipo de dependencia
-     * @param  \App\Http\Requests\UpdateTipo_dependenciaRequest  $request
+     * @param  \App\Http\Requests\StoreTipo_dependenciaRequest  $request
      * @param  \App\Models\Tipo_dependencia  $tipo_dependencia
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-
         $this->validate($request,[
-            'nombre'=>'required|string|max:30',
-         ]);
+            'nombre'=>'required|string|max:5',
+        ]);
 
-        $tipo_dependencia = new Tipo_dependencia();
-        $tipo_dependencia->nombre = $request->nombre;
+        $tipoDependencia = new Tipo_dependencia();
+        $tipoDependencia->nombre = $request->nombre;
 
-        if($tipo_dependencia->save()){
+        if($tipoDependencia->save()){
             $log = new LogsTipoDependenciaController();
-            $log->create($tipo_dependencia, 'c');
+            $log->create($tipoDependencia, 'c');
             return redirect()->route('tiposDependencias');
         }
         return back()->with('fail','No se pudo cargar el tipo de dependencia');
@@ -76,17 +75,13 @@ class TipoDependenciaController extends Controller{
      */
     public function update(Request $request) {
 
-        $this->validate($request,[
-            'nombre'=>'required|string|max:30',
-         ]);
+        $tipoDependencia = Tipo_dependencia::find($request->id);
+        $tipoDependencia->nombre = $request->nombre;
+        $tipoDependencia->save();
 
-        $tipo_dependencia = Tipo_dependencia::find($request->id);
-        $tipo_dependencia->nombre = $request->nombre;
-        $tipo_dependencia->save();
-
-        if($tipo_dependencia->save()){
+        if($tipoDependencia->save()){
             $log = new LogsTipoDependenciaController();
-            $log->create($tipo_dependencia, 'c');
+            $log->create($tipoDependencia, 'c');
             return redirect()->route('tiposDependencias');
         }
         return back()->with('fail','No se pudo cargar el tipo de dependencia');
@@ -101,13 +96,13 @@ class TipoDependenciaController extends Controller{
      */
     public function destroy($id) {
 
-        $log = new LogsTipoDependenciaController();
-        $tipo_dependencia = Tipo_dependencia::find($id);
+        $tipoDependencia = Tipo_dependencia::find($id);
 
-        $tipo_dependencia->delete();
-
-        $log->create($tipo_dependencia, 'd');
-
-        return redirect()->route('tiposDependencias');
+        if($tipoDependencia->delete()){
+            $log = new LogsTipoDependenciaController();
+            $log->create($tipoDependencia, 'd');
+            return redirect()->route('tiposDependencias');
+        }
+        return back()->with('fail','No se pudo eliminar el tipo de dependencia');
     }
 }

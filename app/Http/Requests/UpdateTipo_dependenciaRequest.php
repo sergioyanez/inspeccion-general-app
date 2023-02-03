@@ -13,7 +13,7 @@ class UpdateTipo_dependenciaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateTipo_dependenciaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nombre'=>'required|string|max:5',
         ];
     }
 }

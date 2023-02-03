@@ -24,7 +24,7 @@ class StoreTipo_dniRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'descripcion'=>'required|string|max:50',
         ];
     }
 }
