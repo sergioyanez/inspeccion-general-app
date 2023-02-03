@@ -82,15 +82,15 @@ class TipoBajaController extends Controller {
             'descripcion'=>'required|string|max:50',
         ]);
 
-        $log = new LogsTipoBajaController();
         $tipo_baja = Tipo_baja::find($request->id);
 
         $tipo_baja->descripcion = $request->descripcion;
 
-        $tipo_baja->save();
-
-        $log->create($tipo_baja, 'u');
-
+        if($tipo_baja->save()){
+            $log = new LogsTipoBajaController();
+            $log->create($tipo_baja, 'u');
+            return redirect()->route('tiposBajas');
+        }
         return redirect()->route('tiposBajas');
     }
 
