@@ -30,7 +30,7 @@ class ExpedienteController extends Controller
         $expedientes = Expediente::query()
             ->with(['contribuyentes', 'personasJuridicas'])
             ->when(request('buscarporcomercio'), function ($query) {
-                return $query->where('actividad_ppal', 'LIKE', '%' . request('buscarporcomercio') . '%')
+                return $query->where('nro_comercio', 'LIKE', '%' . request('buscarporcomercio') . '%')
                     ->orWhereHas('contribuyentes', function ($c) {
                             $c->where('nombre', 'LIKE', '%' . request('buscarporcomercio') . '%');
                         }
