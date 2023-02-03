@@ -37,16 +37,13 @@ class EstadoCivilController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $this->validate( $request,[
-            'descripcion' => 'required|string|max:25',
-        ]);
 
-        $estadoCivil = new Estado_civil();
-        $estadoCivil->descripcion = $request->descripcion;
+        $estado_civil = new Estado_civil();
+        $estado_civil->descripcion = $request->descripcion;
 
-        if ($estadoCivil->save()){
+        if ($estado_civil->save()){
             $log = new LogsEstadoCivilController();
-            $log->create($estadoCivil, 'c');
+            $log->create($estado_civil, 'c');
             return redirect()->route('estadosCiviles');
         }
         return back()->with('fail','No se pudo cargar el estado civil');
@@ -71,10 +68,6 @@ class EstadoCivilController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request) {
-
-        $this->validate($request,[
-            'descripcion' => 'required|string|max:25',
-        ]);
 
         $estadoCivil = Estado_civil::find($request->id);
         $estadoCivil->descripcion = $request->descripcion;
