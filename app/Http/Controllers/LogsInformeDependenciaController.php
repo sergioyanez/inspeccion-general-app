@@ -19,7 +19,7 @@ class LogsInformeDependenciaController extends Controller {
     public function create($informe_dependencia, $char) {
         
         $logs_informe_dependencia = new logs_informe_dependencia();
-        $user = auth()->user();
+        //$user = auth()->user();
 
         $logs_informe_dependencia->informe_dependencia_id = $informe_dependencia->id;
         $logs_informe_dependencia->tipo_dependencia_id = $informe_dependencia->tipo_dependencia_id;
@@ -31,9 +31,7 @@ class LogsInformeDependenciaController extends Controller {
         //$logs_informe_dependencia->usuario_id = $user->id; -> PORBAR CON USUARIO
         //$logs_informe_dependencia->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
 
-        $logs_informe_dependencia->save();
-        
-        return 'guardado';
+        return $logs_informe_dependencia->save();
     }
 
 }
