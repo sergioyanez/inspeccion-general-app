@@ -33,7 +33,7 @@ class CatastroController extends Controller {
 
     /**
      * Método que crea un nuevo Catastro
-     * @param  \App\Http\Requests\UpdateCatastroRequest  $request
+     * @param  \App\Http\Requests\StoreCatastroRequest  $request
      * @param  \App\Http\Requests\Request $request
      * @return \Illuminate\Http\Response
      */
@@ -112,9 +112,6 @@ class CatastroController extends Controller {
             'fecha_informe'=>'required',
             'pdf_informe'=>'required|string|max:255',
          ]);
-
-
-
         $catastro = Catastro::find($request->id);
         $catastro->circunscripcion = $request->circunscripcion;
         $catastro->seccion = $request->seccion;
@@ -143,14 +140,12 @@ class CatastroController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-
-        $log = new LogsCatastroController();
-
         $catastro = Catastro::find($id);
-        $catastro->delete();
-
-        $log->create($catastro, 'd');
-
-        return redirect()->route('catastros');
+        if($catastro->delete()){
+            $log = new LogsCatastroController();
+            $log->create($catastro, 'd');
+            return redirect()->route('catastros');
+        }
+        return back()->with('fail','No se pudo eliminar el catastro');
     }
 }

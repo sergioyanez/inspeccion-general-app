@@ -24,7 +24,7 @@ class Storelogs_estado_civilRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'descripcion' => 'required|string|max:25',
         ];
     }
 }

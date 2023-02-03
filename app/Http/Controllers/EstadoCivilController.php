@@ -4,21 +4,42 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Estado_civil;
+use App\Http\Requests\UpdateEstado_civilRequest;
+use App\Http\Requests\StoreEstado_civilRequest;
 use App\Http\Controllers\LogsEstadoCivilController;
 
 class EstadoCivilController extends Controller
 {
+    /**
+     * Muestra todos los tipos de estado civil
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index() {
+
+        $estadosCiviles = Estado_civil::all();
+        return view('estadoCivil.estadosCiviles', ['estadosCiviles'=>$estadosCiviles]);
+    }
+
+    /**
+     * Muestra un formulario para crear un estado civil
+     *
+     * @return \Illuminate\Http\Response
+    */
+    public function create() {
+        return view('estadoCivil.crear');
+    }
 
     /**
      * Crea un nuevo estado civil
-     * @param  \App\Http\Requests\Request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  \App\Http\Requests\StoreEstado_civilRequest  $request
+     * @param  \App\Models\Estado_civil  $estado_civil
+     * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
-        // $request->validate( [
-        //     'descripcion' => 'required' | 'string' | 'max:25',
-        // ]);
+    public function store(Request $request) {
+        $this->validate( $request,[
+            'descripcion' => 'required|string|max:25',
+        ]);
 
         $estado_civil = new Estado_civil();
         $estado_civil->descripcion = $request->descripcion;
@@ -26,48 +47,45 @@ class EstadoCivilController extends Controller
         if ($estado_civil->save()){
             $log = new LogsEstadoCivilController();
             $log->create($estado_civil, 'c');
-            return redirect()->route('estadoCivil.estadoCivil')->with('success','Estado civil se creó correctamente');
+            return redirect()->route('estadosCiviles');
         }
         return back()->with('fail','No se pudo cargar el estado civil');
     }
 
     /**
-     * Retorna un Json de estados civiles
+     * Retorna un estado civil
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function show()
-    {
-        $estados_civil = Estado_civil::all();
-        return view('estadoCivil.EstadoCivil', ['estados'=>$estados_civil]);
-       // return response()->json($estados_civil, 200);
-    }
-
-    /**
-     * Retorna un solo tipo de estado civil
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function showOne(int $id){
-        $estado_civil = Estado_civil::find($id);
-        return view('estadoCivil.EditEstadoCivil', ['estado'=>$estado_civil]);
-       // return response()->json($estado_civil, 200);
+    public function show(int $id) {
+        $estadoCivil = Estado_civil::find($id);
+        return view('estadoCivil.mostrar', ['estadoCivil'=>$estadoCivil]);
     }
 
     /**
      * Método para editar un estado civil
      *
-     * @param  \App\Http\Requests\Request
+     * @param  \App\Http\Requests\UpdateEstado_civilRequest  $request
+     * @param  \App\Models\Estado_civil  $estado_civil
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request) {
-        $log = new LogsEstadoCivilController();
+
+        $this->validate($request,[
+            'descripcion' => 'required|string|max:25',
+        ]);
+
         $estado_civil = Estado_civil::find($request->id);
         $estado_civil->descripcion = $request->descripcion;
-        $estado_civil->save();
-        $log->create($estado_civil, 'u');
-        return redirect()->route('estadoCivil.estadoCivil')->with('success','Estado civil se actualizó correctamente');
+
+        if($estado_civil->save()){
+            $log = new LogsEstadoCivilController();
+            $log->create($estado_civil, 'u');
+            return redirect()->route('estadosCiviles');
+        }
+
+        return back()->with('fail','No se pudo editar el estado civil');
     }
 
     /**
@@ -78,11 +96,13 @@ class EstadoCivilController extends Controller
      */
     public function destroy(int $id) {
 
-        $log = new LogsEstadoCivilController();
         $estado_civil = Estado_civil::find($id);
-        $estado_civil->delete();
-        $log->create($estado_civil, 'd');
-        return redirect()->route('estadoCivil.estadoCivil')->with('success','Estado civil se eliminó correctamente');
+        if ($estado_civil->delete()){
+            $log = new LogsEstadoCivilController();
+            $log->create($estado_civil, 'd');
+            return redirect()->route('estadosCiviles');
+        }
+        return back()->with('fail','No se pudo eliminar el estado civil');
     }
 
 }
