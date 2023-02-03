@@ -33,7 +33,7 @@ class TipoPermisoController extends Controller {
 
     /**
      * Método para crear un nuevo tipo de permiso
-     *@param  \App\Http\Requests\UpdateTipo_permisoRequest  $request
+     *@param  \App\Http\Requests\StoreTipo_permisoRequest  $request
      * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */

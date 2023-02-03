@@ -7,81 +7,28 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Storelogs_tipo_bajaRequest;
 use App\Http\Requests\Updatelogs_tipo_bajaRequest;
 
-class LogsTipoBajaController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+class LogsTipoBajaController extends Controller {
 
     /**
-     * Show the form for creating a new resource.
+     * Método que crea registros cuando se realiza una consulta
+     * en la tabla tipos_bajas
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    public function create($tipo_baja, $char) {
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storelogs_tipo_bajaRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storelogs_tipo_bajaRequest $request)
-    {
-        //
-    }
+        $logs_tipo_baja = new logs_tipo_baja();
+        $user = auth()->user();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\logs_tipo_baja  $logs_tipo_baja
-     * @return \Illuminate\Http\Response
-     */
-    public function show(logs_tipo_baja $logs_tipo_baja)
-    {
-        //
-    }
+        $logs_tipo_baja->tipo_baja_id = $tipo_baja->id;
+        $logs_tipo_baja->descripcion = $tipo_baja->descripcion;
+        $logs_tipo_baja->accion = $char;
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\logs_tipo_baja  $logs_tipo_baja
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(logs_tipo_baja $logs_tipo_baja)
-    {
-        //
-    }
+        //$logs_tipo_permiso->usuario_id = $user->id; -> PORBAR CON USUARIO
+        //$logs_tipo_permiso->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatelogs_tipo_bajaRequest  $request
-     * @param  \App\Models\logs_tipo_baja  $logs_tipo_baja
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatelogs_tipo_bajaRequest $request, logs_tipo_baja $logs_tipo_baja)
-    {
-        //
-    }
+        $logs_tipo_baja->save();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\logs_tipo_baja  $logs_tipo_baja
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(logs_tipo_baja $logs_tipo_baja)
-    {
-        //
+        return 'guardado';
     }
 }

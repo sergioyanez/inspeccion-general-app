@@ -9,6 +9,7 @@ use App\Http\Controllers\TipoDependenciaController;
 use App\Http\Controllers\CatastroController;
 use App\Http\Controllers\PersonaJuridicaController;
 use App\Http\Controllers\TipoPermisoController;
+use App\Http\Controllers\TipoBajaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -95,6 +96,15 @@ Route::controller(TipoPermisoController::class)->group(function(){
     Route::get('tipoPermiso/mostrar/{id}','show')->name('tiposPermisos-mostrar');
     Route::post('tipoPermiso/actualizar','update')->name('tiposPermisos-actualizar');
     Route::get('tipoPermiso/eliminar/{id}','destroy')->name('tiposPermisos-eliminar');
+});
+
+Route::controller(TipoBajaController::class)->group(function(){
+    Route::get('tipoBaja','index')->name('tiposBajas');
+    Route::get('tipoBaja/create','create')->name('tiposBajas-crear');
+    Route::post('tipoBaja/guardar','store')->name('tiposBajas-guardar');
+    Route::get('tipoBaja/mostrar/{id}','show')->name('tiposBajas-mostrar');
+    Route::post('tipoBaja/actualizar','update')->name('tiposBajas-actualizar');
+    Route::get('tipoBaja/eliminar/{id}','destroy')->name('tiposBajas-eliminar');
 });
 
 
