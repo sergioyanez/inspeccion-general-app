@@ -9,7 +9,16 @@ use App\Http\Requests\UpdateTipo_estadoRequest;
 
 class TipoEstadoController extends Controller
 {
-
+    /**
+     * Muestra todos los tipos de estado de habilitacion
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $tiposEstadosHabilitacion = Tipo_estado::all();
+        return view('estadoHabilitacion.estadoshabilitacion', ['estadosHabilitacion' => $tiposEstadosHabilitacion]);
+    }
     /**
      * Crea un nuevo Tipo de estado de habilitacion.
      *
@@ -17,7 +26,17 @@ class TipoEstadoController extends Controller
      */
     public function create(Request $request)
     {
+        return view('estadoHabilitacion.crear');
+    }
 
+    /**
+     * Guarda el tipo de estado de habilitacion creado en la base de datos
+     *
+     * @param  \App\Http\Requests\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
         $log = new LogsTipoEstadosController();
 
         $tipo_estado = new Tipo_estado();
@@ -25,50 +44,32 @@ class TipoEstadoController extends Controller
 
         $tipo_estado->save();
 
-        $log->create($tipo_estado, 'c');
+        $log->store($tipo_estado, 'c');
 
-        return 'El estado de habilitación se creó correctamente';
+        return redirect()->route('estadosHabilitacion');
     }
 
-    /**
-     * Store a newly created resource in storage.
+   /**
+     * Muesta un tipo de estado de habilitacion en un formulario con todos los campos cargados
      *
-     * @param  \App\Http\Requests\StoreTipo_estadoRequest  $request
+     * @param  \App\Models\Tipo_estado  $contribuyente
      * @return \Illuminate\Http\Response
      */
-
-    /**
-     * Muestra los tipos de Estados de habilitacion.
-     *
-     * @param  \App\Models\Tipo_estado  $tipo_estado
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Tipo_estado $tipo_estado)
+    public function show($id)
     {
-
-        $tipo_estado = Tipo_estado::all();
-        return view('estadoHabilitacion.estadoHabilitacion', ['estados'=>$tipo_estado]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
+        $estadoHabilitacion = Tipo_estado::find($id);
+        return view('estadoHabilitacion.mostrar', ['estadoHabilitacion' => $estadoHabilitacion]);
     }
 
-    /**
-     * Muestra un  tipo  de Estado de habilitacion que pertenece al $id pasado po parámetro
-     * @param  \App\Models\Tipo_estado  $tipo_dni
-     * @return \Illuminate\Http\Response
-     */
-    public function showOne($id){
-
-        $tipo_estado = Tipo_estado::find($id);
-        return view('estadoHabilitacion.editEstadoHabilitacion', ['estado'=>$tipo_estado]); // Si lo mostramos en vista, hay que pasarle el array (['tipos'=>$tipo_dni])
-    }
-
-    /**
-     * Actualiza un Estado de habilitación.
-     * @param  \App\Models\Tipo_estado  $tipo_estado
+     /**
+     * Guarda los datos actualizados del contribuyente
+     *
+     * @param  \App\Http\Requests\UpdateContribuyenteRequest  $request
+     * @param  \App\Models\Contribuyente  $contribuyente
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
-
         $log = new LogsTipoEstadosController();
 
         $tipo_estado = Tipo_estado::find($request->id);
@@ -76,9 +77,9 @@ class TipoEstadoController extends Controller
         $tipo_estado->descripcion = $request->descripcion;
         $tipo_estado->save();
 
-        $log->create($tipo_estado, 'u');
+        $log->store($tipo_estado, 'u');
 
-        return 'Estado de habilitación actualizado correctamente';
+        return redirect()->route('estadosHabilitacion');
     }
 
     /**
@@ -94,8 +95,8 @@ class TipoEstadoController extends Controller
         $tipo_estado = Tipo_estado::find($id);
         $tipo_estado->delete();
 
-        $log->create($tipo_estado, 'd');
+        $log->store($tipo_estado, 'd');
 
-        return 'Estado de habilitación eliminado correctamente';
+        return redirect()->route('estadosHabilitacion');
     }
 }
