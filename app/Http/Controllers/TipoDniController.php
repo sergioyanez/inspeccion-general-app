@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Tipo_dni;
 use App\Http\Requests\StoreTipo_dniRequest;
 use App\Http\Requests\UpdateTipo_dniRequest;
 use App\Http\Controllers\LogsTipoDniController;
-use Illuminate\Http\Response;
 
 class TipoDniController extends Controller{
 
     /**
      * Muestra los tipos de DNI
-     *
      * @param  \App\Models\Tipo_dni  $tipo_dni
-     * @return \Illuminate\Http\Response
      */
     public function index(){
 
@@ -37,11 +33,9 @@ class TipoDniController extends Controller{
 
     /**
      * Crea un nuevo tipo DNI
-     * @param  \App\Http\Requests\UpdateTipo_dniRequest  $request
-     * @param  \App\Http\Requests\Request $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StoreTipo_dniRequest  $request
      */
-    public function store(Request $request){
+    public function store(StoreTipo_dniRequest $request){
 
         $tipoDni = new Tipo_dni();
         $tipoDni->descripcion = $request->descripcion;
@@ -58,8 +52,7 @@ class TipoDniController extends Controller{
     /**
      * Muestra un solo tipo de DNI
      *
-     * @param  \App\Models\Tipo_dni  $tipo_dni
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\int  $tipo_dni->$id
      */
     public function show($id){
 
@@ -72,10 +65,8 @@ class TipoDniController extends Controller{
      * Eición de un tipo de DNI
      *
      * @param  \App\Http\Requests\UpdateTipo_dniRequest  $request
-     * @param  \App\Models\Tipo_dni  $tipo_dni
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request){
+    public function update(UpdateTipo_dniRequest $request){
 
         $tipoDni = Tipo_dni::find($request->id);
         $tipoDni->descripcion = $request->descripcion;
@@ -91,9 +82,7 @@ class TipoDniController extends Controller{
 
     /**
      * Elimina un tipo de DNI
-     *
-     * @param  \App\Models\Tipo_dni  $tipo_dni
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\Tipo_dni  $tipo_dni->$id
      */
     public function destroy($id){
         $tipoDni = Tipo_dni::find($id);

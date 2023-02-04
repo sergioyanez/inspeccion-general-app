@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Catastro;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreCatastroRequest;
 use App\Http\Requests\UpdateCatastroRequest;
 use App\Http\Controllers\LogsCatastroController;

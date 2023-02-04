@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Estado_civil;
 use App\Http\Requests\UpdateEstado_civilRequest;
 use App\Http\Requests\StoreEstado_civilRequest;
@@ -12,8 +11,6 @@ class EstadoCivilController extends Controller
 {
     /**
      * Muestra todos los tipos de estado civil
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index() {
 
@@ -23,8 +20,6 @@ class EstadoCivilController extends Controller
 
     /**
      * Muestra un formulario para crear un estado civil
-     *
-     * @return \Illuminate\Http\Response
     */
     public function create() {
         return view('estadoCivil.crear');
@@ -33,8 +28,6 @@ class EstadoCivilController extends Controller
     /**
      * Crea un nuevo estado civil
      * @param  \App\Http\Requests\StoreEstado_civilRequest  $request
-     * @param  \App\Models\Estado_civil  $estado_civil
-     * @return \Illuminate\Http\Response
      */
     public function store(StoreEstado_civilRequest $request) {
 
@@ -51,9 +44,7 @@ class EstadoCivilController extends Controller
 
     /**
      * Retorna un estado civil
-     *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
     public function show(int $id) {
         $estadoCivil = Estado_civil::find($id);
@@ -64,8 +55,6 @@ class EstadoCivilController extends Controller
      * Método para editar un estado civil
      *
      * @param  \App\Http\Requests\UpdateEstado_civilRequest  $request
-     * @param  \App\Models\Estado_civil  $estado_civil
-     * @return \Illuminate\Http\Response
      */
     public function update(UpdateEstado_civilRequest $request) {
 
@@ -83,9 +72,7 @@ class EstadoCivilController extends Controller
 
     /**
      * Eliminar un estado civil
-     *
-     * @param  \App\Models\Estado_civil $estadoCivil
-     * @return \Illuminate\Http\Response
+     * @param  int $id
      */
     public function destroy($id) {
 

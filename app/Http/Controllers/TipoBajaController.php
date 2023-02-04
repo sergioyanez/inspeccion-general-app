@@ -3,20 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tipo_baja;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreTipo_bajaRequest;
 use App\Http\Requests\UpdateTipo_bajaRequest;
 use App\Http\Controllers\LogsTipoBajaController;
-use Illuminate\Http\Response;
+
 
 
 class TipoBajaController extends Controller {
 
     /**
      * Método que muestra todos los tipos de baja existentes
-     *
-     * @param  \App\Models\Tipo_baja  $tipo_baja
-     * @return \Illuminate\Http\Response
      */
     public function index() {
 
@@ -26,8 +22,6 @@ class TipoBajaController extends Controller {
 
     /**
      * Muestra un formulario para crear un tipo de bajo
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create() {
         return view('tipoBaja.crear');
@@ -35,22 +29,16 @@ class TipoBajaController extends Controller {
 
     /**
      * Método que crea un nuevo tipo de baja
-     *@param  \App\Http\Requests\StoreTipo_permisoRequest  $request
-     * @param  \App\Http\Requests\Request $request
-     * @return \Illuminate\Http\Response
+     *@param  \App\Http\Requests\StoreTipo_bajaRequest  $request
      */
-    public function store(Request $request) {
+    public function store(StoreTipo_bajaRequest $request) {
 
-        $this->validate($request,[
-            'descripcion'=>'required|string|max:50',
-        ]);
+        $tipoBaja = new Tipo_baja();
+        $tipoBaja->descripcion = $request->descripcion;
 
-        $tipo_baja = new Tipo_baja();
-        $tipo_baja->descripcion = $request->descripcion;
-
-        if($tipo_baja->save()){
+        if($tipoBaja->save()){
             $log = new LogsTipoBajaController();
-            $log->create($tipo_baja, 'c');
+            $log->create($tipoBaja, 'c');
             return redirect()->route('tiposBajas');
         }
 
@@ -61,8 +49,7 @@ class TipoBajaController extends Controller {
     /**
      * Método que muestra un solo tipo de baja
      *
-     * @param  \App\Models\Tipo_baja  $tipo_baja
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\int  $tipo_baja->$id
      */
     public function show($id) {
 
@@ -72,43 +59,37 @@ class TipoBajaController extends Controller {
 
     /**
      * Método que edita un tipo de baja existente
-     *@param  \App\Http\Requests\UpdateTipo_permisoRequest  $request
-     * @param  \App\Http\Requests\Request  $request
-     * @return \Illuminate\Http\Response
+     *@param  \App\Http\Requests\UpdateTipo_bajaRequest  $request
      */
-    public function update(Request $request) {
+    public function update(UpdateTipo_bajaRequest $request) {
 
-        $this->validate($request,[
-            'descripcion'=>'required|string|max:50',
-        ]);
+        $tipoBaja = Tipo_baja::find($request->id);
+        $tipoBaja->descripcion = $request->descripcion;
 
-        $tipo_baja = Tipo_baja::find($request->id);
-
-        $tipo_baja->descripcion = $request->descripcion;
-
-        if($tipo_baja->save()){
+        if($tipoBaja->save()){
             $log = new LogsTipoBajaController();
-            $log->create($tipo_baja, 'u');
+            $log->create($tipoBaja, 'u');
             return redirect()->route('tiposBajas');
         }
-        return redirect()->route('tiposBajas');
+        return back()->with('fail','No se pudo actualizar el tipo de baja');
     }
 
     /**
      * Método que elimina un tipo de baja existente
      *
-     * @param  \App\Models\Tipo_baja  $tipo_baja
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\int  $tipo_baja->$id
      */
     public function destroy($id) {
 
-        $log = new LogsTipoBajaController();
-        $tipo_baja = Tipo_baja::find($id);
 
-        $tipo_baja->delete();
+        $tipoBaja = Tipo_baja::find($id);
 
-        $log->create($tipo_baja, 'd');
+        if($tipoBaja->delete()){
+            $log = new LogsTipoBajaController();
+            $log->create($tipoBaja, 'd');
+            return redirect()->route('tiposBajas');
+        }
+        return back()->with('fail','No se pudo eliminar el tipo de baja');
 
-        return redirect()->route('tiposBajas');
     }
 }

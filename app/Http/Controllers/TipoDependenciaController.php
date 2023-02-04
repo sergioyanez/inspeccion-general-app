@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tipo_dependencia;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreTipo_dependenciaRequest;
 use App\Http\Requests\UpdateTipo_dependenciaRequest;
 use App\Http\Controllers\LogsTipoDependenciaController;
@@ -13,8 +12,6 @@ class TipoDependenciaController extends Controller{
 
     /**
      * Muestra todos los tipos de dependencia
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index() {
 
@@ -24,8 +21,6 @@ class TipoDependenciaController extends Controller{
 
     /**
      * Muestra un formulario para crear un tipo de dependencia
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create() {
         return view('tipoDependencia.crear');
@@ -34,8 +29,6 @@ class TipoDependenciaController extends Controller{
     /**
      * Crea un nuevo tipo de dependencia
      * @param  \App\Http\Requests\StoreTipo_dependenciaRequest  $request
-     * @param  \App\Models\Tipo_dependencia  $tipo_dependencia
-     * @return \Illuminate\Http\Response
      */
     public function store(StoreTipo_dependenciaRequest $request) {
 
@@ -52,9 +45,7 @@ class TipoDependenciaController extends Controller{
 
      /**
      * Muestra un solo tipo de dependencia
-     *
-     * @param  \App\Models\Tipo_dependencia  $tipo_dependencia
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\int  $tipo_dependencia->$id
      */
     public function show($id){
 
@@ -65,10 +56,7 @@ class TipoDependenciaController extends Controller{
 
     /**
      * Método para editar un tipo de dependencia
-     *
      * @param  \App\Http\Requests\UpdateTipo_dependenciaRequest  $request
-     * @param  \App\Models\Tipo_dependencia  $tipo_dependencia
-     * @return \Illuminate\Http\Response
      */
     public function update(UpdateTipo_dependenciaRequest $request) {
 
@@ -87,9 +75,7 @@ class TipoDependenciaController extends Controller{
 
     /**
      * Eliminar un tipo de dependencia
-     *
-     * @param  \App\Models\Tipo_dependencia  $tipo_dependencia
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\int  $tipo_dependencia->$id
      */
     public function destroy($id) {
 

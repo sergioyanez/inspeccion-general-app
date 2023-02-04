@@ -13,7 +13,7 @@ class StorePersona_juridicaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class StorePersona_juridicaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'cuit'=>'required|integer',
+            'nombre_representante'=>'required|string|max:255',
+            'apellido_representante'=>'required|string|max:255',
+            'dni_representante'=>'required|string|max:10',
+            'telefono'=>'required|integer',
         ];
     }
 }
