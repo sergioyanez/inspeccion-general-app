@@ -37,10 +37,7 @@ class TipoDependenciaController extends Controller{
      * @param  \App\Models\Tipo_dependencia  $tipo_dependencia
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        $this->validate($request,[
-            'nombre'=>'required|string|max:5',
-        ]);
+    public function store(StoreTipo_dependenciaRequest $request) {
 
         $tipoDependencia = new Tipo_dependencia();
         $tipoDependencia->nombre = $request->nombre;
@@ -73,7 +70,7 @@ class TipoDependenciaController extends Controller{
      * @param  \App\Models\Tipo_dependencia  $tipo_dependencia
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request) {
+    public function update(UpdateTipo_dependenciaRequest $request) {
 
         $tipoDependencia = Tipo_dependencia::find($request->id);
         $tipoDependencia->nombre = $request->nombre;

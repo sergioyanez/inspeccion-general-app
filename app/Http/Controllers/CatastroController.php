@@ -37,23 +37,7 @@ class CatastroController extends Controller {
      * @param  \App\Http\Requests\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-
-        $this->validate($request,[
-            'circunscripcion'=>'required|string|max:10',
-            'seccion'=>'required|string|max:10',
-            'chacra'=>'required|string|max:10',
-            'quinta'=>'required|string|max:10',
-            'fraccion'=>'required|string|max:10',
-            'manzana'=>'required|string|max:10',
-            'parcela'=>'required|string|max:10',
-            'sub_parcela'=>'required|string|max:10',
-            'observacion'=>'required|string|max:10',
-            'fecha_informe'=>'required',
-            'pdf_informe'=>'required|string|max:255',
-         ]);
-
-
+    public function store(StoreCatastroRequest $request) {
         $catastro = new Catastro();
         $catastro->id = $request->id;
         $catastro->circunscripcion = $request->circunscripcion;
@@ -97,21 +81,8 @@ class CatastroController extends Controller {
      * @param  \App\Models\Catastro  $catastro
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request) {
+    public function update(UpdateCatastroRequest $request) {
 
-        $this->validate($request,[
-            'circunscripcion'=>'required|string|max:10',
-            'seccion'=>'required|string|max:10',
-            'chacra'=>'required|string|max:10',
-            'quinta'=>'required|string|max:10',
-            'fraccion'=>'required|string|max:10',
-            'manzana'=>'required|string|max:10',
-            'parcela'=>'required|string|max:10',
-            'sub_parcela'=>'required|string|max:10',
-            'observacion'=>'required|string|max:10',
-            'fecha_informe'=>'required',
-            'pdf_informe'=>'required|string|max:255',
-         ]);
         $catastro = Catastro::find($request->id);
         $catastro->circunscripcion = $request->circunscripcion;
         $catastro->seccion = $request->seccion;

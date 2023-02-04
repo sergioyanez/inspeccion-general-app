@@ -13,7 +13,7 @@ class StoreEstado_civilRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

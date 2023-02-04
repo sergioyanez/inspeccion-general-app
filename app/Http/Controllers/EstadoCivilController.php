@@ -36,7 +36,7 @@ class EstadoCivilController extends Controller
      * @param  \App\Models\Estado_civil  $estado_civil
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(StoreEstado_civilRequest $request) {
 
         $estado_civil = new Estado_civil();
         $estado_civil->descripcion = $request->descripcion;
@@ -67,7 +67,7 @@ class EstadoCivilController extends Controller
      * @param  \App\Models\Estado_civil  $estado_civil
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request) {
+    public function update(UpdateEstado_civilRequest $request) {
 
         $estadoCivil = Estado_civil::find($request->id);
         $estadoCivil->descripcion = $request->descripcion;
@@ -84,10 +84,10 @@ class EstadoCivilController extends Controller
     /**
      * Eliminar un estado civil
      *
-     * @param  int $id
+     * @param  \App\Models\Estado_civil $estadoCivil
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id) {
+    public function destroy($id) {
 
         $estadoCivil = Estado_civil::find($id);
         if ($estadoCivil->delete()){
