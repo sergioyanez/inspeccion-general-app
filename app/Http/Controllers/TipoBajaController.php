@@ -81,7 +81,6 @@ class TipoBajaController extends Controller {
      */
     public function destroy($id) {
 
-
         $tipoBaja = Tipo_baja::find($id);
 
         if($tipoBaja->delete()){
@@ -90,6 +89,5 @@ class TipoBajaController extends Controller {
             return redirect()->route('tiposBajas');
         }
         return back()->with('fail','No se pudo eliminar el tipo de baja');
-
     }
 }

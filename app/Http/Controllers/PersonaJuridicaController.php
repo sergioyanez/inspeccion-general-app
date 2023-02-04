@@ -49,7 +49,6 @@ class PersonaJuridicaController extends Controller {
 
     /**
      * Muestra una sola persona jurídica
-     *
      * @param  \App\Models\int  $persona_juridica->$id
      */
     public function show($id){
@@ -60,7 +59,6 @@ class PersonaJuridicaController extends Controller {
 
     /**
      * Método para editar una persona jurídica
-     *
      * @param  \App\Http\Requests\UpdatePersona_juridicaRequest  $request
      */
     public function update(UpdatePersona_juridicaRequest $request) {
@@ -83,7 +81,7 @@ class PersonaJuridicaController extends Controller {
     /**
      * Método para eliminar una persona jurídica
      *
-     * @param  \App\Models\int  $persona_juridica->$id
+     * @param  int  $id
      */
     public function destroy($id) {
 

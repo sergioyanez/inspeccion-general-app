@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 use App\Models\Tipo_estado;
 use App\Http\Controllers\LogsTipoEstadosController;
 use App\Http\Requests\StoreTipo_estadoRequest;
@@ -11,8 +10,6 @@ class TipoEstadoController extends Controller
 {
     /**
      * Muestra todos los tipos de estado de habilitacion
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -21,42 +18,32 @@ class TipoEstadoController extends Controller
     }
     /**
      * Crea un nuevo Tipo de estado de habilitacion.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         return view('estadoHabilitacion.crear');
     }
 
     /**
      * Guarda el tipo de estado de habilitacion creado en la base de datos
-     * @param  \App\Http\Requests\UpdateContribuyenteRequest  $request
-     * @param  \App\Http\Requests\Request $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StoreTipo_estadoRequest  $request
      */
-    public function store(Request $request)
+    public function store(StoreTipo_estadoRequest $request)
     {
-        $this->validate($request,[
-            'descripcion'=>'required|string|max:50',
-        ]);
-        $log = new LogsTipoEstadosController();
+        $tipoEstado = new Tipo_estado();
+        $tipoEstado->descripcion = $request->descripcion;
 
-        $tipo_estado = new Tipo_estado();
-        $tipo_estado->descripcion = $request->descripcion;
-
-        $tipo_estado->save();
-
-        $log->store($tipo_estado, 'c');
-
-        return redirect()->route('estadosHabilitacion');
+        if($tipoEstado->save()){
+            $log = new LogsTipoEstadosController();
+            $log->store($tipoEstado, 'c');
+            return redirect()->route('estadosHabilitacion');
+        }
+        return back()->with('fail','No se pudo crear el tipo de estado');
     }
 
    /**
-     * Muesta un tipo de estado de habilitacion en un formulario con todos los campos cargados
-     *
-     * @param  \App\Models\Tipo_estado  $contribuyente
-     * @return \Illuminate\Http\Response
+     * Muestra un tipo de estado de habilitacion en un formulario con todos los campos cargados
+     * @param  int $id
      */
     public function show($id)
     {
@@ -66,43 +53,33 @@ class TipoEstadoController extends Controller
 
      /**
      * Guarda los datos actualizados del contribuyente
-     *
-     * @param  \App\Http\Requests\UpdateContribuyenteRequest  $request
-     * @param  \App\Models\Contribuyente  $contribuyente
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\UpdateTipo_estadoRequest  $request
      */
-    public function update(Request $request)
+    public function update(UpdateTipo_estadoRequest $request)
     {
-        $this->validate($request,[
-            'descripcion'=>'required|string|max:50',
-        ]);
-        $log = new LogsTipoEstadosController();
+        $tipoEstado = Tipo_estado::find($request->id);
+        $tipoEstado->descripcion = $request->descripcion;
 
-        $tipo_estado = Tipo_estado::find($request->id);
-
-        $tipo_estado->descripcion = $request->descripcion;
-        $tipo_estado->save();
-
-        $log->store($tipo_estado, 'u');
-
-        return redirect()->route('estadosHabilitacion');
+        if($tipoEstado->save()){
+            $log = new LogsTipoEstadosController();
+            $log->store($tipoEstado, 'u');
+            return redirect()->route('estadosHabilitacion');
+        }
+        return back()->with('fail','No se pudo actualizar el tipo de estado');
     }
 
     /**
      * Elimina un Estado de habilitación.
-     *
-     * @param  \App\Models\Tipo_estado  $tipo_estado
-     * @return \Illuminate\Http\Response
+     * @param  int $id
      */
     public function destroy($id){
 
-        $log = new LogsTipoEstadosController();
-
-        $tipo_estado = Tipo_estado::find($id);
-        $tipo_estado->delete();
-
-        $log->store($tipo_estado, 'd');
-
-        return redirect()->route('estadosHabilitacion');
+        $tipoEstado = Tipo_estado::find($id);
+        if($tipoEstado->delete()){
+            $log = new LogsTipoEstadosController();
+            $log->store($tipoEstado, 'd');
+            return redirect()->route('estadosHabilitacion');
+        }
+        return back()->with('fail','No se pudo eliminar el tipo de estado');
     }
 }

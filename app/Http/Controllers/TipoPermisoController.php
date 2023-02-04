@@ -31,10 +31,6 @@ class TipoPermisoController extends Controller {
      */
     public function store(StoreTipo_permisoRequest $request) {
 
-        $this->validate($request,[
-            'tipo'=>'required|string|max:25',
-         ]);
-
         $tipoPermiso = new Tipo_permiso();
         $tipoPermiso->tipo = $request->tipo;
 
@@ -51,7 +47,6 @@ class TipoPermisoController extends Controller {
 
     /**
      * Método que retorna un solo tipo de permiso
-     *
      * @param  \App\Models\int  $tipo_permiso->$id
      */
     public function show($id) {
@@ -65,10 +60,6 @@ class TipoPermisoController extends Controller {
      *@param  \App\Http\Requests\UpdateTipo_permisoRequest  $request
      */
     public function update(UpdateTipo_permisoRequest $request) {
-
-        $this->validate($request,[
-            'tipo'=>'required|string|max:25',
-         ]);
 
         $log = new LogsTipoPermisoController();
 
@@ -85,9 +76,8 @@ class TipoPermisoController extends Controller {
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\int  $tipo_permiso->$id
+     * Método que elimina un tipo de permiso existente
+     * @param  int $id
      */
     public function destroy($id) {
 
@@ -97,7 +87,6 @@ class TipoPermisoController extends Controller {
             $log->create($tipoPermiso, 'd');
             return redirect()->route('tiposPermisos');
         }
-
         return back()->with('fail','No se pudo eliminar el tipo de permiso');
     }
 }

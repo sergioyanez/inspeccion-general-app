@@ -12,8 +12,6 @@ class CatastroController extends Controller {
     /**
      * Método que muestra la lista de todos
      * los catastros que hay en la base de datos
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index() {
 
@@ -23,8 +21,6 @@ class CatastroController extends Controller {
 
     /**
      * Muestra un formulario para crear un catastro
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create() {
         return view('catastro.crear');
@@ -33,8 +29,6 @@ class CatastroController extends Controller {
     /**
      * Método que crea un nuevo Catastro
      * @param  \App\Http\Requests\StoreCatastroRequest  $request
-     * @param  \App\Http\Requests\Request $request
-     * @return \Illuminate\Http\Response
      */
     public function store(StoreCatastroRequest $request) {
         $catastro = new Catastro();
@@ -57,15 +51,13 @@ class CatastroController extends Controller {
             return redirect()->route('catastros');
         }
 
-        return back()->with('fail','No se pudo cargar el catastro');
+        return back()->with('fail','No se pudo crear el catastro');
     }
 
 
     /**
-     * Muestra un solo catastro
-     *
-     * @param  \App\Models\Catastro  $catastro
-     * @return \Illuminate\Http\Response
+     * Muestra un catastro
+     * @param  int $id
      */
     public function show($id){
 
@@ -75,10 +67,7 @@ class CatastroController extends Controller {
 
     /**
      * Método para editar un catastro existente
-     *
      * @param  \App\Http\Requests\UpdateCatastroRequest  $request
-     * @param  \App\Models\Catastro  $catastro
-     * @return \Illuminate\Http\Response
      */
     public function update(UpdateCatastroRequest $request) {
 
@@ -105,9 +94,7 @@ class CatastroController extends Controller {
 
     /**
      * Método para eliminar un catastro existente
-     *
-     * @param  \App\Models\Catastro  $catastro
-     * @return \Illuminate\Http\Response
+     * @param  int $id
      */
     public function destroy($id) {
         $catastro = Catastro::find($id);

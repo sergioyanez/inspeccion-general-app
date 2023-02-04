@@ -3,19 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tipo_inmueble;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreTipo_inmuebleRequest;
 use App\Http\Requests\UpdateTipo_inmuebleRequest;
 use App\Http\Controllers\LogsTipoInmuebleController;
-use Illuminate\Http\Response;
 
 class TipoInmuebleController extends Controller {
 
     /**
      * Métodos que muestra todos los tipos de inmueble existentes
-     *
-     * @param  \App\Models\Tipo_inmueble  $tipo_inmueble
-     * @return \Illuminate\Http\Response
      */
     public function index() {
 
@@ -25,8 +20,6 @@ class TipoInmuebleController extends Controller {
 
     /**
      * Muestra un formulario para crear un tipo de inmueble
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create() {
         return view('tipoInmueble.crear');
@@ -34,22 +27,16 @@ class TipoInmuebleController extends Controller {
 
     /**
      * Método que crea un nuevo tipo de inmueble
-     * @param  \App\Http\Requests\StoreTipo_bajaRequest  $request
-     * @param  \App\Http\Requests\Request $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StoreTipo_inmuebleRequest  $request
      */
-    public function store(Request $request) {
+    public function store(StoreTipo_inmuebleRequest $request) {
 
-        $this->validate($request,[
-            'descripcion'=>'required|string|max:50',
-        ]);
+        $tipoInmueble = new Tipo_inmueble();
+        $tipoInmueble->descripcion = $request->descripcion;
 
-        $tipo_inmueble = new Tipo_inmueble();
-        $tipo_inmueble->descripcion = $request->descripcion;
-
-        if($tipo_inmueble->save()){
+        if($tipoInmueble->save()){
             $log = new LogsTipoInmuebleController();
-            $log->create($tipo_inmueble, 'c');
+            $log->create($tipoInmueble, 'c');
             return redirect()->route('tiposInmuebles');
         }
 
@@ -58,9 +45,7 @@ class TipoInmuebleController extends Controller {
 
     /**
      * Métodos que muestra un solo tipo de inmueble
-     *
-     * @param  \App\Models\Tipo_inmueble  $tipo_inmueble
-     * @return \Illuminate\Http\Response
+     *@param  int $id
      */
     public function show($id) {
 
@@ -70,42 +55,33 @@ class TipoInmuebleController extends Controller {
 
     /**
      * Método que edita un tipo de inmueble determinado
-     * @param  \App\Http\Requests\UpdateTipo_bajaRequest  $request
-     * @param  \App\Http\Requests\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\UpdateTipo_inmuebleRequest  $request
      */
-    public function update(Request $request) {
+    public function update(UpdateTipo_inmuebleRequest $request) {
 
-        $this->validate($request,[
-            'descripcion'=>'required|string|max:50',
-        ]);
+        $tipoInmueble = Tipo_inmueble::find($request->id);
+        $tipoInmueble->descripcion = $request->descripcion;
 
-        $tipo_inmueble = Tipo_inmueble::find($request->id);
-
-        $tipo_inmueble->descripcion = $request->descripcion;
-
-        if($tipo_inmueble->save()){
+        if($tipoInmueble->save()){
             $log = new LogsTipoInmuebleController();
-            $log->create($tipo_inmueble, 'u');
+            $log->create($tipoInmueble, 'u');
             return redirect()->route('tiposInmuebles');
         }
-        return back()->with('fail','No se pudo cargar el tipo de inmueble');
+        return back()->with('fail','No se pudo actualizar el tipo de inmueble');
     }
 
     /**
      * Método que elimina un tipo de inmueble determinado
-     *
-     * @param  \App\Models\Tipo_inmueble  $tipo_inmueble
-     * @return \Illuminate\Http\Response
+     * @param  int $id
      */
     public function destroy($id) {
 
-        $log = new LogsTipoInmuebleController();
-        $tipo_inmueble = Tipo_inmueble::find($id);
-
-        $tipo_inmueble->delete();
-        $log->create($tipo_inmueble, 'd');
-
-        return redirect()->route('tiposInmuebles');
+        $tipoInmueble = Tipo_inmueble::find($id);
+        if($tipoInmueble->delete()){
+            $log = new LogsTipoInmuebleController();
+            $log->create($tipoInmueble, 'd');
+            return redirect()->route('tiposInmuebles');
+        }
+        return back()->with('fail','No se pudo eliminar el tipo de inmueble');
     }
 }

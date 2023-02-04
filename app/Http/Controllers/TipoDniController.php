@@ -11,7 +11,6 @@ class TipoDniController extends Controller{
 
     /**
      * Muestra los tipos de DNI
-     * @param  \App\Models\Tipo_dni  $tipo_dni
      */
     public function index(){
 
@@ -22,8 +21,6 @@ class TipoDniController extends Controller{
 
     /**
      * Muestra un formulario para crear un nuevo tipo DNI
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create() {
 
@@ -52,7 +49,7 @@ class TipoDniController extends Controller{
     /**
      * Muestra un solo tipo de DNI
      *
-     * @param  \App\Models\int  $tipo_dni->$id
+     * @param  int $id
      */
     public function show($id){
 
@@ -63,7 +60,6 @@ class TipoDniController extends Controller{
 
     /**
      * Eición de un tipo de DNI
-     *
      * @param  \App\Http\Requests\UpdateTipo_dniRequest  $request
      */
     public function update(UpdateTipo_dniRequest $request){
@@ -82,7 +78,7 @@ class TipoDniController extends Controller{
 
     /**
      * Elimina un tipo de DNI
-     * @param  \App\Models\Tipo_dni  $tipo_dni->$id
+     * @param  int $id
      */
     public function destroy($id){
         $tipoDni = Tipo_dni::find($id);

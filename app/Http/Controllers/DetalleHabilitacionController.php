@@ -8,19 +8,13 @@ use App\Http\Requests\UpdateDetalle_habilitacionRequest;
 use App\Http\Controllers\LogsDetalleHabilitacionController;
 use App\Models\Tipo_estado;
 use App\Models\Tipo_habilitacion;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class DetalleHabilitacionController extends Controller
 {
     /**
-     * Método que retorna todos los detalles de habilitacion
-     * existente
-     *
-     * @return \Illuminate\Http\Response
+     * Método que retorna todos los detalles de habilitacion existente
      */
     public function index() {
-
         $detallesHabilitaciones = Detalle_habilitacion::all();
         return view('detalleHabilitacion.detallesHabilitaciones', ['detallesHabilitaciones'=>$detallesHabilitaciones]);
     }
@@ -28,8 +22,6 @@ class DetalleHabilitacionController extends Controller
     /**
      * Muestra un formualrio para crear un nuevo
      * detalle de habilitación
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create() {
         $estadosHabilitaciones = Tipo_habilitacion::all();
@@ -40,39 +32,27 @@ class DetalleHabilitacionController extends Controller
     /**
      * Método que crea un nuevo detalle de habilitación
      * @param  \App\Http\Requests\StoreDetalle_habilitacionRequest  $request
-     * @param  \App\Http\Requests\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(StoreDetalle_habilitacionRequest $request) {
 
-        $this->validate($request,[
-            'tipo_habilitacion_id'=>'required',
-            'tipo_estado_id'=>'required',
-            'fecha_vencimiento'=>'required',
-            'fecha_primer_habilitacion'=>'required',
-            'pdf_certificado_habilitacion'=>'required',
-        ]);
+        $detalleHabilitacion = new Detalle_habilitacion();
+        $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
+        $detalleHabilitacion->tipo_estado_id = $request->tipo_estado_id;
+        $detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
+        $detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
+        $detalleHabilitacion->pdf_certificado_habilitacion = $request->pdf_certificado_habilitacion;
 
-        $detalle_habilitacion = new Detalle_habilitacion();
-        $detalle_habilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
-        $detalle_habilitacion->tipo_estado_id = $request->tipo_estado_id;
-        $detalle_habilitacion->fecha_vencimiento = $request->fecha_vencimiento;
-        $detalle_habilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
-        $detalle_habilitacion->pdf_certificado_habilitacion = $request->pdf_certificado_habilitacion;
-
-        if($detalle_habilitacion->save()){
+        if($detalleHabilitacion->save()){
             $log = new LogsDetalleHabilitacionController();
-            $log->create($detalle_habilitacion, 'c');
+            $log->create($detalleHabilitacion, 'c');
             return redirect()->route('detallesHabilitaciones');
         }
-        return back()->with('fail','No se pudo crear el usuario');
+        return back()->with('fail','No se pudo crear el detalle de habilitación');
     }
 
     /**
-     * Método que retorna un solo detalle de habilitación
-     *
-     * @param  \App\Models\Detalle_habilitacion  $detalle_habilitacion
-     * @return \Illuminate\Http\Response
+     * Método que retorna un detalle de habilitación
+     * @param  int $id
      */
     public function show($id) {
 
@@ -85,49 +65,36 @@ class DetalleHabilitacionController extends Controller
     /**
      * método para editar un detalle de habilitación
      * @param  \App\Http\Requests\UpdateDetalle_habilitacionRequest  $request
-     * @param  \App\Http\Requests\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request) {
+    public function update(UpdateDetalle_habilitacionRequest $request) {
 
-        $this->validate($request,[
-            'tipo_habilitacion_id'=>'required',
-            'tipo_estado_id'=>'required',
-            'fecha_vencimiento'=>'required',
-            'fecha_primer_habilitacion'=>'required',
-            'pdf_certificado_habilitacion'=>'required',
-        ]);
+        $detalleHabilitacion = Detalle_habilitacion::find($request->id);
+        $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
+        $detalleHabilitacion->tipo_estado_id = $request->tipo_estado_id;
+        $detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
+        $detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
+        $detalleHabilitacion->pdf_certificado_habilitacion = $request->pdf_certificado_habilitacion;
 
-        $detalle_habilitacion = Detalle_habilitacion::find($request->id);
-        $detalle_habilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
-        $detalle_habilitacion->tipo_estado_id = $request->tipo_estado_id;
-        $detalle_habilitacion->fecha_vencimiento = $request->fecha_vencimiento;
-        $detalle_habilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
-        $detalle_habilitacion->pdf_certificado_habilitacion = $request->pdf_certificado_habilitacion;
-
-        if($detalle_habilitacion->save()){
+        if($detalleHabilitacion->save()){
             $log = new LogsDetalleHabilitacionController();
-            $log->create($detalle_habilitacion, 'u');
+            $log->create($detalleHabilitacion, 'u');
             return redirect()->route('detallesHabilitaciones');
         }
-        return back()->with('fail','No se pudo crear el usuario');
+        return back()->with('fail','No se pudo crear el detalle de habilitación');
     }
 
     /**
      * Método que elimina un detalle de habilitación
-     *
-     * @param  \App\Models\Detalle_habilitacion  $detalle_habilitacion
-     * @return \Illuminate\Http\Response
+     * @param  int $id
      */
     public function destroy($id) {
 
-        $log = new LogsDetalleHabilitacionController();
-        $detalle_habilitacion = Detalle_habilitacion::find($id);
-
-        $detalle_habilitacion->delete();
-
-        $log->create($detalle_habilitacion, 'd');
-
-        return redirect()->route('detallesHabilitaciones');
+        $detalleHabilitacion = Detalle_habilitacion::find($id);
+        if($detalleHabilitacion->delete()){
+            $log = new LogsDetalleHabilitacionController();
+            $log->create($detalleHabilitacion, 'd');
+            return redirect()->route('detallesHabilitaciones');
+        }
+        return back()->with('fail','No se pudo crear el detalle de habilitación');
     }
 }

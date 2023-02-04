@@ -53,7 +53,6 @@ class EstadoCivilController extends Controller
 
     /**
      * Método para editar un estado civil
-     *
      * @param  \App\Http\Requests\UpdateEstado_civilRequest  $request
      */
     public function update(UpdateEstado_civilRequest $request) {
