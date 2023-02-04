@@ -61,13 +61,13 @@ class TipoPermisoController extends Controller {
      */
     public function update(UpdateTipo_permisoRequest $request) {
 
-        $log = new LogsTipoPermisoController();
+
 
         $tipoPermiso = Tipo_permiso::find($request->id);
         $tipoPermiso->tipo = $request->tipo;
 
         if($tipoPermiso->save()){
-            $log = new LogsTipoDniController();
+            $log = new LogsTipoPermisoController();
             $log->create($tipoPermiso, 'u');
             return redirect()->route('tiposPermisos');
         }

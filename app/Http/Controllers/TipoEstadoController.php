@@ -14,14 +14,14 @@ class TipoEstadoController extends Controller
     public function index()
     {
         $tiposEstadosHabilitacion = Tipo_estado::all();
-        return view('estadoHabilitacion.estadosHabilitacion', ['estadosHabilitacion' => $tiposEstadosHabilitacion]);
+        return view('tipoEstadoHabilitacion.estadosHabilitacion', ['estadosHabilitacion' => $tiposEstadosHabilitacion]);
     }
     /**
      * Crea un nuevo Tipo de estado de habilitacion.
      */
     public function create()
     {
-        return view('estadoHabilitacion.crear');
+        return view('tipoEstadoHabilitacion.crear');
     }
 
     /**
@@ -36,7 +36,7 @@ class TipoEstadoController extends Controller
         if($tipoEstado->save()){
             $log = new LogsTipoEstadosController();
             $log->store($tipoEstado, 'c');
-            return redirect()->route('estadosHabilitacion');
+            return redirect()->route('tiposEstadosHabilitacion');
         }
         return back()->with('fail','No se pudo crear el tipo de estado');
     }
@@ -48,7 +48,7 @@ class TipoEstadoController extends Controller
     public function show($id)
     {
         $estadoHabilitacion = Tipo_estado::find($id);
-        return view('estadoHabilitacion.mostrar', ['estadoHabilitacion' => $estadoHabilitacion]);
+        return view('tipoEstadoHabilitacion.mostrar', ['estadoHabilitacion' => $estadoHabilitacion]);
     }
 
      /**
@@ -63,7 +63,7 @@ class TipoEstadoController extends Controller
         if($tipoEstado->save()){
             $log = new LogsTipoEstadosController();
             $log->store($tipoEstado, 'u');
-            return redirect()->route('estadosHabilitacion');
+            return redirect()->route('tiposEstadosHabilitacion');
         }
         return back()->with('fail','No se pudo actualizar el tipo de estado');
     }
@@ -78,7 +78,7 @@ class TipoEstadoController extends Controller
         if($tipoEstado->delete()){
             $log = new LogsTipoEstadosController();
             $log->store($tipoEstado, 'd');
-            return redirect()->route('estadosHabilitacion');
+            return redirect()->route('tiposEstadosHabilitacion');
         }
         return back()->with('fail','No se pudo eliminar el tipo de estado');
     }

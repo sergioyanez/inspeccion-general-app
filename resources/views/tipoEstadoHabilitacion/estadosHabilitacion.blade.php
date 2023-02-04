@@ -11,7 +11,7 @@
 
     <div class="card">
         <div class="table-responsive text-nowrap">
-            <a href="{{route('estadosHabilitacion-crear')}}" class="btn btn-primary">Crear nuevo estado de habilitación</a>
+            <a href="{{route('tiposEstadosHabilitacion-crear')}}" class="btn btn-primary">Crear nuevo estado de habilitación</a>
 
             <table class="table">
                 <thead>
@@ -24,8 +24,8 @@
                         <tr>
                             <td>{{$estadohabilitacion->descripcion}}</td>
                             <td>{{$estadohabilitacion->created_at}}</td>
-                            <td><a href="{{route('estadosHabilitacion-mostrar', $estadohabilitacion->id)}}">Editar</a></td>
-                            <td><a href="{{route('estadosHabilitacion-eliminar', $estadohabilitacion->id)}}">Eliminar</a></td>
+                            <td><a href="{{route('tiposEstadosHabilitacion-mostrar', $estadohabilitacion->id)}}">Editar</a></td>
+                            <td><a href="{{route('tiposEstadosHabilitacion-eliminar', $estadohabilitacion->id)}}">Eliminar</a></td>
                         </tr>
                     @endforeach
                 </tbody>

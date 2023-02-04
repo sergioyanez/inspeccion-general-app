@@ -14,7 +14,7 @@
                         <h2 class="mb-0">Creando un nuevo estado de habilitacion</h2>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{route('estadosHabilitacion-guardar')}}">
+                        <form method="POST" action="{{route('tiposEstadosHabilitacion-guardar')}}">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Tipo de estado de habilitación</label>

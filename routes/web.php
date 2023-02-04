@@ -37,12 +37,12 @@ Route::controller(TipoDniController::class)->group(function(){
 });
 
 Route::controller(TipoEstadoController::class)->group(function(){
-    Route::get('estadoHabilitacion','index')->name('estadosHabilitacion');
-    Route::get('estadoHabilitacion/create','create')->name('estadosHabilitacion-crear');
-    Route::post('estadoHabilitacion/guardar','store')->name('estadosHabilitacion-guardar');
-    Route::get('estadoHabilitacion/mostrar/{id}','show')->name('estadosHabilitacion-mostrar');
-    Route::post('estadoHabilitacion/actualizar','update')->name('estadosHabilitacion-actualizar');
-    Route::get('estadoHabilitacion/eliminar/{id}','destroy')->name('estadosHabilitacion-eliminar');
+    Route::get('tipoEstadoHabilitacion','index')->name('tiposEstadosHabilitacion');
+    Route::get('tipoEstadoHabilitacion/create','create')->name('tiposEstadosHabilitacion-crear');
+    Route::post('tipoEstadoHabilitacion/guardar','store')->name('tiposEstadosHabilitacion-guardar');
+    Route::get('tipoEstadoHabilitacion/mostrar/{id}','show')->name('tiposEstadosHabilitacion-mostrar');
+    Route::post('tipoEstadoHabilitacion/actualizar','update')->name('tiposEstadosHabilitacion-actualizar');
+    Route::get('tipoEstadoHabilitacion/eliminar/{id}','destroy')->name('tiposEstadosHabilitacion-eliminar');
 
 });
 
@@ -126,6 +126,8 @@ Route::controller(DetalleHabilitacionController::class)->group(function(){
     Route::post('detalleHabilitacion/actualizar','update')->name('detallesHabilitaciones-actualizar');
     Route::get('detalleHabilitacion/eliminar/{id}','destroy')->name('detallesHabilitaciones-eliminar');
 });
+
+
 
 
 

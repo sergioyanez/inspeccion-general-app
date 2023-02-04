@@ -24,7 +24,7 @@ class UpdateTipo_dependenciaRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|string|max:5',
+            'nombre'=>'required|string|max:100',
         ];
     }
 }

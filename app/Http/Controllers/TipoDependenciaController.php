@@ -65,7 +65,7 @@ class TipoDependenciaController extends Controller{
 
         if($tipoDependencia->save()){
             $log = new LogsTipoDependenciaController();
-            $log->create($tipoDependencia, 'c');
+            $log->create($tipoDependencia, 'u');
             return redirect()->route('tiposDependencias');
         }
         return back()->with('fail','No se pudo actualizar el tipo de dependencia');

@@ -25,8 +25,8 @@ class StorePersona_juridicaRequest extends FormRequest
     {
         return [
             'cuit'=>'required|integer',
-            'nombre_representante'=>'required|string|max:255',
-            'apellido_representante'=>'required|string|max:255',
+            'nombre_representante'=>'required|string|max:50',
+            'apellido_representante'=>'required|string|max:50',
             'dni_representante'=>'required|string|max:10',
             'telefono'=>'required|integer',
         ];

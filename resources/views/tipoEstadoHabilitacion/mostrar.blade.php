@@ -14,7 +14,7 @@
                         <h2 class="mb-0">Actualizando un nuevo estado de habilitación</h2>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{route('estadosHabilitacion-actualizar')}}">
+                        <form method="POST" action="{{route('tiposEstadosHabilitacion-actualizar')}}">
                             @csrf
                             <input type="hidden" name="id" value="{{$estadoHabilitacion->id}}">
                             <div class="mb-3">
