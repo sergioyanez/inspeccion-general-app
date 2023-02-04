@@ -4,7 +4,7 @@
 <div class="card">
     <div class="table-responsive text-nowrap">
         <a href="{{route('contribuyentes-crear')}}" class="btn btn-primary">Crear nuevo contribuyente</a>
-      
+
         <table class="table">
             <thead>
                 <tr>
@@ -21,7 +21,7 @@
                     <th>APELLIDO CONYUGE</th>
                     <th>DOCUMENTO CONYUGE</th>
                     <th>CREADO</th>
-                    <th>ACCIONES</th>                  
+                    <th>ACCIONES</th>
 
                 </tr>
             </thead>
@@ -41,12 +41,11 @@
                         <td>{{$contribuyente->apellido_conyuge}}</td>
                         <td>{{$contribuyente->dni_conyuge}}</td>
                         <td>{{$contribuyente->created_at}}</td>
-                        <td><a href="{{route('contribuyentes-mostrar', $contribuyente->id)}}">Editar</a></td>  
-                        
+                        <td><a href="{{route('contribuyentes-mostrar', $contribuyente->id)}}">Editar</a></td>
+                        <td><a href="{{route('contribuyentes-eliminar', $contribuyente->id)}}">Eliminar</a></td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
      </div>
 </div>
-    

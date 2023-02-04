@@ -60,7 +60,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Fecha de nacimiento</label>
-                            <input required type="text" name="fecha_nacimiento" class="form-control"
+                            <input required type="date" name="fecha_nacimiento" class="form-control"
                                 id="basic-default-nombreCompleto" />
                         </div>
                         <div class="mb-3">

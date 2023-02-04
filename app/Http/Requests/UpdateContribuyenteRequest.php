@@ -13,7 +13,7 @@ class UpdateContribuyenteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class UpdateContribuyenteRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'cuit'=>'required|string|max:11',
+            'ingresos_brutos'=>'required|string|max:11',
+            'nombre'=>'required|string|max:20',
+            'apellido'=>'required|string|max:20',
+            'dni'=>'required|string|max:8',
+            'fecha_nacimiento'=>'required|date',
+            // 'telefono'=>'string|max:20', No va  porque sino lo toma como required aunque no se lo ponga
+            // 'nombre_conyuge'=>'string|max:20',
+            // 'apellido_conyuge'=>'string|max:20',
+            // 'dni_conyuge'=>'string|max:8',
         ];
     }
 }
