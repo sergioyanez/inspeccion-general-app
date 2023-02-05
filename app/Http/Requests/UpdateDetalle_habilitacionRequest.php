@@ -13,7 +13,7 @@ class UpdateDetalle_habilitacionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdateDetalle_habilitacionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tipo_habilitacion_id'=>'required',
+            'tipo_estado_id'=>'required',
+            'fecha_vencimiento'=>'required',
+            'fecha_primer_habilitacion'=>'required',
+            'pdf_certificado_habilitacion'=>'required',
         ];
     }
 }

@@ -7,81 +7,30 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Storelogs_detalle_habilitacionRequest;
 use App\Http\Requests\Updatelogs_detalle_habilitacionRequest;
 
-class LogsDetalleHabilitacionController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+class LogsDetalleHabilitacionController extends Controller {
+
 
     /**
-     * Show the form for creating a new resource.
+     * Método que crea una nueva instancia en la tabla
+     * logs_detalles_habilitaciones
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    public function create($detalle_habilitacion, $char) {
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storelogs_detalle_habilitacionRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storelogs_detalle_habilitacionRequest $request)
-    {
-        //
-    }
+        $logs_detalle_habilitacion = new logs_detalle_habilitacion();
+        $user = auth()->user();
+        $logs_detalle_habilitacion->detalle_habilitacion_id = $detalle_habilitacion->id;
+        $logs_detalle_habilitacion->tipo_habilitacion_id = $detalle_habilitacion->tipo_habilitacion_id;
+        $logs_detalle_habilitacion->tipo_estado_id = $detalle_habilitacion->tipo_estado_id;
+        $logs_detalle_habilitacion->fecha_vencimiento = $detalle_habilitacion->fecha_vencimiento;
+        $logs_detalle_habilitacion->fecha_primer_habilitacion = $detalle_habilitacion->fecha_primer_habilitacion;
+        $logs_detalle_habilitacion->pdf_certificado_habilitacion = $detalle_habilitacion->pdf_certificado_habilitacion;
+        $logs_detalle_habilitacion->accion = $char;
+        $logs_detalle_habilitacion->usuario_id = $user->id; 
+        $logs_detalle_habilitacion->usuario_nombre = $user->usuario;
+        $logs_detalle_habilitacion->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\logs_detalle_habilitacion  $logs_detalle_habilitacion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(logs_detalle_habilitacion $logs_detalle_habilitacion)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\logs_detalle_habilitacion  $logs_detalle_habilitacion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(logs_detalle_habilitacion $logs_detalle_habilitacion)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatelogs_detalle_habilitacionRequest  $request
-     * @param  \App\Models\logs_detalle_habilitacion  $logs_detalle_habilitacion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatelogs_detalle_habilitacionRequest $request, logs_detalle_habilitacion $logs_detalle_habilitacion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\logs_detalle_habilitacion  $logs_detalle_habilitacion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(logs_detalle_habilitacion $logs_detalle_habilitacion)
-    {
-        //
+        return 'guardado';
     }
 }
