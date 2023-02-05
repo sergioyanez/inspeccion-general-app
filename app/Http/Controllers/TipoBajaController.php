@@ -5,82 +5,89 @@ namespace App\Http\Controllers;
 use App\Models\Tipo_baja;
 use App\Http\Requests\StoreTipo_bajaRequest;
 use App\Http\Requests\UpdateTipo_bajaRequest;
+use App\Http\Controllers\LogsTipoBajaController;
 
-class TipoBajaController extends Controller
-{
+
+
+class TipoBajaController extends Controller {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Método que muestra todos los tipos de baja existentes
      */
-    public function index()
-    {
-        //
+    public function index() {
+
+        $tiposBajas = Tipo_baja::all();
+        return view('tipoBaja.tiposBajas', ['tiposBajas'=>$tiposBajas]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muestra un formulario para crear un tipo de bajo
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('tipoBaja.crear');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreTipo_bajaRequest  $request
-     * @return \Illuminate\Http\Response
+     * Método que crea un nuevo tipo de baja
+     *@param  \App\Http\Requests\StoreTipo_bajaRequest  $request
      */
-    public function store(StoreTipo_bajaRequest $request)
-    {
-        //
+    public function store(StoreTipo_bajaRequest $request) {
+
+        $tipoBaja = new Tipo_baja();
+        $tipoBaja->descripcion = $request->descripcion;
+
+        if($tipoBaja->save()){
+            $log = new LogsTipoBajaController();
+            $log->create($tipoBaja, 'c');
+            return redirect()->route('tiposBajas');
+        }
+
+        return back()->with('fail','No se pudo cargar el tipo de baja');
+    }
+
+
+    /**
+     * Método que muestra un solo tipo de baja
+     *
+     * @param  \App\Models\int  $tipo_baja->$id
+     */
+    public function show($id) {
+
+        $tipoBaja = Tipo_baja::find($id);
+        return view('tipoBaja.mostrar', ['tipoBaja'=>$tipoBaja]);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tipo_baja  $tipo_baja
-     * @return \Illuminate\Http\Response
+     * Método que edita un tipo de baja existente
+     *@param  \App\Http\Requests\UpdateTipo_bajaRequest  $request
      */
-    public function show(Tipo_baja $tipo_baja)
-    {
-        //
+    public function update(UpdateTipo_bajaRequest $request) {
+
+        $tipoBaja = Tipo_baja::find($request->id);
+        $tipoBaja->descripcion = $request->descripcion;
+
+        if($tipoBaja->save()){
+            $log = new LogsTipoBajaController();
+            $log->create($tipoBaja, 'u');
+            return redirect()->route('tiposBajas');
+        }
+        return back()->with('fail','No se pudo actualizar el tipo de baja');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Método que elimina un tipo de baja existente
      *
-     * @param  \App\Models\Tipo_baja  $tipo_baja
-     * @return \Illuminate\Http\Response
+     * @param  \App\Models\int  $tipo_baja->$id
      */
-    public function edit(Tipo_baja $tipo_baja)
-    {
-        //
-    }
+    public function destroy($id) {
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateTipo_bajaRequest  $request
-     * @param  \App\Models\Tipo_baja  $tipo_baja
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateTipo_bajaRequest $request, Tipo_baja $tipo_baja)
-    {
-        //
-    }
+        $tipoBaja = Tipo_baja::find($id);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tipo_baja  $tipo_baja
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Tipo_baja $tipo_baja)
-    {
-        //
+        if($tipoBaja->delete()){
+            $log = new LogsTipoBajaController();
+            $log->create($tipoBaja, 'd');
+            return redirect()->route('tiposBajas');
+        }
+        return back()->with('fail','No se pudo eliminar el tipo de baja');
     }
 }
