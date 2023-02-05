@@ -9,9 +9,7 @@ use App\Http\Requests\Updatelogs_contribuyenteRequest;
 
 class LogsContribuyenteController extends Controller
 {
-    
 
-    
     // Crea un nuevo registro de log contribuyente
     public function store($contribuyente, $char)
     {
@@ -32,16 +30,11 @@ class LogsContribuyenteController extends Controller
         $logs_contribuyente->apellido_conyuge = $contribuyente->apellido_conyuge;
         $logs_contribuyente->dni_conyuge = $contribuyente->dni_conyuge;
         $logs_contribuyente->accion = $char;
-        $logs_contribuyente->usuario_id = $user->id; // PROBAR CON USUARIO
-        $logs_contribuyente->usuario_nombre = $user->usuario; // IDEM ANTERIOR
+        $logs_contribuyente->usuario_id = $user->id; 
+        $logs_contribuyente->usuario_nombre = $user->usuario; 
 
         $logs_contribuyente->save();
-        
+
         //return 'guardado';
     }
-
-    
-
-    
-    
 }
