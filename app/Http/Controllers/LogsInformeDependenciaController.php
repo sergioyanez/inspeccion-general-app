@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\logs_informe_dependencia;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Storelogs_informe_dependenciaRequest;
-use App\Http\Requests\Updatelogs_informe_dependenciaRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LogsInformeDependenciaController extends Controller {
     

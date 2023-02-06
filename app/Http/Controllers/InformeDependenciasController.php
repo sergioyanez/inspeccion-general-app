@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\informe_dependencias;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Storeinforme_dependenciasRequest;
 use App\Http\Requests\Updateinforme_dependenciasRequest;
 use App\Http\Controllers\LogsInformeDependenciaController;
-use Illuminate\Http\Response;
+
 
 class InformeDependenciasController extends Controller {
     
     /**
      * Método que retorna todos los informes de dependencia
      * existentes en  la base de datos
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index() {
         $informe_dependencias = informe_dependencia::all();
@@ -25,8 +22,6 @@ class InformeDependenciasController extends Controller {
     /**
      * Método que me lleva a un formulario para
      * agregar un nuevo informe de dependencia
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create() {
         return view('informeDependencia.crear');
@@ -34,11 +29,9 @@ class InformeDependenciasController extends Controller {
 
     /**
      * Método que crea un nuevo informe de dependencia
-     *
      * @param  \App\Http\Requests\Storeinforme_dependenciasRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Storeinforme_dependenciasRequest $request) {
 
         $informe_dependencias = new informe_dependencia();
         $informe_dependencias->tipo_dependencia = $request->tipo_dependencia;
@@ -50,7 +43,7 @@ class InformeDependenciasController extends Controller {
         if($informe_dependencias.save()){
             $log = new LogsInformeDependenciaController();
             $log->create($informe_dependencias, 'c');
-            return redirect()->route('informeDependencia');
+            return redirect()->route('informesDependencias');
         }
 
         return back()->with('fail','No se pudo crear el usuario');
@@ -59,8 +52,7 @@ class InformeDependenciasController extends Controller {
     /**
      * Método que me muestra un solo informe de dependencia
      *
-     * @param  \App\Models\informe_dependencias  $informe_dependencias
-     * @return \Illuminate\Http\Response
+     * @param  int $id
      */
     public function show($id) {
         $informe_dependencias = informe_dependencia::find($id);
@@ -69,12 +61,9 @@ class InformeDependenciasController extends Controller {
 
     /**
      * Método que me edita un informe de dependencia
-     *
      * @param  \App\Http\Requests\Updateinforme_dependenciasRequest  $request
-     * @param  \App\Models\informe_dependencias  $informe_dependencias
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request) {
+    public function update(Updateinforme_dependenciasRequest $request) {
 
         $informe_dependencias = informe_dependencia::find($request->id);
 
@@ -95,9 +84,7 @@ class InformeDependenciasController extends Controller {
 
     /**
      * Método que elimina un estado de dependencia determinado
-     *
-     * @param  \App\Models\informe_dependencias  $informe_dependencias
-     * @return \Illuminate\Http\Response
+     * @param  int $id
      */
     public function destroy($id) {
         $informe_dependencias = informe_dependencia::find($request->id);
