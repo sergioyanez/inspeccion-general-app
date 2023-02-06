@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class Updatelogs_tipo_permisoRequest extends FormRequest
+class UpdateTipo_permisoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class Updatelogs_tipo_permisoRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class Updatelogs_tipo_permisoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tipo'=>'required|string|max:25',
         ];
     }
 }
