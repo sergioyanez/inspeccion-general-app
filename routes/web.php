@@ -157,6 +157,15 @@ Route::controller(DetalleInmuebleController::class)->group(function(){
     Route::get('detalleInmueble/eliminar/{id}','destroy')->name('detallesInmuebles-eliminar');
 });
 
+Route::controller(UsuarioController::class)->group(function(){
+    Route::get('usuario','index')->name('usuarios');
+    Route::get('usuario/create','create')->name('usuarios-crear');
+    Route::post('usuario/guardar','store')->name('usuarios-guardar');
+    Route::get('usuario/mostrar/{id}','show')->name('usuarios-mostrar');
+    Route::post('usuario/actualizar','update')->name('usuarios-actualizar');
+    Route::get('usuario/eliminar/{id}','destroy')->name('usuarios-eliminar');
+});
+
 
 
 
