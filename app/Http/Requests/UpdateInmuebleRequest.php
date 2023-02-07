@@ -13,7 +13,7 @@ class UpdateInmuebleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateInmuebleRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'calle' => 'required|string',
+            'numero' => 'nullable|integer'
         ];
     }
 }
