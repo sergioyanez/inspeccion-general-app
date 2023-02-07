@@ -16,6 +16,7 @@ use App\Http\Controllers\InmuebleController;
 use App\Http\Controllers\TipoHabilitacionController;
 use App\Http\Controllers\DetalleInmuebleController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\EstadoBajaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -165,6 +166,15 @@ Route::controller(UsuarioController::class)->group(function(){
     Route::get('usuario/mostrar/{id}','show')->name('usuarios-mostrar');
     Route::post('usuario/actualizar','update')->name('usuarios-actualizar');
     Route::get('usuario/eliminar/{id}','destroy')->name('usuarios-eliminar');
+});
+
+Route::controller(EstadoBajaController::class)->group(function(){
+    Route::get('estadoBaja','index')->name('estadosBajas');
+    Route::get('estadoBaja/create','create')->name('estadosBajas-crear');
+    Route::post('estadoBaja/guardar','store')->name('estadosBajas-guardar');
+    Route::get('estadoBaja/mostrar/{id}','show')->name('estadosBajas-mostrar');
+    Route::post('estadoBaja/actualizar','update')->name('estadosBajas-actualizar');
+    Route::get('estadoBaja/eliminar/{id}','destroy')->name('estadosBajas-eliminar');
 });
 
 
