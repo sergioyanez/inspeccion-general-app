@@ -4,84 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\logs_inmueble;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Storelogs_inmuebleRequest;
-use App\Http\Requests\Updatelogs_inmuebleRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LogsInmuebleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($inmueble, $char)
     {
-        //
+        $logs_inmueble = new logs_inmueble();
+
+        $user= Auth::user();
+
+        $logs_inmueble->inmueble_id = $inmueble->id;
+        $logs_inmueble->calle = $inmueble->calle;
+        $logs_inmueble->numero = $inmueble->numero;
+        $logs_inmueble->accion = $char;
+        $logs_inmueble->usuario_id = $user->id; 
+        $logs_inmueble->usuario_nombre = $user->usuario;
+
+        return $logs_inmueble->save();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storelogs_inmuebleRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storelogs_inmuebleRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\logs_inmueble  $logs_inmueble
-     * @return \Illuminate\Http\Response
-     */
-    public function show(logs_inmueble $logs_inmueble)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\logs_inmueble  $logs_inmueble
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(logs_inmueble $logs_inmueble)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatelogs_inmuebleRequest  $request
-     * @param  \App\Models\logs_inmueble  $logs_inmueble
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatelogs_inmuebleRequest $request, logs_inmueble $logs_inmueble)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\logs_inmueble  $logs_inmueble
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(logs_inmueble $logs_inmueble)
-    {
-        //
-    }
 }

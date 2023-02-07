@@ -13,7 +13,7 @@ class Storelogs_tipo_bajaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class Storelogs_tipo_bajaRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'descripcion'=>'required|string|max:50',
         ];
     }
 }

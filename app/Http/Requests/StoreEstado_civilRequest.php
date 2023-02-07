@@ -13,7 +13,7 @@ class StoreEstado_civilRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class StoreEstado_civilRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'descripcion' => 'required|string|max:25',
         ];
     }
 }
