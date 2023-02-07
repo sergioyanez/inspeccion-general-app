@@ -13,6 +13,7 @@ use App\Http\Controllers\TipoBajaController;
 use App\Http\Controllers\TipoInmuebleController;
 use App\Http\Controllers\DetalleHabilitacionController;
 use App\Http\Controllers\InmuebleController;
+use App\Http\Controllers\TipoHabilitacionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -135,6 +136,15 @@ Route::controller(InmuebleController::class)->group(function(){
     Route::get('inmueble/mostrar/{id}','show')->name('inmuebles-mostrar');
     Route::post('inmueble/actualizar','update')->name('inmuebles-actualizar');
     Route::get('inmueble/eliminar/{id}','destroy')->name('inmuebles-eliminar');
+});
+
+Route::controller(TipoHabilitacionController::class)->group(function(){
+    Route::get('tipoHabilitacion','index')->name('tiposHabilitaciones');
+    Route::get('tipoHabilitacion/create','create')->name('tiposHabilitaciones-crear');
+    Route::post('tipoHabilitacion/guardar','store')->name('tiposHabilitaciones-guardar');
+    Route::get('tipoHabilitacion/mostrar/{id}','show')->name('tiposHabilitaciones-mostrar');
+    Route::post('tipoHabilitacion/actualizar','update')->name('tiposHabilitaciones-actualizar');
+    Route::get('tipoHabilitacion/eliminar/{id}','destroy')->name('tiposHabilitaciones-eliminar');
 });
 
 

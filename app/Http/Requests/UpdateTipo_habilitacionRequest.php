@@ -13,7 +13,7 @@ class UpdateTipo_habilitacionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateTipo_habilitacionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+
+            'descripcion' => 'required|string|max:25',
+            'plazo_vencimiento' => 'nullable|integer'
         ];
     }
 }
