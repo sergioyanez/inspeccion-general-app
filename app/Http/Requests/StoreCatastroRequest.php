@@ -13,7 +13,7 @@ class StoreCatastroRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class StoreCatastroRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'circunscripcion'=>'required|string|max:10',
+            'seccion'=>'required|string|max:10',
+            'chacra'=>'required|string|max:10',
+            'quinta'=>'required|string|max:10',
+            'fraccion'=>'required|string|max:10',
+            'manzana'=>'required|string|max:10',
+            'parcela'=>'required|string|max:10',
+            'sub_parcela'=>'required|string|max:10',
+           //  'observacion'=>'required|string|max:10',
+           //  'fecha_informe'=>'required',
+           //  'pdf_informe'=>'required|string|max:255',
         ];
     }
 }
