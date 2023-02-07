@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('tipo_inmueble_id')->nullable();
             $table->foreign('tipo_inmueble_id')->references('id')->on('tipos_inmuebles')->onDelete('set null');
 
-            $table->date('fecha_venc_alquiler');
+            $table->date('fecha_venc_alquiler')->nullable();
             $table->timestamps();
         });
     }
