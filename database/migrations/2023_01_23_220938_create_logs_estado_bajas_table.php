@@ -26,7 +26,6 @@ return new class extends Migration
             $table->char('accion',1);
             $table->bigInteger('usuario_id');
             $table->string('usuario_nombre');
-            $table->string('tipo',25);
             $table->timestamps();
         });
     }
