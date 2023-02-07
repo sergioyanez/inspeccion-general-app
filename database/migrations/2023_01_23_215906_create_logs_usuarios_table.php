@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('usuario_bd_id');
             $table->string('usuario');
             $table->bigInteger('tipo_permiso_id')->nullable();
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

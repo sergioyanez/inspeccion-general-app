@@ -15,6 +15,7 @@ use App\Http\Controllers\DetalleHabilitacionController;
 use App\Http\Controllers\InmuebleController;
 use App\Http\Controllers\TipoHabilitacionController;
 use App\Http\Controllers\DetalleInmuebleController;
+use App\Http\Controllers\UsuarioController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
