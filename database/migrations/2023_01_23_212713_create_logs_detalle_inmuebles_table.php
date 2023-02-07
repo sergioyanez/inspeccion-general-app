@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('detalle_inmueble_id');
             $table->bigInteger('inmueble_id')->nullable();
             $table->bigInteger('tipo_inmueble_id')->nullable();
-            $table->date('fecha_venc_alquiler');
+            $table->date('fecha_venc_alquiler')->nullable();
             $table->char('accion',1);
             // $table->bigInteger('usuario_id');
             // $table->string('usuario_nombre');

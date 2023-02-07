@@ -37,7 +37,7 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-fullname">Fecha de Vencimiento Alquiler</label>
-                            <input required type="date" name="fecha_venc_alquiler" class="form-control"
+                            <input  type="date" name="fecha_venc_alquiler" class="form-control"
                                 id="basic-default-fechaVencimientoId" />
                         </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
