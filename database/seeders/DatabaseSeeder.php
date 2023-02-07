@@ -43,8 +43,8 @@ class DatabaseSeeder extends Seeder
         Estado_baja::factory(10)->create();
      //  $this->call(InformeDependenciasSeeder::class);
         $this->call(ExpedienteSeeder::class);
-    //    Expediente::factory(10)->create();
-       
+     //   Expediente::factory(5)->create();
+
         Informe_dependencias::factory(10)->create();
         $this->call(ExpedientePersonaJuridicaSeeder::class);
         $this->call(ExpedienteContribuyenteSeeder::class);

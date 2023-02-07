@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\expediente;
+use App\Models\Catastro;
+use App\Models\Detalle_habilitacion;
+use App\Models\Detalle_inmueble;
+use App\Models\Estado_baja;
+use App\Http\Controllers\LogsExpedienteController;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreexpedienteRequest;
 use App\Http\Requests\UpdateexpedienteRequest;
@@ -14,9 +20,33 @@ class ExpedienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    /*public function index()
     {
-        //
+        $expedientes = Expediente::all();
+        return view('expediente.expedientes', ['expedientes' => $expedientes]);
+    }*/
+
+    public function index() {
+
+        $expeds = Expediente::all();
+        return view('expediente.expedientes', ['expedientes'=>$expeds]);
+
+        $expedientes = Expediente::query()
+            ->with(['contribuyentes', 'personasJuridicas'])
+            ->when(request('buscarporcomercio'), function ($query) {
+                return $query->where('nro_comercio', 'LIKE', '%' . request('buscarporcomercio') . '%')
+                    ->orWhereHas('contribuyentes', function ($c) {
+                            $c->where('nombre', 'LIKE', '%' . request('buscarporcomercio') . '%');
+                        }
+                    )
+                    ->orWhereHas('personasJuridicas', function ($c) {
+                            $c->where('nombre_representante', 'LIKE', '%' . request('buscarporcomercio') . '%');
+                        }
+                    );
+
+            })
+            ->paginate(200);
+            return view('expediente.expedientes', ['expedientes' => $expedientes]);
     }
 
     /**
@@ -26,7 +56,14 @@ class ExpedienteController extends Controller
      */
     public function create()
     {
-        //
+        $catastro = Catastro::all();
+        $detalleHabilitaciones = Detalle_habilitacion::all();
+        $detalleInmuebles = Detalle_inmueble::all();
+        $estadosBaja = Estado_baja::all();
+        return view('expediente.crear', ['catastro'=>$catastro,
+                                        'detalleHabilitaciones'=>$detalleHabilitaciones,
+                                        'detalleInmuebles'=>$detalleInmuebles,
+                                        'estadosBaja' =>$estadosBaja]);
     }
 
     /**
@@ -35,9 +72,28 @@ class ExpedienteController extends Controller
      * @param  \App\Http\Requests\StoreexpedienteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreexpedienteRequest $request)
+    public function store(Request $request)
     {
-        //
+        $log = new LogsExpedienteController();
+
+        $expediente = new Expediente();
+        $expediente->catastro_id = $request->catastro_id;
+        $expediente->estado_baja_id = $request->estado_baja_id;
+        $expediente->nro_expediente = $request->nro_expediente;
+        $expediente->nro_comercio = $request->nro_comercio;
+        $expediente->actividad_ppal = $request->actividad_ppal;
+        $expediente->anexo = $request->anexo;
+        $expediente->pdf_solicitud = $request->pdf_solicitud;
+        $expediente->bienes_de_uso = $request->bienes_de_uso;
+        $expediente->observaciones_grales = $request->observaciones_grales;
+        $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
+        $expediente->detalle_inmueble_id = $request->detalle_inmueble_id;
+
+        $expediente->save();
+
+        $log->store($expediente, 'c');
+
+        return redirect()->route('expedientes');
     }
 
     /**
@@ -46,21 +102,20 @@ class ExpedienteController extends Controller
      * @param  \App\Models\expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function show(expediente $expediente)
+    public function show($id)
     {
-        //
+        $expediente = Expediente::find($id);
+        $catastro = Catastro::all();
+        $detalleHabilitaciones = Detalle_habilitacion::all();
+        $detalleInmuebles = Detalle_inmueble::all();
+        $estadosBaja = Estado_baja::all();
+        return view('expediente.mostrar', ['expediente'=>$expediente,
+                                        'catastro'=>$catastro,
+                                        'detalleHabilitaciones'=>$detalleHabilitaciones,
+                                        'detalleInmuebles'=>$detalleInmuebles,
+                                        'estadosBaja' =>$estadosBaja]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\expediente  $expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(expediente $expediente)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -69,9 +124,28 @@ class ExpedienteController extends Controller
      * @param  \App\Models\expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateexpedienteRequest $request, expediente $expediente)
+    public function update(Request $request)
     {
-        //
+        $log = new LogsExpedienteController();
+
+        $expediente = Expediente::find($request->expediente_id);
+        $expediente->catastro_id = $request->catastro_id;
+        $expediente->estado_baja_id = $request->estado_baja_id;
+        $expediente->nro_expediente = $request->nro_expediente;
+        $expediente->nro_comercio = $request->nro_comercio;
+        $expediente->actividad_ppal = $request->actividad_ppal;
+        $expediente->anexo = $request->anexo;
+        $expediente->pdf_solicitud = $request->pdf_solicitud;
+        $expediente->bienes_de_uso = $request->bienes_de_uso;
+        $expediente->observaciones_grales = $request->observaciones_grales;
+        $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
+        $expediente->detalle_inmueble_id = $request->detalle_inmueble_id;
+
+        $expediente->save();
+
+        $log->store($expediente, 'u');
+
+        return redirect()->route('expedientes');
     }
 
     /**
@@ -80,8 +154,15 @@ class ExpedienteController extends Controller
      * @param  \App\Models\expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(expediente $expediente)
+    public function destroy($id)
     {
-        //
+        $log = new LogsExpedienteController();
+
+        $expediente = Expediente::find($id);
+        $expediente->delete();
+
+        $log->store($expediente, 'd');
+
+        return redirect()->route('expedientes');
     }
 }
