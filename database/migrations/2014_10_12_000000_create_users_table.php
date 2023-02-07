@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('usuario');
+            $table->string('usuario')->unique();
 
             $table->unsignedBigInteger('tipo_permiso_id')->nullable();
             $table->foreign('tipo_permiso_id')->references('id')->on('tipos_permisos')->onDelete('set null');
