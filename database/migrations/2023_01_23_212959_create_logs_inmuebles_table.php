@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('calle');
             $table->integer('numero')->nullable();
             $table->char('accion',1);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
             $table->bigInteger('usuario_id');
             $table->string('usuario_nombre');
             $table->timestamps();

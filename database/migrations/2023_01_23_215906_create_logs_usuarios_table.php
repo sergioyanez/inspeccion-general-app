@@ -15,18 +15,16 @@ return new class extends Migration
     {
         Schema::create('logs_usuarios', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('usuario_bd_id');
-            $table->string('usuario');
+            $table->bigInteger('usuario_bd_id');//id del usuario en la tabla user
+            $table->string('usuario');//nombre del usuario en la tabla user
             $table->bigInteger('tipo_permiso_id')->nullable();
-            $table->string('email')->unique();
+            $table->string('email');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->char('accion',1);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
-            $table->bigInteger('usuario_id');
-            $table->string('usuario_nombre');
+            $table->bigInteger('usuario_id');//id del usuario que realiza la modificación
+            $table->string('usuario_nombre');//nombre del usuario que realiza la modificación
             $table->timestamps();
         });
     }

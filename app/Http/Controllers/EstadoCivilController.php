@@ -3,84 +3,85 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estado_civil;
-use App\Http\Requests\StoreEstado_civilRequest;
 use App\Http\Requests\UpdateEstado_civilRequest;
+use App\Http\Requests\StoreEstado_civilRequest;
+use App\Http\Controllers\LogsEstadoCivilController;
 
 class EstadoCivilController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muestra todos los tipos de estado civil
      */
-    public function index()
-    {
-        //
+    public function index() {
+
+        $estadosCiviles = Estado_civil::all();
+        return view('estadoCivil.estadosCiviles', ['estadosCiviles'=>$estadosCiviles]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+     * Muestra un formulario para crear un estado civil
+    */
+    public function create() {
+        return view('estadoCivil.crear');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     * Crea un nuevo estado civil
      * @param  \App\Http\Requests\StoreEstado_civilRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(StoreEstado_civilRequest $request)
-    {
-        //
+    public function store(StoreEstado_civilRequest $request) {
+
+        $estado_civil = new Estado_civil();
+        $estado_civil->descripcion = $request->descripcion;
+
+        if ($estado_civil->save()){
+            $log = new LogsEstadoCivilController();
+            $log->create($estado_civil, 'c');
+            return redirect()->route('estadosCiviles');
+        }
+        return back()->with('fail','No se pudo cargar el estado civil');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Estado_civil  $estado_civil
-     * @return \Illuminate\Http\Response
+     * Retorna un estado civil
+     * @param  int  $id
      */
-    public function show(Estado_civil $estado_civil)
-    {
-        //
+    public function show(int $id) {
+        $estadoCivil = Estado_civil::find($id);
+        return view('estadoCivil.mostrar', ['estadoCivil'=>$estadoCivil]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Estado_civil  $estado_civil
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Estado_civil $estado_civil)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
+     * Método para editar un estado civil
      * @param  \App\Http\Requests\UpdateEstado_civilRequest  $request
-     * @param  \App\Models\Estado_civil  $estado_civil
-     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateEstado_civilRequest $request, Estado_civil $estado_civil)
-    {
-        //
+    public function update(UpdateEstado_civilRequest $request) {
+
+        $estadoCivil = Estado_civil::find($request->id);
+        $estadoCivil->descripcion = $request->descripcion;
+
+        if($estadoCivil->save()){
+            $log = new LogsEstadoCivilController();
+            $log->create($estadoCivil, 'u');
+            return redirect()->route('estadosCiviles');
+        }
+
+        return back()->with('fail','No se pudo editar el estado civil');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Estado_civil  $estado_civil
-     * @return \Illuminate\Http\Response
+     * Eliminar un estado civil
+     * @param  int $id
      */
-    public function destroy(Estado_civil $estado_civil)
-    {
-        //
+    public function destroy($id) {
+
+        $estadoCivil = Estado_civil::find($id);
+        if ($estadoCivil->delete()){
+            $log = new LogsEstadoCivilController();
+            $log->create($estadoCivil, 'd');
+            return redirect()->route('estadosCiviles');
+        }
+        return back()->with('fail','No se pudo eliminar el estado civil');
     }
+
 }

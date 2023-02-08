@@ -2,86 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\logs_expediente;
+use App\Models\logs_estado_civil;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Storelogs_expedienteRequest;
-use App\Http\Requests\Updatelogs_expedienteRequest;
+use Illuminate\Support\Facades\Auth;
 
-class LogsExpedienteController extends Controller
+class LogsEstadoCivilController extends Controller
 {
+  
     /**
-     * Display a listing of the resource.
+     * creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function create($estado_civil, $char)
     {
-        //
+        $logs_estado_civil = new logs_estado_civil();
+
+        $user= Auth::user();
+
+        $logs_estado_civil->estado_civil_id = $estado_civil->id;
+        $logs_estado_civil->descripcion = $estado_civil->descripcion;
+        $logs_estado_civil->accion = $char;
+        $logs_estado_civil->usuario_id = $user->id; 
+        $logs_estado_civil->usuario_nombre = $user->usuario;
+
+        return $logs_estado_civil->save();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storelogs_expedienteRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storelogs_expedienteRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\logs_expediente  $logs_expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function show(logs_expediente $logs_expediente)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\logs_expediente  $logs_expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(logs_expediente $logs_expediente)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatelogs_expedienteRequest  $request
-     * @param  \App\Models\logs_expediente  $logs_expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatelogs_expedienteRequest $request, logs_expediente $logs_expediente)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\logs_expediente  $logs_expediente
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(logs_expediente $logs_expediente)
-    {
-        //
-    }
 }

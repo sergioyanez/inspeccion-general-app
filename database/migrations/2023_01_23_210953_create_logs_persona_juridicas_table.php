@@ -22,8 +22,6 @@ return new class extends Migration
             $table->bigInteger('dni_representante');
             $table->bigInteger('telefono');
             $table->char('accion',1);
-            $table->date('fecha_creacion');
-            $table->date('fecha_modificacion');
             $table->bigInteger('usuario_id');
             $table->string('usuario_nombre');
             $table->timestamps();

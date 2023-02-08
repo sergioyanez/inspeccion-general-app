@@ -3,84 +3,119 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inmueble;
-use App\Http\Requests\StoreInmuebleRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdateInmuebleRequest;
+use App\Http\Requests\StoreInmuebleRequest;
+use App\Http\Controllers\LogsInmuebleController;
 
+/**
+ * Class InmuebleController
+ * @package App\Http\Controllers
+ */
 class InmuebleController extends Controller
 {
+
     /**
-     * Display a listing of the resource.
+     * Muestra todos los inmuebles
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $inmuebles = Inmueble::all();
+        return view('inmueble.inmueble', ['inmuebles'=>$inmuebles]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra un formulario para crear un inmueble
      *
      * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return "create inmueble";
+    */
+    public function create() {
+        return view('inmueble.crear');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Crea un nuevo inmueble
      *
      * @param  \App\Http\Requests\StoreInmuebleRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreInmuebleRequest $request)
-    {
-        return "store inmueble";
-    }
-
-    /**
-     * Display the specified resource.
-     *
      * @param  \App\Models\Inmueble  $inmueble
      * @return \Illuminate\Http\Response
      */
-    public function show(Inmueble $inmueble)
+    public function store(Request $request)
     {
-        //
+        $this->validate( $request,[
+           'calle' => 'required|string',
+           'numero' => 'nullable|integer',
+        ]);
+        $inmueble = new Inmueble();
+        $inmueble->calle = $request->calle;
+        $inmueble->numero = $request->numero;
+
+        if ($inmueble->save()){
+            $log = new LogsInmuebleController();
+            $log->create($inmueble, 'c');
+            return redirect()->route('inmueble');
+        }
+        return back()->with('fail','No se pudo guardar el inmueble');
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Retorna un solo tipo de Inmueble
      *
-     * @param  \App\Models\Inmueble  $inmueble
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Inmueble $inmueble)
+    public function show(int $id)
     {
-        //
+        $inmueble = Inmueble::find($id);
+        return view('inmueble.inmueble', ['inmueble'=>$inmueble]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza un inmueble.
      *
      * @param  \App\Http\Requests\UpdateInmuebleRequest  $request
      * @param  \App\Models\Inmueble  $inmueble
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateInmuebleRequest $request, Inmueble $inmueble)
+    public function update(Request $request)
     {
-        //
+        $this->validate($request,[
+            'calle' => 'required|string',
+            'numero' => 'nullable|integer',
+        ]);
+
+        $inmueble = Inmueble::find($request->id);
+        $inmueble->calle = $request->calle;
+        $inmueble->numero = $request->numero;
+
+        if($inmueble->save()){
+            $log = new LogsInmuebleController();
+            $log->create($inmueble, 'u');
+            return redirect()->route('inmueble');
+        }
+
+        return back()->with('fail','No se pudo editar el inmueble');
     }
 
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Inmueble  $inmueble
+     * Elimina un inmueble
+     * @param  int $id
      * @return \Illuminate\Http\Response
+     *
      */
-    public function destroy(Inmueble $inmueble)
+    public function destroy(int $id)
     {
-        //
+      
+        $inmueble = Inmueble::find($id);
+
+        if($inmueble->delete()){
+            $log = new LogsInmuebleController();
+            $log->create($inmueble, 'd');
+            return redirect()->route('inmueble');
+        }
+              
+        return redirect()->route('inmueble');
     }
 }
