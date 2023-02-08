@@ -146,6 +146,87 @@ Route::controller(EstadoBajaController::class)->group(function(){
     Route::get('estadoBaja/eliminar/{id}','destroy')->name('estadosBajas-eliminar');
 });
 
+// RUTA DE ESTADO CIVIL
+Route::controller(EstadoCivilController::class)->group(function(){
+    Route::get('estadoCivil','index')->name('estadosCiviles');
+    Route::get('estadoCivil/create','create')->name('estadosCiviles-crear');
+    Route::post('estadoCivil/guardar','store')->name('estadosCiviles-guardar');
+    Route::get('estadoCivil/mostrar/{id}','show')->name('estadosCiviles-mostrar');
+    Route::post('estadoCivil/actualizar','update')->name('estadosCiviles-actualizar');
+    Route::get('estadoCivil/eliminar/{id}','destroy')->name('estadosCiviles-eliminar');
+});
+
+// RUTA DE TIPO DE BAJA
+Route::controller(TipoBajaController::class)->group(function(){
+    Route::get('tipoBaja','index')->name('tiposBajas');
+    Route::get('tipoBaja/create','create')->name('tiposBajas-crear');
+    Route::post('tipoBaja/guardar','store')->name('tiposBajas-guardar');
+    Route::get('tipoBaja/mostrar/{id}','show')->name('tiposBajas-mostrar');
+    Route::post('tipoBaja/actualizar','update')->name('tiposBajas-actualizar');
+    Route::get('tipoBaja/eliminar/{id}','destroy')->name('tiposBajas-eliminar');
+});
+
+// RUTA DE TIPO DE DEPENDENCIAS
+Route::controller(TipoDependenciaController::class)->group(function(){
+    Route::get('tipoDependencia','index')->name('tiposDependencias');
+    Route::get('tipoDependencia/create','create')->name('tiposDependencias-crear');
+    Route::post('tipoDependencia/guardar','store')->name('tiposDependencias-guardar');
+    Route::get('tipoDependencia/mostrar/{id}','show')->name('tiposDependencias-mostrar');
+    Route::post('tipoDependencia/actualizar','update')->name('tiposDependencias-actualizar');
+    Route::get('tipoDependencia/eliminar/{id}','destroy')->name('tiposDependencias-eliminar');
+});
+
+// RUTA DE TIPO DE DOCUMENTO
+Route::controller(TipoDniController::class)->group(function(){
+    Route::get('dni','index')->name('dnis');
+    Route::get('dni/create','create')->name('dnis-crear');
+    Route::post('dni/guardar','store')->name('dnis-guardar');
+    Route::get('dni/mostrar/{id}','show')->name('dnis-mostrar');
+    Route::post('dni/actualizar','update')->name('dnis-actualizar');
+    Route::get('dni/eliminar/{id}','destroy')->name('dnis-eliminar');
+});
+
+// RUTA DE TIPO DE ESTADOS DE HABILITACION
+Route::controller(TipoEstadoController::class)->group(function(){
+    Route::get('tipoEstadoHabilitacion','index')->name('tiposEstadosHabilitacion');
+    Route::get('tipoEstadoHabilitacion/create','create')->name('tiposEstadosHabilitacion-crear');
+    Route::post('tipoEstadoHabilitacion/guardar','store')->name('tiposEstadosHabilitacion-guardar');
+    Route::get('tipoEstadoHabilitacion/mostrar/{id}','show')->name('tiposEstadosHabilitacion-mostrar');
+    Route::post('tipoEstadoHabilitacion/actualizar','update')->name('tiposEstadosHabilitacion-actualizar');
+    Route::get('tipoEstadoHabilitacion/eliminar/{id}','destroy')->name('tiposEstadosHabilitacion-eliminar');
+
+});
+
+// RUTA DE TIPO DE HABILITACION
+Route::controller(TipoHabilitacionController::class)->group(function(){
+    Route::get('tipoHabilitacion','index')->name('tiposHabilitaciones');
+    Route::get('tipoHabilitacion/create','create')->name('tiposHabilitaciones-crear');
+    Route::post('tipoHabilitacion/guardar','store')->name('tiposHabilitaciones-guardar');
+    Route::get('tipoHabilitacion/mostrar/{id}','show')->name('tiposHabilitaciones-mostrar');
+    Route::post('tipoHabilitacion/actualizar','update')->name('tiposHabilitaciones-actualizar');
+    Route::get('tipoHabilitacion/eliminar/{id}','destroy')->name('tiposHabilitaciones-eliminar');
+});
+
+// RUTA DE TIPO DE INMUEBLE
+Route::controller(TipoInmuebleController::class)->group(function(){
+    Route::get('tipoInmueble','index')->name('tiposInmuebles');
+    Route::get('tipoInmueble/create','create')->name('tiposInmuebles-crear');
+    Route::post('tipoInmueble/guardar','store')->name('tiposInmuebles-guardar');
+    Route::get('tipoInmueble/mostrar/{id}','show')->name('tiposInmuebles-mostrar');
+    Route::post('tipoInmueble/actualizar','update')->name('tiposInmuebles-actualizar');
+    Route::get('tipoInmueble/eliminar/{id}','destroy')->name('tiposInmuebles-eliminar');
+});
+
+// RUTA DE TIPO DE PERMISOS
+Route::controller(TipoPermisoController::class)->group(function(){
+    Route::get('tipoPermiso','index')->name('tiposPermisos');
+    Route::get('tipoPermiso/create','create')->name('tiposPermisos-crear');
+    Route::post('tipoPermiso/guardar','store')->name('tiposPermisos-guardar');
+    Route::get('tipoPermiso/mostrar/{id}','show')->name('tiposPermisos-mostrar');
+    Route::post('tipoPermiso/actualizar','update')->name('tiposPermisos-actualizar');
+    Route::get('tipoPermiso/eliminar/{id}','destroy')->name('tiposPermisos-eliminar');
+});
+
 
 
 
