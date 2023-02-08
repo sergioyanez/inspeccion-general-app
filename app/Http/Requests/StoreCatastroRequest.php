@@ -32,9 +32,9 @@ class StoreCatastroRequest extends FormRequest
             'manzana'=>'required|string|max:10',
             'parcela'=>'required|string|max:10',
             'sub_parcela'=>'required|string|max:10',
-           //  'observacion'=>'required|string|max:10',
-           //  'fecha_informe'=>'required',
-           //  'pdf_informe'=>'required|string|max:255',
+            'observacion'=>'nullable|string|max:10',
+            'fecha_informe'=>'nullable',
+            'pdf_informe'=>'nullable|string|max:255',
         ];
     }
 }
