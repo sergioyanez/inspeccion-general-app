@@ -38,7 +38,7 @@ Route::controller(UsuarioController::class)->group(function(){
 // RUTA DE EXPEDIENTE
 Route::controller(ExpedienteController::class)->group(function(){
     Route::get('expediente','index')->name('expedientes');
-    Route::get('expediente1','index')->name('expedientes1');
+    Route::get('expediente1','index1')->name('expedientes1');
     Route::get('expediente/create','create')->name('expedientes-crear');
     Route::post('expediente/guardar','store')->name('expedientes-guardar');
     Route::get('expediente/mostrar/{id}','show')->name('expedientes-mostrar');
@@ -49,12 +49,15 @@ Route::controller(ExpedienteController::class)->group(function(){
 // RUTA DE CONTRIBUYENTE
 Route::controller(ContribuyenteController::class)->group(function(){
     Route::get('contribuyente','index')->name('contribuyentes');
+    Route::get('contribuyenteBuscar','indexBuscar')->name('contribuyentes-buscar');
     Route::get('contribuyente/create','create')->name('contribuyentes-crear');
     Route::post('contribuyente/guardar','store')->name('contribuyentes-guardar');
     Route::get('contribuyente/mostrar/{contribuyente_id}','show')->name('contribuyentes-mostrar');
     Route::post('contribuyente/actualizar','update')->name('contribuyentes-actualizar');
     Route::get('contribuyente/eliminar/{contribuyente_id}','destroy')->name('contribuyentes-eliminar');
 });
+
+Route::get('/contribuyenteBuscar', $controller_path . '\ContribuyenteController@indexBuscar')->name('contribuyentesBuscar');
 
 // RUTA DE PERSONA JURIDICA
 Route::controller(PersonaJuridicaController::class)->group(function(){
