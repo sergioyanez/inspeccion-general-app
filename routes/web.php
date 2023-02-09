@@ -20,10 +20,14 @@ Route::get('/', function () {
 });
 
 // RUTA PAGINA PRINCIPAL
-Route::get('/pagina_principal', $controller_path . '\PaginaPrincipalController@index')->name('pagina_principal');
+Route::controller(PaginaPrincipalController::class)->group(function(){
+    Route::get('pagina_principal','index')->name('pagina_principal');
+});
 
 // RUTA PAGINA DE BUSQUEDA DE EXPEDIENTES
-Route::get('/busqueda_expediente', $controller_path . '\BusquedaExpedienteController@index')->name('busqueda_expediente');
+Route::controller(BusquedaExpedienteController::class)->group(function(){
+    Route::get('busqueda_expediente','index')->name('busqueda_expediente');
+});
 
 // RUTA DE USUARIO
 Route::controller(UsuarioController::class)->group(function(){
