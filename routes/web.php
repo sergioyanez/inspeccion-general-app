@@ -18,6 +18,7 @@ use App\Http\Controllers\DetalleInmuebleController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EstadoBajaController;
 use App\Http\Controllers\ExpedienteController;
+use App\Http\Controllers\InformeDependenciasController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -186,6 +187,18 @@ Route::controller(ExpedienteController::class)->group(function(){
     Route::post('expediente/actualizar','update')->name('expedientes-actualizar');
     Route::get('expediente/eliminar/{id}','destroy')->name('expedientes-eliminar');
 });
+
+Route::controller(InformeDependenciasController::class)->group(function(){
+    Route::get('informeDependencia','index')->name('informesDependencias');
+    Route::get('informeDependencia/create','create')->name('informesDependencias-crear');
+    Route::post('informeDependencia/guardar','store')->name('informesDependencias-guardar');
+    Route::get('informeDependencia/mostrar/{id}','show')->name('informesDependencias-mostrar');
+    Route::post('informeDependencia/actualizar','update')->name('informesDependencias-actualizar');
+    Route::get('informeDependencia/eliminar/{id}','destroy')->name('informesDependencias-eliminar');
+});
+
+
+
 
 
 

@@ -2,86 +2,105 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\informe_dependencias;
-use App\Http\Controllers\Controller;
+use App\Models\Expediente;
+use App\Models\Informe_dependencias;
+use App\Models\Tipo_dependencia;
 use App\Http\Requests\Storeinforme_dependenciasRequest;
 use App\Http\Requests\Updateinforme_dependenciasRequest;
+use App\Http\Controllers\LogsInformeDependenciaController;
 
-class InformeDependenciasController extends Controller
-{
+
+class InformeDependenciasController extends Controller {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Método que retorna todos los informes de dependencia
+     * existentes en  la base de datos
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $informesDependencias = Informe_dependencias::all();
+        return view('informeDependencia.informesDependencias', ['informesDependencias'=> $informesDependencias]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Método que me lleva a un formulario para
+     * agregar un nuevo informe de dependencia
      */
-    public function create()
-    {
-        //
+    public function create() {
+        $expedientes = Expediente::all();
+        $tiposDependencias = Tipo_dependencia::all();
+        return view('informeDependencia.crear',['expedientes'=>$expedientes, 'tiposDependencias'=>$tiposDependencias]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     * Método que crea un nuevo informe de dependencia
      * @param  \App\Http\Requests\Storeinforme_dependenciasRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Storeinforme_dependenciasRequest $request)
-    {
-        //
+    public function store(Storeinforme_dependenciasRequest $request) {
+
+        $informeDependencia = new Informe_dependencias();
+        $informeDependencia->tipo_dependencia_id = $request->tipo_dependencia_id;
+        $informeDependencia->expediente_id = $request->expediente_id;
+        $informeDependencia->pdf_informe = $request->pdf_informe;
+        $informeDependencia->fecha_informe = $request->fecha_informe;
+        $informeDependencia->observaciones = $request->observaciones;
+
+        if($informeDependencia->save()){
+            $log = new LogsInformeDependenciaController();
+            $log->create($informeDependencia, 'c');
+            return redirect()->route('informesDependencias');
+        }
+
+        return back()->with('fail','No se pudo crear el usuario');
     }
 
     /**
-     * Display the specified resource.
+     * Método que me muestra un solo informe de dependencia
      *
-     * @param  \App\Models\informe_dependencias  $informe_dependencias
-     * @return \Illuminate\Http\Response
+     * @param  int $id
      */
-    public function show(informe_dependencias $informe_dependencias)
-    {
-        //
+    public function show($id) {
+        $informeDependencia = Informe_dependencias::find($id);
+        $expedientes = Expediente::all();
+        $tiposDependencias = Tipo_dependencia::all();
+        return view('informeDependencia.mostrar', ['informeDependencia'=> $informeDependencia,'expedientes'=>$expedientes, 'tiposDependencias'=>$tiposDependencias]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\informe_dependencias  $informe_dependencias
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(informe_dependencias $informe_dependencias)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
+     * Método que me edita un informe de dependencia
      * @param  \App\Http\Requests\Updateinforme_dependenciasRequest  $request
-     * @param  \App\Models\informe_dependencias  $informe_dependencias
-     * @return \Illuminate\Http\Response
      */
-    public function update(Updateinforme_dependenciasRequest $request, informe_dependencias $informe_dependencias)
-    {
-        //
+    public function update(Updateinforme_dependenciasRequest $request) {
+
+        $informeDependencia = Informe_dependencias::find($request->id);
+
+        $informeDependencia->tipo_dependencia_id = $request->tipo_dependencia_id;
+        $informeDependencia->expediente_id = $request->expediente_id;
+        $informeDependencia->pdf_informe = $request->pdf_informe;
+        $informeDependencia->fecha_informe = $request->fecha_informe;
+        $informeDependencia->observaciones = $request->observaciones;
+
+        if($informeDependencia->save()){
+            $log = new LogsInformeDependenciaController();
+            $log->create($informeDependencia, 'u');
+            return redirect()->route('informesDependencias');
+        }
+
+        return back()->with('fail','No se pudo actualizar el informe de dependencia');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\informe_dependencias  $informe_dependencias
-     * @return \Illuminate\Http\Response
+     * Método que elimina un estado de dependencia determinado
+     * @param  int $id
      */
-    public function destroy(informe_dependencias $informe_dependencias)
-    {
-        //
+    public function destroy($id) {
+        $informeDependencia = Informe_dependencias::find($id);
+
+        if($informeDependencia->delete()){
+            $log = new LogsInformeDependenciaController();
+            $log->create($informeDependencia, 'd');
+            return redirect()->route('informesDependencias');
+        }
+
+        return back()->with('fail','No se pudo eliminar el informe de dependencia');
     }
 }
