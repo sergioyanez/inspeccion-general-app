@@ -28,15 +28,28 @@ class ExpedienteController extends Controller
 
     public function index() {
         $expedientes = Expediente::query()
-            ->with(['contribuyentes', 'personasJuridicas'])
             ->when(request('buscarporcomercio'), function ($query) {
-                return $query->where('nro_comercio', 'LIKE', '%' . request('buscarporcomercio') . '%')
-                    ->orWhereHas('contribuyentes', function ($c) {
-                            $c->where('nombre', 'LIKE', '%' . request('buscarporcomercio') . '%');
+                return $query->where('actividad_ppal', 'LIKE', '%' . request('buscarporcomercio') . '%');
+                    
+                    
+            })
+            ->paginate(200);
+            return view('expediente.expedientes', ['expedientes' => $expedientes]);
+    }
+
+    public function index1() {
+        $expedientes = Expediente::query()
+            ->with(['contribuyentes', 'personasJuridicas'])
+            ->when(request('buscarporcontribuyente'), function ($query) {
+                
+                return $query->whereHas('contribuyentes', function ($c) {
+                            $c->where('nombre', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                            $c->orwhere('apellido', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
                         }
                     )
-                    ->orWhereHas('personasJuridicas', function ($c) {
-                            $c->where('nombre_representante', 'LIKE', '%' . request('buscarporcomercio') . '%');
+                    ->orWhereHas('personasJuridicas', function ($p) {
+                            $p->where('nombre_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                            $p->orwhere('apellido_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
                         }
                     );
                     
