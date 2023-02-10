@@ -9,9 +9,9 @@ use App\Http\Requests\Updatelogs_contribuyenteRequest;
 
 class LogsContribuyenteController extends Controller
 {
-    
 
-    
+
+
     // Crea un nuevo registro de log contribuyente
     public function store($contribuyente, $char)
     {
@@ -36,12 +36,12 @@ class LogsContribuyenteController extends Controller
         //$logs_contribuyente->usuario_nombre = $user->usuario; // IDEM ANTERIOR
 
         $logs_contribuyente->save();
-        
+
         //return 'guardado';
     }
 
-    
 
-    
-    
+
+
+
 }

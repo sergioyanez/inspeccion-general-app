@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('logs_usuarios', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('usuario_bd_id');
-            $table->string('usuario');
+            $table->bigInteger('usuario_bd_id');//id del usuario en la tabla user
+            $table->string('usuario');//nombre del usuario en la tabla user
             $table->bigInteger('tipo_permiso_id')->nullable();
             $table->string('email');
             $table->timestamp('email_verified_at')->nullable();

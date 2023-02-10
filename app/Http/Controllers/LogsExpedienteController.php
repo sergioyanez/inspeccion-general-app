@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\logs_expediente;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Storelogs_expedienteRequest;
-use App\Http\Requests\Updatelogs_expedienteRequest;
+use Illuminate\Support\Facades\Auth;
 
-class LogsExpedienteController extends Controller
+class LogsEstadoCivilController extends Controller
 {
 
     public function store($expediente, $char)

@@ -16,7 +16,6 @@ class LogsCatastroController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create($catastro, $char) {
-
         $logs_catastro = new logs_catastro();
         $user = auth()->user();
 

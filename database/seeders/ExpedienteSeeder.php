@@ -32,7 +32,7 @@ class ExpedienteSeeder extends Seeder
         $expediente2 = new expediente();
         $expediente2->catastro_id = 2;
         $expediente2-> nro_expediente = 457;
-        $expediente2-> nro_comercio = 765;
+        $expediente2-> nro_comercio = 766;
         $expediente2-> actividad_ppal = "Verduleria";
         $expediente2-> anexo = 1;
         $expediente2-> pdf_solicitud = "enlace1.com";
@@ -45,8 +45,8 @@ class ExpedienteSeeder extends Seeder
 
         $expediente3 = new expediente();
         $expediente3->catastro_id = 3;
-        $expediente3-> nro_expediente = 457;
-        $expediente3-> nro_comercio = 765;
+        $expediente3-> nro_expediente = 458;
+        $expediente3-> nro_comercio = 767;
         $expediente3-> actividad_ppal = "Verduleria";
         $expediente3-> anexo = 1;
         $expediente3-> pdf_solicitud = "enlace1.com";
@@ -59,9 +59,9 @@ class ExpedienteSeeder extends Seeder
 
         $expediente4 = new expediente();
         $expediente4->catastro_id = 4;
-        $expediente4-> nro_expediente = 457;
-        $expediente4-> nro_comercio = 765;
-        $expediente4-> actividad_ppal = "Verduleria";
+        $expediente4-> nro_expediente = 459;
+        $expediente4-> nro_comercio = 768;
+        $expediente4-> actividad_ppal = "Almacen";
         $expediente4-> anexo = 1;
         $expediente4-> pdf_solicitud = "enlace1.com";
         $expediente4-> bienes_de_uso = "auto 150000, estanterias 50000";
@@ -73,9 +73,9 @@ class ExpedienteSeeder extends Seeder
 
         $expediente5 = new expediente();
         $expediente5->catastro_id = 5;
-        $expediente5-> nro_expediente = 457;
-        $expediente5-> nro_comercio = 765;
-        $expediente5-> actividad_ppal = "Verduleria";
+        $expediente5-> nro_expediente = 460;
+        $expediente5-> nro_comercio = 769;
+        $expediente5-> actividad_ppal = "Maxi Kiosco";
         $expediente5-> anexo = 1;
         $expediente5-> pdf_solicitud = "enlace1.com";
         $expediente5-> bienes_de_uso = "auto 150000, estanterias 50000";
