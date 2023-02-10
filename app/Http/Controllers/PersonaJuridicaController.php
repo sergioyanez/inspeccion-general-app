@@ -13,21 +13,24 @@ class PersonaJuridicaController extends Controller {
     /**
      * Método que muestra todas las persona jurídiccas existentes
      */
-    public function index() {
-
-        $personasJuridicas = Persona_juridica::all();
-        return view('personaJuridica.personasJuridicas', ['personasJuridicas'=>$personasJuridicas]);
-    }
-
-     /**
-     * Muestra un formulario para crear una persona jurídica
-     */
-    public function create() {
-        return view('personaJuridica.crear');
+    public function index()
+    {
+        return "index persona juridica";
     }
 
     /**
-     * Método para crear una nueva persona jurídica
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return "create persona juridica";
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
      * @param  \App\Http\Requests\StorePersona_juridicaRequest  $request
      */
     public function store(StorePersona_juridicaRequest $request) {

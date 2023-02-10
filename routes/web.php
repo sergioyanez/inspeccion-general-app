@@ -31,6 +31,8 @@ use App\Http\Controllers\InformeDependenciasController;
 */
 $controller_path = 'App\Http\Controllers';
 
+$controller_path = 'App\Http\Controllers';
+
 Route::get('/', function () {
     return view('auth.login');
 });

@@ -1,4 +1,3 @@
-
 <h4>Contribuyentes de la aplicacion</h4>
 
 <div class="card">
@@ -26,7 +25,7 @@
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
-                @foreach($contribuyentes as $contribuyente)
+                @forelse($contribuyentes as $contribuyente)
                     <tr>
                         <td>{{$contribuyente->TipoDni->descripcion}}</td>
                         <td>{{$contribuyente->EstadoCivil->descripcion}}</td>
@@ -42,9 +41,11 @@
                         <td>{{$contribuyente->dni_conyuge}}</td>
                         <td>{{$contribuyente->created_at}}</td>
                         <td><a href="{{route('contribuyentes-mostrar', $contribuyente->id)}}">Editar</a></td>
-                        <td><a href="{{route('contribuyentes-eliminar', $contribuyente->id)}}">Eliminar</a></td>
+
                     </tr>
-                @endforeach
+                @empty
+                    <h2>No hay contribuyentes cargados en la aplicacion</h2>
+                @endforelse
             </tbody>
         </table>
      </div>
