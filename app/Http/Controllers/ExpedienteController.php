@@ -27,20 +27,29 @@ class ExpedienteController extends Controller
     }*/
 
     public function index() {
+        $expedientes = Expediente::query()
+            ->when(request('buscarporcomercio'), function ($query) {
+                return $query->where('nro_comercio', 'LIKE', '%' . request('buscarporcomercio') . '%');
 
-        $expeds = Expediente::all();
-        return view('expediente.expedientes', ['expedientes'=>$expeds]);
 
+            })
+            ->paginate(200);
+            return view('expediente.expedientes', ['expedientes' => $expedientes]);
+    }
+
+    public function index1() {
         $expedientes = Expediente::query()
             ->with(['contribuyentes', 'personasJuridicas'])
-            ->when(request('buscarporcomercio'), function ($query) {
-                return $query->where('nro_comercio', 'LIKE', '%' . request('buscarporcomercio') . '%')
-                    ->orWhereHas('contribuyentes', function ($c) {
-                            $c->where('nombre', 'LIKE', '%' . request('buscarporcomercio') . '%');
+            ->when(request('buscarporcontribuyente'), function ($query) {
+
+                return $query->whereHas('contribuyentes', function ($c) {
+                            $c->where('nombre', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                            $c->orwhere('apellido', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
                         }
                     )
-                    ->orWhereHas('personasJuridicas', function ($c) {
-                            $c->where('nombre_representante', 'LIKE', '%' . request('buscarporcomercio') . '%');
+                    ->orWhereHas('personasJuridicas', function ($p) {
+                            $p->where('nombre_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                            $p->orwhere('apellido_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
                         }
                     );
 
@@ -74,8 +83,6 @@ class ExpedienteController extends Controller
      */
     public function store(Request $request)
     {
-        $log = new LogsExpedienteController();
-
         $expediente = new Expediente();
         $expediente->catastro_id = $request->catastro_id;
         $expediente->estado_baja_id = $request->estado_baja_id;
@@ -89,11 +96,12 @@ class ExpedienteController extends Controller
         $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
         $expediente->detalle_inmueble_id = $request->detalle_inmueble_id;
 
-        $expediente->save();
-
-        $log->store($expediente, 'c');
-
-        return redirect()->route('expedientes');
+        if ($expediente->save()){
+            $log = new LogsExpedienteController();
+            $log->create($expediente, 'c');
+            return redirect()->route('expedientes');
+        }
+        return back()->with('fail','No se pudo crear el expediente');
     }
 
     /**
@@ -126,8 +134,6 @@ class ExpedienteController extends Controller
      */
     public function update(Request $request)
     {
-        $log = new LogsExpedienteController();
-
         $expediente = Expediente::find($request->expediente_id);
         $expediente->catastro_id = $request->catastro_id;
         $expediente->estado_baja_id = $request->estado_baja_id;
@@ -141,11 +147,12 @@ class ExpedienteController extends Controller
         $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
         $expediente->detalle_inmueble_id = $request->detalle_inmueble_id;
 
-        $expediente->save();
-
-        $log->store($expediente, 'u');
-
-        return redirect()->route('expedientes');
+        if ($expediente->save()){
+            $log = new LogsExpedienteController();
+            $log->create($expediente, 'u');
+            return redirect()->route('expedientes');
+        }
+        return back()->with('fail','No se pudo crear el expediente');
     }
 
     /**
@@ -156,13 +163,12 @@ class ExpedienteController extends Controller
      */
     public function destroy($id)
     {
-        $log = new LogsExpedienteController();
-
         $expediente = Expediente::find($id);
-        $expediente->delete();
-
-        $log->store($expediente, 'd');
-
-        return redirect()->route('expedientes');
+        if ($expediente->delete()){
+            $log = new LogsExpedienteController();
+            $log->create($expediente, 'd');
+            return redirect()->route('expedientes');
+        }
+        return back()->with('fail','No se pudo crear el expediente');
     }
 }

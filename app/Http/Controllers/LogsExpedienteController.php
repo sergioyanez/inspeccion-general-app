@@ -6,7 +6,7 @@ use App\Models\logs_expediente;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class LogsEstadoCivilController extends Controller
+class LogsExpedienteController extends Controller
 {
 
     public function store($expediente, $char)
