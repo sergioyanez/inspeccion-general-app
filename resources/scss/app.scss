@@ -58,3 +58,15 @@ body {
     width: 173.52px;
     height: 40px;
 }
+
+footer {
+    width: 1240px;
+    height: 70px;
+    background-color: var(--color-muted);
+    align-items: center;
+}
+
+.textoFooter {
+    font-size: 17;
+    color: var(--color-light);
+}
