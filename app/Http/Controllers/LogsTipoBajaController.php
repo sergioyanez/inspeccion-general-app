@@ -15,7 +15,7 @@ class LogsTipoBajaController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($tipo_baja, $char) {
+    public function store($tipo_baja, $char) {
         
         $logs_tipo_baja = new logs_tipo_baja();
         $user = auth()->user();

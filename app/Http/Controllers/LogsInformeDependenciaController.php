@@ -35,7 +35,7 @@ class LogsInformeDependenciaController extends Controller
      * @param  \App\Http\Requests\Storelogs_informe_dependenciaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Storelogs_informe_dependenciaRequest $request)
+    public function store()
     {
         //
     }
@@ -69,7 +69,7 @@ class LogsInformeDependenciaController extends Controller
      * @param  \App\Models\logs_informe_dependencia  $logs_informe_dependencia
      * @return \Illuminate\Http\Response
      */
-    public function update(Updatelogs_informe_dependenciaRequest $request, logs_informe_dependencia $logs_informe_dependencia)
+    public function update($request, logs_informe_dependencia $logs_informe_dependencia)
     {
         //
     }

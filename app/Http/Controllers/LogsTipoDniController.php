@@ -15,7 +15,7 @@ class LogsTipoDniController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($tipo_dni, $char) {
+    public function store($tipo_dni, $char) {
 
         $logs_tipo_dni = new logs_tipo_dni();
         $user = auth()->user();

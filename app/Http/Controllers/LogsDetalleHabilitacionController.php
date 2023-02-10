@@ -16,7 +16,7 @@ class LogsDetalleHabilitacionController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($detalle_habilitacion, $char) {
+    public function store($detalle_habilitacion, $char) {
 
         $logs_detalle_habilitacion = new logs_detalle_habilitacion();
         $user = auth()->user();

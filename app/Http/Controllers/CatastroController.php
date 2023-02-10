@@ -47,7 +47,7 @@ class CatastroController extends Controller {
 
         if($catastro->save()){
             $log = new LogsCatastroController();
-            $log->create($catastro, 'c');
+            $log->store($catastro, 'c');
             return redirect()->route('catastros');
         }
 
@@ -86,7 +86,7 @@ class CatastroController extends Controller {
 
         if($catastro->save()){
             $log = new LogsCatastroController();
-            $log->create($catastro, 'u');
+            $log->store($catastro, 'u');
             return redirect()->route('catastros');
         }
         return back()->with('fail','No se pudo actualizar el catastro');
@@ -100,7 +100,7 @@ class CatastroController extends Controller {
         $catastro = Catastro::find($id);
         if($catastro->delete()){
             $log = new LogsCatastroController();
-            $log->create($catastro, 'd');
+            $log->store($catastro, 'd');
             return redirect()->route('catastros');
         }
         return back()->with('fail','No se pudo eliminar el catastro');
