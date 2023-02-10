@@ -99,6 +99,7 @@ class ExpedienteController extends Controller
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->create($expediente, 'c');
+            $expedienteID= $expediente->id;
             return redirect()->route('expedientes');
         }
         return back()->with('fail','No se pudo crear el expediente');
