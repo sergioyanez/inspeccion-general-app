@@ -24,7 +24,7 @@ class LogsInmuebleController extends Controller
         $logs_inmueble->calle = $inmueble->calle;
         $logs_inmueble->numero = $inmueble->numero;
         $logs_inmueble->accion = $char;
-        $logs_inmueble->usuario_id = $user->id; 
+        $logs_inmueble->usuario_id = $user->id;
         $logs_inmueble->usuario_nombre = $user->usuario;
 
         return $logs_inmueble->save();
