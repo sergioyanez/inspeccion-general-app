@@ -7,14 +7,27 @@
             </div>
             <div class="card-body">
                 <!--ACA PODRIA IR UN INPUT OCULTO CON EL ID DEL PROX EXPEDIENTE A GUARDAR-->
-                <form method="GET" action="{{route('contribuyentesBuscar')}}">
+                <form method="GET" action="{{route('contribuyentes-buscar')}}">
                 @csrf
                     <div class="mb-3">
                         <label>Buscar contribuyente</label>
                         <input  type="text" name="buscarpor" class="form-control" placeholder="Nombre/Apellido"/>
                         <input type="submit" value="Buscar">
                     </div>
+
+                    @if(request('buscarpor'))
+                        @forelse ($contribuyentes as $contribuyente)
+                            <td>{{$contribuyente->nombre}}</td>
+                            <td>{{$contribuyente->apellido}}</td>
+                            <td>{{$contribuyente->dni}}</td>
+                        @empty
+                            <h2>No se encontrò el contribuyente</h2>
+                            <a href="{{route('contribuyentes-crearEnExpediente')}}" class="btn btn-primary">Crear nuevo contribuyente para el expediente</a>
+                        @endforelse
+                    @endif
                 </form>
+
+
                 <form>
                     @csrf
                     <div class="mb-3">

@@ -1,3 +1,4 @@
+
 <div class="row">
 
     <div class="col-xl-12">
@@ -63,6 +64,10 @@
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Dni del conyuge</label>
                         <input type="text" name="dni_conyuge" class="form-control" id="basic-default-nombreCompleto" />
+                    </div>
+
+                    <div >
+                        <input  type="hidden" name="expediente" value="{{$expediente}}" />
                     </div>
 
                     <button type="submit" class="btn btn-primary">Enviar</button>

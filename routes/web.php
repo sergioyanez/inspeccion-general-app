@@ -19,6 +19,8 @@ use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\EstadoBajaController;
 use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\InformeDependenciasController;
+use App\Http\Controllers\PaginaPrincipalController;
+use App\Http\Controllers\BusquedaExpedienteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,13 +75,13 @@ Route::controller(ContribuyenteController::class)->group(function(){
     Route::get('contribuyente','index')->name('contribuyentes');
     Route::get('contribuyenteBuscar','indexBuscar')->name('contribuyentes-buscar');
     Route::get('contribuyente/create','create')->name('contribuyentes-crear');
+    Route::get('contribuyente/create/enExpediente','createEnExpediente')->name('contribuyentes-crearEnExpediente');
+
     Route::post('contribuyente/guardar','store')->name('contribuyentes-guardar');
     Route::get('contribuyente/mostrar/{contribuyente_id}','show')->name('contribuyentes-mostrar');
     Route::post('contribuyente/actualizar','update')->name('contribuyentes-actualizar');
     Route::get('contribuyente/eliminar/{contribuyente_id}','destroy')->name('contribuyentes-eliminar');
 });
-
-Route::get('/contribuyenteBuscar', $controller_path . '\ContribuyenteController@indexBuscar')->name('contribuyentesBuscar');
 
 // RUTA DE PERSONA JURIDICA
 Route::controller(PersonaJuridicaController::class)->group(function(){

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contribuyente;
 use App\Models\Tipo_dni;
 use App\Models\Estado_civil;
+use Illuminate\Http\Request;
 use App\Http\Controllers\LogsContribuyenteController;
 use App\Http\Requests\StoreContribuyenteRequest;
 use App\Http\Requests\UpdateContribuyenteRequest;
@@ -20,6 +21,16 @@ class ContribuyenteController extends Controller
         return view('contribuyente.contribuyentes', ['contribuyentes' => $contribuyentes]);
     }
 
+    public function indexBuscar(Request $request)
+    {
+        $buscar = $request->buscarpor;
+        $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
+        ->where('nombre', 'LIKE', '%' . $buscar . '%')
+        ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
+        ->paginate(200);
+        return view('expediente.crear', ['contribuyentes' => $contribuyentes]);
+    }
+
     /**
      * Muestra un formulario para crear un contribuyente
      */
@@ -27,7 +38,19 @@ class ContribuyenteController extends Controller
     {
         $estadosCivil = Estado_civil::all();
         $tiposDni = Tipo_dni::all();
-        return view('contribuyente.crear', ['estados'=>$estadosCivil, 'tipos'=>$tiposDni]);
+        $expediente = false;
+        return view('contribuyente.crear', ['estados'=>$estadosCivil, 'tipos'=>$tiposDni, 'expediente'=>$expediente]);
+    }
+
+    /**
+     * Muestra un formulario para crear un contribuyente en el expediente
+     */
+    public function createEnExpediente()
+    {
+        $estadosCivil = Estado_civil::all();
+        $tiposDni = Tipo_dni::all();
+        $expediente = true;
+        return view('contribuyente.crear', ['estados'=>$estadosCivil, 'tipos'=>$tiposDni,'expediente'=>$expediente]);
     }
 
     /**
@@ -53,7 +76,13 @@ class ContribuyenteController extends Controller
         if($contribuyente->save()){
             $log = new LogsContribuyenteController();
             $log->store($contribuyente, 'c');
-            return redirect()->route('contribuyentes');
+            if(!$request->expediente){
+                return redirect()->route('contribuyentes');
+            }
+            else{
+                return view('expediente.crear', ['contribuyentes' => $contribuyente]);
+            }
+
         }
         return back()->with('fail','No se pudo crear el contribuyente');
     }
