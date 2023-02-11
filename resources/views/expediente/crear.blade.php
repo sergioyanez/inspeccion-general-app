@@ -16,18 +16,37 @@
                     </div>
 
                     @if(request('buscarpor'))
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">DNI</th>
+                          </tr>
+                        </thead>
+                        <tbody>
                         @forelse ($contribuyentes as $contribuyente)
-                            <td>{{$contribuyente->nombre}}</td>
-                            <td>{{$contribuyente->apellido}}</td>
-                            <td>{{$contribuyente->dni}}</td>
+
+                              <tr>
+                                <td>{{$contribuyente->nombre}}</td>
+                                <td>{{$contribuyente->apellido}}</td>
+                                <td>{{$contribuyente->dni}}</td>
+                                <td><div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                  </div></td>
+                              </tr>
+
                         @empty
                             <h2>No se encontrò el contribuyente</h2>
                             <a href="{{route('contribuyentes-crearEnExpediente')}}" class="btn btn-primary">Crear nuevo contribuyente para el expediente</a>
                         @endforelse
+                    </tbody>
+                </table>
+                <button>Agregar </button>
+                        <h2>Si el contribuyente no esta en la lista </h2>
+                        <a href="{{route('contribuyentes-crearEnExpediente')}}" class="btn btn-primary">Crear contribuyente para el expediente</a>
                     @endif
                 </form>
-
-
                 <form>
                     @csrf
                     <div class="mb-3">
@@ -48,11 +67,6 @@
                         <label class="form-label" for="basic-default-fullname">Titulares personas fisicas</label>
                         <input  type="text" name="titulares" class="form-control" id="basic-default-nombreCompleto" />
                     </div>
-
-
-
-
-
                     <button type="submit" class="btn btn-primary">Enviar</button>
                 </form>
             </div>
