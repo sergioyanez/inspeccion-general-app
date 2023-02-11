@@ -9,7 +9,7 @@ use App\Http\Requests\Updatelogs_expedienteRequest;
 
 class LogsExpedienteController extends Controller
 {
-    
+
     public function store($expediente, $char)
     {
         $logs_expediente = new logs_expediente();
@@ -28,13 +28,14 @@ class LogsExpedienteController extends Controller
         $logs_expediente->estado_baja_id = $expediente->estado_baja_id;
         $logs_expediente->detalle_inmueble_id = $expediente->detalle_inmueble_id;
         $logs_expediente->accion = $char;
-        $logs_expediente->usuario_id = $user->id;   
-        $logs_expediente->usuario_nombre = $user->usuario;   
-        
+        // $logs_expediente->usuario_id = $user->id;
+        // $logs_expediente->usuario_nombre = $user->usuario;
+        $logs_expediente->save();
+
         return 'guardado';
     }
 
-    
 
-    
+
+
 }

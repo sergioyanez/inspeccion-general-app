@@ -8,15 +8,15 @@ use App\Http\Requests\Storelogs_catastroRequest;
 use App\Http\Requests\Updatelogs_catastroRequest;
 
 class LogsCatastroController extends Controller {
-    
+
     /**
-     * Crea en la tabla logs las consultas realizadas 
+     * Crea en la tabla logs las consultas realizadas
      * sobre la tabla catastro
      *
      * @return \Illuminate\Http\Response
      */
     public function store($catastro, $char) {
-        
+
         $logs_catastro = new logs_catastro();
         $user = auth()->user();
 
@@ -33,10 +33,9 @@ class LogsCatastroController extends Controller {
         $logs_catastro->fecha_informe = $catastro->fecha_informe;
         $logs_catastro->pdf_informe = $catastro->pdf_informe;
         $logs_catastro->accion = $char;
-        $logs_catastro->usuario_id = $user->id; 
-        $logs_catastro->usuario_nombre = $user->usuario; 
+        // $logs_catastro->usuario_id = $user->id;
+        // $logs_catastro->usuario_nombre = $user->usuario;
         $logs_catastro->save();
-        
 
         return 'guardado';
     }

@@ -27,8 +27,8 @@ class LogsDetalleHabilitacionController extends Controller {
         $logs_detalle_habilitacion->fecha_primer_habilitacion = $detalle_habilitacion->fecha_primer_habilitacion;
         $logs_detalle_habilitacion->pdf_certificado_habilitacion = $detalle_habilitacion->pdf_certificado_habilitacion;
         $logs_detalle_habilitacion->accion = $char;
-        $logs_detalle_habilitacion->usuario_id = $user->id; 
-        $logs_detalle_habilitacion->usuario_nombre = $user->usuario;
+        // $logs_detalle_habilitacion->usuario_id = $user->id;
+        // $logs_detalle_habilitacion->usuario_nombre = $user->usuario;
         $logs_detalle_habilitacion->save();
 
         return 'guardado';
