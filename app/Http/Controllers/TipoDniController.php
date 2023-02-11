@@ -39,7 +39,7 @@ class TipoDniController extends Controller{
 
         if($tipoDni->save()){
             $log = new LogsTipoDniController();
-            $log->create($tipoDni, 'c');
+            $log->store($tipoDni, 'c');
             return redirect()->route('dnis');
         }
 
@@ -69,7 +69,7 @@ class TipoDniController extends Controller{
 
         if($tipoDni->save()){
             $log = new LogsTipoDniController();
-            $log->create($tipoDni, 'u');
+            $log->store($tipoDni, 'u');
             return redirect()->route('dnis');
         }
 
@@ -84,7 +84,7 @@ class TipoDniController extends Controller{
         $tipoDni = Tipo_dni::find($id);
         if($tipoDni->delete()){
             $log = new LogsTipoDniController();
-            $log->create($tipoDni, 'd');
+            $log->store($tipoDni, 'd');
             return redirect()->route('dnis');
         }
         return back()->with('fail','No se pudo eliminar el dni');

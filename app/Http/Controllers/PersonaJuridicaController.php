@@ -41,7 +41,7 @@ class PersonaJuridicaController extends Controller {
 
         if($personaJuridica->save()){
             $log = new LogsPersonaJuridicaController();
-            $log->create($personaJuridica, 'c');
+            $log->store($personaJuridica, 'c');
             return redirect()->route('personasJuridicas');
         }
         return back()->with('fail','No se pudo cargar persona jurídica');
@@ -60,6 +60,7 @@ class PersonaJuridicaController extends Controller {
     /**
      * Método para editar una persona jurídica
      * @param  \App\Http\Requests\UpdatePersona_juridicaRequest  $request
+     * 
      */
     public function update(UpdatePersona_juridicaRequest $request) {
 
@@ -72,7 +73,7 @@ class PersonaJuridicaController extends Controller {
 
         if($personaJuridica->save()){
             $log = new LogsPersonaJuridicaController();
-            $log->create($personaJuridica, 'u');
+            $log->store($personaJuridica, 'u');
             return redirect()->route('personasJuridicas');
         }
         return back()->with('fail','No se pudo actualizar la persona jurídica');
@@ -88,7 +89,7 @@ class PersonaJuridicaController extends Controller {
         $personaJuridica = Persona_juridica::find($id);
         if($personaJuridica->delete()){
             $log = new LogsPersonaJuridicaController();
-            $log->create($personaJuridica, 'd');
+            $log->store($personaJuridica, 'd');
             return redirect()->route('personasJuridicas');
         }
         return back()->with('fail','No se pudo eliminar la persona jurídica');
