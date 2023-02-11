@@ -36,7 +36,7 @@ class TipoInmuebleController extends Controller {
 
         if($tipoInmueble->save()){
             $log = new LogsTipoInmuebleController();
-            $log->create($tipoInmueble, 'c');
+            $log->store($tipoInmueble, 'c');
             return redirect()->route('tiposInmuebles');
         }
 
@@ -64,7 +64,7 @@ class TipoInmuebleController extends Controller {
 
         if($tipoInmueble->save()){
             $log = new LogsTipoInmuebleController();
-            $log->create($tipoInmueble, 'u');
+            $log->store($tipoInmueble, 'u');
             return redirect()->route('tiposInmuebles');
         }
         return back()->with('fail','No se pudo actualizar el tipo de inmueble');
@@ -79,7 +79,7 @@ class TipoInmuebleController extends Controller {
         $tipoInmueble = Tipo_inmueble::find($id);
         if($tipoInmueble->delete()){
             $log = new LogsTipoInmuebleController();
-            $log->create($tipoInmueble, 'd');
+            $log->store($tipoInmueble, 'd');
             return redirect()->route('tiposInmuebles');
         }
         return back()->with('fail','No se pudo eliminar el tipo de inmueble');

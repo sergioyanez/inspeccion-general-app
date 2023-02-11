@@ -38,7 +38,7 @@ class TipoHabilitacionController extends Controller
 
         if ($tipoHabilitacion->save()){
             $log = new LogsTipoHabilitacionController();
-            $log->create($tipoHabilitacion, 'c');
+            $log->store($tipoHabilitacion, 'c');
             return redirect()->route('tiposHabilitaciones');
 
         }
@@ -51,13 +51,13 @@ class TipoHabilitacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show($id)
     {
         $tipoHabilitacion = Tipo_habilitacion::find($id);
         return view('tipoHabilitacion.mostrar', ['tipoHabilitacion'=>$tipoHabilitacion]);
     }
 
-/**
+    /**
      * Método para editar un tipo de habilitacion
      * @param  \App\Http\Requests\UpdateTipo_habilitacionRequest  $request
      */
@@ -68,7 +68,7 @@ class TipoHabilitacionController extends Controller
         $tipoHabilitacion->plazo_vencimiento = $request->plazo_vencimiento;
         if ($tipoHabilitacion->save()){
             $log = new LogsTipoHabilitacionController();
-            $log->create($tipoHabilitacion, 'u');
+            $log->store($tipoHabilitacion, 'u');
             return redirect()->route('tiposHabilitaciones');
 
         }
@@ -83,12 +83,12 @@ class TipoHabilitacionController extends Controller
      * Eliminar un tipo de habilitacion
      * @param int $id
      */
-    public function destroy(int $id)
+    public function destroy($id)
     {
         $tipoHabilitacion = Tipo_habilitacion::find($id);
         if ($tipoHabilitacion->delete()){
             $log = new LogsTipoHabilitacionController();
-            $log->create($tipoHabilitacion, 'd');
+            $log->store($tipoHabilitacion, 'd');
             return redirect()->route('tiposHabilitaciones');
         }
         return back()->with('fail','No se pudo eliminar el estado civil');

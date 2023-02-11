@@ -36,7 +36,7 @@ class TipoPermisoController extends Controller {
 
         if($tipoPermiso->save()){
             $log = new LogsTipoPermisoController();
-            $log->create($tipoPermiso, 'c');
+            $log->store($tipoPermiso, 'c');
             return redirect()->route('tiposPermisos');
         }
 
@@ -68,7 +68,7 @@ class TipoPermisoController extends Controller {
 
         if($tipoPermiso->save()){
             $log = new LogsTipoPermisoController();
-            $log->create($tipoPermiso, 'u');
+            $log->store($tipoPermiso, 'u');
             return redirect()->route('tiposPermisos');
         }
 
@@ -84,7 +84,7 @@ class TipoPermisoController extends Controller {
         $tipoPermiso = Tipo_permiso::find($id);
         if($tipoPermiso->delete()){
             $log = new LogsTipoDniController();
-            $log->create($tipoPermiso, 'd');
+            $log->store($tipoPermiso, 'd');
             return redirect()->route('tiposPermisos');
         }
         return back()->with('fail','No se pudo eliminar el tipo de permiso');

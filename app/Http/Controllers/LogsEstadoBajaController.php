@@ -14,10 +14,10 @@ class LogsEstadoBajaController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($estadoBaja, $char) {
+    public function store($estadoBaja, $char) {
 
         $logs_estado_baja = new logs_estado_baja();
-        //$user = auth()->user();
+        $user = auth()->user();
 
         $logs_estado_baja->estado_baja_id = $estadoBaja->id;
         $logs_estado_baja->tipo_baja_id =$estadoBaja->tipo_baja_id;
@@ -27,11 +27,10 @@ class LogsEstadoBajaController extends Controller {
         $logs_estado_baja->pdf_informe_deuda = $estadoBaja->pdf_informe_deuda;
         $logs_estado_baja->pdf_solicitud_baja = $estadoBaja->pdf_solicitud_baja;
         $logs_estado_baja->accion = $char;
-        //$logs_estado_baja->usuario_id = $user->id;
-        //$logs_estado_baja->usuario_nombre = $user->usuario;
+        // $logs_estado_baja->usuario_id = $user->id;
+        // $logs_estado_baja->usuario_nombre = $user->usuario;
 
         return $logs_estado_baja->save();
     }
 
 }
-

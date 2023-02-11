@@ -44,7 +44,7 @@ class DetalleHabilitacionController extends Controller
 
         if($detalleHabilitacion->save()){
             $log = new LogsDetalleHabilitacionController();
-            $log->create($detalleHabilitacion, 'c');
+            $log->store($detalleHabilitacion, 'c');
             return redirect()->route('detallesHabilitaciones');
         }
         return back()->with('fail','No se pudo crear el detalle de habilitación');
@@ -77,7 +77,7 @@ class DetalleHabilitacionController extends Controller
 
         if($detalleHabilitacion->save()){
             $log = new LogsDetalleHabilitacionController();
-            $log->create($detalleHabilitacion, 'u');
+            $log->store($detalleHabilitacion, 'u');
             return redirect()->route('detallesHabilitaciones');
         }
         return back()->with('fail','No se pudo crear el detalle de habilitación');
@@ -92,7 +92,7 @@ class DetalleHabilitacionController extends Controller
         $detalleHabilitacion = Detalle_habilitacion::find($id);
         if($detalleHabilitacion->delete()){
             $log = new LogsDetalleHabilitacionController();
-            $log->create($detalleHabilitacion, 'd');
+            $log->store($detalleHabilitacion, 'd');
             return redirect()->route('detallesHabilitaciones');
         }
         return back()->with('fail','No se pudo crear el detalle de habilitación');

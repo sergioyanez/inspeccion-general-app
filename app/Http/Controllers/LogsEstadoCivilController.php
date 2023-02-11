@@ -14,7 +14,7 @@ class LogsEstadoCivilController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($estado_civil, $char)
+    public function store($estado_civil, $char)
     {
         $logs_estado_civil = new logs_estado_civil();
 

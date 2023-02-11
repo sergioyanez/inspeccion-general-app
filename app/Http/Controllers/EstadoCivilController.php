@@ -36,7 +36,7 @@ class EstadoCivilController extends Controller
 
         if ($estado_civil->save()){
             $log = new LogsEstadoCivilController();
-            $log->create($estado_civil, 'c');
+            $log->store($estado_civil, 'c');
             return redirect()->route('estadosCiviles');
         }
         return back()->with('fail','No se pudo cargar el estado civil');
@@ -62,7 +62,7 @@ class EstadoCivilController extends Controller
 
         if($estadoCivil->save()){
             $log = new LogsEstadoCivilController();
-            $log->create($estadoCivil, 'u');
+            $log->store($estadoCivil, 'u');
             return redirect()->route('estadosCiviles');
         }
 
@@ -78,7 +78,7 @@ class EstadoCivilController extends Controller
         $estadoCivil = Estado_civil::find($id);
         if ($estadoCivil->delete()){
             $log = new LogsEstadoCivilController();
-            $log->create($estadoCivil, 'd');
+            $log->store($estadoCivil, 'd');
             return redirect()->route('estadosCiviles');
         }
         return back()->with('fail','No se pudo eliminar el estado civil');

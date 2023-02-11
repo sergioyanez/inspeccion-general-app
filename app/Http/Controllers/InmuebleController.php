@@ -48,7 +48,7 @@ class InmuebleController extends Controller
 
         if ($inmueble->save()){
             $log = new LogsInmuebleController();
-            $log->create($inmueble, 'c');
+            $log->store($inmueble, 'c');
             return redirect()->route('inmuebles');
         }
         return back()->with('fail','No se pudo cargar el inmueble');
@@ -60,7 +60,7 @@ class InmuebleController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $id)
+    public function show($id)
     {
         $inmueble = Inmueble::find($id);
         return view('inmueble.mostrar', ['inmueble'=>$inmueble]);
@@ -80,7 +80,7 @@ class InmuebleController extends Controller
 
         if($inmueble->save()){
             $log = new LogsInmuebleController();
-            $log->create($inmueble, 'u');
+            $log->store($inmueble, 'u');
             return redirect()->route('inmuebles');
         }
 
@@ -94,12 +94,12 @@ class InmuebleController extends Controller
      * @return \Illuminate\Http\Response
      *
      */
-    public function destroy(int $id)
+    public function destroy($id)
     {
         $inmueble = Inmueble::find($id);
         if($inmueble->delete()){
             $log = new LogsInmuebleController();
-            $log->create($inmueble, 'd');
+            $log->store($inmueble, 'd');
             return redirect()->route('inmuebles');
         }
 

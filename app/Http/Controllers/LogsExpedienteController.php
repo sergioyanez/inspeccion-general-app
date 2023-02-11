@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\logs_expediente;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Storelogs_expedienteRequest;
+use App\Http\Requests\Updatelogs_expedienteRequest;
 
 class LogsExpedienteController extends Controller
 {
