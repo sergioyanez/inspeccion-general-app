@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreInmuebleRequest extends FormRequest
+class StoreDetalle_inmuebleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class StoreInmuebleRequest extends FormRequest
     public function rules()
     {
         return [
-            'calle' => 'required|string',
-            'numero' => 'nullable|integer'
+            'inmueble_id'=>'required',
+            'tipo_inmueble_id'=>'required'
         ];
     }
 }
