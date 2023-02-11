@@ -1,6 +1,6 @@
 <div class="card">
     <div class="table-responsive text-nowrap">
-
+        <a href="{{route('expedientes-crear')}}" class="btn btn-primary">Crear nuevo expediente</a>
         @include('header.header')
 
             <table class="table">
