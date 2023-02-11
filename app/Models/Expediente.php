@@ -41,4 +41,9 @@ public function detalleHabilitacion(){
         return $this->belongsToMany('App\Models\Persona_juridica','expedientes_personas_juridicas','expediente_id','persona_juridica_id');
     }
 
+    //Relacion uno a muchos un expediente tiene muchos expedientesContribuyentes.
+    public function expedientesContribuyentes(){
+        return $this->hasMany('App\Models\ExpedienteContribuyente');
+    }
+
 }

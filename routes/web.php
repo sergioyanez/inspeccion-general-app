@@ -21,6 +21,7 @@ use App\Http\Controllers\ExpedienteController;
 use App\Http\Controllers\InformeDependenciasController;
 use App\Http\Controllers\PaginaPrincipalController;
 use App\Http\Controllers\BusquedaExpedienteController;
+use App\Http\Controllers\ExpedienteContribuyenteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -251,6 +252,16 @@ Route::controller(TipoPermisoController::class)->group(function(){
     Route::get('tipoPermiso/mostrar/{id}','show')->name('tiposPermisos-mostrar');
     Route::post('tipoPermiso/actualizar','update')->name('tiposPermisos-actualizar');
     Route::get('tipoPermiso/eliminar/{id}','destroy')->name('tiposPermisos-eliminar');
+});
+
+// RUTA DE EXPEDIENTES-CONTRIBUYENTES
+Route::controller(ExpedienteContribuyenteController::class)->group(function(){
+    Route::get('expedienteContribuyente','index')->name('expedientesContribuyentes');
+    Route::get('expedienteContribuyente/create','create')->name('expedientesContribuyentes-crear');
+    Route::post('expedienteContribuyente/guardar','store')->name('expedientesContribuyentes-guardar');
+    Route::get('expedienteContribuyente/mostrar/{id}','show')->name('expedientesContribuyentes-mostrar');
+    Route::post('expedienteContribuyente/actualizar','update')->name('expedientesContribuyentes-actualizar');
+    Route::get('expedienteContribuyente/eliminar/{id}','destroy')->name('expedientesContribuyentes-eliminar');
 });
 
 
