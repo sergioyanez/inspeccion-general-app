@@ -46,7 +46,7 @@ class InformeDependenciasController extends Controller {
 
         if($informeDependencia->save()){
             $log = new LogsInformeDependenciaController();
-            $log->create($informeDependencia, 'c');
+            $log->store($informeDependencia, 'c');
             return redirect()->route('informesDependencias');
         }
 
@@ -81,7 +81,7 @@ class InformeDependenciasController extends Controller {
 
         if($informeDependencia->save()){
             $log = new LogsInformeDependenciaController();
-            $log->create($informeDependencia, 'u');
+            $log->store($informeDependencia, 'u');
             return redirect()->route('informesDependencias');
         }
 
@@ -97,7 +97,7 @@ class InformeDependenciasController extends Controller {
 
         if($informeDependencia->delete()){
             $log = new LogsInformeDependenciaController();
-            $log->create($informeDependencia, 'd');
+            $log->store($informeDependencia, 'd');
             return redirect()->route('informesDependencias');
         }
 

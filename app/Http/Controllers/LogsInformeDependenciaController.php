@@ -9,16 +9,16 @@ use Illuminate\Support\Facades\Auth;
 class LogsInformeDependenciaController extends Controller {
 
     /**
-     * Método que crea un objeto sobre la tabla
+     * Método que crea y almacena un objeto sobre la tabla
      * logs_informes_dependencias, por cada consulta
      * realizada sobre la misma
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($informe_dependencia, $char) {
+    public function store($informe_dependencia, $char) {
 
         $logs_informe_dependencia = new logs_informe_dependencia();
-        //$user = auth()->user();
+        $user = auth()->user();
 
         $logs_informe_dependencia->informe_dependencia_id = $informe_dependencia->id;
         $logs_informe_dependencia->tipo_dependencia_id = $informe_dependencia->tipo_dependencia_id;

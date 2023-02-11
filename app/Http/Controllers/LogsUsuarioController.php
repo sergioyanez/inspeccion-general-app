@@ -17,7 +17,7 @@ class LogsUsuarioController extends Controller {
     public function store($usuario, $char) {
 
         $log_usuario = new logs_usuario();
-        //$user = auth()->user();
+        $user = auth()->user();
 
         $log_usuario->usuario_bd_id = $usuario->id;
         $log_usuario->usuario = $usuario->usuario;

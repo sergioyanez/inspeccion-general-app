@@ -25,9 +25,8 @@ class LogsDetalleInmuebleController extends Controller
         $logsDetalleInmueble->tipo_inmueble_id = $detalleInmueble->tipo_inmueble_id;
         $logsDetalleInmueble->fecha_venc_alquiler = $detalleInmueble->fecha_venc_alquiler;
         $logsDetalleInmueble->accion = $char;
-        //$logs_usuario->usuario_id = $user->id; -> PORBAR CON USUARIO
-        //$logs_usuario->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
-
+        // $logsDetalleInmueble->usuario_id = $user->id;
+        // $logsDetalleInmueble->usuario_nombre = $user->usuario;
         $logsDetalleInmueble->save();
 
         return 'guardado';

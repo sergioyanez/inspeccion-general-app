@@ -38,7 +38,7 @@ class TipoBajaController extends Controller {
 
         if($tipoBaja->save()){
             $log = new LogsTipoBajaController();
-            $log->create($tipoBaja, 'c');
+            $log->store($tipoBaja, 'c');
             return redirect()->route('tiposBajas');
         }
 
@@ -68,7 +68,7 @@ class TipoBajaController extends Controller {
 
         if($tipoBaja->save()){
             $log = new LogsTipoBajaController();
-            $log->create($tipoBaja, 'u');
+            $log->store($tipoBaja, 'u');
             return redirect()->route('tiposBajas');
         }
         return back()->with('fail','No se pudo actualizar el tipo de baja');
@@ -85,7 +85,7 @@ class TipoBajaController extends Controller {
 
         if($tipoBaja->delete()){
             $log = new LogsTipoBajaController();
-            $log->create($tipoBaja, 'd');
+            $log->store($tipoBaja, 'd');
             return redirect()->route('tiposBajas');
         }
         return back()->with('fail','No se pudo eliminar el tipo de baja');

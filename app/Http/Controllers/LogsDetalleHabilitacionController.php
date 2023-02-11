@@ -16,7 +16,7 @@ class LogsDetalleHabilitacionController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($detalle_habilitacion, $char) {
+    public function store($detalle_habilitacion, $char) {
 
         $logs_detalle_habilitacion = new logs_detalle_habilitacion();
         $user = auth()->user();
@@ -27,9 +27,8 @@ class LogsDetalleHabilitacionController extends Controller {
         $logs_detalle_habilitacion->fecha_primer_habilitacion = $detalle_habilitacion->fecha_primer_habilitacion;
         $logs_detalle_habilitacion->pdf_certificado_habilitacion = $detalle_habilitacion->pdf_certificado_habilitacion;
         $logs_detalle_habilitacion->accion = $char;
-        //$logs_usuario->usuario_id = $user->id; -> PORBAR CON USUARIO
-        //$logs_usuario->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
-
+        // $logs_detalle_habilitacion->usuario_id = $user->id;
+        // $logs_detalle_habilitacion->usuario_nombre = $user->usuario;
         $logs_detalle_habilitacion->save();
 
         return 'guardado';

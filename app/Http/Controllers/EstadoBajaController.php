@@ -43,7 +43,7 @@ class EstadoBajaController extends Controller {
 
         if($estado_baja->save()){
             $log = new LogsEstadoBajaController();
-            $log->create($estado_baja, 'c');
+            $log->store($estado_baja, 'c');
             return redirect()->route('estadosBajas');
         }
 
@@ -76,7 +76,7 @@ class EstadoBajaController extends Controller {
 
         if($estado_baja->save()){
             $log = new LogsEstadoBajaController();
-            $log->create($estado_baja, 'u');
+            $log->store($estado_baja, 'u');
             return redirect()->route('estadosBajas');
         }
 
@@ -93,7 +93,7 @@ class EstadoBajaController extends Controller {
 
         if($estado_baja->delete()){
             $log = new LogsEstadoBajaController();
-            $log->create($estado_baja, 'd');
+            $log->store($estado_baja, 'd');
             return redirect()->route('estadosBajas');
         }
 

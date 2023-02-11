@@ -15,7 +15,7 @@ class LogsPersonaJuridicaController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($persona_juridica, $char) {
+    public function store($persona_juridica, $char) {
 
         $logs_persona_juridica = new logs_persona_juridica();
 

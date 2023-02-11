@@ -16,7 +16,7 @@ class LogsTipoDependenciaController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($tipo_dependencia, $char){
+    public function store($tipo_dependencia, $char){
 
         $logs_tipo_dependencia = new logs_tipo_dependencia();
         $user = auth()->user();
