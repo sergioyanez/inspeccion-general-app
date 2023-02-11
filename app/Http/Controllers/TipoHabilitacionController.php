@@ -94,5 +94,3 @@ class TipoHabilitacionController extends Controller
         return back()->with('fail','No se pudo eliminar el estado civil');
     }
 }
-
-

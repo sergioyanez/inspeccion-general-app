@@ -29,8 +29,9 @@ class LogsEstadoBajaController extends Controller {
         $logs_estado_baja->accion = $char;
         // $logs_estado_baja->usuario_id = $user->id;
         // $logs_estado_baja->usuario_nombre = $user->usuario;
-
-        return $logs_estado_baja->save();
+        $logs_estado_baja->save();
+        return "guardado";
     }
 
 }
+

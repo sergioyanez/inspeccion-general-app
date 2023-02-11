@@ -14,20 +14,20 @@ class LogsTipoHabilitacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store($tipo_habilitacion, $char)
+    public function create($tipoHabilitacion, $char)
     {
-        $logs_tipo_habilitacion = new logs_tipo_habilitacion();
+        $logsTipoHabilitacion = new logs_tipo_habilitacion();
 
-        $user= Auth::user();
+        //$user= Auth::user();
 
-        $logs_tipo_habilitacion->tipo_habilitacion_id = $tipo_habilitacion->id;
-        $logs_tipo_habilitacion->descripcion = $tipo_habilitacion->descripcion;
-        $logs_tipo_habilitacion->plazo_vencimiento = $tipo_habilitacion->plazo_vencimiento;
-        $logs_tipo_habilitacion->accion = $char;
-        // $logs_tipo_habilitacion->usuario_id = $user->id;
-        // $logs_tipo_habilitacion->usuario_nombre = $user->usuario;
+        $logsTipoHabilitacion->tipo_habilitacion_id = $tipoHabilitacion->id;
+        $logsTipoHabilitacion->descripcion = $tipoHabilitacion->descripcion;
+        $logsTipoHabilitacion->plazo_vencimiento = $tipoHabilitacion->plazo_vencimiento;
+        $logsTipoHabilitacion->accion = $char;
+        //$logs_tipo_habilitacion->usuario_id = $user->id;
+        //$logs_tipo_habilitacion->usuario_nombre = $user->usuario;
 
-        return $logs_tipo_habilitacion->save();
+        return $logsTipoHabilitacion->save();
     }
 
 }

@@ -28,12 +28,11 @@ class LogsExpedienteController extends Controller
         $logs_expediente->estado_baja_id = $expediente->estado_baja_id;
         $logs_expediente->detalle_inmueble_id = $expediente->detalle_inmueble_id;
         $logs_expediente->accion = $char;
-
+        // $logs_expediente->usuario_id = $user->id;
+        // $logs_expediente->usuario_nombre = $user->usuario;
         $logs_expediente->save();
-        //$logs_expediente->usuario_id = $user->id;    PROBAR CON USUARIO
-        //$logs_expediente->usuario_nombre = $user->usuario;    IDEM ANTERIOR
 
-        //return 'guardado';
+        return 'guardado';
     }
 
 
