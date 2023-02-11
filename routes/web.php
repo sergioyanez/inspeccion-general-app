@@ -76,7 +76,6 @@ Route::controller(ContribuyenteController::class)->group(function(){
     Route::get('contribuyenteBuscar','indexBuscar')->name('contribuyentes-buscar');
     Route::get('contribuyente/create','create')->name('contribuyentes-crear');
     Route::get('contribuyente/create/enExpediente','createEnExpediente')->name('contribuyentes-crearEnExpediente');
-
     Route::post('contribuyente/guardar','store')->name('contribuyentes-guardar');
     Route::get('contribuyente/mostrar/{contribuyente_id}','show')->name('contribuyentes-mostrar');
     Route::post('contribuyente/actualizar','update')->name('contribuyentes-actualizar');
