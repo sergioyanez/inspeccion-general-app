@@ -26,7 +26,7 @@ body {
 .navbar > .container-lg,
 .navbar > .container-xl,
 .navbar > .container-xxl {
-    border-bottom: 1px solid var(--color-muted);
+    border-bottom: .1px solid var(--color-muted);
 }
 
 .logo {
@@ -42,7 +42,7 @@ body {
 
 .textUser {
     font-size: 20;
-    font-weight: normal;
+    font-weight:normal;
     color: var(--color-muted);
 }
 .btn-secundary {
@@ -57,4 +57,13 @@ body {
 .btn-salir {
     width: 173.52px;
     height: 40px;
+}
+
+a:link, a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--color-muted);
+    opacity: 50%;
 }
