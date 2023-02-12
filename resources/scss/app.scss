@@ -45,6 +45,16 @@ body {
     font-weight:normal;
     color: var(--color-muted);
 }
+
+.textUser:link, a:visited {
+    text-decoration: none;
+}
+
+.textUser:hover {
+    color: var(--color-muted);
+    opacity: 50%;
+}
+
 .btn-secundary {
     background-color: var(--color-muted);
     color: var(--color-light);
@@ -59,11 +69,23 @@ body {
     height: 40px;
 }
 
-a:link, a:visited {
+////////////////****FOOTER****///////////////////////////////////////////////////////
+footer {
+    height: 70px;
+    background-color: var(--color-muted);
+}
+
+.textoFooter {
+    font-size: 17;
+    color: var(--color-light);
+}
+
+.textoFooter a:link, a:visited {
     text-decoration: none;
 }
 
-a:hover {
-    color: var(--color-muted);
+.textoFooter a:hover {
+    color: var(--color-light);
     opacity: 50%;
 }
+////////////////****FIN FOOTER****///////////////////////////////////////////////////////
