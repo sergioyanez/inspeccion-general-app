@@ -35,6 +35,9 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div >
+                            <input  type="hidden" name="exped" value="{{$exped}}" />
+                        </div>
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </form>
                 </div>

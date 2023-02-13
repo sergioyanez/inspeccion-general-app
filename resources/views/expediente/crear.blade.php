@@ -11,7 +11,7 @@
                 @csrf
                     <div class="mb-3">
                         <label>Buscar contribuyente</label>
-                        <input  type="text" name="buscarpor" class="form-control" placeholder="Nombre/Apellido"/>
+                        <input  type="text" name="buscarpor" class="form-control" placeholder="DNI contribuyente"/>
                         <input type="submit" value="Buscar">
                     </div>
 
@@ -42,7 +42,7 @@
                         @endforelse
                     </tbody>
                 </table>
-                <button>Agregar </button>
+                <a  href="{{route('expedientesContribuyentes-crearEnExpediente')}}" class="btn btn-primary">Agregar contribuyente al expediente</a>
                         <h2>Si el contribuyente no esta en la lista </h2>
                         <a href="{{route('contribuyentes-crearEnExpediente')}}" class="btn btn-primary">Crear contribuyente para el expediente</a>
                     @endif

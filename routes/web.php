@@ -32,9 +32,7 @@ use App\Http\Controllers\ExpedienteContribuyenteController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-$controller_path = 'App\Http\Controllers';
 
-$controller_path = 'App\Http\Controllers';
 
 Route::get('/', function () {
     return view('auth.login');
@@ -81,6 +79,17 @@ Route::controller(ContribuyenteController::class)->group(function(){
     Route::get('contribuyente/mostrar/{contribuyente_id}','show')->name('contribuyentes-mostrar');
     Route::post('contribuyente/actualizar','update')->name('contribuyentes-actualizar');
     Route::get('contribuyente/eliminar/{contribuyente_id}','destroy')->name('contribuyentes-eliminar');
+});
+
+// RUTA DE EXPEDIENTES-CONTRIBUYENTES
+Route::controller(ExpedienteContribuyenteController::class)->group(function(){
+    Route::get('expedienteContribuyente','index')->name('expedientesContribuyentes');
+    Route::get('expedienteContribuyente/create','create')->name('expedientesContribuyentes-crear');
+    Route::post('expedienteContribuyente/guardar','store')->name('expedientesContribuyentes-guardar');
+    Route::get('expedienteContribuyente/mostrar/{id}','show')->name('expedientesContribuyentes-mostrar');
+    Route::post('expedienteContribuyente/actualizar','update')->name('expedientesContribuyentes-actualizar');
+    Route::get('expedienteContribuyente/eliminar/{id}','destroy')->name('expedientesContribuyentes-eliminar');
+    Route::get('expedienteContribuyente/create/enExpediente','createEnExpediente')->name('expedientesContribuyentes-crearEnExpediente');
 });
 
 // RUTA DE PERSONA JURIDICA
@@ -131,16 +140,6 @@ Route::controller(InformeDependenciasController::class)->group(function(){
     Route::get('informeDependencias/mostrar/{id}','show')->name('informe-dependencias-mostrar');
     Route::post('informeDependencias/actualizar','update')->name('informe-dependencias-actualizar');
     Route::get('informeDependencias/eliminar/{id}','destroy')->name('informe-dependencias-eliminar');
-});
-
-// RUTAS DE EXPEDIENTE CONTRIBUYENTE
-Route::controller(ExpedienteContribuyenteController::class)->group(function(){
-    Route::get('expedienteContribuyente','index')->name('expediente-contribuyente');
-    Route::get('expedienteContribuyente/create','create')->name('expediente-contribuyente-crear');
-    Route::post('expedienteContribuyente/guardar','store')->name('expediente-contribuyente-guardar');
-    Route::get('expedienteContribuyente/mostrar/{id}','show')->name('expediente-contribuyente-mostrar');
-    Route::post('expedienteContribuyente/actualizar','update')->name('expediente-contribuyente-actualizar');
-    Route::get('expedienteContribuyente/eliminar/{id}','destroy')->name('expediente-contribuyente-eliminar');
 });
 
 // RUTAS DE DETALLE HABILITACION
@@ -254,15 +253,7 @@ Route::controller(TipoPermisoController::class)->group(function(){
     Route::get('tipoPermiso/eliminar/{id}','destroy')->name('tiposPermisos-eliminar');
 });
 
-// RUTA DE EXPEDIENTES-CONTRIBUYENTES
-Route::controller(ExpedienteContribuyenteController::class)->group(function(){
-    Route::get('expedienteContribuyente','index')->name('expedientesContribuyentes');
-    Route::get('expedienteContribuyente/create','create')->name('expedientesContribuyentes-crear');
-    Route::post('expedienteContribuyente/guardar','store')->name('expedientesContribuyentes-guardar');
-    Route::get('expedienteContribuyente/mostrar/{id}','show')->name('expedientesContribuyentes-mostrar');
-    Route::post('expedienteContribuyente/actualizar','update')->name('expedientesContribuyentes-actualizar');
-    Route::get('expedienteContribuyente/eliminar/{id}','destroy')->name('expedientesContribuyentes-eliminar');
-});
+
 
 
 

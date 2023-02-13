@@ -25,8 +25,8 @@ class ContribuyenteController extends Controller
     {
         $buscar = $request->buscarpor;
         $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
-        ->where('nombre', 'LIKE', '%' . $buscar . '%')
-        ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
+        ->where('dni', 'LIKE', '%' . $buscar . '%')
+        // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
         return view('expediente.crear', ['contribuyentes' => $contribuyentes]);
     }

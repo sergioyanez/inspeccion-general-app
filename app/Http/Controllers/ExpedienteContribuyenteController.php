@@ -31,7 +31,16 @@ class ExpedienteContribuyenteController extends Controller
     {
         $expedientes = Expediente::all();
         $contribuyentes = Contribuyente::all();
-        return view('expedienteContribuyente.crear',['expedientes'=>$expedientes, 'contribuyentes'=>$contribuyentes]);
+        $exped = false;
+        return view('expedienteContribuyente.crear',['expedientes'=>$expedientes, 'contribuyentes'=>$contribuyentes,'exped'=>$exped]);
+    }
+
+    public function createEnExpediente()
+    {
+        $expedientes = Expediente::all();
+        $contribuyentes = Contribuyente::all();
+        $exped = true;
+        return view('expedienteContribuyente.crear',['expedientes'=>$expedientes, 'contribuyentes'=>$contribuyentes,'exped'=>$exped]);
     }
 
     /**
@@ -46,7 +55,13 @@ class ExpedienteContribuyenteController extends Controller
         $expedienteContribuyente->contribuyente_id = $request->contribuyente_id;
 
         if($expedienteContribuyente->save()){
-            return redirect()->route('expedientesContribuyentes');
+            if(!$request->exped){
+                return redirect()->route('expedientesContribuyentes');
+            }
+            else{
+                return view('expediente.crear');
+            }
+
         }
         return back()->with('fail','No se pudo crear el expedienteContribuyente');
     }
