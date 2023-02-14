@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\expediente;
+use App\Models\Contribuyente;
 use App\Models\Catastro;
 use App\Models\Detalle_habilitacion;
 use App\Models\Detalle_inmueble;
@@ -65,6 +66,7 @@ class ExpedienteController extends Controller
      */
     public function create()
     {
+        $contribuyentes = Contribuyente::all();
         $catastro = Catastro::all();
         $detalleHabilitaciones = Detalle_habilitacion::all();
         $detalleInmuebles = Detalle_inmueble::all();
@@ -72,6 +74,7 @@ class ExpedienteController extends Controller
         return view('expediente.crear', ['catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
+                                        'contribuyentes' =>$contribuyentes,
                                         'estadosBaja' =>$estadosBaja]);
     }
 
@@ -95,11 +98,16 @@ class ExpedienteController extends Controller
         $expediente->observaciones_grales = $request->observaciones_grales;
         $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
         $expediente->detalle_inmueble_id = $request->detalle_inmueble_id;
+        $contribuyente_id = $request->contribuyente_id;
 
         if ($expediente->save()){
             $log = new LogsExpedienteController();
-            $log->create($expediente, 'c');
-            $expedienteID= $expediente->id;
+            $log->store($expediente, 'c');
+            if($contribuyente_id) {
+                $expedienteContribuyente = new ExpedienteContribuyenteController();
+                $expedienteContribuyente->store($contribuyente_id, $expediente->id);
+            }
+            
             return redirect()->route('expedientes');
         }
         return back()->with('fail','No se pudo crear el expediente');
