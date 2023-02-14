@@ -6,6 +6,7 @@ use App\Models\Persona_juridica;
 use App\Http\Requests\StorePersona_juridicaRequest;
 use App\Http\Requests\UpdatePersona_juridicaRequest;
 use App\Http\Controllers\LogsPersonaJuridicaController;
+use Illuminate\Http\Request;
 
 class PersonaJuridicaController extends Controller {
 
@@ -15,7 +16,18 @@ class PersonaJuridicaController extends Controller {
      */
     public function index()
     {
-        return "index persona juridica";
+        $personaJuridica = Persona_juridica::all();
+        return view('personaJuridica.personasJuridicas', ['personaJuridica' => $personaJuridica]);
+    }
+
+    public function indexBuscar(Request $request)
+    {
+        $buscar = $request->buscarpor;
+        $personasJuridica = Persona_juridica::orderBy('apellido', 'asc')
+        ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
+        // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
+        ->paginate(200);
+        return view('expediente.crear', ['personasJuridica' => $personasJuridica]);
     }
 
     /**
@@ -25,7 +37,14 @@ class PersonaJuridicaController extends Controller {
      */
     public function create()
     {
-        return "create persona juridica";
+        $expediente = false;
+        return view('personaJuridica.crear', ['expediente' => $expediente]);
+    }
+
+    public function createEnExpediente()
+    {
+        $expediente = true;
+        return view('personaJuridica.crear', ['expediente'=>$expediente]);
     }
 
     /**
