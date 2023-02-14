@@ -95,7 +95,9 @@ Route::controller(ExpedienteContribuyenteController::class)->group(function(){
 // RUTA DE PERSONA JURIDICA
 Route::controller(PersonaJuridicaController::class)->group(function(){
     Route::get('personaJuridica','index')->name('personasJuridicas');
+    Route::get('personaJuridica','indexBuscar')->name('personasJuridicas-buscar');
     Route::get('personaJuridica/create','create')->name('personasJuridicas-crear');
+    Route::get('personaJuridica/create/enExpediente','createEnExpediente')->name('personasJuridicas-crearEnExpediente');
     Route::post('personaJuridica/guardar','store')->name('personasJuridicas-guardar');
     Route::get('personaJuridica/mostrar/{id}','show')->name('personasJuridicas-mostrar');
     Route::post('personaJuridica/actualizar','update')->name('personasJuridicas-actualizar');
