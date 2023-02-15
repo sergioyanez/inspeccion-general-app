@@ -32,7 +32,7 @@
                                 @endforeach
                             </td>
                             <td>{{$expediente->observaciones_grales}}</td>
-                            <td>{{$expediente->detalleHabilitacion->tipoHabilitacion->descripcion}}</td>
+                            {{-- <td>{{$expediente->detalleHabilitacion->tipoHabilitacion->descripcion}}</td> --}}
                             <td><a href="{{route('expedientes-mostrar', $expediente->id)}}">Ver màs</a></td>
                         </tr>
                     @empty

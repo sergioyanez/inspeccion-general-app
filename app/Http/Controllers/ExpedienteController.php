@@ -101,20 +101,39 @@ class ExpedienteController extends Controller
         $expediente->observaciones_grales = $request->observaciones_grales;
         $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
         $expediente->detalle_inmueble_id = $request->detalle_inmueble_id;
-        $contribuyente_id = $request->contribuyente_id;
+        
+        if($request->contribuyente_id)
+            $contri_id = $request->contribuyente_id;
+        
+        if($request->pj_id)
+            $pj_id = $request->pj_id;
 
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'c');
-            if($contribuyente_id) {
+
+            if(isset($contri_id)) {
                 $expedienteContribuyente = new ExpedienteContribuyenteController();
-                $expedienteContribuyente->store($contribuyente_id, $expediente->id);
+                $expedienteContribuyente->store($contri_id, $expediente->id);
             }
-            
+          
+            if(isset($pj_id)) {
+                $expedientePersona = new ExpedientePersonaJuridicaController();
+                $expedientePersona->store($pj_id, $expediente->id);
+            }
             return redirect()->route('expedientes');
         }
         return back()->with('fail','No se pudo crear el expediente');
     }
+
+   
+
+
+        
+            
+            
+            
+            
 
     /**
      * Display the specified resource.

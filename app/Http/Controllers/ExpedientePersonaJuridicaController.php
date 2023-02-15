@@ -35,9 +35,13 @@ class ExpedientePersonaJuridicaController extends Controller
      * @param  \App\Http\Requests\Storeexpediente_persona_juridicaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Storeexpediente_persona_juridicaRequest $request)
+    public function store($persona_juridica_id, $expediente_id)
     {
-        return "store expediente persona juridica";
+        $expedientePersonaJuridica = new expediente_persona_juridica();
+        $expedientePersonaJuridica->persona_juridica_id = $persona_juridica_id;
+        $expedientePersonaJuridica->expediente_id = $expediente_id;
+        
+        $expedientePersonaJuridica->save();
     }
 
     /**
