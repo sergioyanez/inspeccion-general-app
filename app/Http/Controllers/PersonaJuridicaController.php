@@ -30,7 +30,7 @@ class PersonaJuridicaController extends Controller {
         return view('expediente.crear', ['personasJuridica' => $personasJuridicas]);*/
 
         $buscar = $request->buscarpor1;
-        $personasJuridicas = Persona_juridica::orderBy('apellido_representante', 'asc')
+        $personasJuridicas = Persona_juridica::orderBy('dni_representante', 'asc')
         ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
         // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);

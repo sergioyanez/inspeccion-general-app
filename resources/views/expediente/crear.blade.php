@@ -81,10 +81,10 @@
                         <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
                     </div>
                     
-                    <div>
+                    {{-- <div>
                         <label class="form-label" for="basic-default-fullname">Estado habilitacion</label>
                         <input  type="text" name="detalle_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" />
-                    </div>
+                    </div> --}}
                     <div>
                         <label class="form-label" for="basic-default-fullname">Observaciones</label>
                         <input  type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
