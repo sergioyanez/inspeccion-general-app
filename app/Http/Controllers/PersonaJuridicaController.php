@@ -16,18 +16,25 @@ class PersonaJuridicaController extends Controller {
      */
     public function index()
     {
-        $personaJuridica = Persona_juridica::all();
-        return view('personaJuridica.personasJuridicas', ['personaJuridica' => $personaJuridica]);
+        $personasJuridicas = Persona_juridica::all();
+        return view('personaJuridica.personasJuridicas', ['personasJuridicas' => $personasJuridicas]);
     }
 
     public function indexBuscar(Request $request)
     {
-        $buscar = $request->buscarpor;
-        $personasJuridica = Persona_juridica::orderBy('apellido', 'asc')
+        /*$buscar = $request->buscarpor1;
+        $personasJuridicas = Persona_juridica::orderBy('apellido_representante', 'asc')
         ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
         // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
-        return view('expediente.crear', ['personasJuridica' => $personasJuridica]);
+        return view('expediente.crear', ['personasJuridica' => $personasJuridicas]);*/
+
+        $buscar = $request->buscarpor1;
+        $personasJuridicas = Persona_juridica::orderBy('apellido_representante', 'asc')
+        ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
+        // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
+        ->paginate(200);
+        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas]);
     }
 
     /**
