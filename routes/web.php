@@ -86,6 +86,7 @@ Route::controller(ExpedienteContribuyenteController::class)->group(function(){
     Route::get('expedienteContribuyente','index')->name('expedientesContribuyentes');
     Route::get('expedienteContribuyente/create','create')->name('expedientesContribuyentes-crear');
     Route::post('expedienteContribuyente/guardar','store')->name('expedientesContribuyentes-guardar');
+    
     Route::get('expedienteContribuyente/mostrar/{id}','show')->name('expedientesContribuyentes-mostrar');
     Route::post('expedienteContribuyente/actualizar','update')->name('expedientesContribuyentes-actualizar');
     Route::get('expedienteContribuyente/eliminar/{id}','destroy')->name('expedientesContribuyentes-eliminar');

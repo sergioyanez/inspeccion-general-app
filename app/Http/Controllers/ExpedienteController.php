@@ -89,7 +89,7 @@ class ExpedienteController extends Controller
      * @param  \App\Http\Requests\StoreexpedienteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreexpedienteRequest $request)
+    public function store(Request $request) // aca va StoreexpedienteRequest
     {
         $expediente = new Expediente();
         $expediente->catastro_id = $request->catastro_id;
@@ -121,7 +121,7 @@ class ExpedienteController extends Controller
 
             if(isset($pj_id)) {
                 $expedientePersona = new ExpedientePersonaJuridicaController();
-                $expedientePersona->store($pj_id, $expediente->id);
+                $expedientePersona->store($pj_id, $request->idExpSiguiente);
             }
             return redirect()->route('expedientes');
         }

@@ -43,7 +43,8 @@
                                 <td>{{$contribuyente->apellido}}</td>
                                 <td>{{$contribuyente->dni}}</td>
                                 <input type="text" name="contribuyente_id" value="{{ $contribuyente->id }}">
-                                <a href="{{route('expedientesContribuyentes-crear')}}">Guardar</a>
+                                <input type="text" name="idExpSiguiente" value="{{ $expedienteID->id+1 }}">
+                                <a href="{{route('expedientesContribuyentes-guardar')}}">Guardar</a>
                             @endforeach
                         @else
                             @if (request('buscarpor'))
@@ -62,6 +63,7 @@
                                 <td>{{$pj->apellido_representante}}</td>
                                 <td>{{$pj->dni_representante}}</td>
                                 <input type="text" name="pj_id" value="{{ $pj->id }}">
+                                <input type="text" name="idExpSiguiente" value="{{ $expedienteID->id+1 }}">
                             @endforeach
                         @else
                             @if (request('buscarpor1'))
