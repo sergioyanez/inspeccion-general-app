@@ -1,5 +1,5 @@
 <div class="row">
-    
+
     <div class="col-xl-12">
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
@@ -11,7 +11,7 @@
                     @csrf
                     <div class="mb-3">
                         <label>Buscar contribuyente</label>
-                        <input required type="text" name="buscarpor" class="form-control" placeholder="Nùmero de documento" autofocus/>
+                        <input  type="text" name="buscarpor" class="form-control" placeholder="Nùmero de documento" autofocus/>
                         <input type="submit" value="Buscar">
                     </div>
                 </form>
@@ -20,12 +20,19 @@
                     @csrf
                     <div class="mb-3">
                         <label>Buscar persona jurìdica</label>
-                        <input required type="text" name="buscarpor1" class="form-control" placeholder="Nùmero de documento"/>
+                        <input  type="text" name="buscarpor1" class="form-control" placeholder="Nùmero de documento"/>
                         <input type="submit" value="Buscar">
                     </div>
                 </form>
+
+
                     <!--UNA FORMA DE QUE TE TRAIGA SOLO UNO ES BUSCAR POR DNI-->
-                
+
+                    <div class="mb-3">
+                        <label name="idExpSiguiente">{{$expedienteID->id+1}}</label>
+                    </div>
+
+
                 <form method="POST" action="{{ route('expedientes-guardar') }}">
                     @csrf
                     @isset($contribuyentes)
@@ -35,18 +42,18 @@
                                 <td>{{$contribuyente->nombre}}</td>
                                 <td>{{$contribuyente->apellido}}</td>
                                 <td>{{$contribuyente->dni}}</td>
-                                
                                 <input type="text" name="contribuyente_id" value="{{ $contribuyente->id }}">
+                                <a href="{{route('expedientesContribuyentes-crear')}}">Guardar</a>
                             @endforeach
                         @else
                             @if (request('buscarpor'))
                                 <h4>No se encontrò el contribuyente</h4>
                                 <a href="{{route('contribuyentes-crearEnExpediente')}}" class="btn btn-primary">Crear nuevo contribuyente para el expediente</a>
                             @endif
-                    
+
                         @endif
                     @endisset
-                    
+
                     @isset($personasJuridicas)
                         @if ($personasJuridicas != null and count($personasJuridicas) == 1 and request('buscarpor1'))
                         <label class="form-label" for="basic-default-fullname">Titulares personas jurìdicas:</label>
@@ -61,10 +68,9 @@
                                 <h4>No se encontrò la persona jurìdica</h4>
                                 <a href="{{route('personasJuridicas-crearEnExpediente')}}" class="btn btn-primary">Crear persona jurìdica para el expediente</a>
                             @endif
-                        
+
                         @endif
                     @endisset
-                    
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
                         <input value="4093-" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto" />
@@ -80,7 +86,7 @@
                         <label class="form-label" for="basic-default-fullname">Anexo</label>
                         <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
                     </div>
-                    
+
                     {{-- <div>
                         <label class="form-label" for="basic-default-fullname">Estado habilitacion</label>
                         <input  type="text" name="detalle_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" />
@@ -89,13 +95,13 @@
                         <label class="form-label" for="basic-default-fullname">Observaciones</label>
                         <input  type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
                     </div>
-                  
+
                     <button type="submit" class="btn btn-primary">Enviar</button>
-                    
+
                 </form>
-            
+
             </div>
         </div>
     </div>
-  
+
 </div>

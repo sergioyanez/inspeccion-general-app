@@ -73,12 +73,14 @@ class ExpedienteController extends Controller
         $detalleInmuebles = Detalle_inmueble::all();
         $estadosBaja = Estado_baja::all();
         $personasJuridicas = Persona_juridica::all();
+        $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
         return view('expediente.crear', ['catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
                                         'contribuyentes' =>$contribuyentes,
                                         'estadosBaja' =>$estadosBaja,
-                                        'personasJuridicas' => $personasJuridicas]);
+                                        'personasJuridicas' => $personasJuridicas,
+                                        'expedienteID' =>$expedienteID]);
     }
 
     /**
@@ -87,7 +89,7 @@ class ExpedienteController extends Controller
      * @param  \App\Http\Requests\StoreexpedienteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreexpedienteRequest $request)
     {
         $expediente = new Expediente();
         $expediente->catastro_id = $request->catastro_id;
@@ -101,10 +103,10 @@ class ExpedienteController extends Controller
         $expediente->observaciones_grales = $request->observaciones_grales;
         $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
         $expediente->detalle_inmueble_id = $request->detalle_inmueble_id;
-        
+
         if($request->contribuyente_id)
             $contri_id = $request->contribuyente_id;
-        
+
         if($request->pj_id)
             $pj_id = $request->pj_id;
 
@@ -116,7 +118,7 @@ class ExpedienteController extends Controller
                 $expedienteContribuyente = new ExpedienteContribuyenteController();
                 $expedienteContribuyente->store($contri_id, $expediente->id);
             }
-          
+
             if(isset($pj_id)) {
                 $expedientePersona = new ExpedientePersonaJuridicaController();
                 $expedientePersona->store($pj_id, $expediente->id);
@@ -126,14 +128,14 @@ class ExpedienteController extends Controller
         return back()->with('fail','No se pudo crear el expediente');
     }
 
-   
 
 
-        
-            
-            
-            
-            
+
+
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -163,7 +165,7 @@ class ExpedienteController extends Controller
      * @param  \App\Models\expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateexpedienteRequest $request)
     {
         $expediente = Expediente::find($request->expediente_id);
         $expediente->catastro_id = $request->catastro_id;

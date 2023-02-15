@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contribuyente;
+use App\Models\Expediente;
 use App\Models\Tipo_dni;
 use App\Models\Estado_civil;
 use Illuminate\Http\Request;
@@ -23,12 +24,13 @@ class ContribuyenteController extends Controller
 
     public function indexBuscar(Request $request)
     {
+        $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
         $buscar = $request->buscarpor;
         $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
         ->where('dni', 'LIKE', '%' . $buscar . '%')
         // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
-        return view('expediente.crear', ['contribuyentes' => $contribuyentes]);
+        return view('expediente.crear', ['contribuyentes' => $contribuyentes,'expedienteID'=>$expedienteID]);
     }
 
     /**

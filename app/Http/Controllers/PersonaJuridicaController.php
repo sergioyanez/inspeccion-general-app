@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Persona_juridica;
+use App\Models\Expediente;
 use App\Http\Requests\StorePersona_juridicaRequest;
 use App\Http\Requests\UpdatePersona_juridicaRequest;
 use App\Http\Controllers\LogsPersonaJuridicaController;
@@ -22,19 +23,14 @@ class PersonaJuridicaController extends Controller {
 
     public function indexBuscar(Request $request)
     {
-        /*$buscar = $request->buscarpor1;
-        $personasJuridicas = Persona_juridica::orderBy('apellido_representante', 'asc')
-        ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
-        // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
-        ->paginate(200);
-        return view('expediente.crear', ['personasJuridica' => $personasJuridicas]);*/
 
+        $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
         $buscar = $request->buscarpor1;
         $personasJuridicas = Persona_juridica::orderBy('dni_representante', 'asc')
         ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
-        // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
+
         ->paginate(200);
-        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas]);
+        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,'expedienteID'=>$expedienteID]);
     }
 
     /**
@@ -89,7 +85,7 @@ class PersonaJuridicaController extends Controller {
     /**
      * Método para editar una persona jurídica
      * @param  \App\Http\Requests\UpdatePersona_juridicaRequest  $request
-     * 
+     *
      */
     public function update(UpdatePersona_juridicaRequest $request) {
 
