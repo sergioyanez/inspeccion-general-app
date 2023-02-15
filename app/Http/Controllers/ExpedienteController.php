@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\expediente;
+use App\Models\Persona_juridica;
 use App\Models\Contribuyente;
 use App\Models\Catastro;
 use App\Models\Detalle_habilitacion;
@@ -71,11 +72,13 @@ class ExpedienteController extends Controller
         $detalleHabilitaciones = Detalle_habilitacion::all();
         $detalleInmuebles = Detalle_inmueble::all();
         $estadosBaja = Estado_baja::all();
+        $personasJuridicas = Persona_juridica::all();
         return view('expediente.crear', ['catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
                                         'contribuyentes' =>$contribuyentes,
-                                        'estadosBaja' =>$estadosBaja]);
+                                        'estadosBaja' =>$estadosBaja,
+                                        'personasJuridicas' => $personasJuridicas]);
     }
 
     /**

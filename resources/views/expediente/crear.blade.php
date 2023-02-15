@@ -11,7 +11,16 @@
                     @csrf
                     <div class="mb-3">
                         <label>Buscar contribuyente</label>
-                        <input required type="text" name="buscarpor" class="form-control" placeholder="Nombre/Apellido" autofocus/>
+                        <input required type="text" name="buscarpor" class="form-control" placeholder="Nùmero de documento" autofocus/>
+                        <input type="submit" value="Buscar">
+                    </div>
+                </form>
+
+                <form method="GET" action="{{route('personasJuridicas-buscar')}}">
+                    @csrf
+                    <div class="mb-3">
+                        <label>Buscar persona jurìdica</label>
+                        <input required type="text" name="buscarpor1" class="form-control" placeholder="Nùmero de documento"/>
                         <input type="submit" value="Buscar">
                     </div>
                 </form>
@@ -19,21 +28,14 @@
                 
                 <form method="POST" action="{{ route('expedientes-guardar') }}">
                     @csrf
-                    @if (count($contribuyentes) > 1 and request('buscarpor'))
+                    @isset($contribuyentes)
+                        @if ($contribuyentes != null and count($contribuyentes) == 1 and request('buscarpor'))
+                        <label class="form-label" for="basic-default-fullname">Titulares personas fisicas:</label>
                             @foreach ($contribuyentes as $contribuyente)
                                 <td>{{$contribuyente->nombre}}</td>
                                 <td>{{$contribuyente->apellido}}</td>
                                 <td>{{$contribuyente->dni}}</td>
-                                <input type="text" name="contribuyente_id" value="{{ $contribuyente->id }}">
-                                <a href="{{route('contribuyentes-buscar')}}" class="btn btn-primary">Seleccionar</a>
-                                <br>
-                            @endforeach
-                    @else
-                        @if (count($contribuyentes) == 1 and request('buscarpor'))
-                            @foreach ($contribuyentes as $contribuyente)
-                                <td>{{$contribuyente->nombre}}</td>
-                                <td>{{$contribuyente->apellido}}</td>
-                                <td>{{$contribuyente->dni}}</td>
+                                
                                 <input type="text" name="contribuyente_id" value="{{ $contribuyente->id }}">
                             @endforeach
                         @else
@@ -41,8 +43,28 @@
                                 <h4>No se encontrò el contribuyente</h4>
                                 <a href="{{route('contribuyentes-crearEnExpediente')}}" class="btn btn-primary">Crear nuevo contribuyente para el expediente</a>
                             @endif
+                    
                         @endif
-                    @endif
+                    @endisset
+                    
+                    @isset($personasJuridicas)
+                        @if ($personasJuridicas != null and count($personasJuridicas) == 1 and request('buscarpor1'))
+                        <label class="form-label" for="basic-default-fullname">Titulares personas jurìdicas:</label>
+                            @foreach ($personasJuridicas as $pj)
+                                <td>{{$pj->nombre_representante}}</td>
+                                <td>{{$pj->apellido_representante}}</td>
+                                <td>{{$pj->dni_representante}}</td>
+                                <input type="text" name="pj_id" value="{{ $pj->id }}">
+                            @endforeach
+                        @else
+                            @if (request('buscarpor1'))
+                                <h4>No se encontrò la persona jurìdica</h4>
+                                <a href="{{route('personasJuridicas-crearEnExpediente')}}" class="btn btn-primary">Crear persona jurìdica para el expediente</a>
+                            @endif
+                        
+                        @endif
+                    @endisset
+                    
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
                         <input value="4093-" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto" />
@@ -58,10 +80,7 @@
                         <label class="form-label" for="basic-default-fullname">Anexo</label>
                         <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Titulares personas fisicas:</label>
-                        <input  type="text" name="titulares" class="form-control" id="basic-default-nombreCompleto" />
-                    </div>
+                    
                     <div>
                         <label class="form-label" for="basic-default-fullname">Estado habilitacion</label>
                         <input  type="text" name="detalle_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" />
@@ -80,5 +99,3 @@
     </div>
   
 </div>
-    
-    
