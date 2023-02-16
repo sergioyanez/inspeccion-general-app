@@ -108,33 +108,39 @@ class ExpedienteController extends Controller
             $contri_id = $request->contribuyente_id;
 
         if($request->pj_id)
-            $pj_id = $request->pj_id;
+           $pj_id = $request->pj_id;
 
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'c');
 
-            if(isset($contri_id)) {
-                $expedienteContribuyente = new ExpedienteContribuyenteController();
-                $expedienteContribuyente->store($contri_id, $expediente->id);
-            }
+            // if(isset($contri_id)) {
+            //     $expedienteContribuyente = new ExpedienteContribuyenteController();
+            //     $expedienteContribuyente->store($contri_id, $expediente->id);
+            // }
 
-            if(isset($pj_id)) {
-                $expedientePersona = new ExpedientePersonaJuridicaController();
-                $expedientePersona->store($pj_id, $request->idExpSiguiente);
-            }
+            // if(isset($pj_id)) {
+            //     $expedientePersona = new ExpedientePersonaJuridicaController();
+            //     $expedientePersona->store($pj_id, $request->idExpSiguiente);
+            // }
             return redirect()->route('expedientes');
         }
         return back()->with('fail','No se pudo crear el expediente');
     }
 
+    /*if($request->contribuyente_id)
+            $contri_id = $request->contribuyente_id;
 
+    if($request->pj_id)
+        $pj_id = $request->pj_id;*/
 
-
-
-
-
-
+    public function createContribuyente(Request $request) {
+        if($request->contribuyente_id)
+            $contri_id = $request->contribuyente_id;
+        $expedienteContribuyente = new ExpedienteContribuyenteController();
+        $expedienteContribuyente->store($contri_id, $request->idExpSiguiente);
+        return redirect()->route('expedientes-crear');
+    }
 
 
     /**

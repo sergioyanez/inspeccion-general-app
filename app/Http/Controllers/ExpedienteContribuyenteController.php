@@ -50,11 +50,28 @@ class ExpedienteContribuyenteController extends Controller
      */
     public function store($contribuyente_id, $expediente_id)
     {
+        var_dump("hola");
+        die();
         $expedienteContribuyente = new ExpedienteContribuyente();
         $expedienteContribuyente->expediente_id = $expediente_id;
         $expedienteContribuyente->contribuyente_id = $contribuyente_id;
 
         $expedienteContribuyente->save();
+    }
+
+    public function store1($expediente_id, $contribuyente_id)
+    {
+        var_dump("hola");
+        $expedienteContribuyente = new ExpedienteContribuyente();
+        $expedienteContribuyente->expediente_id = $expediente_id;
+        $expedienteContribuyente->contribuyente_id = $contribuyente_id;
+
+        if($expedienteContribuyente->save()) {
+            return redirect()->route('expedientes-crear');
+        }
+            
+        return back()->with('fail','No se pudo crear el expediente-contribuyente');    
+
     }
 
     /**

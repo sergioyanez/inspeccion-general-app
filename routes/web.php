@@ -63,6 +63,7 @@ Route::controller(ExpedienteController::class)->group(function(){
     Route::get('expediente','index')->name('expedientes');
     Route::get('expediente1','index1')->name('expedientes1');
     Route::get('expediente/create','create')->name('expedientes-crear');
+    Route::get('expediente/createContribuyente','createContribuyente')->name('expedientes-crearContribuyente');
     Route::post('expediente/guardar','store')->name('expedientes-guardar');
     Route::get('expediente/mostrar/{id}','show')->name('expedientes-mostrar');
     Route::post('expediente/actualizar','update')->name('expedientes-actualizar');
@@ -86,11 +87,12 @@ Route::controller(ExpedienteContribuyenteController::class)->group(function(){
     Route::get('expedienteContribuyente','index')->name('expedientesContribuyentes');
     Route::get('expedienteContribuyente/create','create')->name('expedientesContribuyentes-crear');
     Route::post('expedienteContribuyente/guardar','store')->name('expedientesContribuyentes-guardar');
-    Route::post('expedienteContribuyente/{$expediente_id}/{$contribuyente_id}','store')->name('expedientesContribuyentes-guardarEnExp');
+    Route::post('expedienteContribuyente/guardar1/{$expediente_id}/{$contribuyente_id}','store1')->name('expedientesContribuyentes-guardarEnExp');
+    //Route::post('expedienteContribuyente/{$expediente_id}/{$contribuyente_id}','store')->name('expedientesContribuyentes-guardarEnExp');
     Route::get('expedienteContribuyente/mostrar/{id}','show')->name('expedientesContribuyentes-mostrar');
     Route::post('expedienteContribuyente/actualizar','update')->name('expedientesContribuyentes-actualizar');
     Route::get('expedienteContribuyente/eliminar/{id}','destroy')->name('expedientesContribuyentes-eliminar');
-//    Route::get('expedienteContribuyente/create/enExpediente/{$expediente_id}/{$contribuyente_id}','createEnExpediente')->name('expedientesContribuyentes-crearEnExpediente');
+    Route::get('expedienteContribuyente/create/enExpediente/{$expediente_id}/{$contribuyente_id}','createEnExpediente')->name('expedientesContribuyentes-crearEnExpediente');
 });
 
 // RUTA DE PERSONA JURIDICA

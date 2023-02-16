@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-        <title>Crear Estados civiles</title>
+        <title>Registrar expediente</title>
     </head>
     <body>
         <div class="row">
@@ -34,9 +34,7 @@
                             </div>
                         </form>
 
-
-                            <!--UNA FORMA DE QUE TE TRAIGA SOLO UNO ES BUSCAR POR DNI-->
-                            <form method="POST" action="{{ route('expedientes-guardar') }}">
+                        <form method="POST" action="{{ route('expedientes-guardar') }}">
                             @csrf
                             @isset($contribuyentes)
                                 @if ($contribuyentes != null and count($contribuyentes) == 1 and request('buscarpor'))
@@ -45,12 +43,20 @@
                                         <td>{{$contribuyente->nombre}}</td>
                                         <td>{{$contribuyente->apellido}}</td>
                                         <td>{{$contribuyente->dni}}</td>
-                                        <div class="mb-3">
+                                        <input type="text" name="contribuyente_id" value="{{$contribuyente->id}}">
+                                        <input type="text" name="idExpSiguiente" value="{{$expedienteID->id+1}}">
+
+                                        <a class="btn btn-secondary btn-sm float-right"  href="{{route('expedientesContribuyentes-guardarEnExp',[$expedienteID->id+1, $contribuyente->id])}}">Guardar</a>
+
+                                        {{-- <form method="POST" action="{{ route('expedientesContribuyentes-guardarEnExp', [$contribuyente->id, $expedienteID->id+1]) }}">
+                                            <input type="submit" value="Guardar">
+                                        </form> --}}
+                                        {{-- <div class="mb-3">
                                             <label name="contribuyente_id">{{$contribuyente->id}}</label>
                                         </div>
                                         <div class="mb-3">
                                             <label name="idExpSiguiente">{{$expedienteID->id+1}}</label>
-                                        </div>
+                                        </div> --}}
                                         {{-- <a class="btn btn-secondary btn-sm float-right"  href="{{route('expedientesContribuyentes-createEnExpediente',['expediente_id' => $expedienteID->id+1,'contribuyente_id' => $contribuyente->id])}}">Guardar</a> --}}
                                     @endforeach
                                 @else
@@ -70,6 +76,7 @@
                                         <td>{{$pj->apellido_representante}}</td>
                                         <td>{{$pj->dni_representante}}</td>
                                         <input type="text" name="pj_id" value="{{ $pj->id }}">
+                                        <input type="text" name="idExpSiguiente" value="{{$expedienteID->id+1}}">
                                     @endforeach
                                 @else
                                     @if (request('buscarpor1'))

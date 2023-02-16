@@ -26,8 +26,10 @@
                 <tbody class="table-border-bottom-0">
                     @foreach ($expedientesContribuyentes as $expedienteContribuyente)
                         <tr>
-                            <td>{{ $expedienteContribuyente->expediente->nro_expediente }}</td>
-                            <td>{{ $expedienteContribuyente->contribuyente->apellido }}</td>
+                            {{-- <td>{{ $expedienteContribuyente->expediente->nro_expediente }}</td>
+                            <td>{{ $expedienteContribuyente->contribuyente->apellido }}</td> --}}
+                            <td>{{ $expedienteContribuyente->expediente_id }}</td>
+                            <td>{{ $expedienteContribuyente->contribuyente_id }}</td>
                             <td>{{ $expedienteContribuyente->created_at }}</td>
                             <td><a href="{{ route('expedientesContribuyentes-mostrar', $expedienteContribuyente->id) }}">Editar</a></td>
                             <td><a href="{{ route('expedientesContribuyentes-eliminar', $expedienteContribuyente->id) }}">Eliminar</a></td>
