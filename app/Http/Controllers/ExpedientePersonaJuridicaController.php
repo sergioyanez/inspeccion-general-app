@@ -6,6 +6,7 @@ use App\Models\expediente_persona_juridica;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Storeexpediente_persona_juridicaRequest;
 use App\Http\Requests\Updateexpediente_persona_juridicaRequest;
+use Illuminate\Http\Request;
 
 class ExpedientePersonaJuridicaController extends Controller
 {
@@ -35,13 +36,18 @@ class ExpedientePersonaJuridicaController extends Controller
      * @param  \App\Http\Requests\Storeexpediente_persona_juridicaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($persona_juridica_id, $expediente_id)
+    public function store(Request $request)
     {
         $expedientePersonaJuridica = new expediente_persona_juridica();
-        $expedientePersonaJuridica->persona_juridica_id = $persona_juridica_id;
-        $expedientePersonaJuridica->expediente_id = $expediente_id;
+        $expedientePersonaJuridica->persona_juridica_id = $request->pj_id;
+        $expedientePersonaJuridica->expediente_id = 5;//$request->idExpSiguiente;
+
+        if($expedientePersonaJuridica->save()) {
+            return redirect()->route('expedientes-crear');
+        }
+
+        return back()->with('fail','No se pudo crear el expediente-persona juridica'); 
         
-        $expedientePersonaJuridica->save();
     }
 
     /**

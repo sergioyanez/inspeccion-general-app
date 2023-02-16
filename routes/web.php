@@ -22,6 +22,7 @@ use App\Http\Controllers\InformeDependenciasController;
 use App\Http\Controllers\PaginaPrincipalController;
 use App\Http\Controllers\BusquedaExpedienteController;
 use App\Http\Controllers\ExpedienteContribuyenteController;
+use App\Http\Controllers\ExpedientePersonaJuridicaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -87,12 +88,21 @@ Route::controller(ExpedienteContribuyenteController::class)->group(function(){
     Route::get('expedienteContribuyente','index')->name('expedientesContribuyentes');
     Route::get('expedienteContribuyente/create','create')->name('expedientesContribuyentes-crear');
     Route::post('expedienteContribuyente/guardar','store')->name('expedientesContribuyentes-guardar');
-    Route::post('expedienteContribuyente/guardar1/{$expediente_id}/{$contribuyente_id}','store1')->name('expedientesContribuyentes-guardarEnExp');
+    //Route::post('expedienteContribuyente/guardar1/{$expediente_id}/{$contribuyente_id}','store1')->name('expedientesContribuyentes-guardarEnExp');
     //Route::post('expedienteContribuyente/{$expediente_id}/{$contribuyente_id}','store')->name('expedientesContribuyentes-guardarEnExp');
     Route::get('expedienteContribuyente/mostrar/{id}','show')->name('expedientesContribuyentes-mostrar');
     Route::post('expedienteContribuyente/actualizar','update')->name('expedientesContribuyentes-actualizar');
     Route::get('expedienteContribuyente/eliminar/{id}','destroy')->name('expedientesContribuyentes-eliminar');
-    Route::get('expedienteContribuyente/create/enExpediente/{$expediente_id}/{$contribuyente_id}','createEnExpediente')->name('expedientesContribuyentes-crearEnExpediente');
+});
+
+// RUTAS DE EXPEDIENTE PERSONA JURIDICA
+Route::controller(ExpedientePersonaJuridicaController::class)->group(function(){
+    Route::get('expedientePersonaJuridica','index')->name('expediente-persona-juridica');
+    Route::get('expedientePersonaJuridica/create','create')->name('expediente-persona-juridica-crear');
+    Route::post('expedientePersonaJuridica/guardar','store')->name('expediente-persona-juridica-guardar');
+    Route::get('expedientePersonaJuridica/mostrar/{id}','show')->name('expediente-persona-juridica-mostrar');
+    Route::post('expedientePersonaJuridica/actualizar','update')->name('expediente-persona-juridica-actualizar');
+    Route::get('expedientePersonaJuridica/eliminar/{id}','destroy')->name('expediente-persona-juridica-eliminar');
 });
 
 // RUTA DE PERSONA JURIDICA
@@ -157,15 +167,7 @@ Route::controller(DetalleHabilitacionController::class)->group(function(){
     Route::get('detalleHabilitacion/eliminar/{id}','destroy')->name('detalle-habilitacion-eliminar');
 });
 
-// RUTAS DE EXPEDIENTE PERSONA JURIDICA
-Route::controller(ExpedientePersonaJuridicaController::class)->group(function(){
-    Route::get('expedientePersonaJuridica','index')->name('expediente-persona-juridica');
-    Route::get('expedientePersonaJuridica/create','create')->name('expediente-persona-juridica-crear');
-    Route::post('expedientePersonaJuridica/guardar','store')->name('expediente-persona-juridica-guardar');
-    Route::get('expedientePersonaJuridica/mostrar/{id}','show')->name('expediente-persona-juridica-mostrar');
-    Route::post('expedientePersonaJuridica/actualizar','update')->name('expediente-persona-juridica-actualizar');
-    Route::get('expedientePersonaJuridica/eliminar/{id}','destroy')->name('expediente-persona-juridica-eliminar');
-});
+
 
 // RUTAS DE ESTADO DE BAJA
 Route::controller(EstadoBajaController::class)->group(function(){

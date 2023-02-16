@@ -33,8 +33,8 @@
                                 <input type="submit" value="Buscar">
                             </div>
                         </form>
-
-                        <form method="POST" action="{{ route('expedientes-guardar') }}">
+                        
+                        <form method="POST" action="{{ route('expedientesContribuyentes-guardar') }}">
                             @csrf
                             @isset($contribuyentes)
                                 @if ($contribuyentes != null and count($contribuyentes) == 1 and request('buscarpor'))
@@ -45,19 +45,7 @@
                                         <td>{{$contribuyente->dni}}</td>
                                         <input type="text" name="contribuyente_id" value="{{$contribuyente->id}}">
                                         <input type="text" name="idExpSiguiente" value="{{$expedienteID->id+1}}">
-
-                                        <a class="btn btn-secondary btn-sm float-right"  href="{{route('expedientesContribuyentes-guardarEnExp',[$expedienteID->id+1, $contribuyente->id])}}">Guardar</a>
-
-                                        {{-- <form method="POST" action="{{ route('expedientesContribuyentes-guardarEnExp', [$contribuyente->id, $expedienteID->id+1]) }}">
-                                            <input type="submit" value="Guardar">
-                                        </form> --}}
-                                        {{-- <div class="mb-3">
-                                            <label name="contribuyente_id">{{$contribuyente->id}}</label>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label name="idExpSiguiente">{{$expedienteID->id+1}}</label>
-                                        </div> --}}
-                                        {{-- <a class="btn btn-secondary btn-sm float-right"  href="{{route('expedientesContribuyentes-createEnExpediente',['expediente_id' => $expedienteID->id+1,'contribuyente_id' => $contribuyente->id])}}">Guardar</a> --}}
+                                        <button type="submit">guardar</button>
                                     @endforeach
                                 @else
                                     @if (request('buscarpor'))
@@ -67,7 +55,10 @@
 
                                 @endif
                             @endisset
+                        </form>
 
+                        <form method="POST" action="{{ route('expediente-persona-juridica-guardar') }}">
+                            @csrf
                             @isset($personasJuridicas)
                                 @if ($personasJuridicas != null and count($personasJuridicas) == 1 and request('buscarpor1'))
                                 <label class="form-label" for="basic-default-fullname">Titulares personas jurìdicas:</label>
@@ -77,6 +68,7 @@
                                         <td>{{$pj->dni_representante}}</td>
                                         <input type="text" name="pj_id" value="{{ $pj->id }}">
                                         <input type="text" name="idExpSiguiente" value="{{$expedienteID->id+1}}">
+                                        <button type="submit">guardar</button>
                                     @endforeach
                                 @else
                                     @if (request('buscarpor1'))
@@ -86,6 +78,13 @@
 
                                 @endif
                             @endisset
+                        </form>
+                            
+                        
+                        
+
+                        <form method="POST" action="{{ route('expedientes-guardar') }}">
+                            @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
                                 <input value="4093-" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto" />

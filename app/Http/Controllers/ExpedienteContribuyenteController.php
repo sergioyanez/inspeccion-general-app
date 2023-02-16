@@ -8,6 +8,7 @@ use App\Models\Contribuyente;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Storeexpediente_contribuyenteRequest;
 use App\Http\Requests\Updateexpediente_contribuyenteRequest;
+use Illuminate\Http\Request;
 
 class ExpedienteContribuyenteController extends Controller
 {
@@ -48,31 +49,20 @@ class ExpedienteContribuyenteController extends Controller
      *
      * @param  \App\Http\Requests\Storeexpediente_contribuyenteRequest  $request
      */
-    public function store($contribuyente_id, $expediente_id)
+    public function store(Request $request)
     {
-        var_dump("hola");
-        die();
         $expedienteContribuyente = new ExpedienteContribuyente();
-        $expedienteContribuyente->expediente_id = $expediente_id;
-        $expedienteContribuyente->contribuyente_id = $contribuyente_id;
-
-        $expedienteContribuyente->save();
-    }
-
-    public function store1($expediente_id, $contribuyente_id)
-    {
-        var_dump("hola");
-        $expedienteContribuyente = new ExpedienteContribuyente();
-        $expedienteContribuyente->expediente_id = $expediente_id;
-        $expedienteContribuyente->contribuyente_id = $contribuyente_id;
+        $expedienteContribuyente->expediente_id = 7;//$request->idExpSiguiente;
+        $expedienteContribuyente->contribuyente_id = $request->contribuyente_id;
 
         if($expedienteContribuyente->save()) {
             return redirect()->route('expedientes-crear');
         }
             
-        return back()->with('fail','No se pudo crear el expediente-contribuyente');    
-
+        return back()->with('fail','No se pudo crear el expediente-contribuyente');   
     }
+
+    
 
     /**
      * Display the specified resource.
