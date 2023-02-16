@@ -16,6 +16,7 @@
     <body>
         @include('header')
 
+        @include('botones_inicio')
         
         @include('footer')
     </body>

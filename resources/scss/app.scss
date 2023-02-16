@@ -26,7 +26,7 @@ body {
 .navbar > .container-lg,
 .navbar > .container-xl,
 .navbar > .container-xxl {
-    border-bottom: .1px solid var(--color-muted);
+    border-bottom: 0.1px solid var(--color-muted);
 }
 
 .logo {
@@ -42,11 +42,12 @@ body {
 
 .textUser {
     font-size: 20;
-    font-weight:normal;
+    font-weight: normal;
     color: var(--color-muted);
 }
 
-.textUser:link, a:visited {
+.textUser:link,
+a:visited {
     text-decoration: none;
 }
 
@@ -80,7 +81,8 @@ footer {
     color: var(--color-light);
 }
 
-.textoFooter a:link, a:visited {
+.textoFooter a:link,
+a:visited {
     text-decoration: none;
 }
 
@@ -89,3 +91,42 @@ footer {
     opacity: 50%;
 }
 ////////////////****FIN FOOTER****///////////////////////////////////////////////////////
+
+////////////////****INICIO BOTONES PÁGINA PRINCIPAL****//////////////////////////////////
+.contenedorBotones {
+    align-content: center;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.btnPrincipal {
+    width: 398.81px;
+    height: 150px;
+    margin: 20px;
+    margin-left: 70px;
+    margin-right: 70px;
+    color: white;
+    border-radius: 10px;
+    font-weight: normal;
+    font-size: 30px;
+    text-align: center;
+    border: none;
+}
+
+.btnExpediente {
+    background-color: var(--color-success);
+}
+
+.btnBuscar {
+    background-color: var(--color-naranja);
+}
+
+.btnReportes {
+    background-color: var(--color-info);
+}
+
+.btnAdministracion {
+    background-color: var(--color-violeta);
+}
