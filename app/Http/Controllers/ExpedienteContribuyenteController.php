@@ -35,12 +35,12 @@ class ExpedienteContribuyenteController extends Controller
         return view('expedienteContribuyente.crear',['expedientes'=>$expedientes, 'contribuyentes'=>$contribuyentes,'exped'=>$exped]);
     }
 
-    public function createEnExpediente()
+    public function createEnExpediente($expediente_id,$contribuyente_id)
     {
-        $expedientes = Expediente::all();
-        $contribuyentes = Contribuyente::all();
-        $exped = true;
-        return view('expedienteContribuyente.crear',['expedientes'=>$expedientes, 'contribuyentes'=>$contribuyentes,'exped'=>$exped]);
+        // $expedientes = Expediente::all();
+        // $contribuyentes = Contribuyente::all();
+        // $exped = true;
+    return view('expedienteContribuyente.crear2',['expediente_id'=>$expediente_id, 'contribuyente_id'=>$contribuyente_id/*,'exped'=>$exped*/]);
     }
 
     /**
