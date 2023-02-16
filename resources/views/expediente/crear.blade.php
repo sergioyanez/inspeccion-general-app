@@ -104,25 +104,7 @@
                                 <input  type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
 
-<<<<<<< HEAD
-                    @isset($personasJuridicas)
-                        @if ($personasJuridicas != null and count($personasJuridicas) == 1 and request('buscarpor1'))
-                        <label class="form-label" for="basic-default-fullname">Titulares personas jurìdicas:</label>
-                            @foreach ($personasJuridicas as $pj)
-                                <td>{{$pj->nombre_representante}}</td>
-                                <td>{{$pj->apellido_representante}}</td>
-                                <td>{{$pj->dni_representante}}</td>
-                                <input type="text" name="pj_id" value="{{ $pj->id }}">
-                                <input type="text" name="idExpSiguiente" value="{{ $expedienteID->id+1 }}">
-                            @endforeach
-                        @else
-                            @if (request('buscarpor1'))
-                                <h4>No se encontrò la persona jurìdica</h4>
-                                <a href="{{route('personasJuridicas-crearEnExpediente')}}" class="btn btn-primary">Crear persona jurìdica para el expediente</a>
-                            @endif
-=======
                             <button type="submit" class="btn btn-primary">Enviar</button>
->>>>>>> sergio
 
                         </form>
 
