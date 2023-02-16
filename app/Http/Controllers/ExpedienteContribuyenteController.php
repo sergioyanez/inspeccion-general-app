@@ -52,7 +52,7 @@ class ExpedienteContribuyenteController extends Controller
     public function store(Request $request)
     {
         $expedienteContribuyente = new ExpedienteContribuyente();
-        $expedienteContribuyente->expediente_id = 7;//$request->idExpSiguiente;
+        $expedienteContribuyente->expediente_id = $request->idExpSiguiente;
         $expedienteContribuyente->contribuyente_id = $request->contribuyente_id;
 
         if($expedienteContribuyente->save()) {

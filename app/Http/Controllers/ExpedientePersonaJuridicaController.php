@@ -40,7 +40,7 @@ class ExpedientePersonaJuridicaController extends Controller
     {
         $expedientePersonaJuridica = new expediente_persona_juridica();
         $expedientePersonaJuridica->persona_juridica_id = $request->pj_id;
-        $expedientePersonaJuridica->expediente_id = 5;//$request->idExpSiguiente;
+        $expedientePersonaJuridica->expediente_id = $request->idExpSiguiente;
 
         if($expedientePersonaJuridica->save()) {
             return redirect()->route('expedientes-crear');
