@@ -11,6 +11,8 @@ use App\Http\Controllers\LogsContribuyenteController;
 use App\Http\Requests\StoreContribuyenteRequest;
 use App\Http\Requests\UpdateContribuyenteRequest;
 use App\Models\ExpedienteContribuyente;
+use App\Models\ExpedientePersonaJuridica;
+
 
 class ContribuyenteController extends Controller
 {
@@ -26,14 +28,15 @@ class ContribuyenteController extends Controller
     public function indexBuscar(Request $request)
     {
 
-        $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
         $expedientesContribuyentes= ExpedienteContribuyente::all();
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         $buscar = $request->buscarpor;
         $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
         ->where('dni', 'LIKE', '%' . $buscar . '%')
         // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
-        return view('expediente.crear', ['contribuyentes' => $contribuyentes,'expedienteID'=>$expedienteID,'expedientesContribuyentes'=>$expedientesContribuyentes]);
+        return view('expediente.crear', ['contribuyentes' => $contribuyentes,'expediente'=>$expediente,'expedientesContribuyentes'=>$expedientesContribuyentes,'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas]);
     }
 
     /**
@@ -85,8 +88,11 @@ class ContribuyenteController extends Controller
                 return redirect()->route('contribuyentes');
             }
             else{
+                $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+                $expedientesContribuyentes= ExpedienteContribuyente::all();
+                $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
                 $contribuyentes=Contribuyente::all();
-                return view('expediente.crear', ['contribuyentes' => $contribuyentes]);
+                return view('expediente.crear', ['contribuyentes' => $contribuyentes,'expediente'=>$expediente,'expedientesContribuyentes'=>$expedientesContribuyentes,'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas]);
             }
 
         }

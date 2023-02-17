@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class expediente_persona_juridica extends Model
+class ExpedientePersonaJuridica extends Model
 {
     use HasFactory;
     protected $table = 'expedientes_personas_juridicas';
@@ -16,7 +16,7 @@ class expediente_persona_juridica extends Model
         }
 
              //Relacion uno a muchos inversa. O relacion muchos a uno
-    public function contribuyente(){
-        return $this->belongsTo('App\Models\Contribuyente');
+    public function personaJuridica(){
+        return $this->belongsTo('App\Models\Persona_juridica');
     }
 }

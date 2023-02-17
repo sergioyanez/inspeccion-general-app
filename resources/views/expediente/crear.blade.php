@@ -98,10 +98,6 @@
                                 <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
 
-
-
-
-
                             {{-- <div>
                                 <label class="form-label" for="basic-default-fullname">Estado habilitacion</label>
                                 <input  type="text" name="detalle_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" />
@@ -124,11 +120,10 @@
                                     <label class="form-label" for="basic-default-fullname">Nº:</label>
                                     <input type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
-
-
-
                             </div>
                         </form>
+
+
 
                         <form method="GET" action="{{route('contribuyentes-buscar')}}">
                             @csrf
@@ -138,6 +133,8 @@
                                 <input type="submit" value="Buscar">
                             </div>
                         </form>
+
+
 
                         <form method="GET" action="{{route('personasJuridicas-buscar')}}">
                             @csrf
@@ -158,13 +155,9 @@
                                         <td>{{$contribuyente->apellido}}</td>
                                         <td>{{$contribuyente->dni}}</td>
                                         <input type="text" name="contribuyente_id" value="{{$contribuyente->id}}">
-                                        <input type="text" name="idExpSiguiente" value="{{$expedienteID->id}}">
+                                        <input type="text" name="idExpSiguiente" value="{{$expediente->id}}">
                                         <button type="submit">guardar</button>
                                     @endforeach
-
-
-
-
                                 @else
                                     @if (request('buscarpor'))
                                         <h4>No se encontrò el contribuyente</h4>
@@ -179,24 +172,21 @@
                         <label class="form-label" for="basic-default-fullname">Contribuyentes del expediente</label>
                         <table class="table table-dark table-hover">
                            <thead>
-                               <tr>
-                                <th>id</th>
-                                <th>expediente_id</th>
-                                <th>contribuyente_id</th>
-
-
-                               </tr>
+                                <tr>
+                                    <th>id</th>
+                                    <th>expediente_id</th>
+                                    <th>contribuyente_id</th>
+                                </tr>
                            </thead>
                            <tbody>
                                    @foreach ($expedientesContribuyentes as $expedContrib)
-                                   @if ($expedContrib->expediente_id ==$expedienteID->id)
-                                   <tr>
-                                    <td>{{$expedContrib->id}}</td>
-                                    <td>{{$expedContrib->expediente_id}}</td>
-                                    <td>{{$expedContrib->contribuyente_id}}</td>
-                                </tr>
-                                   @endif
-
+                                        @if ($expedContrib->expediente_id ==$expediente->id)
+                                            <tr>
+                                                <td>{{$expedContrib->id}}</td>
+                                                <td>{{$expedContrib->expediente_id}}</td>
+                                                <td>{{$expedContrib->contribuyente_id}}</td>
+                                            </tr>
+                                        @endif
                                    @endforeach
                            </tbody>
                         </table>
@@ -212,8 +202,8 @@
                                         <td>{{$pj->nombre_representante}}</td>
                                         <td>{{$pj->apellido_representante}}</td>
                                         <td>{{$pj->dni_representante}}</td>
-                                        <input type="text" name="pj_id" value="{{ $pj->id }}">
-                                        <input type="text" name="idExpSiguiente" value="{{$expedienteID->id}}">
+                                        <input type="text" name="persona_juridica_id" value="{{$pj->id}}">
+                                        <input type="text" name="idExpSiguiente" value="{{$expediente->id}}">
                                         <button type="submit">guardar</button>
                                     @endforeach
                                 @else
@@ -226,33 +216,27 @@
                             @endisset
                         </form>
 
-
-
-
-                        {{--@isset($personasJuridicas)
-                            @if ($personasJuridicas != null )
-                                <label class="form-label" for="basic-default-fullname">Personas jurìdicas del expediente</label>
-                                <table class="table table-dark table-hover">
-                                    <thead>
+                        <label class="form-label" for="basic-default-fullname">Personas jurìdicas del expediente</label>
+                        <table class="table table-dark table-hover">
+                            <thead>
+                                <tr>
+                                    <th>id</th>
+                                    <th>expediente_id</th>
+                                    <th>personaJuridica_id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($expedientesPersonasJuridicas as $expedPersJurid)
+                                    @if ($expedPersJurid->expediente_id ==$expediente->id)
                                         <tr>
-                                            <th>Nombre</th>
-                                            <th>Apellido</th>
-                                            <th>DNI</th>
+                                            <td>{{$expedPersJurid->id}}</td>
+                                            <td>{{$expedPersJurid->expediente_id}}</td>
+                                            <td>{{$expedPersJurid->persona_juridica_id}}</td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($personasJuridicas as $pj)
-                                        <tr>
-                                        <td>{{$pj->nombre_representante}}</td>
-                                        <td>{{$pj->apellido_representante}}</td>
-                                        <td>{{$pj->dni_representante}}</td>
-                                    </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            @endif
-                        @endisset --}}
-
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

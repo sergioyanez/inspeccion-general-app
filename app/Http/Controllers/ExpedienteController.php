@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreexpedienteRequest;
 use App\Http\Requests\UpdateexpedienteRequest;
-use App\Models\expediente_persona_juridica;
+use App\Models\ExpedientePersonaJuridica;
 use App\Models\ExpedienteContribuyente;
 
 class ExpedienteController extends Controller
@@ -89,16 +89,17 @@ class ExpedienteController extends Controller
         $estadosBaja = Estado_baja::all();
         $personasJuridicas = Persona_juridica::all();
         $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
-        //$pjEnExped = expediente_persona_juridica::select('expediente_id','persona_juridica_id')->orderBy('id', 'desc');
         $expedientesContribuyentes = ExpedienteContribuyente::all();
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         return view('expediente.crear', ['catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
                                         'contribuyentes' =>$contribuyentes,
                                         'estadosBaja' =>$estadosBaja,
                                         'personasJuridicas' => $personasJuridicas,
-                                        'expedienteID' =>$expediente,
-                                        'expedientesContribuyentes'=>$expedientesContribuyentes]);
+                                        'expediente' =>$expediente,
+                                        'expedientesContribuyentes'=>$expedientesContribuyentes,
+                                        'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas]);
     }
 
     /**

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Persona_juridica;
 use App\Models\Expediente;
+use App\Models\ExpedientePersonaJuridica;
+use App\Models\ExpedienteContribuyente;
+
 use App\Http\Requests\StorePersona_juridicaRequest;
 use App\Http\Requests\UpdatePersona_juridicaRequest;
 use App\Http\Controllers\LogsPersonaJuridicaController;
@@ -24,13 +27,14 @@ class PersonaJuridicaController extends Controller {
     public function indexBuscar(Request $request)
     {
 
-        $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $expedientesContribuyentes= ExpedienteContribuyente::all();
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         $buscar = $request->buscarpor1;
         $personasJuridicas = Persona_juridica::orderBy('dni_representante', 'asc')
         ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
-
         ->paginate(200);
-        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,'expedienteID'=>$expedienteID]);
+        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,'expediente'=>$expediente,'expedientesPersonasJuridicas',$expedientesPersonasJuridicas,'expedientesContribuyentes'=>$expedientesContribuyentes]);
     }
 
     /**
@@ -71,8 +75,11 @@ class PersonaJuridicaController extends Controller {
                 return redirect()->route('personasJuridicas');
             }
             else{
+                $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+                $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
+                $expedientesContribuyentes= ExpedienteContribuyente::all();
                 $personasJuridicas=Persona_juridica::all();
-                return view('expediente.crear', ['personasJuridicas' => $personasJuridicas]);
+                return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,'expediente'=>$expediente,'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,'expedientesContribuyentes'=>$expedientesContribuyentes]);
             }
 
         }
