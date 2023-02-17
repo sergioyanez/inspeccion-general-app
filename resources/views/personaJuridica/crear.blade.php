@@ -37,6 +37,9 @@
                                 <label class="form-label" for="basic-default-fullname">Telefono</label>
                                 <input required type="text" name="telefono" class="form-control" id="basic-default-telefonoRepre" />
                             </div>
+                            <div >
+                                <input  type="hidden" name="expediente" value="{{$expediente}}" />
+                            </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>
                     </div>

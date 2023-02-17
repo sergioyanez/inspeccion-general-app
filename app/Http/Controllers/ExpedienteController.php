@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreexpedienteRequest;
 use App\Http\Requests\UpdateexpedienteRequest;
+use App\Models\expediente_persona_juridica;
+use App\Models\ExpedienteContribuyente;
 
 class ExpedienteController extends Controller
 {
@@ -60,6 +62,19 @@ class ExpedienteController extends Controller
             return view('expediente.expedientes', ['expedientes' => $expedientes]);
     }
 
+
+
+    public function buscarContribEnExpediente($id)
+    {
+        $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $expedientesContribuyentes = ExpedienteContribuyente::orderBy('id', 'asc')
+        ->where('expediente_id', 'LIKE', '%' . $id . '%');
+        return $expedientesContribuyentes;
+
+    }
+
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -73,14 +88,17 @@ class ExpedienteController extends Controller
         $detalleInmuebles = Detalle_inmueble::all();
         $estadosBaja = Estado_baja::all();
         $personasJuridicas = Persona_juridica::all();
-        $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+        //$pjEnExped = expediente_persona_juridica::select('expediente_id','persona_juridica_id')->orderBy('id', 'desc');
+        $expedientesContribuyentes = ExpedienteContribuyente::all();
         return view('expediente.crear', ['catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
                                         'contribuyentes' =>$contribuyentes,
                                         'estadosBaja' =>$estadosBaja,
                                         'personasJuridicas' => $personasJuridicas,
-                                        'expedienteID' =>$expedienteID]);
+                                        'expedienteID' =>$expediente,
+                                        'expedientesContribuyentes'=>$expedientesContribuyentes]);
     }
 
     /**

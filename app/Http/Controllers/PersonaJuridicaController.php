@@ -67,7 +67,14 @@ class PersonaJuridicaController extends Controller {
         if($personaJuridica->save()){
             $log = new LogsPersonaJuridicaController();
             $log->store($personaJuridica, 'c');
-            return redirect()->route('personasJuridicas');
+            if(!$request->expediente){
+                return redirect()->route('personasJuridicas');
+            }
+            else{
+                $personasJuridicas=Persona_juridica::all();
+                return view('expediente.crear', ['personasJuridicas' => $personasJuridicas]);
+            }
+
         }
         return back()->with('fail','No se pudo cargar persona jurídica');
     }

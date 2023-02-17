@@ -33,7 +33,7 @@
                                 <input type="submit" value="Buscar">
                             </div>
                         </form>
-                        
+
                         <form method="POST" action="{{ route('expedientesContribuyentes-guardar') }}">
                             @csrf
                             @isset($contribuyentes)
@@ -79,7 +79,7 @@
                                 @endif
                             @endisset
                         </form> --}}
-                        
+
                         <form method="POST" action="{{ route('expedientes-guardar') }}">
                             @csrf
                             <div class="mb-3">
@@ -97,10 +97,10 @@
                                 <label class="form-label" for="basic-default-fullname">Anexo</label>
                                 <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
-                            
 
 
-                            
+
+
 
                             {{-- <div>
                                 <label class="form-label" for="basic-default-fullname">Estado habilitacion</label>
@@ -120,13 +120,14 @@
                                     <label class="form-label" for="basic-default-fullname">Calle:</label>
                                     <input type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
-                                <div>    
+                                <div>
                                     <label class="form-label" for="basic-default-fullname">Nº:</label>
                                     <input type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
-    
+
+
+
                             </div>
-                            
                         </form>
 
                         <form method="GET" action="{{route('contribuyentes-buscar')}}">
@@ -146,7 +147,7 @@
                                 <input type="submit" value="Buscar">
                             </div>
                         </form>
-                        
+
                         <form method="POST" action="{{ route('expedientesContribuyentes-guardar') }}">
                             @csrf
                             @isset($contribuyentes)
@@ -160,6 +161,10 @@
                                         <input type="text" name="idExpSiguiente" value="{{$expedienteID->id}}">
                                         <button type="submit">guardar</button>
                                     @endforeach
+
+
+
+
                                 @else
                                     @if (request('buscarpor'))
                                         <h4>No se encontrò el contribuyente</h4>
@@ -169,6 +174,34 @@
                                 @endif
                             @endisset
                         </form>
+
+
+                        <label class="form-label" for="basic-default-fullname">Contribuyentes del expediente</label>
+                        <table class="table table-dark table-hover">
+                           <thead>
+                               <tr>
+                                <th>id</th>
+                                <th>expediente_id</th>
+                                <th>contribuyente_id</th>
+
+
+                               </tr>
+                           </thead>
+                           <tbody>
+                                   @foreach ($expedientesContribuyentes as $expedContrib)
+                                   @if ($expedContrib->expediente_id ==$expedienteID->id)
+                                   <tr>
+                                    <td>{{$expedContrib->id}}</td>
+                                    <td>{{$expedContrib->expediente_id}}</td>
+                                    <td>{{$expedContrib->contribuyente_id}}</td>
+                                </tr>
+                                   @endif
+
+                                   @endforeach
+                           </tbody>
+                        </table>
+
+
 
                         <form method="POST" action="{{ route('expediente-persona-juridica-guardar') }}">
                             @csrf
@@ -191,7 +224,34 @@
 
                                 @endif
                             @endisset
-                        </form>                        
+                        </form>
+
+
+
+
+                        {{--@isset($personasJuridicas)
+                            @if ($personasJuridicas != null )
+                                <label class="form-label" for="basic-default-fullname">Personas jurìdicas del expediente</label>
+                                <table class="table table-dark table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Apellido</th>
+                                            <th>DNI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($personasJuridicas as $pj)
+                                        <tr>
+                                        <td>{{$pj->nombre_representante}}</td>
+                                        <td>{{$pj->apellido_representante}}</td>
+                                        <td>{{$pj->dni_representante}}</td>
+                                    </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endif
+                        @endisset --}}
 
                     </div>
                 </div>

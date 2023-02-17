@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\LogsContribuyenteController;
 use App\Http\Requests\StoreContribuyenteRequest;
 use App\Http\Requests\UpdateContribuyenteRequest;
+use App\Models\ExpedienteContribuyente;
 
 class ContribuyenteController extends Controller
 {
@@ -24,13 +25,15 @@ class ContribuyenteController extends Controller
 
     public function indexBuscar(Request $request)
     {
+
         $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $expedientesContribuyentes= ExpedienteContribuyente::all();
         $buscar = $request->buscarpor;
         $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
         ->where('dni', 'LIKE', '%' . $buscar . '%')
         // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
-        return view('expediente.crear', ['contribuyentes' => $contribuyentes,'expedienteID'=>$expedienteID]);
+        return view('expediente.crear', ['contribuyentes' => $contribuyentes,'expedienteID'=>$expedienteID,'expedientesContribuyentes'=>$expedientesContribuyentes]);
     }
 
     /**
