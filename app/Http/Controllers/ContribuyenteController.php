@@ -82,7 +82,8 @@ class ContribuyenteController extends Controller
                 return redirect()->route('contribuyentes');
             }
             else{
-                return view('expediente.crear', ['contribuyentes' => $contribuyente]);
+                $contribuyentes=Contribuyente::all();
+                return view('expediente.crear', ['contribuyentes' => $contribuyentes]);
             }
 
         }
