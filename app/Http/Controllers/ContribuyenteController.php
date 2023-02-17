@@ -36,7 +36,7 @@ class ContribuyenteController extends Controller
         ->where('dni', 'LIKE', '%' . $buscar . '%')
         // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
-        return view('expediente.crear', ['contribuyentes' => $contribuyentes,'expediente'=>$expediente,'expedientesContribuyentes'=>$expedientesContribuyentes,'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas]);
+        return view('expediente.crear', ['contribuyentes' => $contribuyentes,'expediente'=>$expediente,'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,'expedientesContribuyentes'=>$expedientesContribuyentes]);
     }
 
     /**

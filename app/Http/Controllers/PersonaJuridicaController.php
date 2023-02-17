@@ -34,7 +34,7 @@ class PersonaJuridicaController extends Controller {
         $personasJuridicas = Persona_juridica::orderBy('dni_representante', 'asc')
         ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
-        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,'expediente'=>$expediente,'expedientesPersonasJuridicas',$expedientesPersonasJuridicas,'expedientesContribuyentes'=>$expedientesContribuyentes]);
+        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,'expediente'=>$expediente,'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,'expedientesContribuyentes'=>$expedientesContribuyentes]);
     }
 
     /**

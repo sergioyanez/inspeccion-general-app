@@ -169,8 +169,8 @@
                         </form>
 
 
-                        <label class="form-label" for="basic-default-fullname">Contribuyentes del expediente</label>
-                        <table class="table table-dark table-hover">
+                        <h3 class=" text-center font-weight">Contribuyentes del expediente</h3>
+                        <table class="table table-warning table-hover">
                            <thead>
                                 <tr>
                                     <th>id</th>
@@ -216,8 +216,8 @@
                             @endisset
                         </form>
 
-                        <label class="form-label" for="basic-default-fullname">Personas jurìdicas del expediente</label>
-                        <table class="table table-dark table-hover">
+                        <h3 class=" text-center font-weight">Personas jurìdicas del expediente</h3>
+                        <table class="table table-success table-hover">
                             <thead>
                                 <tr>
                                     <th>id</th>
