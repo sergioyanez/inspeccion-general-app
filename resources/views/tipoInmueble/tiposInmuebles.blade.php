@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <title>Tipos de Inmuebles</title>
 </head>
 <body>
@@ -23,8 +24,8 @@
                     @foreach($tiposInmuebles as $tipoInmueble)
                         <tr>
                             <td>{{$tipoInmueble->descripcion}}</td>
-                            <td><a href="{{route('tiposInmuebles-mostrar', $tipoInmueble->id)}}">Editar</a></td>
-                            <td><a href="{{route('tiposInmuebles-eliminar', $tipoInmueble->id)}}">Eliminar</a></td>
+                            <td><a href="{{route('tiposInmuebles-mostrar', $tipoInmueble->id)}}"class="btn btn-warning">Editar</a></td>
+                            <td><a href="{{route('tiposInmuebles-eliminar', $tipoInmueble->id)}}"class="btn btn-danger">Eliminar</a></td>
                         </tr>
                     @endforeach
                 </tbody>

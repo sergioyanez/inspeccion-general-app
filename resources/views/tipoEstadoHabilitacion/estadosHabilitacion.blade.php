@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <title>Estados Habilitaciones</title>
 </head>
 <body>
@@ -24,8 +25,8 @@
                         <tr>
                             <td>{{$estadohabilitacion->descripcion}}</td>
                             <td>{{$estadohabilitacion->created_at}}</td>
-                            <td><a href="{{route('tiposEstadosHabilitacion-mostrar', $estadohabilitacion->id)}}">Editar</a></td>
-                            <td><a href="{{route('tiposEstadosHabilitacion-eliminar', $estadohabilitacion->id)}}">Eliminar</a></td>
+                            <td><a href="{{route('tiposEstadosHabilitacion-mostrar', $estadohabilitacion->id)}}"class="btn btn-warning">Editar</a></td>
+                            <td><a href="{{route('tiposEstadosHabilitacion-eliminar', $estadohabilitacion->id)}}"class="btn btn-danger">Eliminar</a></td>
                         </tr>
                     @endforeach
                 </tbody>

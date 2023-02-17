@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Catastro</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+        <title>Catastro</title>
+    </head>
     <body>
-
         <h4>Catastro de la aplicacion</h4>
-
         <div class="card">
             <div class="table-responsive text-nowrap">
                 <a href="{{route('catastros-crear')}}" class="btn btn-primary">Crear nuevo catastro</a>
@@ -45,8 +44,8 @@
                                 <td>{{$catastro->fecha_informe}}</td>
                                 <td>{{$catastro->pdf_informe}}</td>
                                 <td>{{$catastro->created_at}}</td>
-                                <td><a href="{{route('catastros-mostrar', $catastro->id)}}">Editar</a></td>
-                                <td><a href="{{route('catastros-eliminar', $catastro->id)}}">Eliminar</a></td>
+                                <td><a href="{{route('catastros-mostrar', $catastro->id)}}"class="btn btn-warning">Editar</a></td>
+                                <td><a href="{{route('catastros-eliminar', $catastro->id)}}"class="btn btn-danger">Eliminar</a></td>
                             </tr>
                         @endforeach
                     </tbody>
