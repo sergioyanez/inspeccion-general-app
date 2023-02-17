@@ -173,18 +173,20 @@
                         <table class="table table-warning table-hover">
                            <thead>
                                 <tr>
-                                    <th>id</th>
-                                    <th>expediente_id</th>
-                                    <th>contribuyente_id</th>
+                                    <th>NOMBRE DEL REPRESENTANTE</th>
+                                    <th>APELLIDO DEL REPRESENTANTE</th>
+                                    <th>DNI DEL REPRESENTANTE</th>
+                                    <th>ACCION</th>
                                 </tr>
                            </thead>
                            <tbody>
                                    @foreach ($expedientesContribuyentes as $expedContrib)
                                         @if ($expedContrib->expediente_id ==$expediente->id)
                                             <tr>
-                                                <td>{{$expedContrib->id}}</td>
-                                                <td>{{$expedContrib->expediente_id}}</td>
-                                                <td>{{$expedContrib->contribuyente_id}}</td>
+                                                <td>{{$expedContrib->contribuyente->nombre}}</td>
+                                                <td>{{$expedContrib->contribuyente->apellido}}</td>
+                                                <td>{{$expedContrib->contribuyente->dni}}</td>
+                                                <td><a>Eliminar</a></td>
                                             </tr>
                                         @endif
                                    @endforeach
@@ -220,18 +222,20 @@
                         <table class="table table-success table-hover">
                             <thead>
                                 <tr>
-                                    <th>id</th>
-                                    <th>expediente_id</th>
-                                    <th>personaJuridica_id</th>
+                                    <th>NOMBRE</th>
+                                    <th>APELLIDO</th>
+                                    <th>DNI</th>
+                                    <th>ACCION</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($expedientesPersonasJuridicas as $expedPersJurid)
                                     @if ($expedPersJurid->expediente_id ==$expediente->id)
                                         <tr>
-                                            <td>{{$expedPersJurid->id}}</td>
-                                            <td>{{$expedPersJurid->expediente_id}}</td>
-                                            <td>{{$expedPersJurid->persona_juridica_id}}</td>
+                                            <td>{{$expedPersJurid->personaJuridica->nombre_representante}}</td>
+                                            <td>{{$expedPersJurid->personaJuridica->apellido_representante}}</td>
+                                            <td>{{$expedPersJurid->personaJuridica->dni_representante}}</td>
+                                            <td><a>Eliminar</a></td>
                                         </tr>
                                     @endif
                                 @endforeach

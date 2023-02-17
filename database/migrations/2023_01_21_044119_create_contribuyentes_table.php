@@ -26,7 +26,7 @@ return new class extends Migration
             $table->bigInteger('ingresos_brutos');
             $table->string('nombre',50);
             $table->string('apellido',50);
-            $table->bigInteger('dni');
+            $table->bigInteger('dni')->unique();
             $table->date('fecha_nacimiento');
             $table->bigInteger('telefono')->nullable();
             $table->string('nombre_conyuge',50)->nullable();
