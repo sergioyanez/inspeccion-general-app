@@ -97,6 +97,8 @@
                                 <label class="form-label" for="basic-default-fullname">Anexo</label>
                                 <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
+                            
+
 
                             
 
@@ -110,7 +112,21 @@
                             </div> --}}
 
                             <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button>
-
+                            <div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-fullname">Domicilio inmueble/s</label>
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Calle:</label>
+                                    <input type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>    
+                                    <label class="form-label" for="basic-default-fullname">Nº:</label>
+                                    <input type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+    
+                            </div>
+                            
                         </form>
 
                         <form method="GET" action="{{route('contribuyentes-buscar')}}">
