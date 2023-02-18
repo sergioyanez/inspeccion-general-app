@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\expediente;
+use App\Models\Tipo_inmueble;
+use App\Models\Inmueble;
 use App\Models\Persona_juridica;
 use App\Models\Contribuyente;
 use App\Models\Catastro;
@@ -10,6 +12,8 @@ use App\Models\Detalle_habilitacion;
 use App\Models\Detalle_inmueble;
 use App\Models\Estado_baja;
 use App\Http\Controllers\LogsExpedienteController;
+use App\Http\Controllers\InmuebleController;
+use App\Http\Controllers\DetalleInmuebleController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreexpedienteRequest;
@@ -91,6 +95,7 @@ class ExpedienteController extends Controller
         $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
         $expedientesContribuyentes = ExpedienteContribuyente::all();
         $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
+        $tiposInmuebles = Tipo_inmueble::all();
         return view('expediente.crear', ['catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
@@ -99,7 +104,8 @@ class ExpedienteController extends Controller
                                         'personasJuridicas' => $personasJuridicas,
                                         'expediente' =>$expediente,
                                         'expedientesContribuyentes'=>$expedientesContribuyentes,
-                                        'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas]);
+                                        'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
+                                        'tiposInmuebles' => $tiposInmuebles]);
     }
 
     /**
@@ -123,9 +129,27 @@ class ExpedienteController extends Controller
         $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
         $expediente->detalle_inmueble_id = $request->detalle_inmueble_id;
 
+        if($request->calle)
+            $calle = $request->calle;
+
+        if($request->numero)
+            $numero = $request->numero;
+
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'c');
+
+            $inmueble = new Inmueble;
+            $inmueble->calle = $calle;
+            $inmueble->numero = $numero;
+            $inmueble->save();
+
+            $detalleInmueble = new Detalle_inmueble;
+            $detalleInmueble->inmueble_id = $inmueble->id;
+            $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
+            if($request->fecha_vencimiento_alquiler)
+                $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
+            $detalleInmueble->save();
 
             //return redirect()->route('expedientes');
             return redirect()->route('expedientes-crear');
