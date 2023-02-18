@@ -54,6 +54,18 @@
                                     <label class="form-label" for="basic-default-fullname">Nº:</label>
                                     <input type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-fullname">Tipo de inmueble</label>
+                                    <select name="tipo_inmueble_id" class="form-control" id="basic-default-nombreCompleto" >
+                                        @foreach($tiposInmuebles as $tipo)
+                                            <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
+                                    <input type="text" name="fecha_vencimiento_alquiler" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
                             </div>
                         </form>
 
