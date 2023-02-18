@@ -58,11 +58,11 @@ class ExpedienteContribuyenteController extends Controller
         if($expedienteContribuyente->save()) {
             return redirect()->route('expedientes-crear');
         }
-            
-        return back()->with('fail','No se pudo crear el expediente-contribuyente');   
+
+        return back()->with('fail','No se pudo crear el expediente-contribuyente');
     }
 
-    
+
 
     /**
      * Display the specified resource.
@@ -91,7 +91,7 @@ class ExpedienteContribuyenteController extends Controller
         if($expedienteContribuyente->save()){
             return redirect()->route('expedientesContribuyentes');
         }
-        return back()->with('fail','No se pudo crear el expedienteContribuyente');
+        return back()->with('fail','No se pudo actualizar el expedienteContribuyente');
     }
 
     /**
@@ -104,8 +104,7 @@ class ExpedienteContribuyenteController extends Controller
     {
         $expedienteContribuyente = ExpedienteContribuyente::find($id);
         if($expedienteContribuyente->delete()){
-
-            return redirect()->route('expedientesContribuyentes');
+            return redirect()->route('expedientes-crear');
         }
         return back()->with('fail','No se pudo crear el detalle de habilitación');
     }

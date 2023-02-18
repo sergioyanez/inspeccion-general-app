@@ -88,7 +88,7 @@ class ExpedienteController extends Controller
         $detalleInmuebles = Detalle_inmueble::all();
         $estadosBaja = Estado_baja::all();
         $personasJuridicas = Persona_juridica::all();
-        $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $expediente = Expediente::orderBy('id', 'desc')->first();
         $expedientesContribuyentes = ExpedienteContribuyente::all();
         $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         return view('expediente.crear', ['catastro'=>$catastro,
