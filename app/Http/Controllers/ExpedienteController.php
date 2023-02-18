@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\expediente;
 use App\Models\Tipo_inmueble;
 use App\Models\Inmueble;
+use App\Models\Detalle_inmueble;
 use App\Models\Persona_juridica;
 use App\Models\Contribuyente;
 use App\Models\Catastro;
 use App\Models\Detalle_habilitacion;
-use App\Models\Detalle_inmueble;
+
 use App\Models\Estado_baja;
 use App\Http\Controllers\LogsExpedienteController;
-use App\Http\Controllers\InmuebleController;
-use App\Http\Controllers\DetalleInmuebleController;
+use App\Http\Controllers\LogsDetalleInmuebleController;
+use App\Http\Controllers\LogsInmuebleController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreexpedienteRequest;
@@ -139,17 +140,27 @@ class ExpedienteController extends Controller
             $log = new LogsExpedienteController();
             $log->store($expediente, 'c');
 
+            // se crea el inmueble
             $inmueble = new Inmueble;
             $inmueble->calle = $calle;
             $inmueble->numero = $numero;
-            $inmueble->save();
+            if($inmueble->save()) {
+                $log1 = new LogsInmuebleController();
+                $log1->store($inmueble, 'c');
+            }
+            
 
+            // se crea detalle inmueble
             $detalleInmueble = new Detalle_inmueble;
             $detalleInmueble->inmueble_id = $inmueble->id;
             $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
             if($request->fecha_vencimiento_alquiler)
                 $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
-            $detalleInmueble->save();
+            if($detalleInmueble->save()) {
+                $log2 = new LogsDetalleInmuebleController();
+                $log2->store($detalleInmueble, 'c');
+            }
+            
 
             //return redirect()->route('expedientes');
             return redirect()->route('expedientes-crear');
