@@ -10,11 +10,15 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+        @auth
         <div class="collapse navbar-collapse mb-lg-0 mb-2 pt-lg-0 pt-3" id="navbarSupportedContent">
             <p class="text ms-auto p-2 my-auto">
-                <a href="" class="textUser">Nombre usuario</a> 
+                <a href="" class="textUser">{{Auth::user()->usuario}}</a> 
             </p>
-            <button class="mt-2 mt-lg-0 ms-1 ms-lg-3 p-2 btn btn-secundary btn-salir">Salir</button>
+            <a href="{{route('salir')}}">
+                <button class="mt-2 mt-lg-0 ms-1 ms-lg-3 p-2 btn btn-secundary btn-salir">Salir</button>
+            </a>
         </div>
+        @endauth
     </div>
 </nav>

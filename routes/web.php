@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PaginaPrincipal\PaginaPrincipalController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,18 +18,20 @@ use Illuminate\Support\Facades\Route;
 
 $controller_path = 'App\Http\Controllers';
 
-Route::get('/', function () {
-    return view('auth.login');
+Route::controller(LoginController::class)->group(function(){
+    Route::get('','index')->name('login');
+    Route::post('iniciar-sesion','login')->name('iniciar-sesion');
+    Route::get('salir','logout')->name('salir');
 });
 
 // RUTA PAGINA PRINCIPAL
 Route::controller(PaginaPrincipalController::class)->group(function(){
-    Route::get('pagina_principal','index')->name('pagina_principal');
+    Route::get('pagina-principal','index')->middleware('auth')->name('pagina-principal');
 });
 
 // RUTA PAGINA DE BUSQUEDA DE EXPEDIENTES
 Route::controller(BusquedaExpedienteController::class)->group(function(){
-    Route::get('busqueda_expediente','index')->name('busqueda_expediente');
+    Route::get('busqueda-expediente','index')->name('busqueda-expediente');
 });
 
 // RUTA DE USUARIO
