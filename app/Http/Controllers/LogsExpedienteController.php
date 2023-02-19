@@ -2,31 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\logs_estado_civil;
+use App\Models\logs_expediente;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Storelogs_expedienteRequest;
+use App\Http\Requests\Updatelogs_expedienteRequest;
 
-class LogsEstadoCivilController extends Controller
+class LogsExpedienteController extends Controller
 {
-  
-    /**
-     * creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create($estado_civil, $char)
+
+    public function store($expediente, $char)
     {
-        $logs_estado_civil = new logs_estado_civil();
+        $logs_expediente = new logs_expediente();
+        $user = auth()->user();
 
-        $user= Auth::user();
+        $logs_expediente->expediente_id = $expediente->id;
+        $logs_expediente->catastro_id = $expediente->catastro_id;
+        $logs_expediente->nro_expediente = $expediente->nro_expediente;
+        $logs_expediente->nro_comercio = $expediente->nro_comercio;
+        $logs_expediente->actividad_ppal = $expediente->actividad_ppal;
+        $logs_expediente->anexo = $expediente->anexo;
+        $logs_expediente->pdf_solicitud = $expediente->pdf_solicitud;
+        $logs_expediente->bienes_de_uso = $expediente->bienes_de_uso;
+        $logs_expediente->observaciones_grales = $expediente->observaciones_grales;
+        $logs_expediente->detalle_de_habilitacion_id = $expediente->detalle_habilitacion_id;
+        $logs_expediente->estado_baja_id = $expediente->estado_baja_id;
+        $logs_expediente->detalle_inmueble_id = $expediente->detalle_inmueble_id;
+        $logs_expediente->accion = $char;
+        // $logs_expediente->usuario_id = $user->id;
+        // $logs_expediente->usuario_nombre = $user->usuario;
+        $logs_expediente->save();
 
-        $logs_estado_civil->estado_civil_id = $estado_civil->id;
-        $logs_estado_civil->descripcion = $estado_civil->descripcion;
-        $logs_estado_civil->accion = $char;
-        $logs_estado_civil->usuario_id = $user->id; 
-        $logs_estado_civil->usuario_nombre = $user->usuario;
-
-        return $logs_estado_civil->save();
+        return 'guardado';
     }
+
+
+
 
 }

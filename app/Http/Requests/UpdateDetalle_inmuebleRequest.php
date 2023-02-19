@@ -13,7 +13,7 @@ class UpdateDetalle_inmuebleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class UpdateDetalle_inmuebleRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'inmueble_id'=>'required',
+            'tipo_inmueble_id'=>'required'
         ];
     }
 }

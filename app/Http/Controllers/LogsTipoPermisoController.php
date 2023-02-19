@@ -15,7 +15,7 @@ class LogsTipoPermisoController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($tipo_permiso, $char) {
+    public function store($tipo_permiso, $char) {
         
         $logs_tipo_permiso = new logs_tipo_permiso();
         $user = auth()->user();

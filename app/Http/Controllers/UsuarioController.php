@@ -2,85 +2,99 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Tipo_permiso;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\LogsUsuarioController;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
 
-class UsuarioController extends Controller
-{
+
+class UsuarioController extends Controller {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muestra todos los usuarios
      */
-    public function index()
-    {
-        return "index usuario";
+    public function index() {
+
+        $usuario = User::all();
+        return view('usuario.usuarios', ['usuarios'=>$usuario]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muestra un formulario para crear un nuevo usuario
      */
-    public function create()
-    {
-        return "create usuario";
+    public function create() {
+        $tiposPermisos = Tipo_permiso::all();
+        return view('usuario.crear', ['tiposPermisos'=>$tiposPermisos]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreUsuarioRequest  $request
-     * @return \Illuminate\Http\Response
+     * Crea un nuevo usuario
+     * @param  \App\Http\Requests\StoreUsuarioRequest $request
      */
-    public function store(StoreUsuarioRequest $request)
-    {
-        return "store usuario";
+    public function store(StoreUsuarioRequest $request) {
+        $usuario = new User();
+        $usuario->usuario = $request->usuario;
+        $usuario->tipo_permiso_id = $request->tipo_permiso_id;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request->password);
+
+        if($usuario->save()) {
+            $log = new LogsUsuarioController();
+            $log->store($usuario, 'c');
+            return redirect()->route('usuarios');
+        }
+        return back()->with('fail','No se pudo crear el usuario');
+    }
+
+
+
+     /**
+     * Muestra un solo usuario
+     * @param  int $id
+     */
+    public function show($id){
+
+        $usuario = User::find($id);
+        $tiposPermisos = Tipo_permiso::all();
+        return view('usuario.mostrar', ['usuario' => $usuario, 'tiposPermisos'=>$tiposPermisos]);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $usuario)
-    {
-        return "show usuario";
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $usuario)
-    {
-        return "edit usuario";
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
+     * Método para editar un usuario
      * @param  \App\Http\Requests\UpdateUsuarioRequest  $request
-     * @param  \App\Models\User  $usuario
-     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUsuarioRequest $request, User $usuario)
-    {
-        return "update usuario";
+    public function update(UpdateUsuarioRequest $request) {
+        $usuario = User::find($request->usuario_id);
+        $usuario->usuario = $request->usuario;
+        $usuario->tipo_permiso_id = $request->tipo_permiso_id;
+        $usuario->email = $request->email;
+        $usuario->password = Hash::make($request->password);
+
+        if($usuario->save()){
+            $log = new LogsUsuarioController();
+            $log->store($usuario, 'u');
+            return redirect()->route('usuarios');
+        }
+        return back()->with('fail','No se pudo actualizar el usuario');
+
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $usuario
-     * @return \Illuminate\Http\Response
+     * Eliminar un usuario
+     * @param  int $id
      */
-    public function destroy(User $usuario)
-    {
-        return "destroy usuario";
+    public function destroy($id) {
+        $usuario = User::find($id);
+
+        if($usuario->delete()){
+            $log = new LogsUsuarioController();
+            $log->store($usuario, 'd');
+            return redirect()->route('usuarios');
+        }
+        return back()->with('fail','No se pudo eliminar el usuario');
     }
 }

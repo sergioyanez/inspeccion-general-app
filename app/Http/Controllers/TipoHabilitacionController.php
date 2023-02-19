@@ -5,82 +5,88 @@ namespace App\Http\Controllers;
 use App\Models\Tipo_habilitacion;
 use App\Http\Requests\StoreTipo_habilitacionRequest;
 use App\Http\Requests\UpdateTipo_habilitacionRequest;
+use App\Http\Controllers\LogsTipoHabilitacionController;
 
 class TipoHabilitacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+
+     /**
+     * Muestra todos los tipos de habilitaciones
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $tiposHabilitaciones = Tipo_habilitacion::all();
+        return view('tipoHabilitacion.tiposHabilitaciones', ['tiposHabilitaciones'=>$tiposHabilitaciones]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+     * Muestra un formulario para crear un tipo de habilitacion
+    */
+    public function create() {
+        return view('tipoHabilitacion.crear');
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
+     * Crea un nuevo tipo de habilitacion
      * @param  \App\Http\Requests\StoreTipo_habilitacionRequest  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(StoreTipo_habilitacionRequest $request)
     {
-        //
+        $tipoHabilitacion = new Tipo_habilitacion();
+        $tipoHabilitacion->descripcion = $request->descripcion;
+        $tipoHabilitacion->plazo_vencimiento = $request->plazo_vencimiento;
+
+        if ($tipoHabilitacion->save()){
+            $log = new LogsTipoHabilitacionController();
+            $log->store($tipoHabilitacion, 'c');
+            return redirect()->route('tiposHabilitaciones');
+
+        }
+        return back()->with('fail','No se pudo guardar el tipo de habilitacion');
     }
 
     /**
-     * Display the specified resource.
+     * Retorna un tipo de habilitacions
      *
-     * @param  \App\Models\Tipo_habilitacion  $tipo_habilitacion
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tipo_habilitacion $tipo_habilitacion)
+    public function show($id)
     {
-        //
+        $tipoHabilitacion = Tipo_habilitacion::find($id);
+        return view('tipoHabilitacion.mostrar', ['tipoHabilitacion'=>$tipoHabilitacion]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tipo_habilitacion  $tipo_habilitacion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tipo_habilitacion $tipo_habilitacion)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
+     * Método para editar un tipo de habilitacion
      * @param  \App\Http\Requests\UpdateTipo_habilitacionRequest  $request
-     * @param  \App\Models\Tipo_habilitacion  $tipo_habilitacion
-     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTipo_habilitacionRequest $request, Tipo_habilitacion $tipo_habilitacion)
+    public function update(UpdateTipo_habilitacionRequest $request)
     {
-        //
+        $tipoHabilitacion = Tipo_habilitacion::find($request->id);
+        $tipoHabilitacion->descripcion = $request->descripcion;
+        $tipoHabilitacion->plazo_vencimiento = $request->plazo_vencimiento;
+        if ($tipoHabilitacion->save()){
+            $log = new LogsTipoHabilitacionController();
+            $log->store($tipoHabilitacion, 'u');
+            return redirect()->route('tiposHabilitaciones');
+
+        }
+        return back()->with('fail','No se pudo guardar el tipo de habilitacion');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tipo_habilitacion  $tipo_habilitacion
-     * @return \Illuminate\Http\Response
+     * Eliminar un tipo de habilitacion
+     * @param int $id
      */
-    public function destroy(Tipo_habilitacion $tipo_habilitacion)
+    public function destroy($id)
     {
-        //
+        $tipoHabilitacion = Tipo_habilitacion::find($id);
+        if ($tipoHabilitacion->delete()){
+            $log = new LogsTipoHabilitacionController();
+            $log->store($tipoHabilitacion, 'd');
+            return redirect()->route('tiposHabilitaciones');
+        }
+        return back()->with('fail','No se pudo eliminar el estado civil');
     }
 }

@@ -3,84 +3,103 @@
 namespace App\Http\Controllers;
 
 use App\Models\Detalle_inmueble;
+use App\Models\Inmueble;
+use App\Models\Tipo_inmueble;
 use App\Http\Requests\StoreDetalle_inmuebleRequest;
 use App\Http\Requests\UpdateDetalle_inmuebleRequest;
 
 class DetalleInmuebleController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra todos los detalle de un inmueble.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        //
+        $detallesInmuebles = Detalle_inmueble::all();
+        $inmuebles = Inmueble::all();
+        $tiposInmueble = Tipo_inmueble::all();
+        return view('detalleInmueble.detallesInmuebles', ['detallesInmuebles' => $detallesInmuebles, 'inmuebles' => $inmuebles, 'tipos' => $tiposInmueble]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un nuevo Tipo de inmueble.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return "create detalle inmueble";
+        $inmuebles = Inmueble::all();
+        $tiposInmuebles = Tipo_inmueble::all();
+        return view('detalleInmueble.crear', ['inmuebles' => $inmuebles, 'tipos' => $tiposInmuebles]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda el tipo de inmueble creado en la base de datos
      *
-     * @param  \App\Http\Requests\StoreDetalle_inmuebleRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StoreDetalle_inmuebleRequest $request
      */
     public function store(StoreDetalle_inmuebleRequest $request)
     {
-        return "show detalle inmueble";
+        $detalleInmueble = new Detalle_inmueble();
+        $detalleInmueble->inmueble_id = $request->inmueble_id;
+        $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
+        $detalleInmueble->fecha_venc_alquiler = $request->fecha_venc_alquiler;
+
+        if ( $detalleInmueble->save()){
+            $log = new LogsDetalleInmuebleController();
+            $log->store($detalleInmueble, 'c');
+            return redirect()->route('detallesInmuebles');
+        }
+        return back()->with('fail','No se pudo cargar el detalle de inmueble');
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un detalle de inmueble específico.
      *
-     * @param  \App\Models\Detalle_inmueble  $detalle_inmueble
+     * @param  int id.
      * @return \Illuminate\Http\Response
      */
-    public function show(Detalle_inmueble $detalle_inmueble)
+    public function show($id)
     {
-        //
+        $detalleInmueble = Detalle_inmueble::find($id);
+        $inmuebles = Inmueble::all();
+        $tiposInmuebles = Tipo_inmueble::all();
+        return view('detalleInmueble.mostrar', ['detalleInmueble' => $detalleInmueble, 'inmuebles' => $inmuebles, 'tipos' => $tiposInmuebles]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Detalle_inmueble  $detalle_inmueble
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Detalle_inmueble $detalle_inmueble)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
+     * Actualiza los datos de un detalle de inmueble.
      * @param  \App\Http\Requests\UpdateDetalle_inmuebleRequest  $request
-     * @param  \App\Models\Detalle_inmueble  $detalle_inmueble
-     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateDetalle_inmuebleRequest $request, Detalle_inmueble $detalle_inmueble)
+    public function update(UpdateDetalle_inmuebleRequest $request)
     {
-        //
+        $detalleInmueble = Detalle_inmueble::find($request->id);
+        $detalleInmueble->inmueble_id = $request->inmueble_id;
+        $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
+        $detalleInmueble->fecha_venc_alquiler = $request->fecha_venc_alquiler;
+
+        if ( $detalleInmueble->save()){
+            $log = new LogsDetalleInmuebleController();
+            $log->store($detalleInmueble, 'u');
+            return redirect()->route('detallesInmuebles');
+        }
+        return back()->with('fail','No se pudo cargar el detalle de inmueble');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Detalle_inmueble  $detalle_inmueble
-     * @return \Illuminate\Http\Response
+     * Elimina el detalle de inmueble especificado.
+     * @param  int $id
      */
-    public function destroy(Detalle_inmueble $detalle_inmueble)
+    public function destroy($id)
     {
-        //
+        $detalleInmueble = Detalle_inmueble::find($id);
+        if ( $detalleInmueble->delete()){
+            $log = new LogsDetalleInmuebleController();
+            $log->store($detalleInmueble, 'd');
+            return redirect()->route('detallesInmuebles');
+        }
+        return back()->with('fail','No se pudo eliminar el detalle de inmueble');
     }
 }

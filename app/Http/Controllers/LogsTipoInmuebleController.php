@@ -15,7 +15,7 @@ class LogsTipoInmuebleController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($tipo_inmueble, $char) {
+    public function store($tipo_inmueble, $char) {
 
         $logs_tipo_inmueble = new logs_tipo_inmueble();
         $user = auth()->user();

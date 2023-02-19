@@ -4,84 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\logs_estado_baja;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Storelogs_estado_bajaRequest;
-use App\Http\Requests\Updatelogs_estado_bajaRequest;
+use Illuminate\Support\Facades\Auth;
 
-class LogsEstadoBajaController extends Controller
-{
+class LogsEstadoBajaController extends Controller {
+
     /**
-     * Display a listing of the resource.
+     * Método que crea un nuevo objeto en la tabla
+     * logs_estado_baja
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function store($estadoBaja, $char) {
+
+        $logs_estado_baja = new logs_estado_baja();
+        $user = auth()->user();
+
+        $logs_estado_baja->estado_baja_id = $estadoBaja->id;
+        $logs_estado_baja->tipo_baja_id =$estadoBaja->tipo_baja_id;
+        $logs_estado_baja->deuda =$estadoBaja->deuda;
+        $logs_estado_baja->fecha_baja = $estadoBaja->fecha_baja;
+        $logs_estado_baja->pdf_acta_solicitud_baja = $estadoBaja->pdf_acta_solicitud_baja;
+        $logs_estado_baja->pdf_informe_deuda = $estadoBaja->pdf_informe_deuda;
+        $logs_estado_baja->pdf_solicitud_baja = $estadoBaja->pdf_solicitud_baja;
+        $logs_estado_baja->accion = $char;
+        // $logs_estado_baja->usuario_id = $user->id;
+        // $logs_estado_baja->usuario_nombre = $user->usuario;
+        $logs_estado_baja->save();
+        return "guardado";
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storelogs_estado_bajaRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storelogs_estado_bajaRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\logs_estado_baja  $logs_estado_baja
-     * @return \Illuminate\Http\Response
-     */
-    public function show(logs_estado_baja $logs_estado_baja)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\logs_estado_baja  $logs_estado_baja
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(logs_estado_baja $logs_estado_baja)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatelogs_estado_bajaRequest  $request
-     * @param  \App\Models\logs_estado_baja  $logs_estado_baja
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatelogs_estado_bajaRequest $request, logs_estado_baja $logs_estado_baja)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\logs_estado_baja  $logs_estado_baja
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(logs_estado_baja $logs_estado_baja)
-    {
-        //
-    }
 }

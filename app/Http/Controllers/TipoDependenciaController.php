@@ -37,7 +37,7 @@ class TipoDependenciaController extends Controller{
 
         if($tipoDependencia->save()){
             $log = new LogsTipoDependenciaController();
-            $log->create($tipoDependencia, 'c');
+            $log->store($tipoDependencia, 'c');
             return redirect()->route('tiposDependencias');
         }
         return back()->with('fail','No se pudo cargar el tipo de dependencia');
@@ -65,7 +65,7 @@ class TipoDependenciaController extends Controller{
 
         if($tipoDependencia->save()){
             $log = new LogsTipoDependenciaController();
-            $log->create($tipoDependencia, 'u');
+            $log->store($tipoDependencia, 'u');
             return redirect()->route('tiposDependencias');
         }
         return back()->with('fail','No se pudo actualizar el tipo de dependencia');
@@ -82,7 +82,7 @@ class TipoDependenciaController extends Controller{
 
         if($tipoDependencia->delete()){
             $log = new LogsTipoDependenciaController();
-            $log->create($tipoDependencia, 'd');
+            $log->store($tipoDependencia, 'd');
             return redirect()->route('tiposDependencias');
         }
         return back()->with('fail','No se pudo eliminar el tipo de dependencia');

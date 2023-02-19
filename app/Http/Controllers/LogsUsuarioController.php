@@ -7,81 +7,28 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Storelogs_usuarioRequest;
 use App\Http\Requests\Updatelogs_usuarioRequest;
 
-class LogsUsuarioController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+class LogsUsuarioController extends Controller {
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function store($usuario, $char) {
+        
+        $log_usuario = new logs_usuario();
+        $user = auth()->user();
+
+        $log_usuario->usuario_bd_id = $usuario->id;
+        $log_usuario->usuario = $usuario->usuario;
+        $log_usuario->tipo_permiso_id = $usuario->tipo_permiso_id;
+        $log_usuario->email = $usuario->email;
+        $log_usuario->password = $usuario->password;
+        $log_usuario->accion = $char;
+        $log_usuario->usuario_id = $user->id; 
+        $log_usuario->usuario_nombre = $user->usuario; 
+
+        $log_usuario->save();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storelogs_usuarioRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storelogs_usuarioRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\logs_usuario  $logs_usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function show(logs_usuario $logs_usuario)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\logs_usuario  $logs_usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(logs_usuario $logs_usuario)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatelogs_usuarioRequest  $request
-     * @param  \App\Models\logs_usuario  $logs_usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatelogs_usuarioRequest $request, logs_usuario $logs_usuario)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\logs_usuario  $logs_usuario
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(logs_usuario $logs_usuario)
-    {
-        //
-    }
 }

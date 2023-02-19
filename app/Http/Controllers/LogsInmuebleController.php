@@ -14,7 +14,7 @@ class LogsInmuebleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($inmueble, $char)
+    public function store($inmueble, $char)
     {
         $logs_inmueble = new logs_inmueble();
 
@@ -24,7 +24,7 @@ class LogsInmuebleController extends Controller
         $logs_inmueble->calle = $inmueble->calle;
         $logs_inmueble->numero = $inmueble->numero;
         $logs_inmueble->accion = $char;
-        $logs_inmueble->usuario_id = $user->id; 
+        $logs_inmueble->usuario_id = $user->id;
         $logs_inmueble->usuario_nombre = $user->usuario;
 
         return $logs_inmueble->save();
