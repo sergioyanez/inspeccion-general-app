@@ -117,52 +117,50 @@ class ExpedienteController extends Controller
      */
     public function store(Request $request) // aca va StoreexpedienteRequest
     {
+        // se crea el inmueble
+        if($request->calle)
+            $calle = $request->calle;
+        if($request->numero)
+            $numero = $request->numero;
+        
+        $inmueble = new Inmueble;
+        $inmueble->calle = $calle;
+        $inmueble->numero = $numero;
+        if($inmueble->save()) {
+            $log1 = new LogsInmuebleController();
+            $log1->store($inmueble, 'c');
+        }
+
+        // se crea detalle inmueble
+        $detalleInmueble = new Detalle_inmueble;
+        $detalleInmueble->inmueble_id = $inmueble->id;
+        $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
+        if($request->fecha_vencimiento_alquiler)
+            $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
+        if($detalleInmueble->save()) {
+            $log2 = new LogsDetalleInmuebleController();
+            $log2->store($detalleInmueble, 'c');
+        }
+        
         $expediente = new Expediente();
         $expediente->catastro_id = $request->catastro_id;
         $expediente->estado_baja_id = $request->estado_baja_id;
-        $expediente->nro_expediente = $request->nro_expediente;
-        $expediente->nro_comercio = $request->nro_comercio;
-        $expediente->actividad_ppal = $request->actividad_ppal;
-        $expediente->anexo = $request->anexo;
+        $expediente->nro_expediente = $request->nro_expediente;     //hecho
+        $expediente->nro_comercio = $request->nro_comercio;         //hecho
+        $expediente->actividad_ppal = $request->actividad_ppal;     //hecho
+        $expediente->anexo = $request->anexo;                       //hecho
         $expediente->pdf_solicitud = $request->pdf_solicitud;
-        $expediente->bienes_de_uso = $request->bienes_de_uso;
-        $expediente->observaciones_grales = $request->observaciones_grales;
+        $expediente->bienes_de_uso = $request->bienes_de_uso;       //hecho
+        $expediente->observaciones_grales = $request->observaciones_grales;     //hecho
         $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
-        $expediente->detalle_inmueble_id = $request->detalle_inmueble_id;
+        $expediente->detalle_inmueble_id = $detalleInmueble->id;       //hecho
 
-        if($request->calle)
-            $calle = $request->calle;
-
-        if($request->numero)
-            $numero = $request->numero;
+        
 
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'c');
 
-            // se crea el inmueble
-            $inmueble = new Inmueble;
-            $inmueble->calle = $calle;
-            $inmueble->numero = $numero;
-            if($inmueble->save()) {
-                $log1 = new LogsInmuebleController();
-                $log1->store($inmueble, 'c');
-            }
-            
-
-            // se crea detalle inmueble
-            $detalleInmueble = new Detalle_inmueble;
-            $detalleInmueble->inmueble_id = $inmueble->id;
-            $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
-            if($request->fecha_vencimiento_alquiler)
-                $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
-            if($detalleInmueble->save()) {
-                $log2 = new LogsDetalleInmuebleController();
-                $log2->store($detalleInmueble, 'c');
-            }
-            
-
-            //return redirect()->route('expedientes');
             return redirect()->route('expedientes-crear');
         }
         return back()->with('fail','No se pudo crear el expediente');

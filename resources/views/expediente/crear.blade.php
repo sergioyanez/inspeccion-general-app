@@ -64,7 +64,13 @@
                                 </div>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
-                                    <input type="text" name="fecha_vencimiento_alquiler" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input type="date" name="fecha_vencimiento_alquiler" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <input placeholder="detalle de bienes de uso" type="text" name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <input placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
                             </div>
                         </form>
@@ -73,7 +79,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label>Buscar contribuyente</label>
-                                <input  type="text" name="buscarpor" class="form-control" placeholder="Nùmero de documento" autofocus/>
+                                <input  type="text" name="buscarpor" class="form-control" placeholder="Nùmero de documento" autofocus autocomplete=""/>
                                 <input  class="btn btn-primary" type="submit" value="Buscar">
                             </div>
                         </form>
