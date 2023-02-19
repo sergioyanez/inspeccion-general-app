@@ -26,7 +26,7 @@ class ExpedientePersonaJuridicaController extends Controller
      */
     public function create()
     {
-        //
+        return "create expediente persona juridica";
     }
 
     /**
@@ -37,7 +37,7 @@ class ExpedientePersonaJuridicaController extends Controller
      */
     public function store(Storeexpediente_persona_juridicaRequest $request)
     {
-        //
+        return "store expediente persona juridica";
     }
 
     /**
