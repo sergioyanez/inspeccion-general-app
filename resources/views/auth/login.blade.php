@@ -27,7 +27,7 @@
                     <input class="mt-4 btn btn-login" type="submit" value="Iniciar sesión">
                 </form> 
             </div>
-            <div class="col-lg-6 ms-auto my-auto">
+            <div class="d-none d-lg-block col-lg-6 ms-auto my-auto">
                 <figure>
                     <img class="img-fluid" src="assets/logo_login.png" alt="">
                 </figure>
