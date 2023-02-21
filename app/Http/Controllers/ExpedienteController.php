@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\expediente;
+use App\Models\ExpedientePersonaJuridica;
+use App\Models\ExpedienteContribuyente;
 use App\Models\Tipo_inmueble;
 use App\Models\Inmueble;
 use App\Models\Detalle_inmueble;
@@ -10,17 +12,18 @@ use App\Models\Persona_juridica;
 use App\Models\Contribuyente;
 use App\Models\Catastro;
 use App\Models\Detalle_habilitacion;
-
 use App\Models\Estado_baja;
+
 use App\Http\Controllers\LogsExpedienteController;
 use App\Http\Controllers\LogsDetalleInmuebleController;
 use App\Http\Controllers\LogsInmuebleController;
+use App\Http\Controllers\LogsCatastroController;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreexpedienteRequest;
 use App\Http\Requests\UpdateexpedienteRequest;
-use App\Models\ExpedientePersonaJuridica;
-use App\Models\ExpedienteContribuyente;
+
 
 class ExpedienteController extends Controller
 {
@@ -117,7 +120,7 @@ class ExpedienteController extends Controller
      */
     public function store(Request $request) // aca va StoreexpedienteRequest
     {
-        // se crea el inmueble
+        // SE CREAR EL INMUEBLE
         $calle = $request->calle;
         $numero = $request->numero;
         
@@ -129,7 +132,7 @@ class ExpedienteController extends Controller
             $log1->store($inmueble, 'c');
         }
 
-        // se crea detalle inmueble
+        // SE CREA DETALLE INMUEBLE
         $detalleInmueble = new Detalle_inmueble;
         $detalleInmueble->inmueble_id = $inmueble->id;
         $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
@@ -139,9 +142,31 @@ class ExpedienteController extends Controller
             $log2 = new LogsDetalleInmuebleController();
             $log2->store($detalleInmueble, 'c');
         }
+
+        // SE CREA CATASTRO
+        $catastro = new Catastro;
+        $catastro->circunscripcion = $request->circunscripcion;
+        $catastro->seccion = $request->seccion;
+        $catastro->chacra = $request->chacra;
+        $catastro->quinta = $request->quinta;
+        $catastro->fraccion = $request->fraccion;
+        $catastro->manzana = $request->manzana;
+        $catastro->parcela = $request->parcela;
+        $catastro->sub_parcela = $request->sub_parcela;
+        if($request->observaciones)
+            $catastro->observacion = $request->observaciones;
+        if($request->fecha_informe)
+            $catastro->fecha_informe = $request->fecha_informe;
+        if($request->pdf_informe)
+            $catastro->pdf_informe = $request->pdf_informe;
+
+        if($catastro->save()){
+            $log3 = new LogsCatastroController();
+            $log3->store($catastro, 'c');
+        }
         
         $expediente = new Expediente();
-        $expediente->catastro_id = $request->catastro_id;
+        $expediente->catastro_id = $catastro->id;       //hecho
         $expediente->estado_baja_id = $request->estado_baja_id;
         $expediente->nro_expediente = $request->nro_expediente;     //hecho
         $expediente->nro_comercio = $request->nro_comercio;         //hecho
@@ -163,6 +188,7 @@ class ExpedienteController extends Controller
         }
         return back()->with('fail','No se pudo crear el expediente');
     }
+    
     /**
      * Display the specified resource.
      *

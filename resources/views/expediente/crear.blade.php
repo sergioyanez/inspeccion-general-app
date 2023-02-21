@@ -43,9 +43,7 @@
 
 
                             <div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Domicilio inmueble/s</label>
-                                </div>
+                                <label class="form-label" for="basic-default-fullname">Domicilio inmueble/s</label>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Calle:</label>
                                     <input required type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
@@ -66,13 +64,64 @@
                                     <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
                                     <input type="date" name="fecha_vencimiento_alquiler" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
+                            </div>
+                            <div>
+                                <input placeholder="detalle de bienes de uso" type="text" name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto" />
+                            </div>
+                            <div>
+                                <input placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
+                            </div>
+                            <div>
+                                <label class="form-label" for="basic-default-fullname">CATASTRO</label>
                                 <div>
-                                    <input placeholder="detalle de bienes de uso" type="text" name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto" />
+                                    <label class="form-label" for="basic-default-fullname">Circ</label>
+                                    <input required type="text" name="circunscripcion" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
                                 <div>
-                                    <input placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
+                                    <label class="form-label" for="basic-default-fullname">Secc</label>
+                                    <input required type="text" name="seccion" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Chacra</label>
+                                    <input required type="text" name="chacra" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Quinta</label>
+                                    <input required type="text" name="quinta" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Fracciòn</label>
+                                    <input required type="text" name="fraccion" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Manzana</label>
+                                    <input required type="text" name="manzana" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Parcela</label>
+                                    <input required type="text" name="parcela" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">SubPar</label>
+                                    <input required type="text" name="sub_parcela" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Observaciones</label>
+                                    <input type="text" name="observaciones" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Fecha informe</label>
+                                    <input type="date" name="fecha_informe" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                {{-- HAY QUE PONER LA RUTA QUE VA --}}
+                                <a href="{{route('busqueda_expediente')}}" class="btn btn-primary">Adjuntar PDF</a>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">pdf</label>
+                                    <input type="text" name="pdf_informe" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
                             </div>
+
+
                         </form>
 
                         <form method="GET" action="{{route('contribuyentes-buscar')}}">
