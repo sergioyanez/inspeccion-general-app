@@ -20,7 +20,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
-                                <input value="4093-" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto" />
+                                <input value="4093-" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto" autofocus/>
                                 <input type="submit" value="Ver PDF">
                             </div>
                             <div class="mb-3">
@@ -48,11 +48,11 @@
                                 </div>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Calle:</label>
-                                    <input type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input required type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Nº:</label>
-                                    <input type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input required type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Tipo de inmueble</label>
@@ -79,7 +79,7 @@
                             @csrf
                             <div class="mb-3">
                                 <label>Buscar contribuyente</label>
-                                <input  type="text" name="buscarpor" class="form-control" placeholder="Nùmero de documento" autofocus autocomplete=""/>
+                                <input  type="text" name="buscarpor" class="form-control" placeholder="Nùmero de documento" />
                                 <input  class="btn btn-primary" type="submit" value="Buscar">
                             </div>
                         </form>

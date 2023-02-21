@@ -118,10 +118,8 @@ class ExpedienteController extends Controller
     public function store(Request $request) // aca va StoreexpedienteRequest
     {
         // se crea el inmueble
-        if($request->calle)
-            $calle = $request->calle;
-        if($request->numero)
-            $numero = $request->numero;
+        $calle = $request->calle;
+        $numero = $request->numero;
         
         $inmueble = new Inmueble;
         $inmueble->calle = $calle;
