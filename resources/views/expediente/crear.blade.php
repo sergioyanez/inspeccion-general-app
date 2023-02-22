@@ -76,6 +76,10 @@
                                 <input type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                             </div>
                             <div>
+                                <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
+                                <input required type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
+                            </div>
+                            <div>
                                 <label class="form-label" for="basic-default-fullname">CATASTRO</label>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Circ</label>

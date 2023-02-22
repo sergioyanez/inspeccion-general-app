@@ -13,6 +13,7 @@ use App\Models\Contribuyente;
 use App\Models\Catastro;
 use App\Models\Detalle_habilitacion;
 use App\Models\Estado_baja;
+use App\Models\Tipo_dependencia;
 
 use App\Http\Controllers\LogsExpedienteController;
 use App\Http\Controllers\LogsDetalleInmuebleController;
@@ -101,6 +102,7 @@ class ExpedienteController extends Controller
         $expedientesContribuyentes = ExpedienteContribuyente::all();
         $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         $tiposInmuebles = Tipo_inmueble::all();
+        $tipoDependencias = Tipo_dependencia::all();
         return view('expediente.crear', ['catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
@@ -110,7 +112,8 @@ class ExpedienteController extends Controller
                                         'expediente' =>$expediente,
                                         'expedientesContribuyentes'=>$expedientesContribuyentes,
                                         'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
-                                        'tiposInmuebles' => $tiposInmuebles]);
+                                        'tiposInmuebles' => $tiposInmuebles,
+                                        'tipoDependencias' => $tipoDependencias]);
     }
 
     /**
