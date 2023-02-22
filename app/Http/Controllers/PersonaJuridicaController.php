@@ -7,6 +7,8 @@ use App\Models\Expediente;
 use App\Models\ExpedientePersonaJuridica;
 use App\Models\ExpedienteContribuyente;
 use App\Models\Tipo_inmueble;
+use App\Models\Tipo_estado;
+use App\Models\Tipo_habilitacion;
 use App\Http\Requests\StorePersona_juridicaRequest;
 use App\Http\Requests\UpdatePersona_juridicaRequest;
 use App\Http\Controllers\LogsPersonaJuridicaController;
@@ -26,6 +28,8 @@ class PersonaJuridicaController extends Controller {
 
     public function indexBuscar(Request $request)
     {
+        $tiposEstados = Tipo_estado::all();
+        $tiposhabilitaciones = Tipo_habilitacion::all();
         $tiposInmuebles = Tipo_inmueble::all();
         $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
         $expedientesContribuyentes= ExpedienteContribuyente::all();
@@ -38,7 +42,9 @@ class PersonaJuridicaController extends Controller {
                                         'expediente'=>$expediente,
                                         'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
                                         'expedientesContribuyentes'=>$expedientesContribuyentes,
-                                        'tiposInmuebles' => $tiposInmuebles]);
+                                        'tiposInmuebles' => $tiposInmuebles,
+                                        'tiposEstados' => $tiposEstados,
+                                        'tiposhabilitaciones' => $tiposhabilitaciones]);
     }
 
     /**
@@ -83,7 +89,16 @@ class PersonaJuridicaController extends Controller {
                 $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
                 $expedientesContribuyentes= ExpedienteContribuyente::all();
                 $personasJuridicas=Persona_juridica::all();
-                return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,'expediente'=>$expediente,'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,'expedientesContribuyentes'=>$expedientesContribuyentes]);
+                $tiposInmuebles = Tipo_inmueble::all();
+                $tiposEstados = Tipo_estado::all();
+                $tiposhabilitaciones = Tipo_habilitacion::all();
+                return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,
+                                                'expediente'=>$expediente,
+                                                'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
+                                                'expedientesContribuyentes'=>$expedientesContribuyentes,
+                                                'tiposInmuebles' => $tiposInmuebles,
+                                                'tiposEstados' => $tiposEstados,
+                                                'tiposhabilitaciones' => $tiposhabilitaciones]);
             }
 
         }

@@ -29,7 +29,8 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Tipo de permiso</label>
-                                <select name="tipo_permiso_id" class="form-control" id="basic-default-nombreCompleto" >
+                                <select required name="tipo_permiso_id" class="form-control" id="basic-default-nombreCompleto" >
+                                    <option>-- Seleccione --</option>
                                     @foreach($tiposPermisos as $tipo)
                                         <option value="{{$tipo->id}}">{{$tipo->tipo}}</option>
                                     @endforeach

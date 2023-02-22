@@ -13,18 +13,22 @@ use App\Models\Contribuyente;
 use App\Models\Catastro;
 use App\Models\Detalle_habilitacion;
 use App\Models\Estado_baja;
+use App\Models\Tipo_estado;
+use App\Models\Tipo_habilitacion;
+
 
 use App\Http\Controllers\LogsExpedienteController;
 use App\Http\Controllers\LogsDetalleInmuebleController;
 use App\Http\Controllers\LogsInmuebleController;
 use App\Http\Controllers\LogsCatastroController;
+use App\Http\Controllers\LogsDetalleHabilitacionController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreexpedienteRequest;
 use App\Http\Requests\UpdateexpedienteRequest;
 use Exception;
-use PhpParser\Node\Stmt\TryCatch;
+
 
 class ExpedienteController extends Controller
 {
@@ -101,6 +105,8 @@ class ExpedienteController extends Controller
         $expedientesContribuyentes = ExpedienteContribuyente::all();
         $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         $tiposInmuebles = Tipo_inmueble::all();
+        $tiposEstados = Tipo_estado::all();
+        $tiposhabilitaciones = Tipo_habilitacion::all();
         return view('expediente.crear', ['catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
@@ -110,7 +116,9 @@ class ExpedienteController extends Controller
                                         'expediente' =>$expediente,
                                         'expedientesContribuyentes'=>$expedientesContribuyentes,
                                         'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
-                                        'tiposInmuebles' => $tiposInmuebles]);
+                                        'tiposInmuebles' => $tiposInmuebles,
+                                        'tiposEstados' => $tiposEstados,
+                                        'tiposhabilitaciones' => $tiposhabilitaciones]);
     }
 
     /**
@@ -121,7 +129,7 @@ class ExpedienteController extends Controller
      */
     public function store(Request $request) // aca va StoreexpedienteRequest
     {
-        // SE CREAR EL INMUEBLE
+        // SE CREA EL INMUEBLE
         $calle = $request->calle;
         $numero = $request->numero;
         
@@ -164,12 +172,26 @@ class ExpedienteController extends Controller
             $catastro->pdf_informe = $archivo->getClientOriginalName();
         }
 
-        // if($request->pdf_informe)
-        //     $catastro->pdf_informe = $request->pdf_informe;
-
         if($catastro->save()){
             $log3 = new LogsCatastroController();
             $log3->store($catastro, 'c');
+        }
+
+        // SE CREA DETALLE DE HABILITACION
+        $detalleHabilitacion = new Detalle_habilitacion;
+        $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
+        $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
+        $detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
+        $detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
+        if($request->hasFile('certificado_habilitacion')) {
+            $archivo2 = $request->file('certificado_habilitacion');
+            $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
+            $detalleHabilitacion->pdf_certificado_habilitacion = $archivo2->getClientOriginalName();
+        }
+
+        if($detalleHabilitacion->save()){
+            $log4 = new LogsDetalleHabilitacionController();
+            $log4->store($detalleHabilitacion, 'c');
         }
         
         $expediente = new Expediente();
@@ -187,7 +209,7 @@ class ExpedienteController extends Controller
         // $expediente->pdf_solicitud = $request->pdf_solicitud;
         $expediente->bienes_de_uso = $request->bienes_de_uso;       //hecho
         $expediente->observaciones_grales = $request->observaciones_grales;     //hecho
-        $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
+        $expediente->detalle_habilitacion_id = $detalleHabilitacion->id;        //hecho
         $expediente->detalle_inmueble_id = $detalleInmueble->id;       //hecho
 
         

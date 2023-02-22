@@ -31,7 +31,7 @@
                                 <label class="form-label" for="basic-default-fullname">Estado civìl</label>
                                 <select name="estado_civil_id" class="form-control" id="basic-default-nombreCompleto" >
                                     @foreach($estados as $estado)
-                                        <option value="{{$estado->id}}" @if($estado->id == $contribuyente->estado_civil_id) selected @endif>>{{$estado->descripcion}}</option>
+                                        <option value="{{$estado->id}}" @if($estado->id == $contribuyente->estado_civil_id) selected @endif>{{$estado->descripcion}}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -7,6 +7,8 @@ use App\Models\Expediente;
 use App\Models\Tipo_dni;
 use App\Models\Estado_civil;
 use App\Models\Tipo_inmueble;
+use App\Models\Tipo_estado;
+use App\Models\Tipo_habilitacion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\LogsContribuyenteController;
 use App\Http\Requests\StoreContribuyenteRequest;
@@ -28,6 +30,8 @@ class ContribuyenteController extends Controller
 
     public function indexBuscar(Request $request)
     {
+        $tiposEstados = Tipo_estado::all();
+        $tiposhabilitaciones = Tipo_habilitacion::all();
         $tiposInmuebles = Tipo_inmueble::all();
         $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
         $expedientesContribuyentes= ExpedienteContribuyente::all();
@@ -41,7 +45,9 @@ class ContribuyenteController extends Controller
                                         'expediente'=>$expediente,
                                         'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
                                         'expedientesContribuyentes'=>$expedientesContribuyentes,
-                                        'tiposInmuebles' => $tiposInmuebles]);
+                                        'tiposInmuebles' => $tiposInmuebles,
+                                        'tiposEstados' => $tiposEstados,
+                                        'tiposhabilitaciones' => $tiposhabilitaciones]);
     }
 
     /**
@@ -52,7 +58,11 @@ class ContribuyenteController extends Controller
         $estadosCivil = Estado_civil::all();
         $tiposDni = Tipo_dni::all();
         $expediente = false;
-        return view('contribuyente.crear', ['estados'=>$estadosCivil, 'tipos'=>$tiposDni, 'expediente'=>$expediente]);
+        $tiposInmuebles = Tipo_inmueble::all();
+        return view('contribuyente.crear', ['estados'=>$estadosCivil, 
+                                            'tipos'=>$tiposDni, 
+                                            'expediente'=>$expediente,
+                                            'tiposInmuebles' => $tiposInmuebles]);
     }
 
     /**
@@ -60,10 +70,14 @@ class ContribuyenteController extends Controller
      */
     public function createEnExpediente()
     {
+        $tiposInmuebles = Tipo_inmueble::all();
         $estadosCivil = Estado_civil::all();
         $tiposDni = Tipo_dni::all();
         $expediente = true;
-        return view('contribuyente.crear', ['estados'=>$estadosCivil, 'tipos'=>$tiposDni,'expediente'=>$expediente]);
+        return view('contribuyente.crear', ['estados'=>$estadosCivil, 
+                                            'tipos'=>$tiposDni,
+                                            'expediente'=>$expediente,
+                                            'tiposInmuebles' => $tiposInmuebles]);
     }
 
     /**
@@ -97,7 +111,16 @@ class ContribuyenteController extends Controller
                 $expedientesContribuyentes= ExpedienteContribuyente::all();
                 $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
                 $contribuyentes=Contribuyente::all();
-                return view('expediente.crear', ['contribuyentes' => $contribuyentes,'expediente'=>$expediente,'expedientesContribuyentes'=>$expedientesContribuyentes,'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas]);
+                $tiposInmuebles = Tipo_inmueble::all();
+                $tiposEstados = Tipo_estado::all();
+                $tiposhabilitaciones = Tipo_habilitacion::all();
+                return view('expediente.crear', ['contribuyentes' => $contribuyentes,
+                            'expediente'=>$expediente,
+                            'expedientesContribuyentes'=>$expedientesContribuyentes,
+                            'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
+                            'tiposInmuebles' => $tiposInmuebles,
+                            'tiposEstados' => $tiposEstados,
+                            'tiposhabilitaciones' => $tiposhabilitaciones]);
             }
 
         }

@@ -12,7 +12,7 @@
             <div class="col-xl-12">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h2 class="mb-0">Actualizando un estado civil</h2>
+                        <h2 class="mb-0">Actualizando un expediente</h2>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{route('estadosCiviles-actualizar')}}">
