@@ -6,7 +6,7 @@ use App\Models\Persona_juridica;
 use App\Models\Expediente;
 use App\Models\ExpedientePersonaJuridica;
 use App\Models\ExpedienteContribuyente;
-
+use App\Models\Tipo_inmueble;
 use App\Http\Requests\StorePersona_juridicaRequest;
 use App\Http\Requests\UpdatePersona_juridicaRequest;
 use App\Http\Controllers\LogsPersonaJuridicaController;
@@ -26,7 +26,7 @@ class PersonaJuridicaController extends Controller {
 
     public function indexBuscar(Request $request)
     {
-
+        $tiposInmuebles = Tipo_inmueble::all();
         $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
         $expedientesContribuyentes= ExpedienteContribuyente::all();
         $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
@@ -34,7 +34,11 @@ class PersonaJuridicaController extends Controller {
         $personasJuridicas = Persona_juridica::orderBy('dni_representante', 'asc')
         ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
-        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,'expediente'=>$expediente,'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,'expedientesContribuyentes'=>$expedientesContribuyentes]);
+        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,
+                                        'expediente'=>$expediente,
+                                        'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
+                                        'expedientesContribuyentes'=>$expedientesContribuyentes,
+                                        'tiposInmuebles' => $tiposInmuebles]);
     }
 
     /**

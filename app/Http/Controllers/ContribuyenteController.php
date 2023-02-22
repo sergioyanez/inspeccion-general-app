@@ -6,6 +6,7 @@ use App\Models\Contribuyente;
 use App\Models\Expediente;
 use App\Models\Tipo_dni;
 use App\Models\Estado_civil;
+use App\Models\Tipo_inmueble;
 use Illuminate\Http\Request;
 use App\Http\Controllers\LogsContribuyenteController;
 use App\Http\Requests\StoreContribuyenteRequest;
@@ -27,7 +28,7 @@ class ContribuyenteController extends Controller
 
     public function indexBuscar(Request $request)
     {
-
+        $tiposInmuebles = Tipo_inmueble::all();
         $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
         $expedientesContribuyentes= ExpedienteContribuyente::all();
         $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
@@ -36,7 +37,11 @@ class ContribuyenteController extends Controller
         ->where('dni', 'LIKE', '%' . $buscar . '%')
         // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
-        return view('expediente.crear', ['contribuyentes' => $contribuyentes,'expediente'=>$expediente,'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,'expedientesContribuyentes'=>$expedientesContribuyentes]);
+        return view('expediente.crear', ['contribuyentes' => $contribuyentes,
+                                        'expediente'=>$expediente,
+                                        'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
+                                        'expedientesContribuyentes'=>$expedientesContribuyentes,
+                                        'tiposInmuebles' => $tiposInmuebles]);
     }
 
     /**
