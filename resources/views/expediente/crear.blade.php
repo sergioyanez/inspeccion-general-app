@@ -72,6 +72,10 @@
                                 <input placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
                             <div>
+                                <label class="form-label" for="basic-default-fullname">Solicitud:</label>
+                                <input type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div>
+                            <div>
                                 <label class="form-label" for="basic-default-fullname">CATASTRO</label>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Circ</label>
@@ -113,10 +117,8 @@
                                     <label class="form-label" for="basic-default-fullname">Fecha informe</label>
                                     <input type="date" name="fecha_informe" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
-                                {{-- HAY QUE PONER LA RUTA QUE VA --}}
-                                <a href="{{route('busqueda_expediente')}}" class="btn btn-primary">Adjuntar PDF</a>
                                 <div>
-                                    <label class="form-label" for="basic-default-fullname">pdf</label>
+                                    <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                     <input type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                 </div>
                             </div>

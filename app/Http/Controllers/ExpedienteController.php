@@ -144,7 +144,6 @@ class ExpedienteController extends Controller
             $log2->store($detalleInmueble, 'c');
         }
 
-
         // SE CREA CATASTRO
         $catastro = new Catastro;
         $catastro->circunscripcion = $request->circunscripcion;
@@ -180,7 +179,12 @@ class ExpedienteController extends Controller
         $expediente->nro_comercio = $request->nro_comercio;         //hecho
         $expediente->actividad_ppal = $request->actividad_ppal;     //hecho
         $expediente->anexo = $request->anexo;                       //hecho
-        $expediente->pdf_solicitud = $request->pdf_solicitud;
+        if($request->hasFile('pdf_solicitud')) {                    //hecho pdf_informe
+            $archivo1 = $request->file('pdf_solicitud');
+            $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
+            $expediente->pdf_solicitud = $archivo1->getClientOriginalName();
+        }
+        // $expediente->pdf_solicitud = $request->pdf_solicitud;
         $expediente->bienes_de_uso = $request->bienes_de_uso;       //hecho
         $expediente->observaciones_grales = $request->observaciones_grales;     //hecho
         $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
