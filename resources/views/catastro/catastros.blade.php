@@ -42,7 +42,8 @@
                                 <td>{{$catastro->sub_parcela}}</td>
                                 <td>{{$catastro->observacion}}</td>
                                 <td>{{$catastro->fecha_informe}}</td>
-                                <td>{{$catastro->pdf_informe}}</td>
+                                <td><a class="btn-btn-danger" href="archivos/{{ $catastro->pdf_informe }}" target="blank_">Ver documento</td>
+                                {{-- <td>{{$catastro->pdf_informe}}</td> --}}
                                 <td>{{$catastro->created_at}}</td>
                                 <td><a href="{{route('catastros-mostrar', $catastro->id)}}"class="btn btn-warning">Editar</a></td>
                                 <td><a href="{{route('catastros-eliminar', $catastro->id)}}"class="btn btn-danger">Eliminar</a></td>

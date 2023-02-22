@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-body">
 
-                        <form method="POST" action="{{ route('expedientes-guardar') }}">
+                        <form method="POST" action="{{ route('expedientes-guardar') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
@@ -117,7 +117,7 @@
                                 <a href="{{route('busqueda_expediente')}}" class="btn btn-primary">Adjuntar PDF</a>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">pdf</label>
-                                    <input type="text" name="pdf_informe" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                 </div>
                             </div>
 

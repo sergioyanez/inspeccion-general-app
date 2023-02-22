@@ -23,7 +23,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreexpedienteRequest;
 use App\Http\Requests\UpdateexpedienteRequest;
-
+use Exception;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ExpedienteController extends Controller
 {
@@ -143,6 +144,7 @@ class ExpedienteController extends Controller
             $log2->store($detalleInmueble, 'c');
         }
 
+
         // SE CREA CATASTRO
         $catastro = new Catastro;
         $catastro->circunscripcion = $request->circunscripcion;
@@ -157,8 +159,14 @@ class ExpedienteController extends Controller
             $catastro->observacion = $request->observaciones;
         if($request->fecha_informe)
             $catastro->fecha_informe = $request->fecha_informe;
-        if($request->pdf_informe)
-            $catastro->pdf_informe = $request->pdf_informe;
+        if($request->hasFile('pdf_informe')) {
+            $archivo = $request->file('pdf_informe');
+            $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
+            $catastro->pdf_informe = $archivo->getClientOriginalName();
+        }
+
+        // if($request->pdf_informe)
+        //     $catastro->pdf_informe = $request->pdf_informe;
 
         if($catastro->save()){
             $log3 = new LogsCatastroController();
