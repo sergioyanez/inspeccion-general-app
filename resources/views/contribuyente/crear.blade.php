@@ -19,7 +19,8 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Tipo de documento</label>
-                                <select name="tipo_dni_id" class="form-control" id="basic-default-nombreCompleto" >
+                                <select required name="tipo_dni_id" class="form-control" id="basic-default-nombreCompleto" >
+                                    <option>-- Seleccione --</option>
                                     @foreach($tipos as $tipo)
                                         <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
                                     @endforeach
@@ -27,7 +28,8 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Estado civìl</label>
-                                <select name="estado_civil_id" class="form-control" id="basic-default-nombreCompleto" >
+                                <select required name="estado_civil_id" class="form-control" id="basic-default-nombreCompleto" >
+                                    <option>-- Seleccione --</option>
                                     @foreach($estados as $estado)
                                         <option value="{{$estado->id}}">{{$estado->descripcion}}</option>
                                     @endforeach
@@ -55,7 +57,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Fecha de nacimiento</label>
-                                <input required type="text" name="fecha_nacimiento" class="form-control" id="basic-default-nombreCompleto" />
+                                <input required type="date" name="fecha_nacimiento" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Telèfono</label>

@@ -39,9 +39,9 @@
                                         @endforeach
                                     </td>
                                     <td>{{$expediente->observaciones_grales}}</td>
-                                    <td><a class="btn-btn-danger" href="archivos/{{ $expediente->pdf_solicitud }}" target="blank_">Ver documento</td>
-                                    {{-- <td>{{$expediente->detalleHabilitacion->tipoHabilitacion->descripcion}}</td> --}}
-                                    <td><a href="{{route('expedientes-mostrar', $expediente->id)}}" class="btn btn-warning">Ver màs</butaton></td>
+                                    {{-- <td><a class="btn-btn-danger" href="archivos/{{ $expediente->pdf_solicitud }}" target="blank_">Ver documento</td> --}}
+                                    <td>{{$expediente->detalleHabilitacion->tipoHabilitacion->descripcion}}</td>
+                                    <td><a href="{{route('expedientes-mostrar', $expediente->id)}}" class="btn btn-warning">Ver màs</></td>
                                 </tr>
                             @empty
                                 <h2>No se encontraron Expedientes</h2>
