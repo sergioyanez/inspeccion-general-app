@@ -103,10 +103,10 @@ class ContribuyenteController extends Controller
         if($contribuyente->save()){
             $log = new LogsContribuyenteController();
             $log->store($contribuyente, 'c');
-            if(!$request->expediente){
-                return redirect()->route('contribuyentes');
-            }
-            else{
+            //if(!$request->expediente){
+            //    return redirect()->route('contribuyentes');
+            //}
+            //else{
                 $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
                 $expedientesContribuyentes= ExpedienteContribuyente::all();
                 $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
@@ -121,7 +121,7 @@ class ContribuyenteController extends Controller
                             'tiposInmuebles' => $tiposInmuebles,
                             'tiposEstados' => $tiposEstados,
                             'tiposhabilitaciones' => $tiposhabilitaciones]);
-            }
+            //}
 
         }
         return back()->with('fail','No se pudo crear el contribuyente');

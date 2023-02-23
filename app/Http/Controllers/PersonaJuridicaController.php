@@ -81,10 +81,10 @@ class PersonaJuridicaController extends Controller {
         if($personaJuridica->save()){
             $log = new LogsPersonaJuridicaController();
             $log->store($personaJuridica, 'c');
-            if(!$request->expediente){
-                return redirect()->route('personasJuridicas');
-            }
-            else{
+            //if(!$request->expediente){
+            //    return redirect()->route('personasJuridicas');
+            //}
+            //else{
                 $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
                 $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
                 $expedientesContribuyentes= ExpedienteContribuyente::all();
@@ -99,7 +99,7 @@ class PersonaJuridicaController extends Controller {
                                                 'tiposInmuebles' => $tiposInmuebles,
                                                 'tiposEstados' => $tiposEstados,
                                                 'tiposhabilitaciones' => $tiposhabilitaciones]);
-            }
+            //}
 
         }
         return back()->with('fail','No se pudo cargar persona jurídica');
