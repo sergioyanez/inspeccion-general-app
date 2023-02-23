@@ -37,7 +37,7 @@
                             </div>
 
                             {{-- BOTON PARA COMENZAR CON LA CARGA DEL EXPEDIENTE --}}
-                            <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button>
+                            {{-- <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button> --}}
 
                             {{-- <div class="mb-3">
                                 <h2 class=" text-center font-weight">Cargando datos a expediente Número:{{$expediente->nro_expediente}}</h2>
@@ -69,23 +69,29 @@
                                 </div>
                             </div>
                             {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
-                            <div>
+                            {{-- <div>
                                 <input placeholder="detalle de bienes de uso" type="text" name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
                             <div>
                                 <input placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
-                            </div>
+                            </div> --}}
+                            {{-- INFORMES DE DEPENDENCIAS --}}
                             {{-- BOTON PARA CARGAR LA SOLICITUD --}}
                             <div>
                                 <label class="form-label" for="basic-default-fullname">Solicitud:</label>
                                 <input type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                             </div>
-                            {{-- CARGA DE DATOS DE CATASTRO --}}
-                            <div>
+                            {{-- SECRETARIA DE GOBIERNO --}}
+                            {{-- <div>
                                 <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
-                                <input required type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
-                            </div>
-                            <div>
+                                <input required type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+                            {{-- CATASTRO --}}
+                            {{-- <div>
                                 <label class="form-label" for="basic-default-fullname">CATASTRO</label>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Circ</label>
@@ -131,7 +137,88 @@
                                     <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                     <input type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                 </div>
-                            </div>
+                            </div> --}}
+                            {{-- OBRAS PARTICULARES --}}
+                            {{-- <div>
+                                <label class="form-label" for="basic-default-fullname">OBRAS PARTICULARES</label>
+                                <input required type="text" name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_obras_particulares" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_obras_particulares" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+                            {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA --}}
+                            {{-- <div>
+                                <label class="form-label" for="basic-default-fullname">TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA. TASA POR CONSERVACION DE LA RED VIAL</label>
+                                <input required type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_alumbrado" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_alumbrado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+                            {{-- BROMATOLOGÌA --}}
+                            {{-- <div>
+                                <label class="form-label" for="basic-default-fullname">BROMATOLOGÌA</label>
+                                <input required type="text" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_bromatologia" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_bromatologia" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+                            {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL --}}
+                            {{-- <div>
+                                <label class="form-label" for="basic-default-fullname">TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL</label>
+                                <input required type="text" name="inspeccion" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_inspeccion" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_inspeccion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+                            {{-- JUZGADO DE FALTAS --}}
+                            {{-- <div>
+                                <label class="form-label" for="basic-default-fullname">JUZGADO DE FALTAS</label>
+                                <input required type="text" name="juzgado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_juzgado" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_juzgado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+                            {{-- BOMBEROS DE POLICÌA DE BUENOS AIRES --}}
+                            {{-- <div>
+                                <label class="form-label" for="basic-default-fullname">BOMBEROS DE POLICÌA DE BUENOS AIRES</label>
+                                <input required type="text" name="bomberos" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_bomberos" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_bomberos" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+                            {{-- INSPECCIÒN GENERAL --}}
+                            {{-- <div>
+                                <label class="form-label" for="basic-default-fullname">INSPECCIÒN GENERAL</label>
+                                <input required type="text" name="inspeccion_general" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_inspeccion_general" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_inspeccion_general" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+                            {{-- REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS --}}
+                            {{-- <div>
+                                <label class="form-label" for="basic-default-fullname">REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS</label>
+                                <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+                            {{-- HISTORIAL DE MODIFICACIONES --}}
+                            {{-- <div>
+                                <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Historial de modificaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+
 
                             {{-- DETALLE HABILITACION --}}
                             <div>
@@ -143,8 +230,8 @@
                                             <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
                                         @endforeach
                                     </select>
-                                    <label class="form-label" for="basic-default-fullname">Fecha de primer habilitacion</label>
-                                    <input required type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
+                                    {{-- <label class="form-label" for="basic-default-fullname">Fecha de primer habilitacion</label>
+                                    <input type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
                                     <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
                                     <input type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
                                     <label class="form-label" for="basic-default-fullname">Tipo de habilitacion</label>
@@ -155,11 +242,11 @@
                                         @endforeach
                                     </select>
                                     <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
-                                    <input type="file" name="certificado_habilitacion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                    <input type="file" name="certificado_habilitacion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
                                 </div>
                             </div>
 
-
+                            <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button>
                         </form>
 
                         <form method="GET" action="{{route('contribuyentes-buscar')}}">
@@ -279,6 +366,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{-- ARREGLAR ESTA RUTA, TENDRIA QUE IR A ACTUALIZAR EXPEDIENTE --}}
+                        <a href="{{route('personasJuridicas-crearEnExpediente')}}" class="btn btn-primary">Seguir con la carga del expediente</a>
+                        <a href="{{route('pagina_principal')}}" class="btn btn-primary">Pàgina principal</a>
                     </div>
                 </div>
             </div>

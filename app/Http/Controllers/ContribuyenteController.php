@@ -70,14 +70,22 @@ class ContribuyenteController extends Controller
      */
     public function createEnExpediente()
     {
+        $tiposhabilitaciones = Tipo_habilitacion::all();
+        $tiposEstados = Tipo_estado::all();
         $tiposInmuebles = Tipo_inmueble::all();
         $estadosCivil = Estado_civil::all();
         $tiposDni = Tipo_dni::all();
+        $expedientesContribuyentes= ExpedienteContribuyente::all();
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         $expediente = true;
-        return view('expediente.crear', ['estados'=>$estadosCivil, 
+        return view('contribuyente.crear', ['estados'=>$estadosCivil, 
                                             'tipos'=>$tiposDni,
                                             'expediente'=>$expediente,
-                                            'tiposInmuebles' => $tiposInmuebles]);
+                                            'tiposInmuebles' => $tiposInmuebles,
+                                            'tiposEstados' => $tiposEstados,
+                                            'tiposhabilitaciones' => $tiposhabilitaciones,
+                                            'expedientesContribuyentes'=>$expedientesContribuyentes,
+                                            'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas]);
     }
 
     /**
