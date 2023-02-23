@@ -8,7 +8,7 @@
     --color-muted: #888888;
     --color-dark: #555555;
     --color-black: #0e0d0d;
-    --color-input:#d9dcde7e;
+    --color-input: #d9dcde7e;
 }
 
 body {
@@ -30,12 +30,12 @@ body {
     border-bottom: 0.1px solid var(--color-muted);
 }
 
-.bg-input{
+.bg-input {
     background-color: var(--color-input);
     border: none;
 }
 
-.btn-login{
+.btn-login {
     width: 100%;
     color: whitesmoke;
     background-color: var(--color-success);
@@ -130,14 +130,37 @@ a:visited {
     background-color: var(--color-success);
 }
 
+.btnExpediente:hover {
+    background-color: var(--color-success);
+    opacity: 50%;
+    color: var(--color-light);
+}
+
 .btnBuscar {
     background-color: var(--color-naranja);
+}
+.btnBuscar:hover {
+    background-color: var(--color-naranja);
+    opacity: 50%;
+    color: var(--color-light);
 }
 
 .btnReportes {
     background-color: var(--color-info);
 }
 
+.btnReportes:hover {
+    background-color: var(--color-info);
+    opacity: 50%;
+    color: var(--color-light);
+}
+
 .btnAdministracion {
     background-color: var(--color-violeta);
+}
+
+.btnAdministracion:hover {
+    background-color: var(--color-violeta);
+    opacity: 50%;
+    color: var(--color-light);
 }
