@@ -6,6 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
         <title>Registrar expediente</title>
+        @vite(['resources/js/app.js'])
     </head>
     <body>
         <div class="row">
@@ -55,14 +56,14 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Tipo de inmueble</label>
-                                    <select required name="tipo_inmueble_id" class="form-control" id="basic-default-nombreCompleto" >
+                                    <select required name="tipo_inmueble_id" class="form-control" id="tipo_inmueble">
                                         <option>-- Seleccione --</option>
                                         @foreach($tiposInmuebles as $tipo)
                                             <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
                                         @endforeach
                                     </select>
                                 </div>
-                                <div>
+                                <div id="fecha_alquiler" >
                                     <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
                                     <input type="date" name="fecha_vencimiento_alquiler" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
