@@ -15,6 +15,7 @@ use App\Models\Detalle_habilitacion;
 use App\Models\Estado_baja;
 use App\Models\Tipo_estado;
 use App\Models\Tipo_habilitacion;
+use App\Models\Estado_civil;
 
 
 use App\Http\Controllers\LogsExpedienteController;
@@ -236,6 +237,7 @@ class ExpedienteController extends Controller
         $detalleHabilitaciones = Detalle_habilitacion::all();
         $detalleInmuebles = Detalle_inmueble::all();
         $estadosBaja = Estado_baja::all();
+        
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
