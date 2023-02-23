@@ -7,10 +7,10 @@
             Sistema de Gestión de 
             <br>Habilitaciones Municipales
         </p>
+        @auth
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        @auth
         <div class="collapse navbar-collapse mb-lg-0 mb-2 pt-lg-0 pt-3" id="navbarSupportedContent">
             <p class="text ms-auto p-2 my-auto">
                 <a href="" class="textUser">{{Auth::user()->usuario}}</a> 

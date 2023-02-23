@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -21,14 +22,17 @@ class LoginController extends Controller
     public function login(LoginRequest $request)
     {
         $remember = ($request->has('remember') ? true : false);
-        //$remember = $request()->filled('remember');
 
+        if(!User::where('usuario',$request->usuario)->exists()){
+            throw ValidationException::withMessages([
+                'usuario' => 'Usuario no valido.',
+            ]);
+        }
         if(Auth::attempt($request->only('usuario','password'),$remember)){
             $request->session()->regenerate();
             return redirect()->intended('pagina-principal');
         }
         throw ValidationException::withMessages([
-            'usuario' => 'Usuario no valido.',
             'password' => 'Contraseña no valida.',
         ]);
     }
