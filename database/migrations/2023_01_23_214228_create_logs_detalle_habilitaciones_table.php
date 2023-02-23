@@ -18,9 +18,9 @@ return new class extends Migration
             $table->bigInteger('detalle_habilitacion_id');
             $table->bigInteger('tipo_habilitacion_id')->nullable();
             $table->bigInteger('tipo_estado_id')->nullable();
-            $table->date('fecha_vencimiento');
-            $table->date('fecha_primer_habilitacion');
-            $table->string('pdf_certificado_habilitacion');
+            $table->date('fecha_vencimiento')->nullable();
+            $table->date('fecha_primer_habilitacion')->nullable();
+            $table->string('pdf_certificado_habilitacion')->nullable();
             $table->char('accion',1);
             // $table->bigInteger('usuario_id');
             // $table->string('usuario_nombre');
