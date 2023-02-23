@@ -21,7 +21,7 @@
                             {{-- PRIMER PARTE DE CARGA DE EXPEDIENTE --}}
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
-                                <input value="4093-" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto" autofocus/>
+                                <input value="4093-" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto"/>
                                 <input type="submit" value="Ver PDF">
                             </div>
                             <div class="mb-3">
@@ -38,9 +38,9 @@
                             {{-- BOTON PARA COMENZAR CON LA CARGA DEL EXPEDIENTE --}}
                             <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button>
 
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <h2 class=" text-center font-weight">Cargando datos a expediente Número:{{$expediente->nro_expediente}}</h2>
-                            </div>
+                            </div> --}}
 
                             {{-- DATOS DEL INMUEBLE --}}
                             <div>
