@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PaginaPrincipal\PaginaPrincipalController;
 use GuzzleHttp\Middleware;
+use App\Http\Controllers\UsuarioController;
 
 /*
 |--------------------------------------------------------------------------
