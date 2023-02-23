@@ -74,7 +74,7 @@ class ContribuyenteController extends Controller
         $estadosCivil = Estado_civil::all();
         $tiposDni = Tipo_dni::all();
         $expediente = true;
-        return view('contribuyente.crear', ['estados'=>$estadosCivil, 
+        return view('expediente.crear', ['estados'=>$estadosCivil, 
                                             'tipos'=>$tiposDni,
                                             'expediente'=>$expediente,
                                             'tiposInmuebles' => $tiposInmuebles]);
