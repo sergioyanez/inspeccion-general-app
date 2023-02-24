@@ -15,7 +15,7 @@ use App\Models\Detalle_habilitacion;
 use App\Models\Estado_baja;
 use App\Models\Tipo_estado;
 use App\Models\Tipo_habilitacion;
-use App\Models\Estado_civil;
+use App\Models\Informe_dependencias;
 
 
 use App\Http\Controllers\LogsExpedienteController;
@@ -23,6 +23,7 @@ use App\Http\Controllers\LogsDetalleInmuebleController;
 use App\Http\Controllers\LogsInmuebleController;
 use App\Http\Controllers\LogsCatastroController;
 use App\Http\Controllers\LogsDetalleHabilitacionController;
+use App\Http\Controllers\LogsInformeDependenciaController;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -235,13 +236,21 @@ class ExpedienteController extends Controller
         $catastro = Catastro::all();
         $detalleHabilitaciones = Detalle_habilitacion::all();
         $detalleInmuebles = Detalle_inmueble::all();
+        $tiposInmuebles = Tipo_inmueble::all();
         $estadosBaja = Estado_baja::all();
+        $tiposEstados = Tipo_estado::all();
+        $tiposhabilitaciones = Tipo_habilitacion::all();
+        $informesDependencias = Informe_dependencias::all($expediente->id); // ver si esta bien
         
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
-                                        'estadosBaja' =>$estadosBaja]);
+                                        'estadosBaja' =>$estadosBaja,
+                                        'tiposEstados' => $tiposEstados,
+                                        'tiposhabilitaciones' => $tiposhabilitaciones,
+                                        'tiposInmuebles' => $tiposInmuebles,
+                                        'informesDependencias' => $informesDependencias]);
     }
 
 
@@ -252,24 +261,128 @@ class ExpedienteController extends Controller
      * @param  \App\Models\expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateexpedienteRequest $request)
+    public function update(Request $request)
     {
+        // SE CREA EL INMUEBLE
+        $inmueble = Inmueble::find($request->inmueble_id);
+        if($inmueble->calle != $request->calle || $inmueble->numero != $request->numero) {
+            $inmueble->calle = $request->calle;
+            $inmueble->numero = $request->numero;
+            if($inmueble->save()) {
+                $log1 = new LogsInmuebleController();
+                $log1->store($inmueble, 'u');
+            }
+        } else {
+            $inmueble->calle = $request->calle;
+            $inmueble->numero = $request->numero;
+            $inmueble->save();
+        }
+        
+        
+
+        // SE CREA DETALLE INMUEBLE
+        $detalleInmueble = Detalle_inmueble::find($request->detalle_inmueble_id);
+        $detalleInmueble->inmueble_id = $request->inmueble_id;
+        $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
+        if($request->fecha_vencimiento_alquiler) {
+            if($detalleInmueble->fecha_venc_alquiler != $request->fecha_vencimiento_alquiler) {
+                $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
+                if($detalleInmueble->save()) {
+                    $log2 = new LogsDetalleInmuebleController();
+                    $log2->store($detalleInmueble, 'u');
+                } 
+            } else {
+                $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
+                $detalleInmueble->save();
+            }   
+        } 
+            
+        
+
+        // SE CREA CATASTRO
+        if($request->circunscripcion) {
+            $catastro = new Catastro;
+            $catastro->circunscripcion = $request->circunscripcion;
+            $catastro->seccion = $request->seccion;
+            $catastro->chacra = $request->chacra;
+            $catastro->quinta = $request->quinta;
+            $catastro->fraccion = $request->fraccion;
+            $catastro->manzana = $request->manzana;
+            $catastro->parcela = $request->parcela;
+            $catastro->sub_parcela = $request->sub_parcela;
+            if($request->observaciones)
+                $catastro->observacion = $request->observaciones;
+            if($request->fecha_informe)
+                $catastro->fecha_informe = $request->fecha_informe;
+            if($request->hasFile('pdf_informe')) {
+                $archivo = $request->file('pdf_informe');
+                $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
+                $catastro->pdf_informe = $archivo->getClientOriginalName();
+            }
+
+            if($catastro->save()){
+                $log3 = new LogsCatastroController();
+                $log3->store($catastro, 'c');
+            }
+        }
+        
+
+        // SE CREA EL EXPEDIENTE
         $expediente = Expediente::find($request->expediente_id);
-        $expediente->catastro_id = $request->catastro_id;
-        $expediente->estado_baja_id = $request->estado_baja_id;
         $expediente->nro_expediente = $request->nro_expediente;
         $expediente->nro_comercio = $request->nro_comercio;
         $expediente->actividad_ppal = $request->actividad_ppal;
         $expediente->anexo = $request->anexo;
-        $expediente->pdf_solicitud = $request->pdf_solicitud;
+        $expediente->detalle_inmueble_id = $detalleInmueble->id;
+        if($request->hasFile('pdf_solicitud_nueva')) {                    //hecho pdf_informe
+            $archivo1 = $request->file('pdf_solicitud_nueva');
+            $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
+            $expediente->pdf_solicitud = $archivo1->getClientOriginalName();
+        }
+        else {
+            $expediente->pdf_solicitud = $request->pdf_solicitud;
+        }
         $expediente->bienes_de_uso = $request->bienes_de_uso;
         $expediente->observaciones_grales = $request->observaciones_grales;
+        
+
+
+        $expediente->catastro_id = $request->catastro_id;
+        $expediente->estado_baja_id = $request->estado_baja_id;
+        
+        
+        
+        
+        
+        
         $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
-        $expediente->detalle_inmueble_id = $request->detalle_inmueble_id;
+        
 
         if ($expediente->save()){
             $log = new LogsExpedienteController();
-            $log->create($expediente, 'u');
+            $log->store($expediente, 'u');
+
+            if($request->secretaria_gobierno) {
+                $infomeDependencias = new Informe_dependencias;
+                $infomeDependencias->tipo_dependencia_id = 1;
+                $infomeDependencias->expediente_id = $expediente->id;
+                if($request->hasFile('pdf_secretaria_gobierno')) {                    
+                    $archivo2 = $request->file('pdf_secretaria_gobierno');
+                    $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo2->getClientOriginalName();
+                }
+                $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
+                $infomeDependencias->observaciones = $request->secretaria_gobierno;
+
+                $log4 = new LogsInformeDependenciaController();
+                $log4->store($infomeDependencias, 'c');
+            }
+
+            
+
+
+
+
             return redirect()->route('expedientes');
         }
         return back()->with('fail','No se pudo crear el expediente');

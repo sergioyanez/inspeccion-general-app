@@ -153,8 +153,6 @@ class ContribuyenteController extends Controller
      */
     public function update(UpdateContribuyenteRequest $request)
     {
-        $log = new LogsContribuyenteController();
-
         $contribuyente = contribuyente::find($request->contribuyente_id);
         $contribuyente->tipo_dni_id = $request->tipo_dni_id;
         $contribuyente->estado_civil_id = $request->estado_civil_id;
