@@ -20,8 +20,8 @@
                         <tr>
                             <td>{{$usuario->usuario}}</td>
                             <td>{{$usuario->tipoPermiso->tipo}}</td>
-                            <td><button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#example">Editar </button></td>
-                            <td><a href="{{route('usuarios-eliminar', $usuario->id)}}" class="btn btn-danger">Eliminar</a></td>
+                            <td><a class="btn btn-info" href="{{route('usuarios-editar', $usuario->id)}}">Editar </a></td>
+                            <td><button  class="btn btn-danger">Eliminar</button></td>
                             
                         </tr>
                     @endforeach

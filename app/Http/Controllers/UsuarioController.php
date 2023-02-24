@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\LogsUsuarioController;
 use App\Http\Requests\StoreUsuarioRequest;
 use App\Http\Requests\UpdateUsuarioRequest;
+use Illuminate\Support\Facades\Crypt;
 
 
 class UsuarioController extends Controller {
@@ -58,10 +59,20 @@ class UsuarioController extends Controller {
      * @param  int $id
      */
     public function show($id){
-
         $usuario = User::find($id);
         $tiposPermisos = Tipo_permiso::all();
         return view('usuario.mostrar', ['usuario' => $usuario, 'tiposPermisos'=>$tiposPermisos]);
+    }
+
+     /**
+     * Muestra un formulario para editar un usuario
+     * @param  int $id
+     */
+    public function edit($id) {
+        $usuario = User::find($id);
+        $tiposPermisos = Tipo_permiso::all();
+        $usuarios = User::all();
+        return view('usuario.crear', ['tiposPermisos'=>$tiposPermisos,'usuarios' => $usuarios, 'usuario'=>$usuario]);
     }
 
     /**
@@ -73,7 +84,7 @@ class UsuarioController extends Controller {
         $usuario->usuario = $request->usuario;
         $usuario->tipo_permiso_id = $request->tipo_permiso_id;
         $usuario->email = $request->email;
-        $usuario->password = Hash::make($request->password);
+        //$usuario->password = Hash::make($request->password);
 
         if($usuario->save()){
             $log = new LogsUsuarioController();

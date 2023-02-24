@@ -27,8 +27,6 @@ class UpdateUsuarioRequest extends FormRequest
             'usuario' => 'required',
             'tipo_permiso_id' => 'required',
             'email' => 'required',
-            'password' => 'required|min:8',
-            'repetirPassword' => 'required|same:password',
         ];
     }
 }
