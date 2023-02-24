@@ -28,7 +28,8 @@ class UsuarioController extends Controller {
      */
     public function create() {
         $tiposPermisos = Tipo_permiso::all();
-        return view('usuario.crear', ['tiposPermisos'=>$tiposPermisos]);
+        $usuario = User::all();
+        return view('usuario.crear', ['tiposPermisos'=>$tiposPermisos,'usuarios' => $usuario]);
     }
 
     /**

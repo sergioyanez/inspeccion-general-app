@@ -1,59 +1,52 @@
-<div class="row">
-    
-    <div class="col-xl-12">
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Creando un nuevo usuario</h5>
+@include('usuario.usuarios')  
+<div class="modal" id="example" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> @if(isset($usuario)) Editar usuario @else Creando un nuevo usuario @endif</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="card-body">
+            <div class="modal-body">
                 <form method="POST" action="{{route('usuarios-guardar')}}">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Usuario</label>
-                        <input type="text" name="usuario" class="form-control" id="basic-default-nombreCompleto" autofocus/>
+                        <input type="text" name="usuario" value="{{ old('usuario') }}" class="form-control" id="basic-default-nombreCompleto" autofocus/>
                     </div>
                     <div>
-                    @error('usuario')
+                        @error('usuario')
                             <strong>{{$message}}</strong>
                         @enderror
                     </div>
 
-                    
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Tipo de permiso</label>
-                        <select name="tipo_permiso_id" class="form-control" id="basic-default-nombreCompleto" >
-                            @foreach($tiposPermisos as $tipo)
-                                <option value="{{$tipo->id}}">{{$tipo->tipo}}</option>
-                            @endforeach
-                        </select>
+                        <label class="form-label" for="basic-default-company">Correo electrónico</label>
+                        <input type="text" name="email" value="{{ old('email') }}" class="form-control" id="basic-default-correo" />
+                        @error('email')
+                        <strong>{{$message}}</strong>
+                        @enderror
                     </div>
-
-                      <div class="mb-3">
-                          <label class="form-label" for="basic-default-company">Correo electrònico</label>
-                          <input type="text" name="email" class="form-control" id="basic-default-correo" />
-                          @error('email')
-                            <strong>{{$message}}</strong>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Contraseña</label>
+                        <input type="password" name="password" class="form-control" id="basic-default-contraseña" />
+                        @error('password')
+                        <strong>{{$message}}</strong>
                         @enderror
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label" for="basic-default-company">Contraseña</label>
-                          <input type="password" name="password" class="form-control" id="basic-default-contraseña" />
-                          @error('password')
-                            <strong>{{$message}}</strong>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Repetir Contraseña</label>
+                        <input type="password" name="repetirPassword" class="form-control" id="basic-default-contraseña" />
+                        @error('repetirPassword')
+                        <strong>{{$message}}</strong>
                         @enderror
-                      </div>
-                      <div class="mb-3">
-                          <label class="form-label" for="basic-default-company">Repetir Contraseña</label>
-                          <input type="password" name="repetirPassword" class="form-control" id="basic-default-contraseña" />
-                          @error('repetirPassword')
-                            <strong>{{$message}}</strong>
-                        @enderror
-                      </div>
-                  
-                      <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                    </div>
                 </form>
             </div>
+            
         </div>
     </div>
-  
-</div>
+</div>         
