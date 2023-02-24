@@ -18,6 +18,14 @@
                             <strong>{{$message}}</strong>
                         @enderror
                     </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Tipo de permiso</label>
+                        <select name="tipo_permiso_id" class="form-control" id="basic-default-nombreCompleto" >
+                            @foreach($tiposPermisos as $tipo)
+                                <option value="{{$tipo->id}}">{{$tipo->tipo}}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-company">Correo electrónico</label>
