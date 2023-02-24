@@ -25,8 +25,8 @@ class LogsUsuarioController extends Controller {
         $log_usuario->email = $usuario->email;
         $log_usuario->password = $usuario->password;
         $log_usuario->accion = $char;
-        $log_usuario->usuario_id = $user->id; 
-        $log_usuario->usuario_nombre = $user->usuario; 
+        $log_usuario->usuario_id = $usuario->id; 
+        $log_usuario->usuario_nombre = $usuario->usuario; 
 
         $log_usuario->save();
     }

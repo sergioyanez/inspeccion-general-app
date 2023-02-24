@@ -21,7 +21,7 @@
                             <td>{{$usuario->usuario}}</td>
                             <td>{{$usuario->tipoPermiso->tipo}}</td>
                             <td><a class="btn btn-info" href="{{route('usuarios-editar', $usuario->id)}}">Editar </a></td>
-                            <td><button  class="btn btn-danger">Eliminar</button></td>
+                            <td><button  class="btn btn-danger btnsDelete" value="{{$usuario->id}}">Eliminar</button></td>
                             
                         </tr>
                     @endforeach
