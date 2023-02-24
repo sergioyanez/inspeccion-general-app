@@ -81,7 +81,7 @@
                             {{-- SECRETARIA DE GOBIERNO --}}
                             <div>
                                 <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
-                                <input value="{{$expediente->observaciones_grales}} type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                <input value="{{$expediente->observaciones_grales}}" type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                 <label class="form-label" for="basic-default-fullname">Rauch</label>
                                 <input type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
                                 <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
@@ -247,13 +247,13 @@
                                             @foreach($tiposhabilitaciones as $tipo)
                                                 <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
                                             @endforeach
-                                        @else 
+                                        @else
                                             @foreach($tiposhabilitaciones as $tipo)
                                                 <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
                                             @endforeach
                                         @endif
-                                        
-                                        
+
+
                                     </select>
                                     <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
                                     <input type="file" name="certificado_habilitacion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
