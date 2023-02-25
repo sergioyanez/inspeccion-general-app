@@ -238,20 +238,24 @@ class ExpedienteController extends Controller
      */
     public function update(Request $request)
     {
-        // SE CREA EL INMUEBLE
         $inmueble = Inmueble::find($request->inmueble_id);
-        if($inmueble->calle != $request->calle || $inmueble->numero != $request->numero) {
-            $inmueble->calle = $request->calle;
-            $inmueble->numero = $request->numero;
-            if($inmueble->save()) {
-                $log1 = new LogsInmuebleController();
-                $log1->store($inmueble, 'u');
-            }
-        } else {
-            $inmueble->calle = $request->calle;
-            $inmueble->numero = $request->numero;
-            $inmueble->save();
-        }
+        $inmuebleController = new InmuebleController();
+        $inmuebleController->update($inmueble);
+        // VER ESTO
+        // SE CREA EL INMUEBLE
+        // $inmueble = Inmueble::find($request->inmueble_id);
+        // if($inmueble->calle != $request->calle || $inmueble->numero != $request->numero) {
+        //     $inmueble->calle = $request->calle;
+        //     $inmueble->numero = $request->numero;
+        //     if($inmueble->save()) {
+        //         $log1 = new LogsInmuebleController();
+        //         $log1->store($inmueble, 'u');
+        //     }
+        // } else {
+        //     $inmueble->calle = $request->calle;
+        //     $inmueble->numero = $request->numero;
+        //     $inmueble->save();
+        // }
         
         
 

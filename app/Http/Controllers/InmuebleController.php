@@ -85,6 +85,22 @@ class InmuebleController extends Controller
      *
      * @param  \App\Http\Requests\UpdateInmuebleRequest  $request
      */
+    // public function update(UpdateInmuebleRequest $request)
+    // {
+
+    //     $inmueble = Inmueble::find($request->id);
+    //     $inmueble->calle = $request->calle;
+    //     $inmueble->numero = $request->numero;
+
+    //     if($inmueble->save()){
+    //         $log = new LogsInmuebleController();
+    //         $log->store($inmueble, 'u');
+    //         return redirect()->route('inmuebles');
+    //     }
+
+    //     return back()->with('fail','No se pudo editar el inmueble');
+    // }
+
     public function update(UpdateInmuebleRequest $request)
     {
 
