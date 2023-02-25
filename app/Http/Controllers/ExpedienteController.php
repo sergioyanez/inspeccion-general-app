@@ -25,6 +25,10 @@ use App\Http\Controllers\LogsCatastroController;
 use App\Http\Controllers\LogsDetalleHabilitacionController;
 use App\Http\Controllers\LogsInformeDependenciaController;
 
+use App\Http\Controllers\InmuebleController;
+use App\Http\Controllers\DetalleInmuebleController;
+
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreexpedienteRequest;
@@ -39,20 +43,14 @@ class ExpedienteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    /*public function index()
-    {
-        $expedientes = Expediente::all();
-        return view('expediente.expedientes', ['expedientes' => $expedientes]);
-    }*/
 
     public function index() {
         $expedientes = Expediente::query()
             ->when(request('buscarporcomercio'), function ($query) {
                 return $query->where('nro_comercio', 'LIKE', '%' . request('buscarporcomercio') . '%');
-
-
             })
             ->paginate(200);
+
             return view('expediente.expedientes', ['expedientes' => $expedientes]);
     }
 
@@ -62,22 +60,19 @@ class ExpedienteController extends Controller
             ->when(request('buscarporcontribuyente'), function ($query) {
 
                 return $query->whereHas('contribuyentes', function ($c) {
-                            $c->where('nombre', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
-                            $c->orwhere('apellido', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
-                        }
-                    )
-                    ->orWhereHas('personasJuridicas', function ($p) {
-                            $p->where('nombre_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
-                            $p->orwhere('apellido_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
-                        }
-                    );
-
+                        $c->where('nombre', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                        $c->orwhere('apellido', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                    }
+                )
+                ->orWhereHas('personasJuridicas', function ($p) {
+                    $p->where('nombre_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                    $p->orwhere('apellido_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                    }
+                );
             })
             ->paginate(200);
             return view('expediente.expedientes', ['expedientes' => $expedientes]);
     }
-
-
 
     public function buscarContribEnExpediente($id)
     {
@@ -85,10 +80,7 @@ class ExpedienteController extends Controller
         $expedientesContribuyentes = ExpedienteContribuyente::orderBy('id', 'asc')
         ->where('expediente_id', 'LIKE', '%' . $id . '%');
         return $expedientesContribuyentes;
-
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -131,28 +123,33 @@ class ExpedienteController extends Controller
      */
     public function store(Request $request) // aca va StoreexpedienteRequest
     {
+        $inmueble = new InmuebleController();
+        $inmueble_id = $inmueble->store($request->calle, $request->numero);
+
+        $detalleInmueble = new DetalleInmuebleController();
+        $detalleInmueble_id = $detalleInmueble->store($inmueble_id, $request->tipo_inmueble_id, $request->fecha_vencimiento_alquiler);
         // SE CREA EL INMUEBLE
-        $calle = $request->calle;
-        $numero = $request->numero;
+        // $calle = $request->calle;
+        // $numero = $request->numero;
         
-        $inmueble = new Inmueble;
-        $inmueble->calle = $calle;
-        $inmueble->numero = $numero;
-        if($inmueble->save()) {
-            $log1 = new LogsInmuebleController();
-            $log1->store($inmueble, 'c');
-        }
+        // $inmueble = new Inmueble;
+        // $inmueble->calle = $calle;
+        // $inmueble->numero = $numero;
+        // if($inmueble->save()) {
+        //     $log1 = new LogsInmuebleController();
+        //     $log1->store($inmueble, 'c');
+        // }
 
         // SE CREA DETALLE INMUEBLE
-        $detalleInmueble = new Detalle_inmueble;
-        $detalleInmueble->inmueble_id = $inmueble->id;
-        $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
-        if($request->fecha_vencimiento_alquiler)
-            $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
-        if($detalleInmueble->save()) {
-            $log2 = new LogsDetalleInmuebleController();
-            $log2->store($detalleInmueble, 'c');
-        }
+        // $detalleInmueble = new Detalle_inmueble;
+        // $detalleInmueble->inmueble_id = $inmueble->id;
+        // $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
+        // if($request->fecha_vencimiento_alquiler)
+        //     $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
+        // if($detalleInmueble->save()) {
+        //     $log2 = new LogsDetalleInmuebleController();
+        //     $log2->store($detalleInmueble, 'c');
+        // }
 
         // SE CREA DETALLE DE HABILITACION
         $detalleHabilitacion = new Detalle_habilitacion;
@@ -186,8 +183,8 @@ class ExpedienteController extends Controller
         $expediente->bienes_de_uso = $request->bienes_de_uso;       //hecho
         $expediente->observaciones_grales = $request->observaciones_grales;     //hecho
         $expediente->detalle_habilitacion_id = $detalleHabilitacion->id;        //hecho
-        $expediente->detalle_inmueble_id = $detalleInmueble->id;       //hecho
-
+        //$expediente->detalle_inmueble_id = $detalleInmueble->id;       //hecho
+        $expediente->detalle_inmueble_id = $detalleInmueble_id;
         
 
         if ($expediente->save()){

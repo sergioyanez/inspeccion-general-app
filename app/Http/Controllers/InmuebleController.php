@@ -40,16 +40,30 @@ class InmuebleController extends Controller
      * @param  \App\Models\Inmueble  $inmueble
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreInmuebleRequest $request)
+    // public function store(StoreInmuebleRequest $request)
+    // {
+    //     $inmueble = new Inmueble();
+    //     $inmueble->calle = $request->calle;
+    //     $inmueble->numero = $request->numero;
+
+    //     if ($inmueble->save()){
+    //         $log = new LogsInmuebleController();
+    //         $log->store($inmueble, 'c');
+    //         return redirect()->route('inmuebles');
+    //     }
+    //     return back()->with('fail','No se pudo cargar el inmueble');
+    // }
+
+    public function store($calle, $numero)
     {
         $inmueble = new Inmueble();
-        $inmueble->calle = $request->calle;
-        $inmueble->numero = $request->numero;
+        $inmueble->calle = $calle;
+        $inmueble->numero = $numero;
 
         if ($inmueble->save()){
             $log = new LogsInmuebleController();
             $log->store($inmueble, 'c');
-            return redirect()->route('inmuebles');
+            return $inmueble->id;
         }
         return back()->with('fail','No se pudo cargar el inmueble');
     }
