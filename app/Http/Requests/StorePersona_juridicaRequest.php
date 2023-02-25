@@ -24,11 +24,11 @@ class StorePersona_juridicaRequest extends FormRequest
     public function rules()
     {
         return [
-            'cuit'=>'required|integer',
+            'cuit'=>'required|string',
             'nombre_representante'=>'required|string|max:50',
             'apellido_representante'=>'required|string|max:50',
             'dni_representante'=>'required|string|max:10',
-            'telefono'=>'required|integer',
+            'telefono'=>'required|string',
         ];
     }
 }

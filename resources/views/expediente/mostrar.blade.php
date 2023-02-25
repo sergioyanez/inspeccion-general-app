@@ -15,7 +15,7 @@
                         <h2 class="mb-0">Expediente: {{$expediente->nro_expediente}}</h2>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{route('expedientes-actualizar')}}">
+                        <form method="POST" action="{{route('expedientes-actualizar')}}" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
                             <div class="mb-3">
@@ -243,7 +243,6 @@
                             {{-- DETALLE HABILITACION --}}
                             <div>
                                 <input type="hidden" name="detalle_habilitacion" value="{{$expediente->detalleHabilitacion->id}}">
-                                {{-- <input type="hidden" name="inmueble_id" value="{{$expediente->detalleInmueble->inmueble->id}}"> --}}
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Estado de habilitacion</label>
                                     <select required name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
@@ -253,23 +252,21 @@
                                         @endforeach
                                     </select>
                                     <label class="form-label" for="basic-default-fullname">Fecha de primer habilitacion</label>
-                                    <input type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
                                     <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
-                                    <input type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
                                     <label class="form-label" for="basic-default-fullname">Tipo de habilitacion</label>
                                     <select name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
-                                        <option>-- Seleccione --</option>
                                         @if($expediente->detalleHabilitacion->tipoHabilitacion)
                                             @foreach($tiposhabilitaciones as $tipo)
                                                 <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
                                             @endforeach
                                         @else
+                                            <option>-- Seleccione --</option>
                                             @foreach($tiposhabilitaciones as $tipo)
                                                 <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
                                             @endforeach
                                         @endif
-
-
                                     </select>
                                     <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
                                     <input type="file" name="certificado_habilitacion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />

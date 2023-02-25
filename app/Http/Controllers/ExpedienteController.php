@@ -154,31 +154,6 @@ class ExpedienteController extends Controller
             $log2->store($detalleInmueble, 'c');
         }
 
-        // SE CREA CATASTRO
-        // $catastro = new Catastro;
-        // $catastro->circunscripcion = $request->circunscripcion;
-        // $catastro->seccion = $request->seccion;
-        // $catastro->chacra = $request->chacra;
-        // $catastro->quinta = $request->quinta;
-        // $catastro->fraccion = $request->fraccion;
-        // $catastro->manzana = $request->manzana;
-        // $catastro->parcela = $request->parcela;
-        // $catastro->sub_parcela = $request->sub_parcela;
-        // if($request->observaciones)
-        //     $catastro->observacion = $request->observaciones;
-        // if($request->fecha_informe)
-        //     $catastro->fecha_informe = $request->fecha_informe;
-        // if($request->hasFile('pdf_informe')) {
-        //     $archivo = $request->file('pdf_informe');
-        //     $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
-        //     $catastro->pdf_informe = $archivo->getClientOriginalName();
-        // }
-
-        // if($catastro->save()){
-        //     $log3 = new LogsCatastroController();
-        //     $log3->store($catastro, 'c');
-        // }
-
         // SE CREA DETALLE DE HABILITACION
         $detalleHabilitacion = new Detalle_habilitacion;
         //$detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
@@ -328,7 +303,8 @@ class ExpedienteController extends Controller
 
         // SE CREA DETALLE DE HABILITACION
         $detalleHabilitacion = Detalle_habilitacion::find($request->detalle_habilitacion);
-        $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
+        if($request->tipo_habilitacion_id != "-- Seleccione --")
+            $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
         $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
         $detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
         $detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;

@@ -36,13 +36,6 @@
                                 <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
 
-                            {{-- BOTON PARA COMENZAR CON LA CARGA DEL EXPEDIENTE --}}
-                            {{-- <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button> --}}
-
-                            {{-- <div class="mb-3">
-                                <h2 class=" text-center font-weight">Cargando datos a expediente Número:{{$expediente->nro_expediente}}</h2>
-                            </div> --}}
-
                             {{-- DATOS DEL INMUEBLE --}}
                             <div>
                                 <label class="form-label" for="basic-default-fullname">Domicilio inmueble/s</label>
@@ -68,18 +61,11 @@
                                     <input type="date" name="fecha_vencimiento_alquiler" class="form-control" id="basic-default-nombreCompleto" />
                                 </div>
                             </div>
-                            {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
-                            {{-- <div>
-                                <input placeholder="detalle de bienes de uso" type="text" name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto" />
-                            </div>
-                            <div>
-                                <input placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
-                            </div> --}}
-                            {{-- INFORMES DE DEPENDENCIAS --}}
+
                             {{-- BOTON PARA CARGAR LA SOLICITUD --}}
                             <div>
                                 <label class="form-label" for="basic-default-fullname">Solicitud:</label>
-                                <input type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                <input required type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                             </div>
                             {{-- SECRETARIA DE GOBIERNO --}}
                             {{-- <div>
@@ -225,24 +211,14 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Estado de habilitacion</label>
                                     <select name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
-                                        <option>-- Seleccione --</option>
+                                        {{-- <option>-- Seleccione --</option> --}}
                                         @foreach($tiposEstados as $tipo)
-                                            <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                            @if ($tipo->descripcion == "En tramite")
+                                                <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                            @endif
+                                            
                                         @endforeach
                                     </select>
-                                    {{-- <label class="form-label" for="basic-default-fullname">Fecha de primer habilitacion</label>
-                                    <input type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
-                                    <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
-                                    <input type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
-                                    <label class="form-label" for="basic-default-fullname">Tipo de habilitacion</label>
-                                    <select required name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
-                                        <option>-- Seleccione --</option>
-                                        @foreach($tiposhabilitaciones as $tipo)
-                                            <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
-                                    <input type="file" name="certificado_habilitacion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
                                 </div>
                             </div>
 
