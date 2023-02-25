@@ -19,7 +19,10 @@
                     <div class="card-body">
                         <form method="POST" action="{{route('expedientes-actualizar')}}" enctype="multipart/form-data">
                             @csrf
-                            <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
+                            @isset($expediente->id)
+                                <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
+                            @endisset
+                            
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
                                 <input value="{{$expediente->nro_expediente}}" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto"/>
@@ -68,8 +71,8 @@
                             <div>
                                 <label class="form-label" for="basic-default-fullname">Solicitud:</label>
                                 @if ($expediente->pdf_solicitud)
-                                    {{-- <p name="pdf_solicitud">PDF cargado: {{$expediente->pdf_solicitud}}</p> --}}
-                                    <input value="{{$expediente->pdf_solicitud}}" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                    <p name="pdf_solicitud">PDF solicitud cargado: {{$expediente->pdf_solicitud}}</p>
+                                    {{-- <input value="{{$expediente->pdf_solicitud}}" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
                                 @endif
                                 <input type="file" name="pdf_solicitud_nueva" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                             </div>
@@ -153,8 +156,9 @@
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                        <label class="form-label" for="basic-default-fullname">con</label>
                                         @if ($expediente->catastro->pdf_informe)
-                                            <p name="pdf_informe">PDF cargado: {{$expediente->catastro->pdf_informe}}</p>
+                                            <p name="pdf_informe">PDF catastro cargado: {{$expediente->catastro->pdf_informe}}</p>
                                             {{-- <input value="{{$expediente->catastro->pdf_informe}}" type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
                                         @endif
                                         <input type="file" name="pdf_informe_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
@@ -202,8 +206,9 @@
                                         <input type="date" name="fecha_informe" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
+                                        <label class="form-label" for="basic-default-fullname">sin</label>
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                        <input type="file" name="pdf_informe_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        <input type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
                                     
                                 @endif
@@ -329,7 +334,7 @@
                                     </select>
                                     <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
                                     @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
-                                        <p name="certificado_habilitacion">Certificado de habilitaciòn: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p>
+                                        <p name="certificado_habilitacion">Certificado de habilitaciòn cargado: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p>
                                     @endif
                                     <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                 </div>

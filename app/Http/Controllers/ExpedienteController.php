@@ -298,9 +298,9 @@ class ExpedienteController extends Controller
                 $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
                 $catastro->pdf_informe = $archivo->getClientOriginalName();
             }
-            else {
-                $catastro->pdf_informe = $request->pdf_informe;
-            }
+            // else {
+            //     $catastro->pdf_informe = $request->pdf_informe;
+            // }
             if($catastro->save()){
                 $log3 = new LogsCatastroController();
                 $log3->store($catastro, 'u');
@@ -320,14 +320,12 @@ class ExpedienteController extends Controller
                 $catastro->observacion = $request->observaciones;
             if($request->fecha_informe)
                 $catastro->fecha_informe = $request->fecha_informe;
-            if($request->hasFile('pdf_informe_nuevo')) {
-                $archivo = $request->file('pdf_informe_nuevo');
+            if($request->hasFile('pdf_informe')) {
+                $archivo = $request->file('pdf_informe');
                 $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
                 $catastro->pdf_informe = $archivo->getClientOriginalName();
             }
-            else {
-                $catastro->pdf_informe = $request->pdf_informe;
-            }
+            
 
             if($catastro->save()){
                 $log3 = new LogsCatastroController();
