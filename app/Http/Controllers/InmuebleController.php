@@ -111,7 +111,7 @@ class InmuebleController extends Controller
         if($inmueble->save()){
             $log = new LogsInmuebleController();
             $log->store($inmueble, 'u');
-            return redirect()->route('inmuebles');
+            //return redirect()->route('inmuebles');
         }
 
         return back()->with('fail','No se pudo editar el inmueble');
