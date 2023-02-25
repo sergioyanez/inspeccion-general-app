@@ -344,10 +344,14 @@ class ExpedienteController extends Controller
         $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
         $detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
         $detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
-        if($request->hasFile('certificado_habilitacion')) {
-            $archivo2 = $request->file('certificado_habilitacion');
+        if($request->hasFile('certificado_nuevo')) {
+            $archivo2 = $request->file('certificado_nuevo');
             $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
             $detalleHabilitacion->pdf_certificado_habilitacion = $archivo2->getClientOriginalName();
+        }
+        else {
+            if($request->certificado_habilitacion)
+                $detalleHabilitacion->pdf_certificado_habilitacion = $request->certificado_habilitacion;
         }
         if($detalleHabilitacion->save()){
             $log4 = new LogsDetalleHabilitacionController();

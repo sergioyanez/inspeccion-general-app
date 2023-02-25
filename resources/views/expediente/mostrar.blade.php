@@ -67,9 +67,11 @@
                             {{-- BOTON PARA CARGAR EL PDF DE LA SOLICITUD --}}
                             <div>
                                 <label class="form-label" for="basic-default-fullname">Solicitud:</label>
-                                <input value="{{$expediente->pdf_solicitud}}" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                @if ($expediente->pdf_solicitud)
+                                    {{-- <p name="pdf_solicitud">PDF cargado: {{$expediente->pdf_solicitud}}</p> --}}
+                                    <input value="{{$expediente->pdf_solicitud}}" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                @endif
                                 <input type="file" name="pdf_solicitud_nueva" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-
                             </div>
 
                             {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
@@ -151,7 +153,10 @@
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                        <input value="{{$expediente->catastro->pdf_informe}}" type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        @if ($expediente->catastro->pdf_informe)
+                                            <p name="pdf_informe">PDF cargado: {{$expediente->catastro->pdf_informe}}</p>
+                                            {{-- <input value="{{$expediente->catastro->pdf_informe}}" type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
+                                        @endif
                                         <input type="file" name="pdf_informe_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
                                 @else
@@ -323,7 +328,10 @@
                                         @endif
                                     </select>
                                     <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
-                                    <input type="file" name="certificado_habilitacion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                    @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
+                                        <p name="certificado_habilitacion">Certificado de habilitaciòn: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p>
+                                    @endif
+                                    <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                 </div>
                             </div>
 
