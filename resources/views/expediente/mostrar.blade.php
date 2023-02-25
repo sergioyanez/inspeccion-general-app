@@ -263,13 +263,13 @@
                                             @foreach($tiposhabilitaciones as $tipo)
                                                 <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
                                             @endforeach
-                                        @else 
+                                        @else
                                             @foreach($tiposhabilitaciones as $tipo)
                                                 <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
                                             @endforeach
                                         @endif
-                                        
-                                        
+
+
                                     </select>
                                     <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
                                     <input type="file" name="certificado_habilitacion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
