@@ -279,7 +279,34 @@ class ExpedienteController extends Controller
         
 
         // SE CREA CATASTRO
-        if($request->circunscripcion) {
+        if($request->catastro_id != null) {
+            $catastro = Catastro::find($request->catastro_id);
+            $catastro->circunscripcion = $request->circunscripcion;
+            $catastro->seccion = $request->seccion;
+            $catastro->chacra = $request->chacra;
+            $catastro->quinta = $request->quinta;
+            $catastro->fraccion = $request->fraccion;
+            $catastro->manzana = $request->manzana;
+            $catastro->parcela = $request->parcela;
+            $catastro->sub_parcela = $request->sub_parcela;
+            if($request->observaciones)
+                $catastro->observacion = $request->observaciones;
+            if($request->fecha_informe)
+                $catastro->fecha_informe = $request->fecha_informe;
+            if($request->hasFile('pdf_informe_nuevo')) {
+                $archivo = $request->file('pdf_informe_nuevo');
+                $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
+                $catastro->pdf_informe = $archivo->getClientOriginalName();
+            }
+            else {
+                $catastro->pdf_informe = $request->pdf_informe;
+            }
+            if($catastro->save()){
+                $log3 = new LogsCatastroController();
+                $log3->store($catastro, 'u');
+            }
+        }
+        else {
             $catastro = new Catastro;
             $catastro->circunscripcion = $request->circunscripcion;
             $catastro->seccion = $request->seccion;
@@ -293,10 +320,13 @@ class ExpedienteController extends Controller
                 $catastro->observacion = $request->observaciones;
             if($request->fecha_informe)
                 $catastro->fecha_informe = $request->fecha_informe;
-            if($request->hasFile('pdf_informe')) {
-                $archivo = $request->file('pdf_informe');
+            if($request->hasFile('pdf_informe_nuevo')) {
+                $archivo = $request->file('pdf_informe_nuevo');
                 $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
                 $catastro->pdf_informe = $archivo->getClientOriginalName();
+            }
+            else {
+                $catastro->pdf_informe = $request->pdf_informe;
             }
 
             if($catastro->save()){
@@ -304,6 +334,8 @@ class ExpedienteController extends Controller
                 $log3->store($catastro, 'c');
             }
         }
+
+        
 
         // SE CREA DETALLE DE HABILITACION
         $detalleHabilitacion = Detalle_habilitacion::find($request->detalle_habilitacion);
@@ -340,12 +372,12 @@ class ExpedienteController extends Controller
         }
         $expediente->bienes_de_uso = $request->bienes_de_uso;
         $expediente->observaciones_grales = $request->observaciones_grales;
-        
+        $expediente->catastro_id = $catastro->id;
+        $expediente->detalle_habilitacion_id = $detalleHabilitacion->id;
 
         // FALTA ESTO
-        $expediente->catastro_id = $request->catastro_id;
         $expediente->estado_baja_id = $request->estado_baja_id;
-        $expediente->detalle_habilitacion_id = $detalleHabilitacion->id;
+        
         
 
         if ($expediente->save()){
@@ -374,14 +406,6 @@ class ExpedienteController extends Controller
                     }
                 }
             }
-
-            
-
-            
-
-
-
-            //$tiposEstados = Tipo_estado::all();
             return redirect()->route('expedientes');
         }
         return back()->with('fail','No se pudo crear el expediente');

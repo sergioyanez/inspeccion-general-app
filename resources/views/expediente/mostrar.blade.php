@@ -81,7 +81,7 @@
                             </div>
 
                             {{-- SECRETARIA DE GOBIERNO --}}
-                            <div>
+                            {{-- <div>
                                 @isset($informesDependencias)
                                     @foreach ($informesDependencias as $item)
                                         @if ($item->tipo_dependencia_id == 1)
@@ -102,56 +102,108 @@
                                     @endforeach
                                 @endisset
                                 
-                            </div>
+                            </div> --}}
 
                             {{-- CATASTRO --}}
-                            {{-- <div>
-                                <label class="form-label" for="basic-default-fullname">CATASTRO</label>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">Circ</label>
-                                    <input required type="text" name="circunscripcion" class="form-control" id="basic-default-nombreCompleto" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">Secc</label>
-                                    <input required type="text" name="seccion" class="form-control" id="basic-default-nombreCompleto" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">Chacra</label>
-                                    <input required type="text" name="chacra" class="form-control" id="basic-default-nombreCompleto" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">Quinta</label>
-                                    <input required type="text" name="quinta" class="form-control" id="basic-default-nombreCompleto" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">Fracciòn</label>
-                                    <input required type="text" name="fraccion" class="form-control" id="basic-default-nombreCompleto" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">Manzana</label>
-                                    <input required type="text" name="manzana" class="form-control" id="basic-default-nombreCompleto" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">Parcela</label>
-                                    <input required type="text" name="parcela" class="form-control" id="basic-default-nombreCompleto" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">SubPar</label>
-                                    <input required type="text" name="sub_parcela" class="form-control" id="basic-default-nombreCompleto" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">Observaciones</label>
-                                    <input type="text" name="observaciones" class="form-control" id="basic-default-nombreCompleto" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">Fecha informe</label>
-                                    <input type="date" name="fecha_informe" class="form-control" id="basic-default-nombreCompleto" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                    <input type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                </div>
-                            </div> --}}
+                            <div>
+                                @if ($expediente->catastro_id != null)
+                                    <input type="hidden" name="catastro_id" value="{{$expediente->catastro_id}}">
+                                    <label class="form-label" for="basic-default-fullname">CATASTRO</label>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Circ</label>
+                                        <input value="{{$expediente->catastro->circunscripcion}}" required type="text" name="circunscripcion" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Secc</label>
+                                        <input value="{{$expediente->catastro->seccion}}" required type="text" name="seccion" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Chacra</label>
+                                        <input value="{{$expediente->catastro->chacra}}" required type="text" name="chacra" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Quinta</label>
+                                        <input value="{{$expediente->catastro->quinta}}" required type="text" name="quinta" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Fracciòn</label>
+                                        <input value="{{$expediente->catastro->fraccion}}" required type="text" name="fraccion" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Manzana</label>
+                                        <input value="{{$expediente->catastro->manzana}}" required type="text" name="manzana" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Parcela</label>
+                                        <input value="{{$expediente->catastro->parcela}}" required type="text" name="parcela" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">SubPar</label>
+                                        <input value="{{$expediente->catastro->sub_parcela}}" required type="text" name="sub_parcela" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Observaciones</label>
+                                        <input value="{{$expediente->catastro->observacion}}" type="text" name="observaciones" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Fecha informe</label>
+                                        <input value="{{$expediente->catastro->fecha_informe}}" type="date" name="fecha_informe" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                        <input value="{{$expediente->catastro->pdf_informe}}" type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        <input type="file" name="pdf_informe_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                    </div>
+                                @else
+                                    <label class="form-label" for="basic-default-fullname">CATASTRO</label>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Circ</label>
+                                        <input required type="text" name="circunscripcion" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Secc</label>
+                                        <input required type="text" name="seccion" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Chacra</label>
+                                        <input required type="text" name="chacra" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Quinta</label>
+                                        <input required type="text" name="quinta" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Fracciòn</label>
+                                        <input required type="text" name="fraccion" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Manzana</label>
+                                        <input required type="text" name="manzana" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Parcela</label>
+                                        <input required type="text" name="parcela" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">SubPar</label>
+                                        <input required type="text" name="sub_parcela" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Observaciones</label>
+                                        <input type="text" name="observaciones" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Fecha informe</label>
+                                        <input type="date" name="fecha_informe" class="form-control" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                        <input type="file" name="pdf_informe_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                    </div>
+                                    
+                                @endif
+                                
+                            </div>
 
                             {{-- OBRAS PARTICULARES --}}
                             {{-- <div>
