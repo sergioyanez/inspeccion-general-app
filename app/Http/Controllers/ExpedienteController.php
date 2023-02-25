@@ -240,7 +240,7 @@ class ExpedienteController extends Controller
         $estadosBaja = Estado_baja::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
-        $informesDependencias = Informe_dependencias::all($expediente->id); // ver si esta bien
+        $informesDependencias = Informe_dependencias::all(); // ver si esta bien
         
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'catastro'=>$catastro,
@@ -325,6 +325,22 @@ class ExpedienteController extends Controller
                 $log3->store($catastro, 'c');
             }
         }
+
+        // SE CREA DETALLE DE HABILITACION
+        $detalleHabilitacion = Detalle_habilitacion::find($request->detalle_habilitacion);
+        $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
+        $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
+        $detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
+        $detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
+        if($request->hasFile('certificado_habilitacion')) {
+            $archivo2 = $request->file('certificado_habilitacion');
+            $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
+            $detalleHabilitacion->pdf_certificado_habilitacion = $archivo2->getClientOriginalName();
+        }
+        if($detalleHabilitacion->save()){
+            $log4 = new LogsDetalleHabilitacionController();
+            $log4->store($detalleHabilitacion, 'c');
+        }
         
 
         // SE CREA EL EXPEDIENTE
@@ -346,43 +362,46 @@ class ExpedienteController extends Controller
         $expediente->observaciones_grales = $request->observaciones_grales;
         
 
-
+        // FALTA ESTO
         $expediente->catastro_id = $request->catastro_id;
         $expediente->estado_baja_id = $request->estado_baja_id;
-        
-        
-        
-        
-        
-        
-        $expediente->detalle_habilitacion_id = $request->detalle_habilitacion_id;
+        $expediente->detalle_habilitacion_id = $detalleHabilitacion->id;
         
 
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
 
-            if($request->secretaria_gobierno) {
-                $infomeDependencias = new Informe_dependencias;
-                $infomeDependencias->tipo_dependencia_id = 1;
-                $infomeDependencias->expediente_id = $expediente->id;
-                if($request->hasFile('pdf_secretaria_gobierno')) {                    
-                    $archivo2 = $request->file('pdf_secretaria_gobierno');
-                    $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo2->getClientOriginalName();
+            $informe = Informe_dependencias::all();
+            if($informe) {
+                foreach ($informe as $item) {
+                    if($item->tipo_dependencia_id == "1") {
+                        $infomeDependencias = Informe_dependencias::find($item->id);
+                        $infomeDependencias->tipo_dependencia_id = 1;
+                        $infomeDependencias->expediente_id = $expediente->id;
+                        if($request->hasFile('pdf_secretaria_gobierno')) {                    
+                            $archivo2 = $request->file('pdf_secretaria_gobierno');
+                            $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
+                            $infomeDependencias->pdf_informe = $archivo2->getClientOriginalName();
+                        }
+                        $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
+                        $infomeDependencias->observaciones = $request->secretaria_gobierno;
+                        if ($infomeDependencias->save()) {
+                            $log4 = new LogsInformeDependenciaController();
+                            $log4->store($infomeDependencias, 'c');
+                        }
+                
+                    }
                 }
-                $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
-                $infomeDependencias->observaciones = $request->secretaria_gobierno;
-
-                $log4 = new LogsInformeDependenciaController();
-                $log4->store($infomeDependencias, 'c');
             }
+
+            
 
             
 
 
 
-
+            //$tiposEstados = Tipo_estado::all();
             return redirect()->route('expedientes');
         }
         return back()->with('fail','No se pudo crear el expediente');

@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
         <title>Registrar expediente</title>
-        @vite(['resources/js/app.js'])
+        {{-- @vite(['resources/js/app.js']) --}}
     </head>
     <body>
         <div class="row">
@@ -31,7 +31,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Actividad principal</label>
-                                <input  type="text" name="actividad_ppal" class="form-control" id="basic-default-nombreCompleto" />
+                                <input required type="text" name="actividad_ppal" class="form-control" id="basic-default-nombreCompleto" />
                                 <label class="form-label" for="basic-default-fullname">Anexo</label>
                                 <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
@@ -367,7 +367,10 @@
                             </tbody>
                         </table>
                         {{-- ARREGLAR ESTA RUTA, TENDRIA QUE IR A ACTUALIZAR EXPEDIENTE --}}
-                        <a href="{{route('expedientes-mostrar', $expediente->id)}}" class="btn btn-primary">Seguir con la carga del expediente</a>
+                        @isset($expediente->id)
+                            <a href="{{route('expedientes-mostrar', $expediente->id)}}" class="btn btn-primary">Seguir con la carga del expediente</a>
+
+                        @endisset
                         <a href="{{route('pagina_principal')}}" class="btn btn-primary">Pàgina principal</a>
                     </div>
                 </div>
