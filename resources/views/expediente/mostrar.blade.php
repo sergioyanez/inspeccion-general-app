@@ -12,7 +12,9 @@
             <div class="col-xl-12">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h2 class="mb-0">Expediente: {{$expediente->nro_expediente}}</h2>
+                        @isset($expediente->nro_expediente)
+                            <h2 class="mb-0">Expediente: {{$expediente->nro_expediente}}</h2>
+                        @endisset
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{route('expedientes-actualizar')}}" enctype="multipart/form-data">

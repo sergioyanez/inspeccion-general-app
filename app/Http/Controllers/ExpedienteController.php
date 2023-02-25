@@ -27,6 +27,7 @@ use App\Http\Controllers\LogsInformeDependenciaController;
 
 use App\Http\Controllers\InmuebleController;
 use App\Http\Controllers\DetalleInmuebleController;
+use App\Http\Controllers\DetalleHabilitacionController;
 
 
 use Illuminate\Http\Request;
@@ -151,10 +152,12 @@ class ExpedienteController extends Controller
         //     $log2->store($detalleInmueble, 'c');
         // }
 
+        $detalleHabilitacion = new DetalleHabilitacionController();
+        $detalleHabilitacion_id = $detalleHabilitacion->store($request->estado_habilitacion_id);
         // SE CREA DETALLE DE HABILITACION
-        $detalleHabilitacion = new Detalle_habilitacion;
+        // este $detalleHabilitacion = new Detalle_habilitacion;
         //$detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
-        $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
+        // este $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
         //$detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
         //$detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
         //if($request->hasFile('certificado_habilitacion')) {
@@ -162,15 +165,14 @@ class ExpedienteController extends Controller
         //    $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
         //    $detalleHabilitacion->pdf_certificado_habilitacion = $archivo2->getClientOriginalName();
         //}
-
-        if($detalleHabilitacion->save()){
-            $log4 = new LogsDetalleHabilitacionController();
-            $log4->store($detalleHabilitacion, 'c');
-        }
+        // if($detalleHabilitacion->save()){
+        //     $log4 = new LogsDetalleHabilitacionController();
+        //     $log4->store($detalleHabilitacion, 'c');
+        // }
         
         $expediente = new Expediente();
         //$expediente->catastro_id = $catastro->id;       //hecho
-        $expediente->estado_baja_id = $request->estado_baja_id;
+        //$expediente->estado_baja_id = $request->estado_baja_id;
         $expediente->nro_expediente = $request->nro_expediente;     //hecho
         $expediente->nro_comercio = $request->nro_comercio;         //hecho
         $expediente->actividad_ppal = $request->actividad_ppal;     //hecho
@@ -180,9 +182,10 @@ class ExpedienteController extends Controller
             $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
             $expediente->pdf_solicitud = $archivo1->getClientOriginalName();
         }
-        $expediente->bienes_de_uso = $request->bienes_de_uso;       //hecho
-        $expediente->observaciones_grales = $request->observaciones_grales;     //hecho
-        $expediente->detalle_habilitacion_id = $detalleHabilitacion->id;        //hecho
+        //$expediente->bienes_de_uso = $request->bienes_de_uso;       //hecho
+        //$expediente->observaciones_grales = $request->observaciones_grales;     //hecho
+        // $expediente->detalle_habilitacion_id = $detalleHabilitacion->id;        //hecho
+        $expediente->detalle_habilitacion_id = $detalleHabilitacion_id;
         //$expediente->detalle_inmueble_id = $detalleInmueble->id;       //hecho
         $expediente->detalle_inmueble_id = $detalleInmueble_id;
         
