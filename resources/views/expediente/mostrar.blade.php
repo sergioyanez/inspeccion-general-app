@@ -86,8 +86,42 @@
                             </div>
 
                             {{-- SECRETARIA DE GOBIERNO --}}
-                            {{-- <div>
-                                @isset($informesDependencias)
+                            <div>
+                                {{-- @if ($expediente->catastro_id != null)
+                                    <input type="hidden" name="catastro_id" value="{{$expediente->catastro_id}}"> --}}
+                                @forelse ($informesDependencias as $item)
+                                    
+                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 1)
+                                        <input type="hidden" name="secretaria_id" value="{{ $item->id }}"> 
+                                        <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
+                                        <input value="{{ $item->observaciones }}" type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                        <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                        <input value="{{ $item->fecha_informe }}" type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
+                                        <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                        <input value="{{ $item->pdf_informe }}" type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                    @else
+                                        <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
+                                        <input type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                        <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                        <input type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
+                                        <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                        <input type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+    
+                                    @endif
+                                    
+                                @empty
+                                    <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
+                                    <input type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                    <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                    <input type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
+                                    <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                    <input type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+ 
+                                @endforelse
+
+
+                                {{-- {{ $informesDependencias }} --}}
+                                {{-- @isset($informesDependencias)
                                     @foreach ($informesDependencias as $item)
                                         @if ($item->tipo_dependencia_id == 1)
                                             <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
@@ -105,9 +139,9 @@
                                             <input type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         @endif
                                     @endforeach
-                                @endisset
+                                @endisset --}}
                                 
-                            </div> --}}
+                            </div>
 
                             {{-- CATASTRO --}}
                             <div>

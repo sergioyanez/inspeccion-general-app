@@ -215,7 +215,14 @@ class ExpedienteController extends Controller
         $estadosBaja = Estado_baja::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
-        $informesDependencias = Informe_dependencias::all(); // ver si esta bien
+        $informesDependencias = Informe_dependencias::all();
+        //$informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', 'LIKE'. $expediente->id)->paginate(200);
+        // $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+
+        // $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
+        // ->where('dni', 'LIKE', '%' . $buscar . '%')
+        // // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
+        // ->paginate(200);
         
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'catastro'=>$catastro,
@@ -369,9 +376,9 @@ class ExpedienteController extends Controller
             $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
             $expediente->pdf_solicitud = $archivo1->getClientOriginalName();
         }
-        else {
-            $expediente->pdf_solicitud = $request->pdf_solicitud;
-        }
+        // else {
+        //     $expediente->pdf_solicitud = $request->pdf_solicitud;
+        // }
         $expediente->bienes_de_uso = $request->bienes_de_uso;
         $expediente->observaciones_grales = $request->observaciones_grales;
         $expediente->catastro_id = $catastro->id;
@@ -386,28 +393,63 @@ class ExpedienteController extends Controller
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
 
-            $informe = Informe_dependencias::all();
-            if($informe) {
-                foreach ($informe as $item) {
-                    if($item->tipo_dependencia_id == "1") {
-                        $infomeDependencias = Informe_dependencias::find($item->id);
-                        $infomeDependencias->tipo_dependencia_id = 1;
-                        $infomeDependencias->expediente_id = $expediente->id;
-                        if($request->hasFile('pdf_secretaria_gobierno')) {                    
-                            $archivo2 = $request->file('pdf_secretaria_gobierno');
-                            $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
-                            $infomeDependencias->pdf_informe = $archivo2->getClientOriginalName();
-                        }
-                        $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
-                        $infomeDependencias->observaciones = $request->secretaria_gobierno;
-                        if ($infomeDependencias->save()) {
-                            $log4 = new LogsInformeDependenciaController();
-                            $log4->store($infomeDependencias, 'c');
-                        }
-                
-                    }
+            if($request->secretaria_id != null) {
+                $infomeDependencias = Informe_dependencias::find($request->secretaria_id);
+                $infomeDependencias->expediente_id = $expediente->id;
+                $infomeDependencias->tipo_dependencia_id = 1;
+                $infomeDependencias->observaciones = $request->secretaria_gobierno;
+                if($request->fecha_secretaria_gobierno)
+                    $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
+                if($request->hasFile('pdf_secretaria_gobierno')) {                    
+                    $archivo5 = $request->file('pdf_secretaria_gobierno');
+                    $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
+                }
+                if($infomeDependencias->save()){
+                    $log5 = new LogsInformeDependenciaController();
+                    $log5->store($infomeDependencias, 'u');
                 }
             }
+            else {
+                $infomeDependencias = new Informe_dependencias;
+                $infomeDependencias->expediente_id = $expediente->id;
+                $infomeDependencias->tipo_dependencia_id = 1;
+                $infomeDependencias->observaciones = $request->secretaria_gobierno;
+                if($request->fecha_secretaria_gobierno)
+                    $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
+                if($request->hasFile('pdf_secretaria_gobierno')) {                    //hecho pdf_informe
+                    $archivo5 = $request->file('pdf_secretaria_gobierno');
+                    $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
+                }
+                if($infomeDependencias->save()){
+                    $log5 = new LogsInformeDependenciaController();
+                    $log5->store($infomeDependencias, 'c');
+                }
+            }
+
+            // $informe = Informe_dependencias::all();
+            // if($informe) {
+            //     foreach ($informe as $item) {
+            //         if($item->tipo_dependencia_id == "1") {
+            //             $infomeDependencias = Informe_dependencias::find($item->id);
+            //             $infomeDependencias->tipo_dependencia_id = 1;
+            //             $infomeDependencias->expediente_id = $expediente->id;
+            //             if($request->hasFile('pdf_secretaria_gobierno')) {                    
+            //                 $archivo2 = $request->file('pdf_secretaria_gobierno');
+            //                 $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
+            //                 $infomeDependencias->pdf_informe = $archivo2->getClientOriginalName();
+            //             }
+            //             $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
+            //             $infomeDependencias->observaciones = $request->secretaria_gobierno;
+            //             if ($infomeDependencias->save()) {
+            //                 $log4 = new LogsInformeDependenciaController();
+            //                 $log4->store($infomeDependencias, 'c');
+            //             }
+                
+            //         }
+            //     }
+            // }
             return redirect()->route('expedientes');
         }
         return back()->with('fail','No se pudo crear el expediente');

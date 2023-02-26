@@ -101,12 +101,12 @@ class InmuebleController extends Controller
     //     return back()->with('fail','No se pudo editar el inmueble');
     // }
 
-    public function update(UpdateInmuebleRequest $request)
+    public function update($in)
     {
 
-        $inmueble = Inmueble::find($request->id);
-        $inmueble->calle = $request->calle;
-        $inmueble->numero = $request->numero;
+        $inmueble = Inmueble::find($in->id);
+        $inmueble->calle = $in->calle;
+        $inmueble->numero = $in->numero;
 
         if($inmueble->save()){
             $log = new LogsInmuebleController();
