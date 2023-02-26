@@ -427,29 +427,6 @@ class ExpedienteController extends Controller
                     $log5->store($infomeDependencias, 'c');
                 }
             }
-
-            // $informe = Informe_dependencias::all();
-            // if($informe) {
-            //     foreach ($informe as $item) {
-            //         if($item->tipo_dependencia_id == "1") {
-            //             $infomeDependencias = Informe_dependencias::find($item->id);
-            //             $infomeDependencias->tipo_dependencia_id = 1;
-            //             $infomeDependencias->expediente_id = $expediente->id;
-            //             if($request->hasFile('pdf_secretaria_gobierno')) {                    
-            //                 $archivo2 = $request->file('pdf_secretaria_gobierno');
-            //                 $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
-            //                 $infomeDependencias->pdf_informe = $archivo2->getClientOriginalName();
-            //             }
-            //             $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
-            //             $infomeDependencias->observaciones = $request->secretaria_gobierno;
-            //             if ($infomeDependencias->save()) {
-            //                 $log4 = new LogsInformeDependenciaController();
-            //                 $log4->store($infomeDependencias, 'c');
-            //             }
-                
-            //         }
-            //     }
-            // }
             return redirect()->route('expedientes');
         }
         return back()->with('fail','No se pudo crear el expediente');
