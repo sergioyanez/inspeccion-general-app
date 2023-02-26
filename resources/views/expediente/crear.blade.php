@@ -58,7 +58,7 @@
                                 </div>
                                 <div id="fecha_alquiler" >
                                     <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
-                                    <input type="date" name="fecha_vencimiento_alquiler" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input type="date" name="fecha_vencimiento_alquiler" class="form-control" id="fechaVencimiento" />
                                 </div>
                             </div>
 
