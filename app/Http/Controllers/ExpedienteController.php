@@ -122,7 +122,7 @@ class ExpedienteController extends Controller
      * @param  \App\Http\Requests\StoreexpedienteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) // aca va StoreexpedienteRequest
+    public function store(StoreexpedienteRequest $request) // aca va StoreexpedienteRequest
     {
         $inmueble = new InmuebleController();
         $inmueble_id = $inmueble->store($request->calle, $request->numero);
@@ -132,7 +132,7 @@ class ExpedienteController extends Controller
         // SE CREA EL INMUEBLE
         // $calle = $request->calle;
         // $numero = $request->numero;
-        
+
         // $inmueble = new Inmueble;
         // $inmueble->calle = $calle;
         // $inmueble->numero = $numero;
@@ -169,7 +169,7 @@ class ExpedienteController extends Controller
         //     $log4 = new LogsDetalleHabilitacionController();
         //     $log4->store($detalleHabilitacion, 'c');
         // }
-        
+
         $expediente = new Expediente();
         //$expediente->catastro_id = $catastro->id;       //hecho
         //$expediente->estado_baja_id = $request->estado_baja_id;
@@ -188,7 +188,7 @@ class ExpedienteController extends Controller
         $expediente->detalle_habilitacion_id = $detalleHabilitacion_id;
         //$expediente->detalle_inmueble_id = $detalleInmueble->id;       //hecho
         $expediente->detalle_inmueble_id = $detalleInmueble_id;
-        
+
 
         if ($expediente->save()){
             $log = new LogsExpedienteController();
@@ -198,7 +198,7 @@ class ExpedienteController extends Controller
         }
         return back()->with('fail','No se pudo crear el expediente');
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -223,7 +223,7 @@ class ExpedienteController extends Controller
         // ->where('dni', 'LIKE', '%' . $buscar . '%')
         // // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         // ->paginate(200);
-        
+
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
@@ -243,7 +243,7 @@ class ExpedienteController extends Controller
      * @param  \App\Models\expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateexpedienteRequest $request)
     {
         //$inmueble = Inmueble::find($request->inmueble_id);
         //$inmuebleController = new InmuebleController();
@@ -263,8 +263,8 @@ class ExpedienteController extends Controller
             $inmueble->numero = $request->numero;
             $inmueble->save();
         }
-        
-        
+
+
 
         // SE CREA DETALLE INMUEBLE
         $detalleInmueble = Detalle_inmueble::find($request->detalle_inmueble_id);
@@ -276,14 +276,14 @@ class ExpedienteController extends Controller
                 if($detalleInmueble->save()) {
                     $log2 = new LogsDetalleInmuebleController();
                     $log2->store($detalleInmueble, 'u');
-                } 
+                }
             } else {
                 $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
                 $detalleInmueble->save();
-            }   
-        } 
-            
-        
+            }
+        }
+
+
 
         // SE CREA CATASTRO
         if($request->catastro_id != null) {
@@ -332,7 +332,7 @@ class ExpedienteController extends Controller
                 $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
                 $catastro->pdf_informe = $archivo->getClientOriginalName();
             }
-            
+
 
             if($catastro->save()){
                 $log3 = new LogsCatastroController();
@@ -340,7 +340,7 @@ class ExpedienteController extends Controller
             }
         }
 
-        
+
 
         // SE CREA DETALLE DE HABILITACION
         $detalleHabilitacion = Detalle_habilitacion::find($request->detalle_habilitacion);
@@ -362,7 +362,7 @@ class ExpedienteController extends Controller
             $log4 = new LogsDetalleHabilitacionController();
             $log4->store($detalleHabilitacion, 'c');
         }
-        
+
 
         // SE CREA EL EXPEDIENTE
         $expediente = Expediente::find($request->expediente_id);
@@ -386,8 +386,8 @@ class ExpedienteController extends Controller
 
         // FALTA ESTO
         $expediente->estado_baja_id = $request->estado_baja_id;
-        
-        
+
+
 
         if ($expediente->save()){
             $log = new LogsExpedienteController();
@@ -400,7 +400,7 @@ class ExpedienteController extends Controller
                 $infomeDependencias->observaciones = $request->secretaria_gobierno;
                 if($request->fecha_secretaria_gobierno)
                     $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
-                if($request->hasFile('pdf_secretaria_gobierno')) {                    
+                if($request->hasFile('pdf_secretaria_gobierno')) {
                     $archivo5 = $request->file('pdf_secretaria_gobierno');
                     $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
