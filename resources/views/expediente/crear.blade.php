@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
         <title>Registrar expediente</title>
-        {{-- @vite(['resources/js/app.js']) --}}
+        @vite(['resources/js/app.js'])
     </head>
     <body>
         <div class="row">
@@ -67,12 +67,12 @@
                                 <label class="form-label" for="basic-default-fullname">Solicitud:</label>
                                 <input required type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                             </div>
-                            
-                           
-                            
-                            
-                            
-                            
+
+
+
+
+
+
                             {{-- HISTORIAL DE MODIFICACIONES --}}
                             {{-- <div>
                                 <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Historial de modificaciones"/>
@@ -93,7 +93,7 @@
                                             @if ($tipo->descripcion == "En tramite")
                                                 <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
                                             @endif
-                                            
+
                                         @endforeach
                                     </select>
                                 </div>
