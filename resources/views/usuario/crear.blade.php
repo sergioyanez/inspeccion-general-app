@@ -10,7 +10,7 @@
                     @csrf
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Usuario</label>
-                        <input type="text" name="usuario" @if(isset($usuario)) value="{{$usuario->usuario}}" @else value="{{ old('usuario') }}" @endif class="form-control" id="basic-default-nombreCompleto" autofocus/>
+                        <input type="text" name="usuario" @if(isset($usuario)) value="{{$usuario->usuario}}" @else value="{{ old('usuario') }}" @endif class="form-control" autofocus/>
                     </div>
                     <div>
                         @error('usuario')

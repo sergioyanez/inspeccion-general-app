@@ -41,16 +41,11 @@ function alert(id){
   });
 }
 
+const divModal = document.getElementById('example');
 
-
-
-const myModalEl = new bootstrap.Modal(document.getElementById('example'));
-if(myModalEl){
-  myModalEl.show();
-  for (let i=0;i<myModalEl.length;i++) {
-    myModalEl[i].addEventListener('hidden.bs.modal', ()=>{
-      console.log('llega');
-      window.location="http://127.0.0.1:8000/usuario";
-    });
+if(divModal){
+  const myModalEl = new bootstrap.Modal(divModal);
+  if(myModalEl){
+    myModalEl.show();
   }
 }

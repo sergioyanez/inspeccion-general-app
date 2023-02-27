@@ -96,6 +96,33 @@ class UsuarioController extends Controller {
     }
 
     /**
+     * Método para editar perfil de usuario
+     * @param  \App\Http\Requests\UpdateUsuarioRequest  $request
+     */
+    public function updateFace(Request $request) {
+        $request->validate([
+            'usuario' => 'required',
+            'usuario_id' => 'required',
+        ]);
+        $usuario = User::find($request->usuario_id);
+        if(isset($request->password) && Hash::check($request->password,$usuario->password)){
+            $request->validate([
+                'newPassword' => 'required|min:8',
+                'repetirPassword' => 'required|same:newPassword',
+            ]);
+            $usuario->password = Hash::make($request->newPassword);
+        }
+        $usuario->usuario = $request->usuario;
+        if($usuario->save()){
+            $log = new LogsUsuarioController();
+            $log->store($usuario, 'u');
+            return back();
+        }
+        return back()->with('fail','No se pudo actualizar el usuario');
+
+    }
+
+    /**
      * Eliminar un usuario
      * @param  int $id
      */

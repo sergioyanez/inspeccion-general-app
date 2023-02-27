@@ -17,13 +17,14 @@
                 </thead>
                 <tbody class="table-border-bottom-0">
                     @foreach($usuarios as $usuario)
-                        <tr>
-                            <td>{{$usuario->usuario}}</td>
-                            <td>{{$usuario->tipoPermiso->tipo}}</td>
-                            <td><a class="btn btn-info" href="{{route('usuarios-editar', $usuario->id)}}">Editar </a></td>
-                            <td><button  class="btn btn-danger btnsDelete" value="{{$usuario->id}}">Eliminar</button></td>
-                            
-                        </tr>
+                        @if($usuario->id != Auth::user()->id)
+                            <tr>
+                                <td>{{$usuario->usuario}}</td>
+                                <td>{{$usuario->tipoPermiso->tipo}}</td>
+                                <td><a class="btn btn-info" href="{{route('usuarios-editar', $usuario->id)}}">Editar </a></td>
+                                <td><button  class="btn btn-danger btnsDelete" value="{{$usuario->id}}">Eliminar</button></td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>

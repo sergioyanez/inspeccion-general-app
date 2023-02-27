@@ -13,12 +13,61 @@
         </button>
         <div class="collapse navbar-collapse mb-lg-0 mb-2 pt-lg-0 pt-3" id="navbarSupportedContent">
             <p class="text ms-auto p-2 my-auto">
-                <a href="" class="textUser">{{Auth::user()->usuario}}</a> 
+                <a data-bs-toggle="modal" data-bs-target="#modelperfil" class="textUser">{{Auth::user()->usuario}}</a> 
             </p>
             <a href="{{route('salir')}}">
                 <button class="mt-2 mt-lg-0 ms-1 ms-lg-3 p-2 btn btn-secundary btn-salir">Salir</button>
             </a>
         </div>
+        
+            <div class="modal" id="modelperfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"> Editar mi perfil</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST"  action="{{route('usuarios-actualizar-perfil')}}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-fullname">Usuario</label>
+                                    <input type="text" name="usuario" value="{{Auth::user()->usuario}}" class="form-control" autofocus/>
+                                </div>
+                                <div>
+                                    @error('usuario')
+                                        <strong>{{$message}}</strong>
+                                    @enderror
+                                </div>
+                                <input type="hidden" name="usuario_id" value="{{Auth::user()->id}}">
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-company">Contraseña actual</label>
+                                    <input type="password" name="password" class="form-control"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-company">Nueva contraseña</label>
+                                    <input type="password" name="newPassword" class="form-control"/>
+                                    @error('newpassword')
+                                    <strong>{{$message}}</strong>
+                                    @enderror
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-company">Repetir nueva contraseña</label>
+                                    <input type="password" name="repetirPassword" class="form-control" id="basic-default-contraseña" />
+                                    @error('repetirPassword')
+                                    <strong>{{$message}}</strong>
+                                    @enderror
+                                </div>
+                                
+                                <div class="modal-footer">
+                                    <a href="{{route('usuarios')}}" class="btn btn-secondary" >Close</a>
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>   
         @endauth
     </div>
 </nav>
