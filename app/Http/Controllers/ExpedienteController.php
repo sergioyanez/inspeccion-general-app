@@ -207,6 +207,7 @@ class ExpedienteController extends Controller
      */
     public function show($id)
     {
+        $infoDependencias = new Informe_dependencias();
         $expediente = Expediente::find($id);
         $catastro = Catastro::all();
         $detalleHabilitaciones = Detalle_habilitacion::all();
@@ -215,9 +216,7 @@ class ExpedienteController extends Controller
         $estadosBaja = Estado_baja::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
-        $informesDependencias = Informe_dependencias::all();
-        //$informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', 'LIKE'. $expediente->id)->paginate(200);
-        // $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
 
         // $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
         // ->where('dni', 'LIKE', '%' . $buscar . '%')

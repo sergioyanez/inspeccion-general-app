@@ -22,7 +22,7 @@
                             @isset($expediente->id)
                                 <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
                             @endisset
-                            
+
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
                                 <input value="{{$expediente->nro_expediente}}" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto"/>
@@ -89,21 +89,24 @@
                             <div>
                                 {{-- @if ($expediente->catastro_id != null)
                                     <input type="hidden" name="catastro_id" value="{{$expediente->catastro_id}}"> --}}
+                                    @foreach ($informesDependencias as $item)
+                                        <p>{{$item}}</p>
+                                    @endforeach
                                 @forelse ($informesDependencias as $item)
                                     {{-- SECRETARIA DE GOBIERNO --}}
                                     @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 1)
-                                        <input type="hidden" name="secretaria_id" value="{{ $item->id }}"> 
-                                        <div>
-                                            <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
+                                        <input id="secretaria_id" type="hidden" name="secretaria_id" value="{{ $item->id }}">
+                                        <div id="secretariaCargada">
+                                            <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO CARGADA</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @else
-                                        <div>
-                                            <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
+                                        <div id="secretariaNoCargada">
+                                            <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO NO CARGADA</label>
                                             <input type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
@@ -111,7 +114,10 @@
                                             <input type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @endif
+
+
                                     {{-- OBRAS PARTICULARES --}}
+                                    {{--
                                     @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 3)
                                         <input type="hidden" name="obras_id" value="{{ $item->id }}">
                                         <div>
@@ -120,8 +126,8 @@
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_obras_particulares" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_obras_particulares" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
-                                        </div> 
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_obras_particulares" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        </div>
                                     @else
                                         <div>
                                             <label class="form-label" for="basic-default-fullname">OBRAS PARTICULARES</label>
@@ -132,16 +138,16 @@
                                             <input type="file" name="pdf_obras_particulares" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @endif
-                                    {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA --}}
+                                    {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA
                                     @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 4)
-                                        <input type="hidden" name="alumbrado_id" value="{{ $item->id }}"> 
+                                        <input type="hidden" name="alumbrado_id" value="{{ $item->id }}">
                                         <div>
                                             <label class="form-label" for="basic-default-fullname">TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA. TASA POR CONSERVACION DE LA RED VIAL</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_alumbrado" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_alumbrado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_alumbrado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @else
                                         <div>
@@ -153,16 +159,16 @@
                                             <input type="file" name="pdf_alumbrado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @endif
-                                    {{-- BROMATOLOGÌA --}}
+                                    {{-- BROMATOLOGÌA
                                     @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 5)
-                                        <input type="hidden" name="bromatologia_id" value="{{ $item->id }}"> 
+                                        <input type="hidden" name="bromatologia_id" value="{{ $item->id }}">
                                         <div>
                                             <label class="form-label" for="basic-default-fullname">BROMATOLOGÌA</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_bromatologia" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_bromatologia" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_bromatologia" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @else
                                         <div>
@@ -174,16 +180,16 @@
                                             <input type="file" name="pdf_bromatologia" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @endif
-                                    {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL --}}
+                                    {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
                                     @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 6)
-                                        <input type="hidden" name="inspeccion_id" value="{{ $item->id }}"> 
+                                        <input type="hidden" name="inspeccion_id" value="{{ $item->id }}">
                                         <div>
                                             <label class="form-label" for="basic-default-fullname">TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="inspeccion" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_inspeccion" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_inspeccion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_inspeccion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @else
                                         <div>
@@ -195,16 +201,16 @@
                                             <input type="file" name="pdf_inspeccion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @endif
-                                    {{-- JUZGADO DE FALTAS --}}
+                                    {{-- JUZGADO DE FALTAS
                                     @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 7)
-                                        <input type="hidden" name="juzgado_id" value="{{ $item->id }}"> 
+                                        <input type="hidden" name="juzgado_id" value="{{ $item->id }}">
                                         <div>
                                             <label class="form-label" for="basic-default-fullname">JUZGADO DE FALTAS</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="juzgado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_juzgado" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_juzgado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_juzgado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @else
                                         <div>
@@ -216,16 +222,16 @@
                                             <input type="file" name="pdf_juzgado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @endif
-                                    {{-- BOMBEROS DE POLICÌA DE BUENOS AIRES --}}
+                                    {{-- BOMBEROS DE POLICÌA DE BUENOS AIRES
                                     @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 8)
-                                        <input type="hidden" name="bomberos_id" value="{{ $item->id }}"> 
+                                        <input type="hidden" name="bomberos_id" value="{{ $item->id }}">
                                         <div>
                                             <label class="form-label" for="basic-default-fullname">BOMBEROS DE POLICÌA DE BUENOS AIRES</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="bomberos" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_bomberos" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_bomberos" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_bomberos" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @else
                                         <div>
@@ -237,16 +243,16 @@
                                             <input type="file" name="pdf_bomberos" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @endif
-                                    {{-- INSPECCIÒN GENERAL --}}
+                                    {{-- INSPECCIÒN GENERAL
                                     @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 9)
-                                        <input type="hidden" name="inspeccion_general_id" value="{{ $item->id }}"> 
+                                        <input type="hidden" name="inspeccion_general_id" value="{{ $item->id }}">
                                         <div>
                                             <label class="form-label" for="basic-default-fullname">INSPECCIÒN GENERAL</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="inspeccion_general" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_inspeccion_general" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_inspeccion_general" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_inspeccion_general" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @else
                                         <div>
@@ -258,16 +264,16 @@
                                             <input type="file" name="pdf_inspeccion_general" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @endif
-                                    {{-- REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS --}}
+                                    {{-- REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS
                                     @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 10)
-                                        <input type="hidden" name="deudores_alimentarios_id" value="{{ $item->id }}"> 
+                                        <input type="hidden" name="deudores_alimentarios_id" value="{{ $item->id }}">
                                         <div>
                                             <label class="form-label" for="basic-default-fullname">REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @else
                                         <div>
@@ -279,6 +285,7 @@
                                             <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @endif
+                                --}}
                                 @empty
                                     {{-- SECRETARIA DE GOBIERNO --}}
                                     <div>
@@ -288,9 +295,10 @@
                                         <input type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-    
+
                                     </div>
-                                    {{-- OBRAS PARTICULARES --}}
+                                    {{--
+                                    {{-- OBRAS PARTICULARES
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">OBRAS PARTICULARES</label>
                                         <input required type="text" name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
@@ -299,7 +307,7 @@
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_obras_particulares" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
-                                    {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA --}}
+                                    {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA. TASA POR CONSERVACION DE LA RED VIAL</label>
                                         <input required type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
@@ -308,7 +316,7 @@
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_alumbrado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
-                                    {{-- BROMATOLOGÌA --}}
+                                    {{-- BROMATOLOGÌA
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">BROMATOLOGÌA</label>
                                         <input required type="text" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
@@ -317,7 +325,7 @@
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_bromatologia" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
-                                    {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL --}}
+                                    {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL</label>
                                         <input required type="text" name="inspeccion" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
@@ -326,7 +334,7 @@
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_inspeccion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
-                                    {{-- JUZGADO DE FALTAS --}}
+                                    {{-- JUZGADO DE FALTAS
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">JUZGADO DE FALTAS</label>
                                         <input required type="text" name="juzgado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
@@ -335,7 +343,7 @@
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_juzgado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
-                                    {{-- BOMBEROS DE POLICÌA DE BUENOS AIRES --}}
+                                    {{-- BOMBEROS DE POLICÌA DE BUENOS AIRES
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">BOMBEROS DE POLICÌA DE BUENOS AIRES</label>
                                         <input required type="text" name="bomberos" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
@@ -344,7 +352,7 @@
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_bomberos" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
-                                    {{-- INSPECCIÒN GENERAL --}}
+                                    {{-- INSPECCIÒN GENERAL
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">INSPECCIÒN GENERAL</label>
                                         <input required type="text" name="inspeccion_general" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
@@ -353,7 +361,7 @@
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_inspeccion_general" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
-                                    {{-- REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS --}}
+                                    {{-- REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS</label>
                                         <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
@@ -361,11 +369,11 @@
                                         <input type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>
+                                    </div>--}}
                                 @endforelse
                             </div>
 
-                            {{-- CATASTRO --}}
+                            {{-- CATASTRO
                             <div>
                                 @if ($expediente->catastro_id != null)
                                     <input type="hidden" name="catastro_id" value="{{$expediente->catastro_id}}">
@@ -415,7 +423,7 @@
                                         <label class="form-label" for="basic-default-fullname">con</label>
                                         @if ($expediente->catastro->pdf_informe)
                                             <p name="pdf_informe">PDF catastro cargado: {{$expediente->catastro->pdf_informe}}</p>
-                                            {{-- <input value="{{$expediente->catastro->pdf_informe}}" type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
+                                            {{-- <input value="{{$expediente->catastro->pdf_informe}}" type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         @endif
                                         <input type="file" name="pdf_informe_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
@@ -466,9 +474,9 @@
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
-                                    
+
                                 @endif
-                                
+
                             </div>
 
                             {{-- HISTORIAL DE MODIFICACIONES --}}
@@ -480,7 +488,7 @@
                                 <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                             </div> --}}
 
-                            {{-- DETALLE HABILITACION --}}
+                            {{-- DETALLE HABILITACION
                             <div>
                                 <input type="hidden" name="detalle_habilitacion" value="{{$expediente->detalleHabilitacion->id}}">
                                 <div class="mb-3">
@@ -514,7 +522,7 @@
                                     @endif
                                     <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>
