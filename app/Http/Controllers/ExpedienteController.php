@@ -6,6 +6,7 @@ use App\Models\expediente;
 use App\Models\ExpedientePersonaJuridica;
 use App\Models\ExpedienteContribuyente;
 use App\Models\Tipo_inmueble;
+use App\Models\Tipo_dependencia;
 use App\Models\Inmueble;
 use App\Models\Detalle_inmueble;
 use App\Models\Persona_juridica;
@@ -216,7 +217,11 @@ class ExpedienteController extends Controller
         $estadosBaja = Estado_baja::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
-        $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
+        $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(10);
+        $dependenciasNoEstanEnExpediente = Informe_dependencias::select(['tipos_dependencias.id','tipos_dependencias.nombre'])
+                                            ->join('tipos_dependencias', 'tipos_dependencias.id', '=', 'informes_dependencias.tipo_dependencia_id')
+                                            ->where('tipos_dependencias.id','!=',$informesDependencias)->get();
+
 
         // $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
         // ->where('dni', 'LIKE', '%' . $buscar . '%')
@@ -231,7 +236,8 @@ class ExpedienteController extends Controller
                                         'tiposEstados' => $tiposEstados,
                                         'tiposhabilitaciones' => $tiposhabilitaciones,
                                         'tiposInmuebles' => $tiposInmuebles,
-                                        'informesDependencias' => $informesDependencias]);
+                                        'informesDependencias' => $informesDependencias,
+                                        'dependenciasNoEstanEnExpediente' => $dependenciasNoEstanEnExpediente]);
     }
 
 

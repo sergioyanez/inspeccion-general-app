@@ -6,10 +6,17 @@ document.addEventListener("DOMContentLoaded", function() {
     let tipo = document.getElementById("tipo_inmueble");
     let caja = document.getElementById("fecha_alquiler");
     let fechaVencimiento = document.getElementById("fechaVencimiento");
+
+
+    let secretariaGobierno = document.getElementById("secretariaGobierno");
     let secretariaCargada = document.getElementById("secretariaCargada");
     let secretariaNoCargada = document.getElementById("secretariaNoCargada");
+
+    let obrasParticulares = document.getElementById("obrasParticulares");
     let obrasParticularesCargada = document.getElementById("obrasParticularesCargada");
     let obrasParticularesNoCargada = document.getElementById("obrasParticularesNoCargada");
+
+
     let tablCargada = document.getElementById("tablCargada");
     let tablNoCargada = document.getElementById("tablNoCargada");
     let bromatologiaCargada = document.getElementById("bromatologiaCargada");
@@ -18,22 +25,65 @@ document.addEventListener("DOMContentLoaded", function() {
     let tishNoCargada = document.getElementById("tishNoCargada");
     let juzgadoFaltasCargada = document.getElementById("juzgadoFaltasCargada");
     let juzgadoFaltasNoCargada = document.getElementById("juzgadoFaltasNoCargada");
+
+    let bomberos = document.getElementById("bomberos");
     let bomberosCargada = document.getElementById("bomberosCargada");
     let bomberosNoCargada = document.getElementById("bomberosNoCargada");
+
+
     let inspeccionGeneralCargada = document.getElementById("inspeccionGeneralCargada");
     let inspeccionGeneralNoCargada = document.getElementById("inspeccionGeneralNoCargada");
     let regDeudoresAlimentosMorososCargada = document.getElementById("regDeudoresAlimentosMorososCargada");
     let regDeudoresAlimentosMorososNoCargada = document.getElementById("regDeudoresAlimentosMorososNoCargada");
+
+
+    console.log(secretariaGobierno);
+    console.log(bomberos);
+
     cajaFechaVencimiento("none");
     cajaSecretaria("none");
     cajaObrasParticulares("none");
-    cajaTABL("none");
-    cajaBromatologia("none");
-    cajaTish("none");
-    cajaJuzgadoFaltas("none");
+    // cajaTABL("none");
+    // cajaBromatologia("none");
+    // cajaTish("none");
+    // cajaJuzgadoFaltas("none");
     cajaBomberos("none");
-    cajaInspeccionGeneral("none");
-    cajaRegDeudoresAlimentosMorosos("none");
+    // cajaInspeccionGeneral("none");
+    // cajaRegDeudoresAlimentosMorosos("none");
+
+    function cajaSecretaria(d) {
+        if (isEmpty(secretariaGobierno)) {
+            secretariaCargada.style.display = "block";
+            secretariaNoCargada.style.display = d;
+        } else {
+            secretariaNoCargada.style.display = "block";
+            secretariaCargada.style.display = d;
+        }
+    }
+
+    function cajaBomberos(d) {
+        if (isEmpty(bomberos)) {
+            bomberosCargada.style.display = "block";
+            bomberosNoCargada.style.display = d;
+        } else {
+            bomberosNoCargada.style.display = "block";
+            bomberosCargada.style.display = d;
+        }
+    }
+
+    function cajaObrasParticulares(d) {
+        if (isEmpty(obrasParticulares)) {
+            obrasParticularesCargada.style.display = "block";
+            obrasParticularesNoCargada.style.display = d;
+        } else {
+            obrasParticularesNoCargada.style.display = "block";
+            obrasParticularesCargada.style.display = d;
+        }
+    }
+
+
+
+
 
     function cajaRegDeudoresAlimentosMorosos(d) {
         if (isEmpty(regDeudoresAlimentosMorososCargada)) {
@@ -55,15 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function cajaBomberos(d) {
-        if (isEmpty(bomberosCargada)) {
-            bomberosCargada.style.display = "block";
-            bomberosNoCargada.style.display = d;
-        } else {
-            bomberosNoCargada.style.display = "block";
-            bomberosCargada.style.display = d;
-        }
-    }
+
 
     function cajaJuzgadoFaltas(d) {
         if (isEmpty(juzgadoFaltasCargada)) {
@@ -105,25 +147,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function cajaObrasParticulares(d) {
-        if (isEmpty(secretariaCargada)) {
-            obrasParticularesCargada.style.display = "block";
-            obrasParticularesNoCargada.style.display = d;
-        } else {
-            obrasParticularesNoCargada.style.display = "block";
-            obrasParticularesCargada.style.display = d;
-        }
-    }
 
-    function cajaSecretaria(d) {
-        if (isEmpty(secretariaCargada)) {
-            secretariaCargada.style.display = "block";
-            secretariaNoCargada.style.display = d;
-        } else {
-            secretariaNoCargada.style.display = "block";
-            secretariaCargada.style.display = d;
-        }
-    }
+
+
 
     function cajaFechaVencimiento(d) {
         if (caja) {
