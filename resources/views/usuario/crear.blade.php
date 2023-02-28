@@ -10,19 +10,21 @@
                     @csrf
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-fullname">Usuario</label>
-                        <input type="text" name="usuario" @if(isset($usuario)) value="{{$usuario->usuario}}" @else value="{{ old('usuario') }}" @endif class="form-control" autofocus/>
-                    </div>
-                    <div>
+                        <input type="text" name="usuario" @if(isset($usuario)) value="{{$usuario->usuario}}" @else value="{{ old('usuario') }}" @endif class="form-control @error('usuario') is-invalid @enderror" autofocus/>
                         @error('usuario')
-                            <strong>{{$message}}</strong>
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
                         @enderror
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-company">Correo electrónico</label>
-                        <input type="text" name="email" @if(isset($usuario)) value="{{$usuario->email}}" @else value="{{ old('usuario') }}" @endif class="form-control" id="basic-default-correo" />
+                        <input type="text" name="email" @if(isset($usuario)) value="{{$usuario->email}}" @else value="{{ old('email') }}" @endif class="form-control @error('email') is-invalid @enderror" id="basic-default-correo" />
                         @error('email')
-                        <strong>{{$message}}</strong>
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
                         @enderror
                     </div>
                     @if(isset($usuario))
@@ -40,22 +42,26 @@
                     @if(!isset($usuario))
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-company">Contraseña</label>
-                            <input type="password" name="password" class="form-control"/>
+                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"/>
                             @error('password')
-                            <strong>{{$message}}</strong>
+                                <div  class="invalid-feedback">
+                                    {{$message}}
+                                </div>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="basic-default-company">Repetir Contraseña</label>
-                            <input type="password" name="repetirPassword" class="form-control" id="basic-default-contraseña" />
+                            <input type="password" name="repetirPassword" class="form-control @error('repetirPassword') is-invalid @enderror" id="basic-default-contraseña" />
                             @error('repetirPassword')
-                            <strong>{{$message}}</strong>
+                                <div class="invalid-feedback">
+                                    {{$message}}
+                                </div>
                             @enderror
                         </div>
                     @endif
                     <div class="modal-footer">
-                        <a href="{{route('usuarios')}}" class="btn btn-secondary" >Close</a>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <a href="{{route('usuarios')}}" class="btn btn-danger">Cancelar</a>
+                        <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
                 </form>
             </div>

@@ -101,22 +101,22 @@ class UsuarioController extends Controller {
      */
     public function updateFace(Request $request) {
         $request->validate([
-            'usuario' => 'required',
-            'usuario_id' => 'required',
+            'usuarioFace' => 'required',
+            'usuario_id_face' => 'required',
         ]);
-        $usuario = User::find($request->usuario_id);
-        if(isset($request->password) && Hash::check($request->password,$usuario->password)){
+        $usuario = User::find($request->usuario_id_face);
+        if(isset($request->passwordFace) && Hash::check($request->passwordFace,$usuario->password)){
             $request->validate([
-                'newPassword' => 'required|min:8',
-                'repetirPassword' => 'required|same:newPassword',
+                'newPasswordFace' => 'required|min:8',
+                'repetirPasswordFace' => 'required|same:newPasswordFace',
             ]);
-            $usuario->password = Hash::make($request->newPassword);
+            $usuario->password = Hash::make($request->newPasswordFace);
         }
-        $usuario->usuario = $request->usuario;
+        $usuario->usuario = $request->usuarioFace;
         if($usuario->save()){
             $log = new LogsUsuarioController();
             $log->store($usuario, 'u');
-            return back();
+            return back()->withErrors(['fail' => 'No se pudo actualizar el perfil']);
         }
         return back()->with('fail','No se pudo actualizar el usuario');
 

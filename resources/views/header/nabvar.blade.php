@@ -13,14 +13,16 @@
         </button>
         <div class="collapse navbar-collapse mb-lg-0 mb-2 pt-lg-0 pt-3" id="navbarSupportedContent">
             <p class="text ms-auto p-2 my-auto">
-                <a data-bs-toggle="modal" data-bs-target="#modelperfil" class="textUser">{{Auth::user()->usuario}}</a> 
+                <a data-bs-toggle="modal" data-bs-target="#modalperfil" class="textUser">{{Auth::user()->usuario}}</a> 
             </p>
             <a href="{{route('salir')}}">
                 <button class="mt-2 mt-lg-0 ms-1 ms-lg-3 p-2 btn btn-secundary btn-salir">Salir</button>
             </a>
         </div>
-        
-            <div class="modal" id="modelperfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            @if($errors->any())
+                <input type="hidden" id="ExistmodalPerfil">
+            @endif
+            <div class="modal" id="modalperfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -31,43 +33,58 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Usuario</label>
-                                    <input type="text" name="usuario" value="{{Auth::user()->usuario}}" class="form-control" autofocus/>
+                                    <input type="text" name="usuarioFace" value="{{Auth::user()->usuario}}" class="form-control @error('usuarioFace') is-invalid @enderror" autofocus/>
+                                    @error('usuarioFace')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div>
                                     @error('usuario')
                                         <strong>{{$message}}</strong>
                                     @enderror
                                 </div>
-                                <input type="hidden" name="usuario_id" value="{{Auth::user()->id}}">
+                                <input type="hidden" name="usuario_id_face" value="{{Auth::user()->id}}">
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-company">Contraseña actual</label>
-                                    <input type="password" name="password" class="form-control"/>
+                                    <label class="form-label" for="basic-default-company @error('passwordFace') is-invalid @enderror">Contraseña actual</label>
+                                    <input type="password" name="passwordFace" class="form-control"/>
+                                    @error('passwordFace')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-company">Nueva contraseña</label>
-                                    <input type="password" name="newPassword" class="form-control"/>
-                                    @error('newpassword')
-                                    <strong>{{$message}}</strong>
+                                    <label class="form-label" for="basic-default-company @error('newPasswordFace') is-invalid @enderror">Nueva contraseña</label>
+                                    <input type="password" name="newPasswordFace" class="form-control"/>
+                                    @error('newPasswordFace')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-company">Repetir nueva contraseña</label>
-                                    <input type="password" name="repetirPassword" class="form-control" id="basic-default-contraseña" />
-                                    @error('repetirPassword')
-                                    <strong>{{$message}}</strong>
+                                    <input type="password" name="repetirPasswordFace" class="form-control @error('repetirPasswordFace') is-invalid @enderror" id="basic-default-contraseña" />
+                                    @error('repetirPasswordFace')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
                                     @enderror
                                 </div>
                                 
                                 <div class="modal-footer">
-                                    <a href="{{route('usuarios')}}" class="btn btn-secondary" >Close</a>
-                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                    <a href="{{route('usuarios')}}" class="btn btn-danger">Cancelar</a>
+                                    <button type="submit" class="btn btn-success">Guardar</button>
                                 </div>
                             </form>
                         </div>
                         
                     </div>
                 </div>
-            </div>   
+            </div>  
+
         @endauth
     </div>
 </nav>

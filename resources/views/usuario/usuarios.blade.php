@@ -1,9 +1,10 @@
 @include('header.header') 
 
 <div class="container">
+    
     <h4 class="my-5">Administrar usuarios</h4>
 
-        <a class="btn btn-primary mb-4" href="{{route('usuarios-crear')}}">+Agregar usuario</a>
+        <a class="btn btn-violet mb-4" href="{{route('usuarios-crear')}}">+Agregar usuario</a>
         
         <div class="table-responsive text-nowrap">
             <table class="table table-striped">
@@ -29,6 +30,9 @@
                 </tbody>
             </table>
         </div>
-        <a href="{{route('pagina-principal')}}" class="me-auto btn btn-primary">Volver</a>
+        <div class="col-12 d-flex justify-content-end">
+            <a href="{{route('pagina-principal')}}" class="mt-4 me-5 btn btn-secondary btn-salir">Volver</a>
+        </div>
+        
 </div>
 @include('footer.footer')

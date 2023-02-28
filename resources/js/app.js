@@ -17,8 +17,8 @@ if(btnsDelete){
 
 const swalWithBootstrapButtons = Swal.mixin({
   customClass: {
-    confirmButton: 'btn btn-success',
-    cancelButton: 'btn btn-danger'
+    confirmButton: 'btn btn-orange ms-2',
+    cancelButton: 'btn btn-secundary'
   },
   buttonsStyling: false
 })
@@ -47,5 +47,15 @@ if(divModal){
   const myModalEl = new bootstrap.Modal(divModal);
   if(myModalEl){
     myModalEl.show();
+  }
+}
+
+const ExistmodalPerfil = document.getElementById('ExistmodalPerfil');
+const modalperfil = document.getElementById('modalperfil');
+
+if(modalperfil && ExistmodalPerfil){
+  const myModalPerfil = new bootstrap.Modal(modalperfil);
+  if(myModalPerfil){
+    myModalPerfil.show();
   }
 }

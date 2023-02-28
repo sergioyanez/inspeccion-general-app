@@ -78,15 +78,6 @@ a:visited {
     opacity: 50%;
 }
 
-.btn-secundary {
-    background-color: var(--color-muted);
-    color: var(--color-light);
-}
-.btn-secundary:hover {
-    background-color: var(--color-muted);
-    color: var(--color-light);
-    opacity: 50%;
-}
 .btn-salir {
     width: 173.52px;
     height: 40px;
@@ -126,41 +117,67 @@ a:visited {
     border: none;
 }
 
-.btnExpediente {
+///////////////////***colores de botones***//////////////////////////////
+.btn-success {
     background-color: var(--color-success);
 }
 
-.btnExpediente:hover {
+.btn-success:hover {
     background-color: var(--color-success);
     opacity: 50%;
     color: var(--color-light);
 }
 
-.btnBuscar {
+.btn-orange {
     background-color: var(--color-naranja);
+    color: var(--color-light);
 }
-.btnBuscar:hover {
+.btn-orange:hover {
     background-color: var(--color-naranja);
     opacity: 50%;
     color: var(--color-light);
 }
 
-.btnReportes {
+.btn-info {
     background-color: var(--color-info);
+    color: var(--color-light);
 }
 
-.btnReportes:hover {
+.btn-info:hover {
     background-color: var(--color-info);
     opacity: 50%;
     color: var(--color-light);
 }
 
-.btnAdministracion {
+.btn-violet {
     background-color: var(--color-violeta);
+    color: var(--color-light);
 }
 
-.btnAdministracion:hover {
+.btn-violet:hover {
     background-color: var(--color-violeta);
     opacity: 50%;
     color: var(--color-light);
+}
+
+.btn-danger{
+    background-color: var(--color-danger);
+    color: var(--color-light);
+}
+
+.btn-secundary {
+    background-color: var(--color-muted);
+    color: var(--color-light);
+}
+
+.btn-secundary:hover {
+    background-color: var(--color-muted);
+    color: var(--color-light);
+    opacity: 50%;
+}
+
+///////////////////***fin colores de botones***//////////////////////////////
+
+.btn-volver{
+    width: 150px;
 }
