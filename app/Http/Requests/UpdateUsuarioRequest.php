@@ -3,9 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateUsuarioRequest extends FormRequest
-{
+class UpdateUsuarioRequest extends FormRequest {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -15,6 +16,7 @@ class UpdateUsuarioRequest extends FormRequest
     {
         return true;
     }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -26,7 +28,7 @@ class UpdateUsuarioRequest extends FormRequest
         return [
             'usuario' => 'required',
             'tipo_permiso_id' => 'required',
-            'email' => 'required',
+            'email' => 'required'
         ];
     }
 }

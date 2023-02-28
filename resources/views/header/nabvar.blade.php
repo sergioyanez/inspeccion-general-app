@@ -19,8 +19,14 @@
                 <button class="mt-2 mt-lg-0 ms-1 ms-lg-3 p-2 btn btn-secundary btn-salir">Salir</button>
             </a>
         </div>
+            @error('failFace')
+                <input type="hidden" id="ExistmodalPerfil">
+            @enderror
             @if($errors->any())
                 <input type="hidden" id="ExistmodalPerfil">
+            @endif
+            @if ($success = Session::get('success'))
+                <input type="hidden" id="alertSuccess" value="{{$success}}">
             @endif
             <div class="modal" id="modalperfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -32,7 +38,7 @@
                             <form method="POST"  action="{{route('usuarios-actualizar-perfil')}}">
                                 @csrf
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Usuario</label>
+                                    <label class="form-label" >Usuario</label>
                                     <input type="text" name="usuarioFace" value="{{Auth::user()->usuario}}" class="form-control @error('usuarioFace') is-invalid @enderror" autofocus/>
                                     @error('usuarioFace')
                                     <div class="invalid-feedback">
@@ -47,17 +53,17 @@
                                 </div>
                                 <input type="hidden" name="usuario_id_face" value="{{Auth::user()->id}}">
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-company @error('passwordFace') is-invalid @enderror">Contraseña actual</label>
-                                    <input type="password" name="passwordFace" class="form-control"/>
+                                    <label class="form-label"  >Contraseña actual</label>
+                                    <input type="password" name="passwordFace" class="form-control @error('passwordFace') is-invalid @enderror"/>
                                     @error('passwordFace')
-                                    <div class="invalid-feedback">
-                                        {{$message}}
-                                    </div>
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-company @error('newPasswordFace') is-invalid @enderror">Nueva contraseña</label>
-                                    <input type="password" name="newPasswordFace" class="form-control"/>
+                                    <label class="form-label">Nueva contraseña</label>
+                                    <input type="password" name="newPasswordFace" class="form-control @error('newPasswordFace') is-invalid @enderror"/>
                                     @error('newPasswordFace')
                                     <div class="invalid-feedback">
                                         {{$message}}
@@ -65,8 +71,8 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-company">Repetir nueva contraseña</label>
-                                    <input type="password" name="repetirPasswordFace" class="form-control @error('repetirPasswordFace') is-invalid @enderror" id="basic-default-contraseña" />
+                                    <label class="form-label" >Repetir nueva contraseña</label>
+                                    <input type="password" name="repetirPasswordFace" class="form-control @error('repetirPasswordFace') is-invalid @enderror" />
                                     @error('repetirPasswordFace')
                                     <div class="invalid-feedback">
                                         {{$message}}
@@ -83,7 +89,7 @@
                         
                     </div>
                 </div>
-            </div>  
+            </div> 
 
         @endauth
     </div>

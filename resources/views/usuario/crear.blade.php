@@ -9,7 +9,7 @@
                 <form method="POST"  @if(isset($usuario)) action="{{route('usuarios-actualizar')}}" @else action="{{route('usuarios-guardar')}}" @endif>
                     @csrf
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Usuario</label>
+                        <label class="form-label" >Usuario</label>
                         <input type="text" name="usuario" @if(isset($usuario)) value="{{$usuario->usuario}}" @else value="{{ old('usuario') }}" @endif class="form-control @error('usuario') is-invalid @enderror" autofocus/>
                         @error('usuario')
                         <div class="invalid-feedback">
@@ -19,8 +19,8 @@
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-company">Correo electrónico</label>
-                        <input type="text" name="email" @if(isset($usuario)) value="{{$usuario->email}}" @else value="{{ old('email') }}" @endif class="form-control @error('email') is-invalid @enderror" id="basic-default-correo" />
+                        <label class="form-label" >Correo electrónico</label>
+                        <input type="text" name="email" @if(isset($usuario)) value="{{$usuario->email}}" @else value="{{ old('email') }}" @endif class="form-control @error('email') is-invalid @enderror" />
                         @error('email')
                         <div class="invalid-feedback">
                             {{$message}}
@@ -32,8 +32,8 @@
                     @endif
 
                     <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Tipo de permiso</label>
-                        <select name="tipo_permiso_id" class="form-control" id="basic-default-nombreCompleto" >
+                        <label class="form-label">Tipo de permiso</label>
+                        <select name="tipo_permiso_id" class="form-control" >
                             @foreach($tiposPermisos as $tipo)
                                 <option @if(isset($usuario) && $usuario->tipo_permiso_id == $tipo->id) selected @endif value="{{$tipo->id}}" >{{$tipo->tipo}}</option>
                             @endforeach
@@ -41,7 +41,7 @@
                     </div>
                     @if(!isset($usuario))
                         <div class="mb-3">
-                            <label class="form-label" for="basic-default-company">Contraseña</label>
+                            <label class="form-label" >Contraseña</label>
                             <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"/>
                             @error('password')
                                 <div  class="invalid-feedback">
@@ -50,8 +50,8 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label class="form-label" for="basic-default-company">Repetir Contraseña</label>
-                            <input type="password" name="repetirPassword" class="form-control @error('repetirPassword') is-invalid @enderror" id="basic-default-contraseña" />
+                            <label class="form-label" >Repetir Contraseña</label>
+                            <input type="password" name="repetirPassword" class="form-control @error('repetirPassword') is-invalid @enderror" />
                             @error('repetirPassword')
                                 <div class="invalid-feedback">
                                     {{$message}}
