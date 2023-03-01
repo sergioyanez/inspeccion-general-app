@@ -302,25 +302,20 @@ class ExpedienteController extends Controller
         $estadosBaja = Estado_baja::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
-<<<<<<< HEAD
         $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(10);
-        $dependenciasNoEstanEnExpediente = Informe_dependencias::select(['tipos_dependencias.id','tipos_dependencias.nombre'])
-                                            ->join('tipos_dependencias', 'tipos_dependencias.id', '=', 'informes_dependencias.tipo_dependencia_id')
-                                            ->where('tipos_dependencias.id','!=',$informesDependencias)->get();
 
 
         // $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
         // ->where('dni', 'LIKE', '%' . $buscar . '%')
         // // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         // ->paginate(200);
-=======
->>>>>>> e24934afaa32fd0af07cc1463caa93aae0acaa70
+
 
         $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
-        
+
         // if($informesDependencias.)
-        // $secretariaGobierno = 
-        
+        // $secretariaGobierno =
+
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
@@ -484,7 +479,7 @@ class ExpedienteController extends Controller
          {
             $expediente->catastro_id = $catastro->id;
         }
-            
+
         $expediente->detalle_habilitacion_id = $detalleHabilitacion->id;
 
         // FALTA ESTO
@@ -509,7 +504,7 @@ class ExpedienteController extends Controller
                     $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
                 }
-                if($request->hasFile('pdf_secretaria_gobierno_nuevo')) {                    
+                if($request->hasFile('pdf_secretaria_gobierno_nuevo')) {
                     $archivo5 = $request->file('pdf_secretaria_gobierno_nuevo');
                     $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
@@ -527,7 +522,7 @@ class ExpedienteController extends Controller
             //         $infomeDependencias->observaciones = $request->secretaria_gobierno;
             //         if($request->fecha_secretaria_gobierno)
             //             $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
-            //         if($request->hasFile('pdf_secretaria_gobierno')) {                    
+            //         if($request->hasFile('pdf_secretaria_gobierno')) {
             //             $archivo5 = $request->file('pdf_secretaria_gobierno');
             //             $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
             //             $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
@@ -547,12 +542,12 @@ class ExpedienteController extends Controller
                 $infomeDependencias->observaciones = $request->obras_particulares;
                 if($request->fecha_obras_particulares)
                     $infomeDependencias->fecha_informe = $request->fecha_obras_particulares;
-                if($request->hasFile('pdf_obras_particulares')) {                    
+                if($request->hasFile('pdf_obras_particulares')) {
                     $archivo6 = $request->file('pdf_obras_particulares');
                     $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo6->getClientOriginalName();
                 }
-                if($request->hasFile('pdf_obras_particulares_nuevo')) {                    
+                if($request->hasFile('pdf_obras_particulares_nuevo')) {
                     $archivo6 = $request->file('pdf_obras_particulares_nuevo');
                     $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo6->getClientOriginalName();
@@ -571,7 +566,7 @@ class ExpedienteController extends Controller
             //         $infomeDependencias->observaciones = $request->obras_particulares;
             //         if($request->fecha_obras_particulares)
             //             $infomeDependencias->fecha_informe = $request->fecha_obras_particulares;
-            //         if($request->hasFile('pdf_obras_particulares')) {                    
+            //         if($request->hasFile('pdf_obras_particulares')) {
             //             $archivo6 = $request->file('pdf_obras_particulares');
             //             $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
             //             $infomeDependencias->pdf_informe = $archivo6->getClientOriginalName();
@@ -591,12 +586,12 @@ class ExpedienteController extends Controller
                 $infomeDependencias->observaciones = $request->alumbrado;
                 if($request->fecha_alumbrado)
                     $infomeDependencias->fecha_informe = $request->fecha_alumbrado;
-                if($request->hasFile('pdf_alumbrado')) {                    
+                if($request->hasFile('pdf_alumbrado')) {
                     $archivo7 = $request->file('pdf_alumbrado');
                     $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo7->getClientOriginalName();
                 }
-                if($request->hasFile('pdf_alumbrado_nuevo')) {                    
+                if($request->hasFile('pdf_alumbrado_nuevo')) {
                     $archivo7 = $request->file('pdf_alumbrado_nuevo');
                     $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo7->getClientOriginalName();
@@ -615,7 +610,7 @@ class ExpedienteController extends Controller
             //         $infomeDependencias->observaciones = $request->alumbrado;
             //         if($request->fecha_alumbrado)
             //             $infomeDependencias->fecha_informe = $request->fecha_alumbrado;
-            //         if($request->hasFile('pdf_alumbrado')) {                    
+            //         if($request->hasFile('pdf_alumbrado')) {
             //             $archivo7 = $request->file('pdf_alumbrado');
             //             $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
             //             $infomeDependencias->pdf_informe = $archivo7->getClientOriginalName();
@@ -635,12 +630,12 @@ class ExpedienteController extends Controller
                 $infomeDependencias->observaciones = $request->bromatologia;
                 if($request->fecha_bromatologia)
                     $infomeDependencias->fecha_informe = $request->fecha_bromatologia;
-                if($request->hasFile('pdf_bromatologia')) {                    
+                if($request->hasFile('pdf_bromatologia')) {
                     $archivo8 = $request->file('pdf_bromatologia');
                     $archivo8->move(public_path().'/archivos/', $archivo8->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo8->getClientOriginalName();
                 }
-                if($request->hasFile('pdf_bromatologia_nuevo')) {                    
+                if($request->hasFile('pdf_bromatologia_nuevo')) {
                     $archivo8 = $request->file('pdf_bromatologia_nuevo');
                     $archivo8->move(public_path().'/archivos/', $archivo8->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo8->getClientOriginalName();
@@ -659,7 +654,7 @@ class ExpedienteController extends Controller
             //         $infomeDependencias->observaciones = $request->bromatologia;
             //         if($request->fecha_bromatologia)
             //             $infomeDependencias->fecha_informe = $request->fecha_bromatologia;
-            //         if($request->hasFile('pdf_bromatologia')) {                    
+            //         if($request->hasFile('pdf_bromatologia')) {
             //             $archivo8 = $request->file('pdf_bromatologia');
             //             $archivo8->move(public_path().'/archivos/', $archivo8->getClientOriginalName());
             //             $infomeDependencias->pdf_informe = $archivo8->getClientOriginalName();
@@ -679,12 +674,12 @@ class ExpedienteController extends Controller
                 $infomeDependencias->observaciones = $request->inspeccion;
                 if($request->fecha_inspeccion)
                     $infomeDependencias->fecha_informe = $request->fecha_inspeccion;
-                if($request->hasFile('pdf_inspeccion')) {                    
+                if($request->hasFile('pdf_inspeccion')) {
                     $archivo9 = $request->file('pdf_inspeccion');
                     $archivo9->move(public_path().'/archivos/', $archivo9->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo9->getClientOriginalName();
                 }
-                if($request->hasFile('pdf_inspeccion_nuevo')) {                    
+                if($request->hasFile('pdf_inspeccion_nuevo')) {
                     $archivo9 = $request->file('pdf_inspeccion_nuevo');
                     $archivo9->move(public_path().'/archivos/', $archivo9->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo9->getClientOriginalName();
@@ -703,7 +698,7 @@ class ExpedienteController extends Controller
             //         $infomeDependencias->observaciones = $request->inspeccion;
             //         if($request->fecha_inspeccion)
             //             $infomeDependencias->fecha_informe = $request->fecha_inspeccion;
-            //         if($request->hasFile('pdf_inspeccion')) {                    
+            //         if($request->hasFile('pdf_inspeccion')) {
             //             $archivo9 = $request->file('pdf_inspeccion');
             //             $archivo9->move(public_path().'/archivos/', $archivo9->getClientOriginalName());
             //             $infomeDependencias->pdf_informe = $archivo9->getClientOriginalName();
@@ -723,12 +718,12 @@ class ExpedienteController extends Controller
                 $infomeDependencias->observaciones = $request->juzgado;
                 if($request->fecha_juzgado)
                     $infomeDependencias->fecha_informe = $request->fecha_juzgado;
-                if($request->hasFile('pdf_juzgado')) {                    
+                if($request->hasFile('pdf_juzgado')) {
                     $archivo10 = $request->file('pdf_juzgado');
                     $archivo10->move(public_path().'/archivos/', $archivo10->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo10->getClientOriginalName();
                 }
-                if($request->hasFile('pdf_juzgado_nuevo')) {                    
+                if($request->hasFile('pdf_juzgado_nuevo')) {
                     $archivo10 = $request->file('pdf_juzgado_nuevo');
                     $archivo10->move(public_path().'/archivos/', $archivo10->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo10->getClientOriginalName();
@@ -747,7 +742,7 @@ class ExpedienteController extends Controller
             //         $infomeDependencias->observaciones = $request->juzgado;
             //         if($request->fecha_juzgado)
             //             $infomeDependencias->fecha_informe = $request->fecha_juzgado;
-            //         if($request->hasFile('pdf_juzgado')) {                    
+            //         if($request->hasFile('pdf_juzgado')) {
             //             $archivo10 = $request->file('pdf_juzgado');
             //             $archivo10->move(public_path().'/archivos/', $archivo10->getClientOriginalName());
             //             $infomeDependencias->pdf_informe = $archivo10->getClientOriginalName();
@@ -767,12 +762,12 @@ class ExpedienteController extends Controller
                 $infomeDependencias->observaciones = $request->bomberos;
                 if($request->fecha_bomberos)
                     $infomeDependencias->fecha_informe = $request->fecha_bomberos;
-                if($request->hasFile('pdf_bomberos')) {                    
+                if($request->hasFile('pdf_bomberos')) {
                     $archivo11 = $request->file('pdf_bomberos');
                     $archivo11->move(public_path().'/archivos/', $archivo11->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo11->getClientOriginalName();
                 }
-                if($request->hasFile('pdf_bomberos_nuevo')) {                    
+                if($request->hasFile('pdf_bomberos_nuevo')) {
                     $archivo11 = $request->file('pdf_bomberos_nuevo');
                     $archivo11->move(public_path().'/archivos/', $archivo11->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo11->getClientOriginalName();
@@ -791,7 +786,7 @@ class ExpedienteController extends Controller
             //         $infomeDependencias->observaciones = $request->bomberos;
             //         if($request->fecha_bomberos)
             //             $infomeDependencias->fecha_informe = $request->fecha_bomberos;
-            //         if($request->hasFile('pdf_bomberos')) {                    
+            //         if($request->hasFile('pdf_bomberos')) {
             //             $archivo11 = $request->file('pdf_bomberos');
             //             $archivo11->move(public_path().'/archivos/', $archivo11->getClientOriginalName());
             //             $infomeDependencias->pdf_informe = $archivo11->getClientOriginalName();
@@ -811,12 +806,12 @@ class ExpedienteController extends Controller
                 $infomeDependencias->observaciones = $request->inspeccion_general;
                 if($request->fecha_inspeccion_general)
                     $infomeDependencias->fecha_informe = $request->fecha_inspeccion_general;
-                if($request->hasFile('pdf_inspeccion_general')) {                    
+                if($request->hasFile('pdf_inspeccion_general')) {
                     $archivo12 = $request->file('pdf_inspeccion_general');
                     $archivo12->move(public_path().'/archivos/', $archivo12->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo12->getClientOriginalName();
                 }
-                if($request->hasFile('pdf_inspeccion_general_nuevo')) {                    
+                if($request->hasFile('pdf_inspeccion_general_nuevo')) {
                     $archivo12 = $request->file('pdf_inspeccion_general_nuevo');
                     $archivo12->move(public_path().'/archivos/', $archivo12->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo12->getClientOriginalName();
@@ -835,7 +830,7 @@ class ExpedienteController extends Controller
             //         $infomeDependencias->observaciones = $request->inspeccion_general;
             //         if($request->fecha_inspeccion_general)
             //             $infomeDependencias->fecha_informe = $request->fecha_inspeccion_general;
-            //         if($request->hasFile('pdf_inspeccion_general')) {                    
+            //         if($request->hasFile('pdf_inspeccion_general')) {
             //             $archivo12 = $request->file('pdf_inspeccion_general');
             //             $archivo12->move(public_path().'/archivos/', $archivo12->getClientOriginalName());
             //             $infomeDependencias->pdf_informe = $archivo12->getClientOriginalName();
@@ -855,12 +850,12 @@ class ExpedienteController extends Controller
                 $infomeDependencias->observaciones = $request->deudores_alimentarios;
                 if($request->fecha_deudores_alimentarios)
                     $infomeDependencias->fecha_informe = $request->fecha_deudores_alimentarios;
-                if($request->hasFile('pdf_deudores_alimentarios')) {                    
+                if($request->hasFile('pdf_deudores_alimentarios')) {
                     $archivo13 = $request->file('pdf_deudores_alimentarios');
                     $archivo13->move(public_path().'/archivos/', $archivo13->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo13->getClientOriginalName();
                 }
-                if($request->hasFile('pdf_deudores_alimentarios_nuevo')) {                    
+                if($request->hasFile('pdf_deudores_alimentarios_nuevo')) {
                     $archivo13 = $request->file('pdf_deudores_alimentarios_nuevo');
                     $archivo13->move(public_path().'/archivos/', $archivo13->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo13->getClientOriginalName();
@@ -879,7 +874,7 @@ class ExpedienteController extends Controller
             //         $infomeDependencias->observaciones = $request->deudores_alimentarios;
             //         if($request->fecha_deudores_alimentarios)
             //             $infomeDependencias->fecha_informe = $request->fecha_deudores_alimentarios;
-            //         if($request->hasFile('pdf_deudores_alimentarios')) {                    
+            //         if($request->hasFile('pdf_deudores_alimentarios')) {
             //             $archivo13 = $request->file('pdf_deudores_alimentarios');
             //             $archivo13->move(public_path().'/archivos/', $archivo13->getClientOriginalName());
             //             $infomeDependencias->pdf_informe = $archivo13->getClientOriginalName();
@@ -902,7 +897,7 @@ class ExpedienteController extends Controller
     //     if($array.contains($number))
     //         return true;
     //     return false;
-    // } 
+    // }
 
     /**
      * Remove the specified resource from storage.
