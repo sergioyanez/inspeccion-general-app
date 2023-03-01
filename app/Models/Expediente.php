@@ -53,7 +53,7 @@ public function detalleHabilitacion(){
 
     //Relacion uno a muchos un expediente tiene muchos expedientesContribuyentes.
     public function informesDependencias(){
-        return $this->hasMany('App\Models\Informes_dependencias');
+        return $this->hasMany('App\Models\Informe_dependencias');
     }
 
 }
