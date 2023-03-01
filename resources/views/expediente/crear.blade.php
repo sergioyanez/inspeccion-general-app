@@ -16,10 +16,9 @@
                         <h2 class="mb-0">Registrar expediente</h2>
                     </div>
                     <div class="card-body">
-
+                        {{-- PRIMER PARTE DE CARGA DE EXPEDIENTE. PRIMER PAGINA DEL FIGMA --}}
                         <form method="POST" action="{{ route('expedientes-guardar') }}" enctype="multipart/form-data">
                             @csrf
-                            {{-- PRIMER PARTE DE CARGA DE EXPEDIENTE --}}
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
                                 <input value="4093-" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto"/>
@@ -67,6 +66,15 @@
                                 <label class="form-label" for="basic-default-fullname">Solicitud:</label>
                                 <input required type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                             </div>
+
+                            {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
+                            <div>
+                                <input placeholder="detalle de bienes de uso" type="text" name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto" />
+                            </div>
+                            <div>
+                                <input placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
+                            </div>
+                            
                             {{-- HISTORIAL DE MODIFICACIONES --}}
                             {{-- <div>
                                 <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Historial de modificaciones"/>
@@ -81,7 +89,6 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Estado de habilitacion</label>
                                     <select name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
-                                        {{-- <option>-- Seleccione --</option> --}}
                                         @foreach($tiposEstados as $tipo)
                                             @if ($tipo->descripcion == "En tramite")
                                                 <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
@@ -95,6 +102,7 @@
                             <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button>
                         </form>
 
+                        {{-- BUSCAR UN CONTRIBUYENTE POR DNI --}}
                         <form method="GET" action="{{route('contribuyentes-buscar')}}">
                             @csrf
                             <div class="mb-3">
@@ -104,6 +112,8 @@
                             </div>
                         </form>
 
+                        {{-- MUESTRA EL CONTRIBUYENTE SI LO ENCONTRO Y DA LA OPCION DE AGREGARLO AL EXPEDIENTE
+                        O SI NO LO ENCONTRO DA LA OPCION DE CREARLO --}}
                         <div class="position-relative py-5 px-5">
                             <form class="justify-content-center" method="POST" action="{{ route('expedientesContribuyentes-guardar') }}">
                                 @csrf
@@ -129,8 +139,7 @@
                             </form>
                         </div>
 
-
-
+                        {{-- BUSCAR UNA PERSONA JURIDICA POR DNI --}}
                         <form method="GET" action="{{route('personasJuridicas-buscar')}}">
                             @csrf
                             <div class="mb-3">
@@ -139,6 +148,9 @@
                                 <input  class="btn btn-primary" type="submit" value="Buscar">
                             </div>
                         </form>
+
+                        {{-- MUESTRA LA PERSONA JURIDICA SI LA ENCONTRO Y DA LA OPCION DE AGREGARLA AL EXPEDIENTE
+                        O SI NO LA ENCONTRO DA LA OPCION DE CREARLA --}}
                         <div class="position-relative py-5 px-5">
                             <form method="POST" action="{{ route('expedientesPersonasJuridicas-guardar') }}">
                                 @csrf
@@ -164,31 +176,32 @@
                             </form>
                         </div>
 
+                        {{-- MUESTRA EL/LOS CONTRIBUYENTES AGREGADOS AL EXPEDIENTE --}}
                         <h3 class=" text-center font-weight">Contribuyentes del expediente</h3>
                         <table class="table table-warning table-hover ">
                             <thead>
-                                    <tr>
-                                        <th>NOMBRE </th>
-                                        <th>APELLIDO </th>
-                                        <th>DNI </th>
-                                        <th>ELIMINAR</th>
-                                    </tr>
+                                <tr>
+                                    <th>NOMBRE </th>
+                                    <th>APELLIDO </th>
+                                    <th>DNI </th>
+                                    <th>ACCIÒN</th>
+                                </tr>
                             </thead>
                             <tbody>
-                                    @foreach ($expedientesContribuyentes as $expedContrib)
-                                            @if ($expedContrib->expediente_id ==$expediente->id)
-                                                <tr>
-                                                    <td>{{$expedContrib->contribuyente->nombre}}</td>
-                                                    <td>{{$expedContrib->contribuyente->apellido}}</td>
-                                                    <td>{{$expedContrib->contribuyente->dni}}</td>
-                                                    <td><a  href="{{route('expedientesContribuyentes-eliminar', $expedContrib->id)}}"class="btn btn-danger">Eliminar</a></td>
-                                                </tr>
-                                            @endif
-                                    @endforeach
+                                @foreach ($expedientesContribuyentes as $expedContrib)
+                                    @if ($expedContrib->expediente_id ==$expediente->id)
+                                        <tr>
+                                            <td>{{$expedContrib->contribuyente->nombre}}</td>
+                                            <td>{{$expedContrib->contribuyente->apellido}}</td>
+                                            <td>{{$expedContrib->contribuyente->dni}}</td>
+                                            <td><a  href="{{route('expedientesContribuyentes-eliminar', $expedContrib->id)}}"class="btn btn-danger">Eliminar</a></td>
+                                        </tr>
+                                    @endif
+                                @endforeach
                             </tbody>
                         </table>
 
-
+                        {{-- MUESTRA LA/LAS PERSONAS JURIDICAS AGREGADAS AL EXPEDIENTE --}}
                         <h3 class=" text-center font-weight">Personas jurìdicas del expediente</h3>
                         <table class="table table-success table-hover">
                             <thead>
@@ -196,7 +209,7 @@
                                     <th>NOMBRE</th>
                                     <th>APELLIDO</th>
                                     <th>DNI</th>
-                                    <th>ELIMINAR</th>
+                                    <th>ACCIÒN</th>
                                 </tr>
                             </thead>
                             <tbody>
