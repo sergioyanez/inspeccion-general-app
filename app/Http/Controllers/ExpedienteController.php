@@ -324,8 +324,7 @@ class ExpedienteController extends Controller
                                         'tiposEstados' => $tiposEstados,
                                         'tiposhabilitaciones' => $tiposhabilitaciones,
                                         'tiposInmuebles' => $tiposInmuebles,
-                                        'informesDependencias' => $informesDependencias,
-                                        'dependenciasNoEstanEnExpediente' => $dependenciasNoEstanEnExpediente]);
+                                        'informesDependencias' => $informesDependencias]);
     }
 
 
