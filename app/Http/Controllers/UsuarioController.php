@@ -107,9 +107,10 @@ class UsuarioController extends Controller {
         $request->validate([
             'usuarioFace' => 'required|unique:users,usuario,'.$request->usuario_id_face,
             'usuario_id_face' => 'required',
+            'passwordFace' => 'required',
         ]);
         $usuario = User::find($request->usuario_id_face);
-        if(isset($request->passwordFace)){
+        if(isset($request->newPasswordFace)){
             if(Hash::check($request->passwordFace,$usuario->password)){
                 $request->validate([
                     'newPasswordFace' => 'required|min:8',
@@ -125,12 +126,14 @@ class UsuarioController extends Controller {
             }
         }
         $usuario->usuario = $request->usuarioFace;
+
         if($usuario->save()){
             $log = new LogsUsuarioController();
             $log->store($usuario, 'u');
             return back()->with('success','Editado con éxito');
         }
         return back()->with('failFace','No se pudo actualizar el usuario');
+     
 
     }
 
