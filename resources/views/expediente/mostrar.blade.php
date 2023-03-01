@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-        @vite(['resources/js/app.js'])
+        
         <title>Expediente</title>
         @vite(['resources/js/app.js'])
     </head>
@@ -36,15 +36,9 @@
                                 
                             @endforelse
                         </div>
-                        
-                        
-                        
-                            
-                        
-                        
                     </div>
+                    {{-- PRIMER PARTE DE CARGA DE EXPEDIENTE. PRIMER PAGINA DEL FIGMA --}}
                     <div class="card-body">
-                        {{-- PRIMER PARTE DE CARGA DE EXPEDIENTE. PRIMER PAGINA DEL FIGMA --}}
                         <form method="POST" action="{{route('expedientes-actualizar')}}" enctype="multipart/form-data">
                             @csrf
                             @isset($expediente->id)
@@ -116,32 +110,22 @@
 
                             {{-- SEGUNDA PAGINA DEL FIGMA. DEPENDENCIAS --}}
                             <div>
-                                {{-- @if ($expediente->catastro_id != null)
-                                    <input type="hidden" name="catastro_id" value="{{$expediente->catastro_id}}"> --}}
-
-                                     @foreach ($informesDependencias as $item)
-                                        <p id="item">{{$item->tipo_dependencia_id}}</p>
-                                    @endforeach
-
-                                    @foreach ($dependenciasNoEstanEnExpediente as $item2)
-                                    <td id="item2">{{$item2}}</td>
-                                    @endforeach
-                                    <h1>{{$dependenciasNoEstanEnExpediente->count()}}</h1>
-
                                 @forelse ($informesDependencias as $item)
 
                                     {{-- SECRETARIA DE GOBIERNO --}}
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 1)
-                                        <div id="secretariaGobierno" value="{{$item}}"></div>
-                                        <input id="secretaria_id" type="hidden" name="secretaria_id" value="{{ $item->id }}">
-                                        <div id="secretariaCargada">
-                                            <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO CARGADA</label>
+                                    <label class="form-label" for="basic-default-fullname">{{$item->tipoDependencia->nombre}}</label>
+                                    @if ($item->tipo_dependencia_id == 1)
+                                        <input type="hidden" name="secretaria_id" value="{{ $item->id }}">
+                                        <div>
                                             <input value="{{ $item->observaciones }}" type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_secretaria_gobierno">PDF cargado: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_secretaria_gobierno_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
+                                    @endif
 
                                     {{-- OBRAS PARTICULARES --}}
                                     @if ($item->tipo_dependencia_id == 3)
@@ -158,7 +142,7 @@
                                     @endif
 
                                     {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA --}}
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 4)
+                                    @if ($item->tipo_dependencia_id == 4)
                                         <input type="hidden" name="alumbrado_id" value="{{ $item->id }}"> 
                                         <div>
                                             <input value="{{ $item->observaciones }}" type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
