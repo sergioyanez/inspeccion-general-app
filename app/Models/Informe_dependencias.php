@@ -21,4 +21,10 @@ class Informe_dependencias extends Model
         return $this->belongsTo('App\Models\Expediente');
     }
 
+    public function existe($array, $number) {
+            if($array.contains($number))
+                return true;
+            return false;
+        } 
+
 }

@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
         <title>Registrar expediente</title>
-        {{-- @vite(['resources/js/app.js']) --}}
+        @vite(['resources/js/app.js'])
     </head>
     <body>
         <div class="row">
@@ -67,12 +67,6 @@
                                 <label class="form-label" for="basic-default-fullname">Solicitud:</label>
                                 <input required type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                             </div>
-                            
-                           
-                            
-                            
-                            
-                            
                             {{-- HISTORIAL DE MODIFICACIONES --}}
                             {{-- <div>
                                 <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Historial de modificaciones"/>
@@ -81,7 +75,6 @@
                                 <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                 <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                             </div> --}}
-
 
                             {{-- DETALLE HABILITACION --}}
                             <div>
@@ -219,7 +212,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{-- ARREGLAR ESTA RUTA, TENDRIA QUE IR A ACTUALIZAR EXPEDIENTE --}}
+                        
                         @isset($expediente->id)
                             <a href="{{route('expedientes-mostrar', $expediente->id)}}" class="btn btn-primary">Seguir con la carga del expediente</a>
 
