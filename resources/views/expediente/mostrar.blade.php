@@ -7,6 +7,7 @@
         <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
         @vite(['resources/js/app.js'])
         <title>Expediente</title>
+        @vite(['resources/js/app.js'])
     </head>
     <body>
         <div class="row">
@@ -56,7 +57,21 @@
                                 <input type="hidden" name="detalle_inmueble_id" value="{{$expediente->detalleInmueble->id}}">
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Tipo de inmueble</label>
-                                    <select required name="tipo_inmueble_id" class="form-control" id="tipo_inmueble" >
+                                    <select required name="tipo_inmueble_id" class="form-control" id="tipo_inmueble">
+                                        <option>-- Seleccione --</option>
+                                        @foreach($tiposInmuebles as $tipo)
+                                            {{-- <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option> --}}
+                                            <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleInmueble->tipoInmueble->id) selected @endif>{{$tipo->descripcion}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div id="fecha_alquiler" >
+                                    <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
+                                    <input required value="{{$expediente->detalleInmueble->fecha_venc_alquiler}}" type="date" name="fecha_vencimiento_alquiler" class="form-control" id="fechaVencimiento" />
+                                </div>
+                                {{-- <div class="mb-3">
+                                    <label class="form-label" for="basic-default-fullname">Tipo de inmueble</label>
+                                    <select required name="tipo_inmueble_id" class="form-control" id="basic-default-nombreCompleto" >
                                         <option>-- Seleccione --</option>
                                         @foreach($tiposInmuebles as $tipo)
                                             <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleInmueble->tipoInmueble->id) selected @endif>{{$tipo->descripcion}}</option>
@@ -65,8 +80,8 @@
                                 </div>
                                 <div  id="fecha_alquiler">
                                     <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
-                                    <input  value="{{$expediente->detalleInmueble->fecha_venc_alquiler}}" type="date" name="fecha_vencimiento_alquiler" class="form-control" id="fechaVencimiento" />
-                                </div>
+                                    <input required value="{{$expediente->detalleInmueble->fecha_venc_alquiler}}" type="date" name="fecha_vencimiento_alquiler" class="form-control" id="basic-default-nombreCompleto" />
+                                </div> --}}
                             </div>
                             {{-- BOTON PARA CARGAR EL PDF DE LA SOLICITUD --}}
                             <div>
@@ -86,293 +101,422 @@
                                 <input value="{{$expediente->observaciones_grales}}" placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
 
-                            {{-- SECRETARIA DE GOBIERNO --}}
+
+                            @foreach ($informesDependencias as $item)
+                            {{ $item }}
+                            @endforeach
                             <div>
-                                {{-- @if ($expediente->catastro_id != null)
-                                    <input type="hidden" name="catastro_id" value="{{$expediente->catastro_id}}"> --}}
-
-                                     @foreach ($informesDependencias as $item)
-                                        <p>{{$item}}</p>
-                                    @endforeach
-
                                 @forelse ($informesDependencias as $item)
+                                    
                                     {{-- SECRETARIA DE GOBIERNO --}}
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 1)
-                                        <input id="secretaria_id" type="hidden" name="secretaria_id" value="{{ $item->id }}">
-                                        <div id="secretariaCargada">
-                                            <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO CARGADA</label>
+                                    <label class="form-label" for="basic-default-fullname">{{$item->tipoDependencia->nombre}}</label>
+                                    @if ($item->tipo_dependencia_id == 1)
+                                        <input type="hidden" name="secretaria_id" value="{{ $item->id }}">
+                                        <div>
                                             <input value="{{ $item->observaciones }}" type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_secretaria_gobierno">PDF cargado: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_secretaria_gobierno_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
-                                    @else
-                                        <div id="secretariaNoCargada">
-                                            <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO NO CARGADA</label>
+                                    @endif
+
+                                    {{-- OBRAS PARTICULARES --}}
+                                    @if ($item->tipo_dependencia_id == 3)
+                                        <input type="hidden" name="obras_id" value="{{ $item->id }}">
+                                        <div>
+                                            <input value="{{ $item->observaciones }}" type="text" name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_obras_particulares" class="form-control" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_obras_particulares">PDF cargado: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_obras_particulares_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        </div>
+                                    @endif
+
+                                    {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA --}}
+                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 4)
+                                        <input type="hidden" name="alumbrado_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <input value="{{ $item->observaciones }}" type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_alumbrado" class="form-control" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_alumbrado">PDF cargado: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_alumbrado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        </div>
+                                    @endif
+                                    
+                                    {{-- BROMATOLOGÌA --}}
+                                    @if ($item->tipo_dependencia_id == 5)
+                                        <input type="hidden" name="bromatologia_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <input value="{{ $item->observaciones }}" type="text" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_bromatologia" class="form-control" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_bromatologia">PDF cargado: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_bromatologia_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        </div>
+                                    @endif
+                                    
+                                    {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL --}}
+                                    @if ($item->tipo_dependencia_id == 6)
+                                        <input type="hidden" name="inspeccion_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <input value="{{ $item->observaciones }}" type="text" name="inspeccion" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_inspeccion" class="form-control" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_inspeccion">PDF cargado: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_inspeccion_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        </div>
+                                    @endif
+                                    
+                                    {{-- JUZGADO DE FALTAS --}}
+                                    @if ($item->tipo_dependencia_id == 7)
+                                        <input type="hidden" name="juzgado_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <input value="{{ $item->observaciones }}" type="text" name="juzgado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_juzgado" class="form-control" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_juzgado">PDF cargado: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_juzgado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        </div>
+                                    @endif
+
+                                    {{-- BOMBEROS DE POLICÌA DE BUENOS AIRES --}}
+                                    @if ($item->tipo_dependencia_id == 8)
+                                        <input type="hidden" name="bomberos_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <input value="{{ $item->observaciones }}" type="text" name="bomberos" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_bomberos" class="form-control" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_bomberos">PDF cargado: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_bomberos_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        </div>
+                                    @endif
+
+                                    {{-- INSPECCIÒN GENERAL --}}
+                                    @if ($item->tipo_dependencia_id == 9)
+                                        <input type="hidden" name="inspeccion_general_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <input value="{{ $item->observaciones }}" type="text" name="inspeccion_general" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_inspeccion_general" class="form-control" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_inspeccion_general">PDF cargado: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_inspeccion_general_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        </div>
+                                    @endif
+
+                                    {{-- REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS --}}
+                                    @if ($item->tipo_dependencia_id == 10)
+                                        <input type="hidden" name="deudores_alimentarios_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <input value="{{ $item->observaciones }}" type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_deudores_alimentarios">PDF cargado: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_deudores_alimentarios_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        </div>
+                                    @endif
+
+                                    
+                                    {{-- @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 1)
+                                        
+                                        <input type="hidden" name="secretaria_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
+                                            <input value="{{ $item->observaciones }}" type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_secretaria_gobierno">Certificado de secretarìa de gobierno: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_secretaria_gobierno_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        </div>
+                                    @endif --}}
+                                        {{-- <div>
+                                            <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
                                             <input type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                             <input type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
-                                    @endif
-
-
+                                    @endif --}}
+                                    
                                     {{-- OBRAS PARTICULARES --}}
-
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 3)
+                                    {{-- @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 3)
                                         <input type="hidden" name="obras_id" value="{{ $item->id }}">
                                         <div id="obrasParticularesCargada">
                                             <label class="form-label" for="basic-default-fullname">OBRAS PARTICULARES CARGADA</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_obras_particulares" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                            @if ($item->pdf_informe)
+                                                <p name="pdf_obras_particulares">Certificado de obras particulares: {{ $item->pdf_informe }}</p>
+                                            @endif
+                                            <input type="file" name="pdf_obras_particulares_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+
+                                            
+                                            {{-- <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                             <input value="{{ $item->pdf_informe }}" type="file" name="pdf_obras_particulares" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @else
-                                        <div id="obrasParticularesCargada">
-                                            <label class="form-label" for="basic-default-fullname">OBRAS PARTICULARES NO CARGADA</label>
-                                            <input required type="text" name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input type="date" name="fecha_obras_particulares" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input type="file" name="pdf_obras_particulares" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif
+                                        </div>  --}}
+                                    {{-- @else
+                                        <div>
+                                                <label class="form-label" for="basic-default-fullname">OBRAS PARTICULARES</label>
+                                                <input type="text" name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                                <input type="date" name="fecha_obras_particulares" class="form-control" id="basic-default-nombreCompleto" />
+                                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                                <input type="file" name="pdf_obras_particulares" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            </div>
+                                    @endif  --}}
                                     {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA --}}
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 4)
-                                        <input type="hidden" name="alumbrado_id" value="{{ $item->id }}">
-                                        <div id="tablCargada">
-                                            <label class="form-label" for="basic-default-fullname">TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA. TASA POR CONSERVACION DE LA RED VIAL CARGADA</label>
+                                    {{-- @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 4)
+                                        <input type="hidden" name="alumbrado_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <label class="form-label" for="basic-default-fullname">TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA. TASA POR CONSERVACION DE LA RED VIAL</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_alumbrado" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_alumbrado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @else
-                                        <div id="tablNoCargada">
-                                            <label class="form-label" for="basic-default-fullname">TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA. TASA POR CONSERVACION DE LA RED VIAL NO CARGADA</label>
-                                            <input required type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input type="date" name="fecha_alumbrado" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input type="file" name="pdf_alumbrado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_alumbrado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                        </div> --}}
+                                    {{-- @else
+                                            <div>
+                                                <label class="form-label" for="basic-default-fullname">TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA. TASA POR CONSERVACION DE LA RED VIAL</label>
+                                                <input type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                                <input type="date" name="fecha_alumbrado" class="form-control" id="basic-default-nombreCompleto" />
+                                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                                <input type="file" name="pdf_alumbrado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            </div> --}}
+                                    {{-- @endif --}}
                                     {{-- BROMATOLOGÌA --}}
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 5)
-                                        <input type="hidden" name="bromatologia_id" value="{{ $item->id }}">
-                                        <div id="bromatologiaCargada">
-                                            <label class="form-label" for="basic-default-fullname">BROMATOLOGÍA CARGADA</label>
+                                    {{-- @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 5)
+                                        <input type="hidden" name="bromatologia_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <label class="form-label" for="basic-default-fullname">BROMATOLOGÌA</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_bromatologia" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_bromatologia" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @else
-                                        <div id="bromatologiaNoCargada">
-                                            <label class="form-label" for="basic-default-fullname">BROMATOLOGÍA NO CARGADA</label>
-                                            <input required type="text" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input type="date" name="fecha_bromatologia" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input type="file" name="pdf_bromatologia" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_bromatologia" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                        </div> --}}
+                                    {{-- @else
+                                            <div>
+                                                <label class="form-label" for="basic-default-fullname">BROMATOLOGÌA</label>
+                                                <input type="text" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                                <input type="date" name="fecha_bromatologia" class="form-control" id="basic-default-nombreCompleto" />
+                                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                                <input type="file" name="pdf_bromatologia" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            </div> --}}
+                                    {{-- @endif --}}
                                     {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL --}}
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 6)
-                                        <input type="hidden" name="inspeccion_id" value="{{ $item->id }}">
-                                        <div id="tishCargada">
-                                            <label class="form-label" for="basic-default-fullname">TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL CARGADA</label>
+                                    {{-- @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 6)
+                                        <input type="hidden" name="inspeccion_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <label class="form-label" for="basic-default-fullname">TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="inspeccion" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_inspeccion" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_inspeccion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @else
-                                        <div id="tishNoCargada">
-                                            <label class="form-label" for="basic-default-fullname">TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL NO CARGADA</label>
-                                            <input required type="text" name="inspeccion" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input type="date" name="fecha_inspeccion" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input type="file" name="pdf_inspeccion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_inspeccion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                        </div> --}}
+                                    {{-- @else
+                                            <div>
+                                                <label class="form-label" for="basic-default-fullname">TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL</label>
+                                                <input type="text" name="inspeccion" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                                <input type="date" name="fecha_inspeccion" class="form-control" id="basic-default-nombreCompleto" />
+                                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                                <input type="file" name="pdf_inspeccion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            </div> --}}
+                                    {{-- @endif --}}
                                     {{-- JUZGADO DE FALTAS --}}
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 7)
-                                        <input type="hidden" name="juzgado_id" value="{{ $item->id }}">
-                                        <div id="juzgadoFaltasCargada">
-                                            <label class="form-label" for="basic-default-fullname">JUZGADO DE FALTAS CARGADA</label>
+                                    {{-- @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 7)
+                                        <input type="hidden" name="juzgado_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <label class="form-label" for="basic-default-fullname">JUZGADO DE FALTAS</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="juzgado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_juzgado" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_juzgado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @else
-                                        <div id="juzgadoFaltasNoCargada">
-                                            <label class="form-label" for="basic-default-fullname">JUZGADO DE FALTAS NO CARGADA</label>
-                                            <input required type="text" name="juzgado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input type="date" name="fecha_juzgado" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input type="file" name="pdf_juzgado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_juzgado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                        </div> --}}
+                                    {{-- @else
+                                            <div>
+                                                <label class="form-label" for="basic-default-fullname">JUZGADO DE FALTAS</label>
+                                                <input type="text" name="juzgado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                                <input type="date" name="fecha_juzgado" class="form-control" id="basic-default-nombreCompleto" />
+                                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                                <input type="file" name="pdf_juzgado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            </div> --}}
+                                    {{-- @endif --}}
                                     {{-- BOMBEROS DE POLICÌA DE BUENOS AIRES --}}
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 8)
-                                        <input type="hidden" name="bomberos_id" value="{{ $item->id }}">
-                                        <div id="bomberosCargada">
-                                            <label class="form-label" for="basic-default-fullname">BOMBEROS DE POLICÌA DE BUENOS AIRES CARGADA</label>
+                                    {{-- @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 8)
+                                        <input type="hidden" name="bomberos_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <label class="form-label" for="basic-default-fullname">BOMBEROS DE POLICÌA DE BUENOS AIRES</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="bomberos" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_bomberos" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_bomberos" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @else
-                                        <div id="bomberosNoCargada">
-                                            <label class="form-label" for="basic-default-fullname">BOMBEROS DE POLICÌA DE BUENOS AIRES NO CARGADA</label>
-                                            <input required type="text" name="bomberos" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input type="date" name="fecha_bomberos" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input type="file" name="pdf_bomberos" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_bomberos" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                        </div> --}}
+                                    {{-- @else
+                                            <div>
+                                                <label class="form-label" for="basic-default-fullname">BOMBEROS DE POLICÌA DE BUENOS AIRES</label>
+                                                <input type="text" name="bomberos" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                                <input type="date" name="fecha_bomberos" class="form-control" id="basic-default-nombreCompleto" />
+                                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                                <input type="file" name="pdf_bomberos" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            </div> --}}
+                                    {{-- @endif --}}
                                     {{-- INSPECCIÒN GENERAL --}}
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 9)
-                                        <input type="hidden" name="inspeccion_general_id" value="{{ $item->id }}">
-                                        <div id="inspeccionGeneralCargada">
-                                            <label class="form-label" for="basic-default-fullname">INSPECCIÒN GENERAL CARGADA</label>
+                                    {{-- @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 9)
+                                        <input type="hidden" name="inspeccion_general_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <label class="form-label" for="basic-default-fullname">INSPECCIÒN GENERAL</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="inspeccion_general" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_inspeccion_general" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_inspeccion_general" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @else
-                                        <div id="inspeccionGeneralNoCargada">
-                                            <label class="form-label" for="basic-default-fullname">INSPECCIÒN GENERAL NO CARGADA</label>
-                                            <input required type="text" name="inspeccion_general" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input type="date" name="fecha_inspeccion_general" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input type="file" name="pdf_inspeccion_general" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_inspeccion_general" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                        </div> --}}
+                                    {{-- @else
+                                            <div>
+                                                <label class="form-label" for="basic-default-fullname">INSPECCIÒN GENERAL</label>
+                                                <input type="text" name="inspeccion_general" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                                <input type="date" name="fecha_inspeccion_general" class="form-control" id="basic-default-nombreCompleto" />
+                                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                                <input type="file" name="pdf_inspeccion_general" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            </div> --}}
+                                    {{-- @endif --}}
                                     {{-- REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS --}}
-                                    @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 10)
-                                        <input type="hidden" name="deudores_alimentarios_id" value="{{ $item->id }}">
-                                        <div id="regDeudoresAlimentosMorososCargada">
-                                            <label class="form-label" for="basic-default-fullname">REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS CARGADA</label>
+                                    {{-- @if ($item->expediente_id == $expediente->id and $item->tipo_dependencia_id == 10)
+                                        <input type="hidden" name="deudores_alimentarios_id" value="{{ $item->id }}"> 
+                                        <div>
+                                            <label class="form-label" for="basic-default-fullname">REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS</label>
                                             <input value="{{ $item->observaciones }}" type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
                                             <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @else
-                                        <div id="regDeudoresAlimentosMorososNoCargada">
-                                            <label class="form-label" for="basic-default-fullname">REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS NO CARGADA</label>
-                                            <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
-                                            <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                            <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif
-
+                                            <input value="{{ $item->pdf_informe }}" type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> 
+                                        </div> --}}
+                                    {{-- @else
+                                            <div>
+                                                <label class="form-label" for="basic-default-fullname">REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS</label>
+                                                <input type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                                <input type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
+                                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                                <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            </div> --}}
+                                    {{-- @endif --}}
                                 @empty
-                                    {{-- SECRETARIA DE GOBIERNO
-                                    <div>
+                                    {{-- SECRETARIA DE GOBIERNO --}}
+                                    {{-- <div>
                                         <label class="form-label" for="basic-default-fullname">SECRETARÌA DE GOBIERNO</label>
                                         <input type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                         <label class="form-label" for="basic-default-fullname">Rauch</label>
                                         <input type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_secretaria_gobierno" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-
-                                    </div>
-
-                                    {{-- OBRAS PARTICULARES
-                                    <div>
+    
+                                    </div> --}}
+                                    {{-- OBRAS PARTICULARES --}}
+                                    {{-- <div>
                                         <label class="form-label" for="basic-default-fullname">OBRAS PARTICULARES</label>
-                                        <input required type="text" name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                        <input type="text" name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                         <label class="form-label" for="basic-default-fullname">Rauch</label>
                                         <input type="date" name="fecha_obras_particulares" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_obras_particulares" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA
-                                    <div>
+                                    </div> --}}
+                                    {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA --}}
+                                    {{-- <div>
                                         <label class="form-label" for="basic-default-fullname">TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA. TASA POR CONSERVACION DE LA RED VIAL</label>
-                                        <input required type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                        <input type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                         <label class="form-label" for="basic-default-fullname">Rauch</label>
                                         <input type="date" name="fecha_alumbrado" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_alumbrado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    {{-- BROMATOLOGÌA
-                                    <div>
+                                    </div> --}}
+                                    {{-- BROMATOLOGÌA --}}
+                                    {{-- <div>
                                         <label class="form-label" for="basic-default-fullname">BROMATOLOGÌA</label>
-                                        <input required type="text" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                        <input type="text" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                         <label class="form-label" for="basic-default-fullname">Rauch</label>
                                         <input type="date" name="fecha_bromatologia" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_bromatologia" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
-                                    <div>
+                                    </div> --}}
+                                    {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL --}}
+                                    {{-- <div>
                                         <label class="form-label" for="basic-default-fullname">TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL</label>
-                                        <input required type="text" name="inspeccion" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                        <input type="text" name="inspeccion" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                         <label class="form-label" for="basic-default-fullname">Rauch</label>
                                         <input type="date" name="fecha_inspeccion" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_inspeccion" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    {{-- JUZGADO DE FALTAS
-                                    <div>
+                                    </div> --}}
+                                    {{-- JUZGADO DE FALTAS --}}
+                                    {{-- <div>
                                         <label class="form-label" for="basic-default-fullname">JUZGADO DE FALTAS</label>
-                                        <input required type="text" name="juzgado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                        <input type="text" name="juzgado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                         <label class="form-label" for="basic-default-fullname">Rauch</label>
                                         <input type="date" name="fecha_juzgado" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_juzgado" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    {{-- BOMBEROS DE POLICÌA DE BUENOS AIRES
-                                    <div>
+                                    </div> --}}
+                                    {{-- BOMBEROS DE POLICÌA DE BUENOS AIRES --}}
+                                    {{-- <div>
                                         <label class="form-label" for="basic-default-fullname">BOMBEROS DE POLICÌA DE BUENOS AIRES</label>
-                                        <input required type="text" name="bomberos" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                        <input type="text" name="bomberos" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                         <label class="form-label" for="basic-default-fullname">Rauch</label>
                                         <input type="date" name="fecha_bomberos" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_bomberos" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    {{-- INSPECCIÒN GENERAL
-                                    <div>
+                                    </div> --}}
+                                    {{-- INSPECCIÒN GENERAL --}}
+                                    {{-- <div>
                                         <label class="form-label" for="basic-default-fullname">INSPECCIÒN GENERAL</label>
-                                        <input required type="text" name="inspeccion_general" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                        <input type="text" name="inspeccion_general" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                         <label class="form-label" for="basic-default-fullname">Rauch</label>
                                         <input type="date" name="fecha_inspeccion_general" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_inspeccion_general" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    {{-- REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS
-                                    <div>
+                                    </div> --}}
+                                    {{-- REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS --}}
+                                    {{-- <div>
                                         <label class="form-label" for="basic-default-fullname">REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS</label>
-                                        <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
+                                        <input type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
                                         <label class="form-label" for="basic-default-fullname">Rauch</label>
                                         <input type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>--}}
+                                    </div> --}}
                                 @endforelse
                             </div>
 
@@ -423,7 +567,6 @@
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                        <label class="form-label" for="basic-default-fullname">con</label>
                                         @if ($expediente->catastro->pdf_informe)
                                             <p name="pdf_informe">PDF catastro cargado: {{$expediente->catastro->pdf_informe}}</p>
                                             {{-- <input value="{{$expediente->catastro->pdf_informe}}" type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
@@ -434,35 +577,35 @@
                                     <label class="form-label" for="basic-default-fullname">CATASTRO</label>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Circ</label>
-                                        <input required type="text" name="circunscripcion" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input type="text" name="circunscripcion" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Secc</label>
-                                        <input required type="text" name="seccion" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input type="text" name="seccion" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Chacra</label>
-                                        <input required type="text" name="chacra" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input type="text" name="chacra" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Quinta</label>
-                                        <input required type="text" name="quinta" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input type="text" name="quinta" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Fracciòn</label>
-                                        <input required type="text" name="fraccion" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input type="text" name="fraccion" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Manzana</label>
-                                        <input required type="text" name="manzana" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input type="text" name="manzana" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Parcela</label>
-                                        <input required type="text" name="parcela" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input type="text" name="parcela" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">SubPar</label>
-                                        <input required type="text" name="sub_parcela" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input type="text" name="sub_parcela" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Observaciones</label>
@@ -473,7 +616,6 @@
                                         <input type="date" name="fecha_informe" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
-                                        <label class="form-label" for="basic-default-fullname">sin</label>
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         <input type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
