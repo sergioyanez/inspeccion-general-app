@@ -103,6 +103,8 @@ class ExpedienteController extends Controller
         $tiposInmuebles = Tipo_inmueble::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
+        //$informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
+
         return view('expediente.crear', ['catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
                                         'detalleInmuebles'=>$detalleInmuebles,
@@ -114,7 +116,8 @@ class ExpedienteController extends Controller
                                         'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
                                         'tiposInmuebles' => $tiposInmuebles,
                                         'tiposEstados' => $tiposEstados,
-                                        'tiposhabilitaciones' => $tiposhabilitaciones]);
+                                        'tiposhabilitaciones' => $tiposhabilitaciones,
+                                        ]);
     }
 
     /**
@@ -195,6 +198,88 @@ class ExpedienteController extends Controller
             $log = new LogsExpedienteController();
             $log->store($expediente, 'c');
 
+            // SECRETARIA DE GOBIERNO
+            $infomeDependencias = new Informe_dependencias;
+            $infomeDependencias->expediente_id = $expediente->id;
+            $infomeDependencias->tipo_dependencia_id = 1;
+            if($infomeDependencias->save()){
+                $log5 = new LogsInformeDependenciaController();
+                $log5->store($infomeDependencias, 'c');
+            }
+
+            // OBRAS PARTICULARES
+            $infomeDependencias = new Informe_dependencias;
+            $infomeDependencias->expediente_id = $expediente->id;
+            $infomeDependencias->tipo_dependencia_id = 3;
+            if($infomeDependencias->save()){
+                $log6 = new LogsInformeDependenciaController();
+                $log6->store($infomeDependencias, 'c');
+            }
+
+            // TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA
+            $infomeDependencias = new Informe_dependencias;
+            $infomeDependencias->expediente_id = $expediente->id;
+            $infomeDependencias->tipo_dependencia_id = 4;
+            if($infomeDependencias->save()){
+                $log7 = new LogsInformeDependenciaController();
+                $log7->store($infomeDependencias, 'c');
+            }
+
+            // BROMATOLOGÌA
+            $infomeDependencias = new Informe_dependencias;
+            $infomeDependencias->expediente_id = $expediente->id;
+            $infomeDependencias->tipo_dependencia_id = 5;
+            if($infomeDependencias->save()){
+                $log8 = new LogsInformeDependenciaController();
+                $log8->store($infomeDependencias, 'c');
+            }
+
+            // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
+            $infomeDependencias = new Informe_dependencias;
+            $infomeDependencias->expediente_id = $expediente->id;
+            $infomeDependencias->tipo_dependencia_id = 6;
+            if($infomeDependencias->save()){
+                $log9 = new LogsInformeDependenciaController();
+                        $log9->store($infomeDependencias, 'c');
+                    }
+
+            // JUZGADO DE FALTAS
+            $infomeDependencias = new Informe_dependencias;
+            $infomeDependencias->expediente_id = $expediente->id;
+            $infomeDependencias->tipo_dependencia_id = 7;
+            if($infomeDependencias->save()){
+                $log10 = new LogsInformeDependenciaController();
+                $log10->store($infomeDependencias, 'c');
+            }
+
+            // BOMBEROS DE POLICÌA DE BUENOS AIRES
+            $infomeDependencias = new Informe_dependencias;
+            $infomeDependencias->expediente_id = $expediente->id;
+            $infomeDependencias->tipo_dependencia_id = 8;
+            if($infomeDependencias->save()){
+                $log11 = new LogsInformeDependenciaController();
+                $log11->store($infomeDependencias, 'c');
+            }
+
+            // INSPECCIÒN GENERAL
+            $infomeDependencias = new Informe_dependencias;
+            $infomeDependencias->expediente_id = $expediente->id;
+            $infomeDependencias->tipo_dependencia_id = 9;
+            if($infomeDependencias->save()){
+                $log12 = new LogsInformeDependenciaController();
+                $log12->store($infomeDependencias, 'c');
+            }
+
+            // REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS
+            $infomeDependencias = new Informe_dependencias;
+            $infomeDependencias->expediente_id = $expediente->id;
+            $infomeDependencias->tipo_dependencia_id = 10;
+            if($infomeDependencias->save()){
+                $log13 = new LogsInformeDependenciaController();
+                $log13->store($infomeDependencias, 'c');
+            }
+
+
             return redirect()->route('expedientes-crear');
         }
         return back()->with('fail','No se pudo crear el expediente');
@@ -217,6 +302,7 @@ class ExpedienteController extends Controller
         $estadosBaja = Estado_baja::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
+<<<<<<< HEAD
         $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(10);
         $dependenciasNoEstanEnExpediente = Informe_dependencias::select(['tipos_dependencias.id','tipos_dependencias.nombre'])
                                             ->join('tipos_dependencias', 'tipos_dependencias.id', '=', 'informes_dependencias.tipo_dependencia_id')
@@ -227,7 +313,14 @@ class ExpedienteController extends Controller
         // ->where('dni', 'LIKE', '%' . $buscar . '%')
         // // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         // ->paginate(200);
+=======
+>>>>>>> e24934afaa32fd0af07cc1463caa93aae0acaa70
 
+        $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
+        
+        // if($informesDependencias.)
+        // $secretariaGobierno = 
+        
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
@@ -319,29 +412,30 @@ class ExpedienteController extends Controller
             }
         }
         else {
-            $catastro = new Catastro;
-            $catastro->circunscripcion = $request->circunscripcion;
-            $catastro->seccion = $request->seccion;
-            $catastro->chacra = $request->chacra;
-            $catastro->quinta = $request->quinta;
-            $catastro->fraccion = $request->fraccion;
-            $catastro->manzana = $request->manzana;
-            $catastro->parcela = $request->parcela;
-            $catastro->sub_parcela = $request->sub_parcela;
-            if($request->observaciones)
-                $catastro->observacion = $request->observaciones;
-            if($request->fecha_informe)
-                $catastro->fecha_informe = $request->fecha_informe;
-            if($request->hasFile('pdf_informe')) {
-                $archivo = $request->file('pdf_informe');
-                $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
-                $catastro->pdf_informe = $archivo->getClientOriginalName();
-            }
+            if($request->circunscripcion) {
+                $catastro = new Catastro;
+                $catastro->circunscripcion = $request->circunscripcion;
+                $catastro->seccion = $request->seccion;
+                $catastro->chacra = $request->chacra;
+                $catastro->quinta = $request->quinta;
+                $catastro->fraccion = $request->fraccion;
+                $catastro->manzana = $request->manzana;
+                $catastro->parcela = $request->parcela;
+                $catastro->sub_parcela = $request->sub_parcela;
+                if($request->observaciones)
+                    $catastro->observacion = $request->observaciones;
+                if($request->fecha_informe)
+                    $catastro->fecha_informe = $request->fecha_informe;
+                if($request->hasFile('pdf_informe')) {
+                    $archivo = $request->file('pdf_informe');
+                    $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
+                    $catastro->pdf_informe = $archivo->getClientOriginalName();
+                }
 
-
-            if($catastro->save()){
-                $log3 = new LogsCatastroController();
-                $log3->store($catastro, 'c');
+                if($catastro->save()){
+                    $log3 = new LogsCatastroController();
+                    $log3->store($catastro, 'c');
+                }
             }
         }
 
@@ -365,7 +459,7 @@ class ExpedienteController extends Controller
         }
         if($detalleHabilitacion->save()){
             $log4 = new LogsDetalleHabilitacionController();
-            $log4->store($detalleHabilitacion, 'c');
+            $log4->store($detalleHabilitacion, 'u');
         }
 
 
@@ -386,7 +480,11 @@ class ExpedienteController extends Controller
         // }
         $expediente->bienes_de_uso = $request->bienes_de_uso;
         $expediente->observaciones_grales = $request->observaciones_grales;
-        $expediente->catastro_id = $catastro->id;
+        if(isset($catastro->id))
+         {
+            $expediente->catastro_id = $catastro->id;
+        }
+            
         $expediente->detalle_habilitacion_id = $detalleHabilitacion->id;
 
         // FALTA ESTO
@@ -398,6 +496,7 @@ class ExpedienteController extends Controller
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
 
+            // SECRETARIA DE GOBIERNO
             if($request->secretaria_id != null) {
                 $infomeDependencias = Informe_dependencias::find($request->secretaria_id);
                 $infomeDependencias->expediente_id = $expediente->id;
@@ -410,32 +509,400 @@ class ExpedienteController extends Controller
                     $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
                 }
-                if($infomeDependencias->save()){
-                    $log5 = new LogsInformeDependenciaController();
-                    $log5->store($infomeDependencias, 'u');
-                }
-            }
-            else {
-                $infomeDependencias = new Informe_dependencias;
-                $infomeDependencias->expediente_id = $expediente->id;
-                $infomeDependencias->tipo_dependencia_id = 1;
-                $infomeDependencias->observaciones = $request->secretaria_gobierno;
-                if($request->fecha_secretaria_gobierno)
-                    $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
-                if($request->hasFile('pdf_secretaria_gobierno')) {                    //hecho pdf_informe
-                    $archivo5 = $request->file('pdf_secretaria_gobierno');
+                if($request->hasFile('pdf_secretaria_gobierno_nuevo')) {                    
+                    $archivo5 = $request->file('pdf_secretaria_gobierno_nuevo');
                     $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
                     $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
                 }
                 if($infomeDependencias->save()){
                     $log5 = new LogsInformeDependenciaController();
-                    $log5->store($infomeDependencias, 'c');
+                    $log5->store($infomeDependencias, 'u');
                 }
             }
+            // else {
+            //     if($request->secretaria_gobierno || $request->fecha_secretaria_gobierno || $request->hasFile('pdf_secretaria_gobierno')) {
+            //         $infomeDependencias = new Informe_dependencias;
+            //         $infomeDependencias->expediente_id = $expediente->id;
+            //         $infomeDependencias->tipo_dependencia_id = 1;
+            //         $infomeDependencias->observaciones = $request->secretaria_gobierno;
+            //         if($request->fecha_secretaria_gobierno)
+            //             $infomeDependencias->fecha_informe = $request->fecha_secretaria_gobierno;
+            //         if($request->hasFile('pdf_secretaria_gobierno')) {                    
+            //             $archivo5 = $request->file('pdf_secretaria_gobierno');
+            //             $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
+            //             $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
+            //         }
+            //         if($infomeDependencias->save()){
+            //             $log5 = new LogsInformeDependenciaController();
+            //             $log5->store($infomeDependencias, 'c');
+            //         }
+            //     }
+            // }
+
+            // OBRAS PARTICULARES
+            if($request->obras_id != null) {
+                $infomeDependencias = Informe_dependencias::find($request->obras_id);
+                $infomeDependencias->expediente_id = $expediente->id;
+                $infomeDependencias->tipo_dependencia_id = 3;
+                $infomeDependencias->observaciones = $request->obras_particulares;
+                if($request->fecha_obras_particulares)
+                    $infomeDependencias->fecha_informe = $request->fecha_obras_particulares;
+                if($request->hasFile('pdf_obras_particulares')) {                    
+                    $archivo6 = $request->file('pdf_obras_particulares');
+                    $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo6->getClientOriginalName();
+                }
+                if($request->hasFile('pdf_obras_particulares_nuevo')) {                    
+                    $archivo6 = $request->file('pdf_obras_particulares_nuevo');
+                    $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo6->getClientOriginalName();
+                }
+                if($infomeDependencias->save()){
+                    $log6 = new LogsInformeDependenciaController();
+                    $log6->store($infomeDependencias, 'u');
+                }
+            }
+            // else {
+            //     if($request->obras_particulares || $request->fecha_obras_particulares || $request->hasFile('pdf_obras_particulares')) {
+
+            //         $infomeDependencias = new Informe_dependencias;
+            //         $infomeDependencias->expediente_id = $expediente->id;
+            //         $infomeDependencias->tipo_dependencia_id = 3;
+            //         $infomeDependencias->observaciones = $request->obras_particulares;
+            //         if($request->fecha_obras_particulares)
+            //             $infomeDependencias->fecha_informe = $request->fecha_obras_particulares;
+            //         if($request->hasFile('pdf_obras_particulares')) {                    
+            //             $archivo6 = $request->file('pdf_obras_particulares');
+            //             $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
+            //             $infomeDependencias->pdf_informe = $archivo6->getClientOriginalName();
+            //         }
+            //         if($infomeDependencias->save()){
+            //             $log6 = new LogsInformeDependenciaController();
+            //             $log6->store($infomeDependencias, 'c');
+            //         }
+            //     }
+            // }
+
+            // TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA
+            if($request->alumbrado_id != null) {
+                $infomeDependencias = Informe_dependencias::find($request->alumbrado_id);
+                $infomeDependencias->expediente_id = $expediente->id;
+                $infomeDependencias->tipo_dependencia_id = 4;
+                $infomeDependencias->observaciones = $request->alumbrado;
+                if($request->fecha_alumbrado)
+                    $infomeDependencias->fecha_informe = $request->fecha_alumbrado;
+                if($request->hasFile('pdf_alumbrado')) {                    
+                    $archivo7 = $request->file('pdf_alumbrado');
+                    $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo7->getClientOriginalName();
+                }
+                if($request->hasFile('pdf_alumbrado_nuevo')) {                    
+                    $archivo7 = $request->file('pdf_alumbrado_nuevo');
+                    $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo7->getClientOriginalName();
+                }
+                if($infomeDependencias->save()){
+                    $log7 = new LogsInformeDependenciaController();
+                    $log7->store($infomeDependencias, 'u');
+                }
+            }
+            // else {
+            //     if($request->alumbrado || $request->fecha_alumbrado || $request->hasFile('pdf_alumbrado')) {
+
+            //         $infomeDependencias = new Informe_dependencias;
+            //         $infomeDependencias->expediente_id = $expediente->id;
+            //         $infomeDependencias->tipo_dependencia_id = 4;
+            //         $infomeDependencias->observaciones = $request->alumbrado;
+            //         if($request->fecha_alumbrado)
+            //             $infomeDependencias->fecha_informe = $request->fecha_alumbrado;
+            //         if($request->hasFile('pdf_alumbrado')) {                    
+            //             $archivo7 = $request->file('pdf_alumbrado');
+            //             $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
+            //             $infomeDependencias->pdf_informe = $archivo7->getClientOriginalName();
+            //         }
+            //         if($infomeDependencias->save()){
+            //             $log7 = new LogsInformeDependenciaController();
+            //             $log7->store($infomeDependencias, 'c');
+            //         }
+            //     }
+            // }
+
+            // BROMATOLOGÌA
+            if($request->bromatologia_id != null) {
+                $infomeDependencias = Informe_dependencias::find($request->bromatologia_id);
+                $infomeDependencias->expediente_id = $expediente->id;
+                $infomeDependencias->tipo_dependencia_id = 5;
+                $infomeDependencias->observaciones = $request->bromatologia;
+                if($request->fecha_bromatologia)
+                    $infomeDependencias->fecha_informe = $request->fecha_bromatologia;
+                if($request->hasFile('pdf_bromatologia')) {                    
+                    $archivo8 = $request->file('pdf_bromatologia');
+                    $archivo8->move(public_path().'/archivos/', $archivo8->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo8->getClientOriginalName();
+                }
+                if($request->hasFile('pdf_bromatologia_nuevo')) {                    
+                    $archivo8 = $request->file('pdf_bromatologia_nuevo');
+                    $archivo8->move(public_path().'/archivos/', $archivo8->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo8->getClientOriginalName();
+                }
+                if($infomeDependencias->save()){
+                    $log8 = new LogsInformeDependenciaController();
+                    $log8->store($infomeDependencias, 'u');
+                }
+            }
+            // else {
+            //     if($request->bromatologia || $request->fecha_bromatologia || $request->hasFile('pdf_bromatologia')) {
+
+            //         $infomeDependencias = new Informe_dependencias;
+            //         $infomeDependencias->expediente_id = $expediente->id;
+            //         $infomeDependencias->tipo_dependencia_id = 5;
+            //         $infomeDependencias->observaciones = $request->bromatologia;
+            //         if($request->fecha_bromatologia)
+            //             $infomeDependencias->fecha_informe = $request->fecha_bromatologia;
+            //         if($request->hasFile('pdf_bromatologia')) {                    
+            //             $archivo8 = $request->file('pdf_bromatologia');
+            //             $archivo8->move(public_path().'/archivos/', $archivo8->getClientOriginalName());
+            //             $infomeDependencias->pdf_informe = $archivo8->getClientOriginalName();
+            //         }
+            //         if($infomeDependencias->save()){
+            //             $log8 = new LogsInformeDependenciaController();
+            //             $log8->store($infomeDependencias, 'c');
+            //         }
+            //     }
+            // }
+
+            // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
+            if($request->inspeccion_id != null) {
+                $infomeDependencias = Informe_dependencias::find($request->inspeccion_id);
+                $infomeDependencias->expediente_id = $expediente->id;
+                $infomeDependencias->tipo_dependencia_id = 6;
+                $infomeDependencias->observaciones = $request->inspeccion;
+                if($request->fecha_inspeccion)
+                    $infomeDependencias->fecha_informe = $request->fecha_inspeccion;
+                if($request->hasFile('pdf_inspeccion')) {                    
+                    $archivo9 = $request->file('pdf_inspeccion');
+                    $archivo9->move(public_path().'/archivos/', $archivo9->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo9->getClientOriginalName();
+                }
+                if($request->hasFile('pdf_inspeccion_nuevo')) {                    
+                    $archivo9 = $request->file('pdf_inspeccion_nuevo');
+                    $archivo9->move(public_path().'/archivos/', $archivo9->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo9->getClientOriginalName();
+                }
+                if($infomeDependencias->save()){
+                    $log9 = new LogsInformeDependenciaController();
+                    $log9->store($infomeDependencias, 'u');
+                }
+            }
+            // else {
+            //     if($request->inspeccion || $request->fecha_inspeccion || $request->hasFile('pdf_inspeccion')) {
+
+            //         $infomeDependencias = new Informe_dependencias;
+            //         $infomeDependencias->expediente_id = $expediente->id;
+            //         $infomeDependencias->tipo_dependencia_id = 6;
+            //         $infomeDependencias->observaciones = $request->inspeccion;
+            //         if($request->fecha_inspeccion)
+            //             $infomeDependencias->fecha_informe = $request->fecha_inspeccion;
+            //         if($request->hasFile('pdf_inspeccion')) {                    
+            //             $archivo9 = $request->file('pdf_inspeccion');
+            //             $archivo9->move(public_path().'/archivos/', $archivo9->getClientOriginalName());
+            //             $infomeDependencias->pdf_informe = $archivo9->getClientOriginalName();
+            //         }
+            //         if($infomeDependencias->save()){
+            //             $log9 = new LogsInformeDependenciaController();
+            //             $log9->store($infomeDependencias, 'c');
+            //         }
+            //     }
+            // }
+
+            // JUZGADO DE FALTAS
+            if($request->juzgado_id != null) {
+                $infomeDependencias = Informe_dependencias::find($request->juzgado_id);
+                $infomeDependencias->expediente_id = $expediente->id;
+                $infomeDependencias->tipo_dependencia_id = 7;
+                $infomeDependencias->observaciones = $request->juzgado;
+                if($request->fecha_juzgado)
+                    $infomeDependencias->fecha_informe = $request->fecha_juzgado;
+                if($request->hasFile('pdf_juzgado')) {                    
+                    $archivo10 = $request->file('pdf_juzgado');
+                    $archivo10->move(public_path().'/archivos/', $archivo10->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo10->getClientOriginalName();
+                }
+                if($request->hasFile('pdf_juzgado_nuevo')) {                    
+                    $archivo10 = $request->file('pdf_juzgado_nuevo');
+                    $archivo10->move(public_path().'/archivos/', $archivo10->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo10->getClientOriginalName();
+                }
+                if($infomeDependencias->save()){
+                    $log10 = new LogsInformeDependenciaController();
+                    $log10->store($infomeDependencias, 'u');
+                }
+            }
+            // else {
+            //     if($request->juzgado || $request->fecha_juzgado || $request->hasFile('pdf_juzgado')) {
+
+            //         $infomeDependencias = new Informe_dependencias;
+            //         $infomeDependencias->expediente_id = $expediente->id;
+            //         $infomeDependencias->tipo_dependencia_id = 7;
+            //         $infomeDependencias->observaciones = $request->juzgado;
+            //         if($request->fecha_juzgado)
+            //             $infomeDependencias->fecha_informe = $request->fecha_juzgado;
+            //         if($request->hasFile('pdf_juzgado')) {                    
+            //             $archivo10 = $request->file('pdf_juzgado');
+            //             $archivo10->move(public_path().'/archivos/', $archivo10->getClientOriginalName());
+            //             $infomeDependencias->pdf_informe = $archivo10->getClientOriginalName();
+            //         }
+            //         if($infomeDependencias->save()){
+            //             $log10 = new LogsInformeDependenciaController();
+            //             $log10->store($infomeDependencias, 'c');
+            //         }
+            //     }
+            // }
+
+            // BOMBEROS DE POLICÌA DE BUENOS AIRES
+            if($request->bomberos_id != null) {
+                $infomeDependencias = Informe_dependencias::find($request->bomberos_id);
+                $infomeDependencias->expediente_id = $expediente->id;
+                $infomeDependencias->tipo_dependencia_id = 8;
+                $infomeDependencias->observaciones = $request->bomberos;
+                if($request->fecha_bomberos)
+                    $infomeDependencias->fecha_informe = $request->fecha_bomberos;
+                if($request->hasFile('pdf_bomberos')) {                    
+                    $archivo11 = $request->file('pdf_bomberos');
+                    $archivo11->move(public_path().'/archivos/', $archivo11->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo11->getClientOriginalName();
+                }
+                if($request->hasFile('pdf_bomberos_nuevo')) {                    
+                    $archivo11 = $request->file('pdf_bomberos_nuevo');
+                    $archivo11->move(public_path().'/archivos/', $archivo11->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo11->getClientOriginalName();
+                }
+                if($infomeDependencias->save()){
+                    $log11 = new LogsInformeDependenciaController();
+                    $log11->store($infomeDependencias, 'u');
+                }
+            }
+            // else {
+            //     if($request->bomberos || $request->fecha_bomberos || $request->hasFile('pdf_bomberos')) {
+
+            //         $infomeDependencias = new Informe_dependencias;
+            //         $infomeDependencias->expediente_id = $expediente->id;
+            //         $infomeDependencias->tipo_dependencia_id = 8;
+            //         $infomeDependencias->observaciones = $request->bomberos;
+            //         if($request->fecha_bomberos)
+            //             $infomeDependencias->fecha_informe = $request->fecha_bomberos;
+            //         if($request->hasFile('pdf_bomberos')) {                    
+            //             $archivo11 = $request->file('pdf_bomberos');
+            //             $archivo11->move(public_path().'/archivos/', $archivo11->getClientOriginalName());
+            //             $infomeDependencias->pdf_informe = $archivo11->getClientOriginalName();
+            //         }
+            //         if($infomeDependencias->save()){
+            //             $log11 = new LogsInformeDependenciaController();
+            //             $log11->store($infomeDependencias, 'c');
+            //         }
+            //     }
+            // }
+
+            // INSPECCIÒN GENERAL
+            if($request->inspeccion_general_id != null) {
+                $infomeDependencias = Informe_dependencias::find($request->inspeccion_general_id);
+                $infomeDependencias->expediente_id = $expediente->id;
+                $infomeDependencias->tipo_dependencia_id = 9;
+                $infomeDependencias->observaciones = $request->inspeccion_general;
+                if($request->fecha_inspeccion_general)
+                    $infomeDependencias->fecha_informe = $request->fecha_inspeccion_general;
+                if($request->hasFile('pdf_inspeccion_general')) {                    
+                    $archivo12 = $request->file('pdf_inspeccion_general');
+                    $archivo12->move(public_path().'/archivos/', $archivo12->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo12->getClientOriginalName();
+                }
+                if($request->hasFile('pdf_inspeccion_general_nuevo')) {                    
+                    $archivo12 = $request->file('pdf_inspeccion_general_nuevo');
+                    $archivo12->move(public_path().'/archivos/', $archivo12->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo12->getClientOriginalName();
+                }
+                if($infomeDependencias->save()){
+                    $log12 = new LogsInformeDependenciaController();
+                    $log12->store($infomeDependencias, 'u');
+                }
+            }
+            // else {
+            //     if($request->inspeccion_general || $request->fecha_inspeccion_general || $request->hasFile('pdf_inspeccion_general')) {
+
+            //         $infomeDependencias = new Informe_dependencias;
+            //         $infomeDependencias->expediente_id = $expediente->id;
+            //         $infomeDependencias->tipo_dependencia_id = 9;
+            //         $infomeDependencias->observaciones = $request->inspeccion_general;
+            //         if($request->fecha_inspeccion_general)
+            //             $infomeDependencias->fecha_informe = $request->fecha_inspeccion_general;
+            //         if($request->hasFile('pdf_inspeccion_general')) {                    
+            //             $archivo12 = $request->file('pdf_inspeccion_general');
+            //             $archivo12->move(public_path().'/archivos/', $archivo12->getClientOriginalName());
+            //             $infomeDependencias->pdf_informe = $archivo12->getClientOriginalName();
+            //         }
+            //         if($infomeDependencias->save()){
+            //             $log12 = new LogsInformeDependenciaController();
+            //             $log12->store($infomeDependencias, 'c');
+            //         }
+            //     }
+            // }
+
+            // REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS
+            if($request->deudores_alimentarios_id != null) {
+                $infomeDependencias = Informe_dependencias::find($request->deudores_alimentarios_id);
+                $infomeDependencias->expediente_id = $expediente->id;
+                $infomeDependencias->tipo_dependencia_id = 10;
+                $infomeDependencias->observaciones = $request->deudores_alimentarios;
+                if($request->fecha_deudores_alimentarios)
+                    $infomeDependencias->fecha_informe = $request->fecha_deudores_alimentarios;
+                if($request->hasFile('pdf_deudores_alimentarios')) {                    
+                    $archivo13 = $request->file('pdf_deudores_alimentarios');
+                    $archivo13->move(public_path().'/archivos/', $archivo13->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo13->getClientOriginalName();
+                }
+                if($request->hasFile('pdf_deudores_alimentarios_nuevo')) {                    
+                    $archivo13 = $request->file('pdf_deudores_alimentarios_nuevo');
+                    $archivo13->move(public_path().'/archivos/', $archivo13->getClientOriginalName());
+                    $infomeDependencias->pdf_informe = $archivo13->getClientOriginalName();
+                }
+                if($infomeDependencias->save()){
+                    $log13 = new LogsInformeDependenciaController();
+                    $log13->store($infomeDependencias, 'u');
+                }
+            }
+            // else {
+            //     if($request->deudores_alimentarios || $request->fecha_deudores_alimentarios || $request->hasFile('pdf_deudores_alimentarios')) {
+
+            //         $infomeDependencias = new Informe_dependencias;
+            //         $infomeDependencias->expediente_id = $expediente->id;
+            //         $infomeDependencias->tipo_dependencia_id = 10;
+            //         $infomeDependencias->observaciones = $request->deudores_alimentarios;
+            //         if($request->fecha_deudores_alimentarios)
+            //             $infomeDependencias->fecha_informe = $request->fecha_deudores_alimentarios;
+            //         if($request->hasFile('pdf_deudores_alimentarios')) {                    
+            //             $archivo13 = $request->file('pdf_deudores_alimentarios');
+            //             $archivo13->move(public_path().'/archivos/', $archivo13->getClientOriginalName());
+            //             $infomeDependencias->pdf_informe = $archivo13->getClientOriginalName();
+            //         }
+            //         if($infomeDependencias->save()){
+            //             $log13 = new LogsInformeDependenciaController();
+            //             $log13->store($infomeDependencias, 'c');
+            //         }
+            //     }
+            // }
+
+
+
             return redirect()->route('expedientes');
         }
         return back()->with('fail','No se pudo crear el expediente');
     }
+
+    // public function existe($array, $number) {
+    //     if($array.contains($number))
+    //         return true;
+    //     return false;
+    // } 
 
     /**
      * Remove the specified resource from storage.
