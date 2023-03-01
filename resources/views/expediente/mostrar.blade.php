@@ -20,9 +20,9 @@
                         <div>
                             <h3>Contribuyentes del expediente {{$expediente->nro_expediente}}</h3>
                             @forelse ($contribuyentes as $item)
-                                <p>Nombre: {{ $item->nombre }} 
-                                    Apellido: {{ $item->apellido }}
-                                    Dni: {{ $item->apellido }}</p>
+                                <p>Nombre: {{ $item->contribuyente->nombre }} 
+                                    Apellido: {{ $item->contribuyente->apellido }}
+                                    Dni: {{ $item->contribuyente->apellido }}</p>
                             @empty
                             @endforelse
                         </div>
@@ -87,7 +87,7 @@
                                 </div>
                                 <div id="fecha_alquiler" >
                                     <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
-                                    <input required value="{{$expediente->detalleInmueble->fecha_venc_alquiler}}" type="date" name="fecha_vencimiento_alquiler" class="form-control" id="fechaVencimiento" />
+                                    <input value="{{$expediente->detalleInmueble->fecha_venc_alquiler}}" type="date" name="fecha_vencimiento_alquiler" class="form-control" id="fechaVencimiento" />
                                 </div>
                             </div>
                             {{-- BOTON PARA CARGAR EL PDF DE LA SOLICITUD --}}
