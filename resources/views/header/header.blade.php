@@ -14,6 +14,9 @@
         @vite(['resources/css/app.css', 'resources/scss/app.scss', 'resources/js/app.js'])
     </head>
     <body>
-        @include('header.nabvar')
+        
+        <div class="container">
+            @include('header.nabvar')
+                <div class="row">
         
    
