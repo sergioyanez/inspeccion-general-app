@@ -12,7 +12,7 @@
                     </svg>
                 </div>
             @endauth
-            <div>
+            <div class="colorFooter">
                 <p class="pt-2 textoFooter ">Copyright © 2023 | <a class="textoFooter" target="_blank" href="http://www.rauch.mun.gba.gov.ar/web/">Municipalidad de Rauch</a></p>
             </div>
         </footer>

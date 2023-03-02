@@ -55,7 +55,7 @@ Route::controller(PaginaPrincipalController::class)->group(function(){
 
 // RUTA PAGINA DE BUSQUEDA DE EXPEDIENTES
 Route::controller(BusquedaExpedienteController::class)->group(function(){
-    Route::get('busqueda_expediente','index')->name('busqueda_expediente');
+    Route::get('busqueda-expediente','index')->name('busqueda-expediente');
 });
 
 // RUTA DE USUARIO
