@@ -1,40 +1,38 @@
+@include('header.header') 
 
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-        <title>Crear Usuario</title>
-    </head>
-    <body>
-        <h4>Administrar usuarios</h4>
-        <div class="card">
-            <div class="table-responsive text-nowrap">
-                <a href="{{route('usuarios-crear')}}" class="btn btn-primary">Crear nuevo usuario</a>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>USUARIO</th>
-                            <th>TIPO PERMISO</th>
-                            <th>ACCIONES</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                        @foreach($usuarios as $usuario)
+<div class="container">
+    
+    <h4 class="my-5">Administrar usuarios</h4>
+
+        <a class="btn btn-violet mb-4" href="{{route('usuarios-crear')}}">+Agregar usuario</a>
+        
+        <div class="table-responsive text-nowrap">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>USUARIO</th>
+                        <th>TIPO PERMISO</th>
+                        <th>EDITAR</th>
+                        <th>ELIMINAR</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @foreach($usuarios as $usuario)
+                        @if($usuario->id != Auth::user()->id)
                             <tr>
                                 <td>{{$usuario->usuario}}</td>
                                 <td>{{$usuario->tipoPermiso->tipo}}</td>
-                                <td><a href="{{route('usuarios-mostrar', $usuario->id)}}">Editar</a>
-                                <a href="{{route('usuarios-eliminar', $usuario->id)}}">Eliminar</a>
-                                </td>
+                                <td><a class="btn btn-info" href="{{route('usuarios-editar', $usuario->id)}}">Editar </a></td>
+                                <td><button  class="btn btn-danger btnsDelete" value="{{$usuario->id}}">Eliminar</button></td>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                        @endif
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-            <a href="{{route('pagina_principal')}}" class="btn btn-secondary">Volver</a>
-    </body>
-</html>
+        <div class="col-12 d-flex justify-content-end">
+            <a href="{{route('pagina-principal')}}" class="mt-4 me-5 btn btn-secondary btn-salir">Volver</a>
+        </div>
+        
+</div>
+@include('footer.footer')
