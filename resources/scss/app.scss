@@ -160,7 +160,7 @@ a:visited {
     color: var(--color-light);
 }
 
-.btn-danger{
+.btn-danger {
     background-color: var(--color-danger);
     color: var(--color-light);
 }
@@ -178,6 +178,26 @@ a:visited {
 
 ///////////////////***fin colores de botones***//////////////////////////////
 
-.btn-volver{
+.btn-volver {
     width: 150px;
+}
+
+///////////////////////Inputs de búsqueda///////////////////////////////////
+.inputBusqueda {
+    width: 526px;
+    height: 86px;
+    background-color: var(--color-input);
+    border-color: white;
+}
+
+.formBusqueda {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.btnBuscar {
+    background-image: url("../../public/img/lupa.jpg");
+    width: 50px;
+    height: 50px;
+    border-color: white;
 }
