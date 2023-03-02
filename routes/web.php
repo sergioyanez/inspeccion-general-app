@@ -41,7 +41,7 @@ Route::get('/', function () {
 
 // RUTA PAGINA PRINCIPAL
 Route::controller(PaginaPrincipalController::class)->group(function(){
-    Route::get('pagina_principal','index')->name('pagina_principal');
+    Route::get('pagina-principal','index')->middleware('auth')->name('pagina-principal');
 });
 
 // RUTA PAGINA DE BUSQUEDA DE EXPEDIENTES
