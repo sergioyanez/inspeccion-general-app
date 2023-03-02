@@ -23,8 +23,8 @@ class LogsTipoInmuebleController extends Controller {
         $logs_tipo_inmueble->tipo_inmueble_id = $tipo_inmueble->id;
         $logs_tipo_inmueble->descripcion = $tipo_inmueble->descripcion;
         $logs_tipo_inmueble->accion = $char;
-        $logs_tipo_inmueble->usuario_id = $user->id; 
-        $logs_tipo_inmueble->usuario_nombre = $user->usuario; 
+        //$logs_tipo_permiso->usuario_id = $user->id; -> PORBAR CON USUARIO
+        //$logs_tipo_permiso->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
 
         $logs_tipo_inmueble->save();
 

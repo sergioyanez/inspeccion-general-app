@@ -260,3 +260,16 @@ Route::controller(TipoPermisoController::class)->group(function(){
     Route::post('tipoPermiso/actualizar','update')->name('tiposPermisos-actualizar');
     Route::get('tipoPermiso/eliminar/{id}','destroy')->name('tiposPermisos-eliminar');
 });
+
+
+
+
+
+
+
+
+
+
+
+
+

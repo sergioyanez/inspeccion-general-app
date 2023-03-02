@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('pdf_solicitud');
             $table->longText('bienes_de_uso')->nullable();
             $table->longText('observaciones_grales')->nullable();
-            $table->unsignedBigInteger('detalle_habilitacion_id')->unique();
+            $table->unsignedBigInteger('detalle_habilitacion_id')->unique()->nullable();
             $table->unsignedBigInteger('detalle_inmueble_id')->unique();
 
            $table ->foreign('catastro_id')->references('id')->on('catastros')->onDelete('set null');

@@ -22,6 +22,11 @@ class Contribuyente extends Model
     //Relacion muchos a muchos
     public function expedientes(){
         return $this->belongsToMany('App/Models/Expediente','expediente_contribuyente','contribuyente_id','expediente_id');
-       }
+    }
+
+    //Relacion uno a muchos un contribuyente tiene muchos expedientesContribuyentes.
+    public function expedientesContribuyentes(){
+        return $this->hasMany('App\Models\ExpedienteContribuyente');
+    }
 
 }

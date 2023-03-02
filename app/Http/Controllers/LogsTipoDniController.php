@@ -11,7 +11,17 @@ use App\Http\Requests\Updatelogs_tipo_dniRequest;
 class LogsTipoDniController extends Controller {
 
     /**
-     * creating a new resource.
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -23,14 +33,12 @@ class LogsTipoDniController extends Controller {
         $logs_tipo_dni->tipo_dni_id = $tipo_dni->id;
         $logs_tipo_dni->descripcion = $tipo_dni->descripcion;
         $logs_tipo_dni->accion = $char;
-        $logs_tipo_dni->usuario_id = $user->id;
-        $logs_tipo_dni->usuario_nombre = $user->usuario;
+        //$logs_tipo_dni->usuario_id = $user->id;
+        //$logs_tipo_dni->usuario_nombre = $user->usuario;
 
         $logs_tipo_dni->save();
 
 
         return 'guardado';
     }
-
-    
 }

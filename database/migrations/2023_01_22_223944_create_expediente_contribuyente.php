@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('expediente_contribuyente', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('expediente_id');
-            $table->unsignedBigInteger('contribuyente_id');
 
-            $table ->foreign('expediente_id')->references('id')->on('expedientes');
-            $table ->foreign('contribuyente_id')->references('id')->on('contribuyentes');
-            
+            $table->unsignedBigInteger('expediente_id')->nullable();
+            $table ->foreign('expediente_id')->references('id')->on('expedientes')->onDelete('set null');
+
+            $table->unsignedBigInteger('contribuyente_id')->nullable();
+            $table ->foreign('contribuyente_id')->references('id')->on('contribuyentes')->onDelete('set null');
+
 
             $table->timestamps();
         });

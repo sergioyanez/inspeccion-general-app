@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contribuyente;
+use App\Models\Expediente;
 use App\Models\Tipo_dni;
 use App\Models\Estado_civil;
+use App\Models\Tipo_inmueble;
+use App\Models\Tipo_estado;
+use App\Models\Tipo_habilitacion;
+use Illuminate\Http\Request;
 use App\Http\Controllers\LogsContribuyenteController;
 use App\Http\Requests\StoreContribuyenteRequest;
 use App\Http\Requests\UpdateContribuyenteRequest;
+use App\Models\ExpedienteContribuyente;
+use App\Models\ExpedientePersonaJuridica;
+
 
 class ContribuyenteController extends Controller
 {
@@ -20,6 +28,28 @@ class ContribuyenteController extends Controller
         return view('contribuyente.contribuyentes', ['contribuyentes' => $contribuyentes]);
     }
 
+    public function indexBuscar(Request $request)
+    {
+        $tiposEstados = Tipo_estado::all();
+        $tiposhabilitaciones = Tipo_habilitacion::all();
+        $tiposInmuebles = Tipo_inmueble::all();
+        $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $expedientesContribuyentes= ExpedienteContribuyente::all();
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
+        $buscar = $request->buscarpor;
+        $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
+        ->where('dni', 'LIKE', '%' . $buscar . '%')
+        // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
+        ->paginate(200);
+        return view('expediente.crear', ['contribuyentes' => $contribuyentes,
+                                        'expediente'=>$expediente,
+                                        'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
+                                        'expedientesContribuyentes'=>$expedientesContribuyentes,
+                                        'tiposInmuebles' => $tiposInmuebles,
+                                        'tiposEstados' => $tiposEstados,
+                                        'tiposhabilitaciones' => $tiposhabilitaciones]);
+    }
+
     /**
      * Muestra un formulario para crear un contribuyente
      */
@@ -27,7 +57,35 @@ class ContribuyenteController extends Controller
     {
         $estadosCivil = Estado_civil::all();
         $tiposDni = Tipo_dni::all();
-        return view('contribuyente.crear', ['estados'=>$estadosCivil, 'tipos'=>$tiposDni]);
+        $expediente = false;
+        $tiposInmuebles = Tipo_inmueble::all();
+        return view('contribuyente.crear', ['estados'=>$estadosCivil, 
+                                            'tipos'=>$tiposDni, 
+                                            'expediente'=>$expediente,
+                                            'tiposInmuebles' => $tiposInmuebles]);
+    }
+
+    /**
+     * Muestra un formulario para crear un contribuyente en el expediente
+     */
+    public function createEnExpediente()
+    {
+        $tiposhabilitaciones = Tipo_habilitacion::all();
+        $tiposEstados = Tipo_estado::all();
+        $tiposInmuebles = Tipo_inmueble::all();
+        $estadosCivil = Estado_civil::all();
+        $tiposDni = Tipo_dni::all();
+        $expedientesContribuyentes= ExpedienteContribuyente::all();
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
+        $expediente = true;
+        return view('contribuyente.crear', ['estados'=>$estadosCivil, 
+                                            'tipos'=>$tiposDni,
+                                            'expediente'=>$expediente,
+                                            'tiposInmuebles' => $tiposInmuebles,
+                                            'tiposEstados' => $tiposEstados,
+                                            'tiposhabilitaciones' => $tiposhabilitaciones,
+                                            'expedientesContribuyentes'=>$expedientesContribuyentes,
+                                            'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas]);
     }
 
     /**
@@ -53,7 +111,26 @@ class ContribuyenteController extends Controller
         if($contribuyente->save()){
             $log = new LogsContribuyenteController();
             $log->store($contribuyente, 'c');
-            return redirect()->route('contribuyentes');
+            //if(!$request->expediente){
+            //    return redirect()->route('contribuyentes');
+            //}
+            //else{
+                $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+                $expedientesContribuyentes= ExpedienteContribuyente::all();
+                $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
+                $contribuyentes=Contribuyente::all();
+                $tiposInmuebles = Tipo_inmueble::all();
+                $tiposEstados = Tipo_estado::all();
+                $tiposhabilitaciones = Tipo_habilitacion::all();
+                return view('expediente.crear', ['contribuyentes' => $contribuyentes,
+                            'expediente'=>$expediente,
+                            'expedientesContribuyentes'=>$expedientesContribuyentes,
+                            'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
+                            'tiposInmuebles' => $tiposInmuebles,
+                            'tiposEstados' => $tiposEstados,
+                            'tiposhabilitaciones' => $tiposhabilitaciones]);
+            //}
+
         }
         return back()->with('fail','No se pudo crear el contribuyente');
     }
@@ -77,8 +154,6 @@ class ContribuyenteController extends Controller
      */
     public function update(UpdateContribuyenteRequest $request)
     {
-        $log = new LogsContribuyenteController();
-
         $contribuyente = contribuyente::find($request->contribuyente_id);
         $contribuyente->tipo_dni_id = $request->tipo_dni_id;
         $contribuyente->estado_civil_id = $request->estado_civil_id;

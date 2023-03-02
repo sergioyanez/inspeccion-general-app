@@ -33,22 +33,41 @@ class DetalleHabilitacionController extends Controller
      * Método que crea un nuevo detalle de habilitación
      * @param  \App\Http\Requests\StoreDetalle_habilitacionRequest  $request
      */
-    public function store(StoreDetalle_habilitacionRequest $request) {
+    // public function store(StoreDetalle_habilitacionRequest $request) {
+
+    //     $detalleHabilitacion = new Detalle_habilitacion();
+    //     $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
+    //     $detalleHabilitacion->tipo_estado_id = $request->tipo_estado_id;
+    //     $detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
+    //     $detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
+    //     $detalleHabilitacion->pdf_certificado_habilitacion = $request->pdf_certificado_habilitacion;
+
+    //     if($detalleHabilitacion->save()){
+    //         $log = new LogsDetalleHabilitacionController();
+    //         $log->store($detalleHabilitacion, 'c');
+    //         return redirect()->route('detallesHabilitaciones');
+    //     }
+    //     return back()->with('fail','No se pudo crear el detalle de habilitación');
+    // }
+
+    public function store($tipo_estado_id) {
 
         $detalleHabilitacion = new Detalle_habilitacion();
-        $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
-        $detalleHabilitacion->tipo_estado_id = $request->tipo_estado_id;
-        $detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
-        $detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
-        $detalleHabilitacion->pdf_certificado_habilitacion = $request->pdf_certificado_habilitacion;
+        //$detalleHabilitacion->tipo_habilitacion_id = $tipo_habilitacion_id;
+        $detalleHabilitacion->tipo_estado_id = $tipo_estado_id;
+        //$detalleHabilitacion->fecha_vencimiento = $fecha_vencimiento;
+        //$detalleHabilitacion->fecha_primer_habilitacion = $fecha_primer_habilitacion;
+        //$detalleHabilitacion->pdf_certificado_habilitacion = $pdf_certificado_habilitacion;
 
         if($detalleHabilitacion->save()){
             $log = new LogsDetalleHabilitacionController();
             $log->store($detalleHabilitacion, 'c');
-            return redirect()->route('detallesHabilitaciones');
+            return $detalleHabilitacion->id;
         }
         return back()->with('fail','No se pudo crear el detalle de habilitación');
     }
+
+    
 
     /**
      * Método que retorna un detalle de habilitación

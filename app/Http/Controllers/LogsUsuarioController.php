@@ -15,7 +15,7 @@ class LogsUsuarioController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store($usuario, $char) {
-        
+
         $log_usuario = new logs_usuario();
         $user = auth()->user();
 
@@ -25,8 +25,8 @@ class LogsUsuarioController extends Controller {
         $log_usuario->email = $usuario->email;
         $log_usuario->password = $usuario->password;
         $log_usuario->accion = $char;
-        $log_usuario->usuario_id = $user->id; 
-        $log_usuario->usuario_nombre = $user->usuario; 
+        //$logs_usuario->usuario_id = $user->id;
+        //$logs_usuario->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
 
         $log_usuario->save();
     }

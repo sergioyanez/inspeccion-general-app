@@ -40,16 +40,30 @@ class InmuebleController extends Controller
      * @param  \App\Models\Inmueble  $inmueble
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreInmuebleRequest $request)
+    // public function store(StoreInmuebleRequest $request)
+    // {
+    //     $inmueble = new Inmueble();
+    //     $inmueble->calle = $request->calle;
+    //     $inmueble->numero = $request->numero;
+
+    //     if ($inmueble->save()){
+    //         $log = new LogsInmuebleController();
+    //         $log->store($inmueble, 'c');
+    //         return redirect()->route('inmuebles');
+    //     }
+    //     return back()->with('fail','No se pudo cargar el inmueble');
+    // }
+
+    public function store($calle, $numero)
     {
         $inmueble = new Inmueble();
-        $inmueble->calle = $request->calle;
-        $inmueble->numero = $request->numero;
+        $inmueble->calle = $calle;
+        $inmueble->numero = $numero;
 
         if ($inmueble->save()){
             $log = new LogsInmuebleController();
             $log->store($inmueble, 'c');
-            return redirect()->route('inmuebles');
+            return $inmueble->id;
         }
         return back()->with('fail','No se pudo cargar el inmueble');
     }
@@ -71,17 +85,33 @@ class InmuebleController extends Controller
      *
      * @param  \App\Http\Requests\UpdateInmuebleRequest  $request
      */
-    public function update(UpdateInmuebleRequest $request)
+    // public function update(UpdateInmuebleRequest $request)
+    // {
+
+    //     $inmueble = Inmueble::find($request->id);
+    //     $inmueble->calle = $request->calle;
+    //     $inmueble->numero = $request->numero;
+
+    //     if($inmueble->save()){
+    //         $log = new LogsInmuebleController();
+    //         $log->store($inmueble, 'u');
+    //         return redirect()->route('inmuebles');
+    //     }
+
+    //     return back()->with('fail','No se pudo editar el inmueble');
+    // }
+
+    public function update($in)
     {
 
-        $inmueble = Inmueble::find($request->id);
-        $inmueble->calle = $request->calle;
-        $inmueble->numero = $request->numero;
+        $inmueble = Inmueble::find($in->id);
+        $inmueble->calle = $in->calle;
+        $inmueble->numero = $in->numero;
 
         if($inmueble->save()){
             $log = new LogsInmuebleController();
             $log->store($inmueble, 'u');
-            return redirect()->route('inmuebles');
+            //return redirect()->route('inmuebles');
         }
 
         return back()->with('fail','No se pudo editar el inmueble');
@@ -106,3 +136,5 @@ class InmuebleController extends Controller
         return back()->with('fail','No se pudo eliminar el inmueble');
     }
 }
+
+

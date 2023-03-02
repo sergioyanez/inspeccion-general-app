@@ -18,8 +18,8 @@ return new class extends Migration
             $table->bigInteger('tipo_dependencia_id');
             $table->string('nombre');
             $table->char('accion',1);
-            $table->bigInteger('usuario_id');
-            $table->string('usuario_nombre');
+            // $table->bigInteger('usuario_id');
+            // $table->string('usuario_nombre');
             $table->timestamps();
         });
     }

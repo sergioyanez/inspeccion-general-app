@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Persona_juridica;
+use App\Models\Expediente;
+use App\Models\ExpedientePersonaJuridica;
+use App\Models\ExpedienteContribuyente;
+use App\Models\Tipo_inmueble;
+use App\Models\Tipo_estado;
+use App\Models\Tipo_habilitacion;
 use App\Http\Requests\StorePersona_juridicaRequest;
 use App\Http\Requests\UpdatePersona_juridicaRequest;
 use App\Http\Controllers\LogsPersonaJuridicaController;
+use Illuminate\Http\Request;
 
 class PersonaJuridicaController extends Controller {
 
@@ -15,7 +22,29 @@ class PersonaJuridicaController extends Controller {
      */
     public function index()
     {
-        return "index persona juridica";
+        $personasJuridicas = Persona_juridica::all();
+        return view('personaJuridica.personasJuridicas', ['personasJuridicas' => $personasJuridicas]);
+    }
+
+    public function indexBuscar(Request $request)
+    {
+        $tiposEstados = Tipo_estado::all();
+        $tiposhabilitaciones = Tipo_habilitacion::all();
+        $tiposInmuebles = Tipo_inmueble::all();
+        $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $expedientesContribuyentes= ExpedienteContribuyente::all();
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
+        $buscar = $request->buscarpor1;
+        $personasJuridicas = Persona_juridica::orderBy('dni_representante', 'asc')
+        ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
+        ->paginate(200);
+        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,
+                                        'expediente'=>$expediente,
+                                        'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
+                                        'expedientesContribuyentes'=>$expedientesContribuyentes,
+                                        'tiposInmuebles' => $tiposInmuebles,
+                                        'tiposEstados' => $tiposEstados,
+                                        'tiposhabilitaciones' => $tiposhabilitaciones]);
     }
 
     /**
@@ -25,7 +54,14 @@ class PersonaJuridicaController extends Controller {
      */
     public function create()
     {
-        return "create persona juridica";
+        $expediente = false;
+        return view('personaJuridica.crear', ['expediente' => $expediente]);
+    }
+
+    public function createEnExpediente()
+    {
+        $expediente = true;
+        return view('personaJuridica.crear', ['expediente'=>$expediente]);
     }
 
     /**
@@ -45,7 +81,26 @@ class PersonaJuridicaController extends Controller {
         if($personaJuridica->save()){
             $log = new LogsPersonaJuridicaController();
             $log->store($personaJuridica, 'c');
-            return redirect()->route('personasJuridicas');
+            //if(!$request->expediente){
+            //    return redirect()->route('personasJuridicas');
+            //}
+            //else{
+                $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+                $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
+                $expedientesContribuyentes= ExpedienteContribuyente::all();
+                $personasJuridicas=Persona_juridica::all();
+                $tiposInmuebles = Tipo_inmueble::all();
+                $tiposEstados = Tipo_estado::all();
+                $tiposhabilitaciones = Tipo_habilitacion::all();
+                return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,
+                                                'expediente'=>$expediente,
+                                                'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
+                                                'expedientesContribuyentes'=>$expedientesContribuyentes,
+                                                'tiposInmuebles' => $tiposInmuebles,
+                                                'tiposEstados' => $tiposEstados,
+                                                'tiposhabilitaciones' => $tiposhabilitaciones]);
+            //}
+
         }
         return back()->with('fail','No se pudo cargar persona jurídica');
     }
@@ -63,7 +118,7 @@ class PersonaJuridicaController extends Controller {
     /**
      * Método para editar una persona jurídica
      * @param  \App\Http\Requests\UpdatePersona_juridicaRequest  $request
-     * 
+     *
      */
     public function update(UpdatePersona_juridicaRequest $request) {
 

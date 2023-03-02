@@ -75,6 +75,10 @@ class TipoHabilitacionController extends Controller
         return back()->with('fail','No se pudo guardar el tipo de habilitacion');
     }
 
+
+
+
+
     /**
      * Eliminar un tipo de habilitacion
      * @param int $id
