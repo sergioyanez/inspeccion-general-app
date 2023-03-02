@@ -22,9 +22,9 @@ return new class extends Migration
             $table->unsignedBigInteger('tipo_estado_id')->nullable();
             $table->foreign('tipo_estado_id')->references('id')->on('tipos_estados')->onDelete('set null');
 
-            $table->date('fecha_vencimiento');
-            $table->date('fecha_primer_habilitacion');
-            $table->string('pdf_certificado_habilitacion');
+            $table->date('fecha_vencimiento')->nullable();
+            $table->date('fecha_primer_habilitacion')->nullable();
+            $table->string('pdf_certificado_habilitacion')->nullable();
 
             $table->timestamps();
         });

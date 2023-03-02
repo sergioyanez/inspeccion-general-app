@@ -21,15 +21,15 @@ return new class extends Migration
             $table->string('nro_comercio');
             $table->string('actividad_ppal');
             $table->string('anexo')->nullable();
-            $table->string('pdf_solicitud');
+            $table->string('pdf_solicitud')->nullable();
             $table->longText('bienes_de_uso')->nullable();
             $table->string('observaciones_grales')->nullable();
-            $table->bigInteger('detalle_de_habilitacion_id');
-            $table->bigInteger('estado_baja_id');
-            $table->bigInteger('detalle_inmueble_id');
+            $table->bigInteger('detalle_de_habilitacion_id')->nullable();
+            $table->bigInteger('estado_baja_id')->nullable();
+            $table->bigInteger('detalle_inmueble_id')->nullable();
             $table->char('accion',1);
-            $table->bigInteger('usuario_id');
-            $table->string('usuario_nombre');
+            // $table->bigInteger('usuario_id');
+            // $table->string('usuario_nombre');
             $table->timestamps();
         });
     }

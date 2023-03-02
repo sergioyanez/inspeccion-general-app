@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\expediente_persona_juridica;
+use App\Models\ExpedientePersonaJuridica;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Storeexpediente_persona_juridicaRequest;
 use App\Http\Requests\Updateexpediente_persona_juridicaRequest;
+use Illuminate\Http\Request;
 
 class ExpedientePersonaJuridicaController extends Controller
 {
@@ -35,9 +36,18 @@ class ExpedientePersonaJuridicaController extends Controller
      * @param  \App\Http\Requests\Storeexpediente_persona_juridicaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Storeexpediente_persona_juridicaRequest $request)
+    public function store(Request $request)
     {
-        return "store expediente persona juridica";
+        $expedientePersonaJuridica = new ExpedientePersonaJuridica();
+        $expedientePersonaJuridica->persona_juridica_id = $request->persona_juridica_id;
+        $expedientePersonaJuridica->expediente_id = $request->idExpSiguiente;
+
+        if($expedientePersonaJuridica->save()) {
+            return redirect()->route('expedientes-crear');
+        }
+
+        return back()->with('fail','No se pudo crear el expediente-persona juridica');
+
     }
 
     /**
@@ -46,7 +56,7 @@ class ExpedientePersonaJuridicaController extends Controller
      * @param  \App\Models\expediente_persona_juridica  $expediente_persona_juridica
      * @return \Illuminate\Http\Response
      */
-    public function show(expediente_persona_juridica $expediente_persona_juridica)
+    public function show(ExpedientePersonaJuridica $expediente_persona_juridica)
     {
         //
     }
@@ -57,7 +67,7 @@ class ExpedientePersonaJuridicaController extends Controller
      * @param  \App\Models\expediente_persona_juridica  $expediente_persona_juridica
      * @return \Illuminate\Http\Response
      */
-    public function edit(expediente_persona_juridica $expediente_persona_juridica)
+    public function edit(ExpedientePersonaJuridica $expediente_persona_juridica)
     {
         //
     }
@@ -66,22 +76,30 @@ class ExpedientePersonaJuridicaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\Updateexpediente_persona_juridicaRequest  $request
-     * @param  \App\Models\expediente_persona_juridica  $expediente_persona_juridica
-     * @return \Illuminate\Http\Response
      */
-    public function update(Updateexpediente_persona_juridicaRequest $request, expediente_persona_juridica $expediente_persona_juridica)
+    public function update(Updateexpediente_persona_juridicaRequest $request)
     {
-        //
+        $expedientePersonaJuridica = new ExpedientePersonaJuridica();
+        $expedientePersonaJuridica->expediente_id = $request->expediente_id;
+        $expedientePersonaJuridica->contribuyente_id = $request->persona_juridica_id;
+
+        if($expedientePersonaJuridica->save()){
+            return redirect()->route('expedientesPersonasJuridicas');
+        }
+        return back()->with('fail','No se pudo actualizar el expedientePersonaJuridica');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\expediente_persona_juridica  $expediente_persona_juridica
-     * @return \Illuminate\Http\Response
+     * @param  $id
      */
-    public function destroy(expediente_persona_juridica $expediente_persona_juridica)
+    public function destroy($id)
     {
-        //
+        $expedientePersonaJuridica = ExpedientePersonaJuridica::find($id);
+        if($expedientePersonaJuridica->delete()){
+            return redirect()->route('expedientes-crear');
+        }
+        return back()->with('fail','No se pudo crear el detalle de habilitación');
     }
 }

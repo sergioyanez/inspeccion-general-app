@@ -24,13 +24,13 @@ return new class extends Migration
             $table->string('apellido',50);
             $table->bigInteger('dni');
             $table->date('fecha_nacimiento');
-            $table->bigInteger('telefono')->null;
+            $table->bigInteger('telefono')->nullable();
             $table->string('nombre_conyuge',50)->nullable();
             $table->string('apellido_conyuge',50)->nullable();
             $table->bigInteger('dni_conyuge')->nullable();
             $table->char('accion',1);
-            $table->bigInteger('usuario_id');
-            $table->string('usuario_nombre');
+            //$table->bigInteger('usuario_id');
+            //$table->string('usuario_nombre');
             $table->timestamps();
         });
     }

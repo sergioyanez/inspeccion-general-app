@@ -25,28 +25,37 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(TipoHabilitacionSeeder::class);
-        $this->call(TipoEstadoSeeder::class);
         $this->call(EstadoCivilSeeder::class);
         $this->call(TipoDniSeeder::class);
         $this->call(TipoDependenciaSeeder::class);
-        $this->call(TipoInmuebleSeeder::class);
-        $this->call(TipoBajaSeeder::class);
+        $this->call(TipoEstadoSeeder::class);
+        $this->call(TipoHabilitacionSeeder::class);
         $this->call(TipoPermisoSeeder::class);
-        User::factory(5)->create();
-        Inmueble::factory(10)->create();
-        Catastro::factory(10)->create();
-        Persona_juridica::factory(10)->create();
-        Detalle_inmueble::factory(10)->create();
-        Detalle_habilitacion::factory(10)->create();
-        Contribuyente::factory(10)->create();
-        Estado_baja::factory(10)->create();
+        $this->call(TipoBajaSeeder::class);
+        $this->call(TipoInmuebleSeeder::class);
+
+
+        //$this->call(TipoHabilitacionSeeder::class);
+        //$this->call(TipoEstadoSeeder::class);
+        //$this->call(EstadoCivilSeeder::class);
+        //$this->call(TipoDniSeeder::class);
+        //$this->call(TipoDependenciaSeeder::class);
+        //$this->call(TipoInmuebleSeeder::class);
+        //$this->call(TipoBajaSeeder::class);
+        //$this->call(TipoPermisoSeeder::class);
+        //User::factory(5)->create();
+        //Inmueble::factory(10)->create();
+        //Catastro::factory(10)->create();
+        //Persona_juridica::factory(10)->create();
+        //Detalle_inmueble::factory(10)->create();
+        //Detalle_habilitacion::factory(10)->create();
+        //Contribuyente::factory(10)->create();
+        //Estado_baja::factory(10)->create();
      //  $this->call(InformeDependenciasSeeder::class);
-        $this->call(ExpedienteSeeder::class);
-    //    Expediente::factory(10)->create();
-       
-        Informe_dependencias::factory(10)->create();
-        $this->call(ExpedientePersonaJuridicaSeeder::class);
-        $this->call(ExpedienteContribuyenteSeeder::class);
+        //$this->call(ExpedienteSeeder::class);
+     //   Expediente::factory(5)->create();
+        //Informe_dependencias::factory(10)->create();
+        //$this->call(ExpedientePersonaJuridicaSeeder::class);
+        //$this->call(ExpedienteContribuyenteSeeder::class);
     }
 }

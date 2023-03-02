@@ -13,7 +13,7 @@ class Updateexpediente_contribuyenteRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**

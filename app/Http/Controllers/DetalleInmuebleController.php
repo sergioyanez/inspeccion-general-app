@@ -40,17 +40,32 @@ class DetalleInmuebleController extends Controller
      *
      * @param  \App\Http\Requests\StoreDetalle_inmuebleRequest $request
      */
-    public function store(StoreDetalle_inmuebleRequest $request)
+    // public function store(StoreDetalle_inmuebleRequest $request)
+    // {
+    //     $detalleInmueble = new Detalle_inmueble();
+    //     $detalleInmueble->inmueble_id = $request->inmueble_id;
+    //     $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
+    //     $detalleInmueble->fecha_venc_alquiler = $request->fecha_venc_alquiler;
+
+    //     if ( $detalleInmueble->save()){
+    //         $log = new LogsDetalleInmuebleController();
+    //         $log->store($detalleInmueble, 'c');
+    //         return redirect()->route('detallesInmuebles');
+    //     }
+    //     return back()->with('fail','No se pudo cargar el detalle de inmueble');
+    // }
+
+    public function store($inmueble_id, $tipo_inmueble_id, $fecha_venc_alquiler)
     {
         $detalleInmueble = new Detalle_inmueble();
-        $detalleInmueble->inmueble_id = $request->inmueble_id;
-        $detalleInmueble->tipo_inmueble_id = $request->tipo_inmueble_id;
-        $detalleInmueble->fecha_venc_alquiler = $request->fecha_venc_alquiler;
+        $detalleInmueble->inmueble_id = $inmueble_id;
+        $detalleInmueble->tipo_inmueble_id = $tipo_inmueble_id;
+        $detalleInmueble->fecha_venc_alquiler = $fecha_venc_alquiler;
 
         if ( $detalleInmueble->save()){
             $log = new LogsDetalleInmuebleController();
             $log->store($detalleInmueble, 'c');
-            return redirect()->route('detallesInmuebles');
+            return $detalleInmueble->id;
         }
         return back()->with('fail','No se pudo cargar el detalle de inmueble');
     }

@@ -1,49 +1,239 @@
-<div class="row">
-    
-    <div class="col-xl-12">
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h2 class="mb-0">Creando un nuevo expediente</h2>
-            </div>
-            <div class="card-body">
-                <!--ACA PODRIA IR UN INPUT OCULTO CON EL ID DEL PROX EXPEDIENTE A GUARDAR-->
-                <form method="GET" action="{{route('contribuyentesBuscar')}}">
-                @csrf
-                    <div class="mb-3">
-                        <label>Buscar contribuyente</label>
-                        <input  type="text" name="buscarpor" class="form-control" placeholder="Nombre/Apellido"/>
-                        <input type="submit" value="Buscar">
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+        <title>Registrar expediente</title>
+        @vite(['resources/js/app.js'])
+    </head>
+    <body>
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 class="mb-0">Registrar expediente</h2>
                     </div>
-                </form>
-                <form>
-                    @csrf
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
-                        <input value="4093 -" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Nùmero de comercio</label>
-                        <input value="2 -"  type="text" name="nro_comercio" class="form-control" id="basic-default-nombreCompleto" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Actividad principal</label>
-                        <input  type="text" name="actividad_principal" class="form-control" id="basic-default-nombreCompleto" />
-                        <label class="form-label" for="basic-default-fullname">Anexo</label>
-                        <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="basic-default-fullname">Titulares personas fisicas</label>
-                        <input  type="text" name="titulares" class="form-control" id="basic-default-nombreCompleto" />
-                    </div>
-                    
-                    
+                    <div class="card-body">
+                        {{-- PRIMER PARTE DE CARGA DE EXPEDIENTE. PRIMER PAGINA DEL FIGMA --}}
+                        <form method="POST" action="{{ route('expedientes-guardar') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
+                                <input value="4093-" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto"/>
+                                <input type="submit" value="Ver PDF">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">Nùmero de comercio</label>
+                                <input value="2-"  type="text" name="nro_comercio" class="form-control" id="basic-default-nombreCompleto" />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">Actividad principal</label>
+                                <input required type="text" name="actividad_ppal" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Anexo</label>
+                                <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
+                            </div>
 
-                    
-                  
-                    <button type="submit" class="btn btn-primary">Enviar</button>
-                </form>
+                            {{-- DATOS DEL INMUEBLE --}}
+                            <div>
+                                <label class="form-label" for="basic-default-fullname">Domicilio inmueble/s</label>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Calle:</label>
+                                    <input required type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="basic-default-fullname">Nº:</label>
+                                    <input required type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-fullname">Tipo de inmueble</label>
+                                    <select required name="tipo_inmueble_id" class="form-control" id="tipo_inmueble">
+                                        <option>-- Seleccione --</option>
+                                        @foreach($tiposInmuebles as $tipo)
+                                            <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div id="fecha_alquiler" >
+                                    <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
+                                    <input type="date" name="fecha_vencimiento_alquiler" class="form-control" id="fechaVencimiento" />
+                                </div>
+                            </div>
+
+                            {{-- BOTON PARA CARGAR LA SOLICITUD --}}
+                            <div>
+                                <label class="form-label" for="basic-default-fullname">Solicitud:</label>
+                                <input required type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div>
+
+                            {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
+                            <div>
+                                <input placeholder="detalle de bienes de uso" type="text" name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto" />
+                            </div>
+                            <div>
+                                <input placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
+                            </div>
+                            
+                            {{-- HISTORIAL DE MODIFICACIONES --}}
+                            {{-- <div>
+                                <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Historial de modificaciones"/>
+                                <label class="form-label" for="basic-default-fullname">Rauch</label>
+                                <input type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
+                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
+                                <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                            </div> --}}
+
+                            {{-- DETALLE HABILITACION --}}
+                            <div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-fullname">Estado de habilitacion</label>
+                                    <select name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
+                                        @foreach($tiposEstados as $tipo)
+                                            @if ($tipo->descripcion == "En tramite")
+                                                <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                            @endif
+
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button>
+                        </form>
+
+                        {{-- BUSCAR UN CONTRIBUYENTE POR DNI --}}
+                        <form method="GET" action="{{route('contribuyentes-buscar')}}">
+                            @csrf
+                            <div class="mb-3">
+                                <label>Buscar contribuyente</label>
+                                <input  type="text" name="buscarpor" class="form-control" placeholder="Nùmero de documento" />
+                                <input  class="btn btn-primary" type="submit" value="Buscar">
+                            </div>
+                        </form>
+
+                        {{-- MUESTRA EL CONTRIBUYENTE SI LO ENCONTRO Y DA LA OPCION DE AGREGARLO AL EXPEDIENTE
+                        O SI NO LO ENCONTRO DA LA OPCION DE CREARLO --}}
+                        <div class="position-relative py-5 px-5">
+                            <form class="justify-content-center" method="POST" action="{{ route('expedientesContribuyentes-guardar') }}">
+                                @csrf
+                                @isset($contribuyentes)
+                                    @if ($contribuyentes != null and count($contribuyentes) == 1 and request('buscarpor'))
+                                    <h5 class=" text-left font-weight">Agregar al expediente el contribuyente:</h5>
+                                        @foreach ($contribuyentes as $contribuyente)
+                                            <td>{{$contribuyente->nombre}}</td>
+                                            <td>{{$contribuyente->apellido}}</td>
+                                            <td>{{$contribuyente->dni}}</td>
+                                            <input type="hidden" name="contribuyente_id" value="{{$contribuyente->id}}">
+                                            <input type="hidden" name="idExpSiguiente" value="{{$expediente->id}}">
+                                            <button  class="btn btn-primary"type="submit">Agregar</button>
+                                        @endforeach
+                                    @else
+                                        @if (request('buscarpor'))
+                                            <h4>No se encontrò el contribuyente</h4>
+                                            <a href="{{route('contribuyentes-crearEnExpediente')}}" class="btn btn-primary">Crear nuevo contribuyente para el expediente</a>
+                                        @endif
+
+                                    @endif
+                                @endisset
+                            </form>
+                        </div>
+
+                        {{-- BUSCAR UNA PERSONA JURIDICA POR DNI --}}
+                        <form method="GET" action="{{route('personasJuridicas-buscar')}}">
+                            @csrf
+                            <div class="mb-3">
+                                <label>Buscar persona jurìdica</label>
+                                <input  type="text" name="buscarpor1" class="form-control" placeholder="Nùmero de documento"/>
+                                <input  class="btn btn-primary" type="submit" value="Buscar">
+                            </div>
+                        </form>
+
+                        {{-- MUESTRA LA PERSONA JURIDICA SI LA ENCONTRO Y DA LA OPCION DE AGREGARLA AL EXPEDIENTE
+                        O SI NO LA ENCONTRO DA LA OPCION DE CREARLA --}}
+                        <div class="position-relative py-5 px-5">
+                            <form method="POST" action="{{ route('expedientesPersonasJuridicas-guardar') }}">
+                                @csrf
+                                @isset($personasJuridicas)
+                                    @if ($personasJuridicas != null and count($personasJuridicas) == 1 and request('buscarpor1'))
+                                    <h5 class=" text-left font-weight">Agregar al expediente la persona jurìdica:</h5>
+                                        @foreach ($personasJuridicas as $pj)
+                                            <td>{{$pj->nombre_representante}}</td>
+                                            <td>{{$pj->apellido_representante}}</td>
+                                            <td>{{$pj->dni_representante}}</td>
+                                            <input type="hidden" name="persona_juridica_id" value="{{$pj->id}}">
+                                            <input type="hidden" name="idExpSiguiente" value="{{$expediente->id}}">
+                                            <button class="btn btn-primary" type="submit">Agregar</button>
+                                        @endforeach
+                                    @else
+                                        @if (request('buscarpor1'))
+                                            <h4>No se encontrò la persona jurìdica</h4>
+                                            <a href="{{route('personasJuridicas-crearEnExpediente')}}" class="btn btn-primary">Crear persona jurìdica para el expediente</a>
+                                        @endif
+
+                                    @endif
+                                @endisset
+                            </form>
+                        </div>
+
+                        {{-- MUESTRA EL/LOS CONTRIBUYENTES AGREGADOS AL EXPEDIENTE --}}
+                        <h3 class=" text-center font-weight">Contribuyentes del expediente</h3>
+                        <table class="table table-warning table-hover ">
+                            <thead>
+                                <tr>
+                                    <th>NOMBRE </th>
+                                    <th>APELLIDO </th>
+                                    <th>DNI </th>
+                                    <th>ACCIÒN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($expedientesContribuyentes as $expedContrib)
+                                    @if ($expedContrib->expediente_id ==$expediente->id)
+                                        <tr>
+                                            <td>{{$expedContrib->contribuyente->nombre}}</td>
+                                            <td>{{$expedContrib->contribuyente->apellido}}</td>
+                                            <td>{{$expedContrib->contribuyente->dni}}</td>
+                                            <td><a  href="{{route('expedientesContribuyentes-eliminar', $expedContrib->id)}}"class="btn btn-danger">Eliminar</a></td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                        {{-- MUESTRA LA/LAS PERSONAS JURIDICAS AGREGADAS AL EXPEDIENTE --}}
+                        <h3 class=" text-center font-weight">Personas jurìdicas del expediente</h3>
+                        <table class="table table-success table-hover">
+                            <thead>
+                                <tr>
+                                    <th>NOMBRE</th>
+                                    <th>APELLIDO</th>
+                                    <th>DNI</th>
+                                    <th>ACCIÒN</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($expedientesPersonasJuridicas as $expedPersJurid)
+                                    @if ($expedPersJurid->expediente_id ==$expediente->id)
+                                        <tr>
+                                            <td>{{$expedPersJurid->personaJuridica->nombre_representante}}</td>
+                                            <td>{{$expedPersJurid->personaJuridica->apellido_representante}}</td>
+                                            <td>{{$expedPersJurid->personaJuridica->dni_representante}}</td>
+                                            <td><a  href="{{route('expedientesPersonasJuridicas-eliminar', $expedPersJurid->id)}}"class="btn btn-danger">Eliminar</a></td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                        
+                        @isset($expediente->id)
+                            <a href="{{route('expedientes-mostrar', $expediente->id)}}" class="btn btn-primary">Seguir con la carga del expediente</a>
+
+                        @endisset
+                        <a href="{{route('pagina_principal')}}" class="btn btn-primary">Pàgina principal</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-  
-</div>
+    </body>
+</html>

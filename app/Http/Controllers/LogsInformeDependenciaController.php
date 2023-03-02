@@ -7,16 +7,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class LogsInformeDependenciaController extends Controller {
-    
+
     /**
      * Método que crea y almacena un objeto sobre la tabla
      * logs_informes_dependencias, por cada consulta
      * realizada sobre la misma
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function store($informe_dependencia, $char) {
-        
+
         $logs_informe_dependencia = new logs_informe_dependencia();
         $user = auth()->user();
 
@@ -27,8 +27,8 @@ class LogsInformeDependenciaController extends Controller {
         $logs_informe_dependencia->fecha_informe = $informe_dependencia->fecha_informe;
         $logs_informe_dependencia->observaciones = $informe_dependencia->observaciones;
         $logs_informe_dependencia->accion = $char;
-        $logs_informe_dependencia->usuario_id = $user->id; 
-        $logs_informe_dependencia->usuario_nombre = $user->usuario; 
+        //$logs_informe_dependencia->usuario_id = $user->id; -> PORBAR CON USUARIO
+        //$logs_informe_dependencia->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
 
         return $logs_informe_dependencia->save();
     }
