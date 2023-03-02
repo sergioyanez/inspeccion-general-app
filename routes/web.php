@@ -1,10 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\PaginaPrincipal\PaginaPrincipalController;
-use GuzzleHttp\Middleware;
-
+use App\Http\Controllers\TipoDniController;
+use App\Http\Controllers\TipoEstadoController;
+use App\Http\Controllers\EstadoCivilController;
+use App\Http\Controllers\ContribuyenteController;
+use App\Http\Controllers\TipoDependenciaController;
+use App\Http\Controllers\CatastroController;
+use App\Http\Controllers\PersonaJuridicaController;
+use App\Http\Controllers\TipoPermisoController;
+use App\Http\Controllers\TipoBajaController;
+use App\Http\Controllers\TipoInmuebleController;
+use App\Http\Controllers\DetalleHabilitacionController;
+use App\Http\Controllers\InmuebleController;
+use App\Http\Controllers\TipoHabilitacionController;
+use App\Http\Controllers\DetalleInmuebleController;
+use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\EstadoBajaController;
+use App\Http\Controllers\ExpedienteController;
+use App\Http\Controllers\InformeDependenciasController;
+use App\Http\Controllers\PaginaPrincipalController;
+use App\Http\Controllers\BusquedaExpedienteController;
+use App\Http\Controllers\ExpedienteContribuyenteController;
+use App\Http\Controllers\ExpedientePersonaJuridicaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,22 +34,19 @@ use GuzzleHttp\Middleware;
 |
 */
 
-$controller_path = 'App\Http\Controllers';
 
-Route::controller(LoginController::class)->group(function(){
-    Route::get('','index')->name('login');
-    Route::post('iniciar-sesion','login')->name('iniciar-sesion');
-    Route::get('salir','logout')->name('salir');
+Route::get('/', function () {
+    return view('auth.login');
 });
 
 // RUTA PAGINA PRINCIPAL
 Route::controller(PaginaPrincipalController::class)->group(function(){
-    Route::get('pagina-principal','index')->middleware('auth')->name('pagina-principal');
+    Route::get('pagina_principal','index')->name('pagina_principal');
 });
 
 // RUTA PAGINA DE BUSQUEDA DE EXPEDIENTES
 Route::controller(BusquedaExpedienteController::class)->group(function(){
-    Route::get('busqueda-expediente','index')->name('busqueda-expediente');
+    Route::get('busqueda_expediente','index')->name('busqueda_expediente');
 });
 
 // RUTA DE USUARIO
@@ -47,28 +62,57 @@ Route::controller(UsuarioController::class)->group(function(){
 // RUTA DE EXPEDIENTE
 Route::controller(ExpedienteController::class)->group(function(){
     Route::get('expediente','index')->name('expedientes');
-    Route::get('expediente1','index')->name('expedientes1');
+    Route::get('expediente1','index1')->name('expedientes1');
     Route::get('expediente/create','create')->name('expedientes-crear');
+    Route::get('expediente/createContribuyente','createContribuyente')->name('expedientes-crearContribuyente');
     Route::post('expediente/guardar','store')->name('expedientes-guardar');
     Route::get('expediente/mostrar/{id}','show')->name('expedientes-mostrar');
+    Route::get('expediente/mostrar1/{id1}','show1')->name('expedientes-mostrar1');
+    Route::get('expediente/mostrar2/{id2}','show2')->name('expedientes-mostrar2');
     Route::post('expediente/actualizar','update')->name('expedientes-actualizar');
+    Route::post('expediente/actualizar1','update1')->name('expedientes-actualizar1');
+    Route::post('expediente/actualizar2','update2')->name('expedientes-actualizar2');
     Route::get('expediente/eliminar/{id}','destroy')->name('expedientes-eliminar');
 });
 
 // RUTA DE CONTRIBUYENTE
 Route::controller(ContribuyenteController::class)->group(function(){
     Route::get('contribuyente','index')->name('contribuyentes');
+    Route::get('contribuyenteBuscar','indexBuscar')->name('contribuyentes-buscar');
     Route::get('contribuyente/create','create')->name('contribuyentes-crear');
+    Route::get('contribuyente/create/enExpediente','createEnExpediente')->name('contribuyentes-crearEnExpediente');
     Route::post('contribuyente/guardar','store')->name('contribuyentes-guardar');
     Route::get('contribuyente/mostrar/{contribuyente_id}','show')->name('contribuyentes-mostrar');
     Route::post('contribuyente/actualizar','update')->name('contribuyentes-actualizar');
     Route::get('contribuyente/eliminar/{contribuyente_id}','destroy')->name('contribuyentes-eliminar');
 });
 
+// RUTA DE EXPEDIENTES-CONTRIBUYENTES
+Route::controller(ExpedienteContribuyenteController::class)->group(function(){
+    Route::get('expedienteContribuyente','index')->name('expedientesContribuyentes');
+    Route::get('expedienteContribuyente/create','create')->name('expedientesContribuyentes-crear');
+    Route::post('expedienteContribuyente/guardar','store')->name('expedientesContribuyentes-guardar');
+    Route::get('expedienteContribuyente/mostrar/{id}','show')->name('expedientesContribuyentes-mostrar');
+    Route::post('expedienteContribuyente/actualizar','update')->name('expedientesContribuyentes-actualizar');
+    Route::get('expedienteContribuyente/eliminar/{id}','destroy')->name('expedientesContribuyentes-eliminar');
+});
+
+// RUTAS DE EXPEDIENTE PERSONA JURIDICA
+Route::controller(ExpedientePersonaJuridicaController::class)->group(function(){
+    Route::get('expedientePersonaJuridica','index')->name('expedientesPersonasJuridicas');
+    Route::get('expedientePersonaJuridica/create','create')->name('expedientesPersonasJuridicas-crear');
+    Route::post('expedientePersonaJuridica/guardar','store')->name('expedientesPersonasJuridicas-guardar');
+    Route::get('expedientePersonaJuridica/mostrar/{id}','show')->name('expedientesPersonasJuridicas-mostrar');
+    Route::post('expedientePersonaJuridica/actualizar','update')->name('expedientesPersonasJuridicas-actualizar');
+    Route::get('expedientePersonaJuridica/eliminar/{id}','destroy')->name('expedientesPersonasJuridicas-eliminar');
+});
+
 // RUTA DE PERSONA JURIDICA
 Route::controller(PersonaJuridicaController::class)->group(function(){
     Route::get('personaJuridica','index')->name('personasJuridicas');
+    Route::get('personaJuridicaBuscar','indexBuscar')->name('personasJuridicas-buscar');
     Route::get('personaJuridica/create','create')->name('personasJuridicas-crear');
+    Route::get('personaJuridica/create/enExpediente','createEnExpediente')->name('personasJuridicas-crearEnExpediente');
     Route::post('personaJuridica/guardar','store')->name('personasJuridicas-guardar');
     Route::get('personaJuridica/mostrar/{id}','show')->name('personasJuridicas-mostrar');
     Route::post('personaJuridica/actualizar','update')->name('personasJuridicas-actualizar');
@@ -115,16 +159,6 @@ Route::controller(InformeDependenciasController::class)->group(function(){
     Route::get('informeDependencias/eliminar/{id}','destroy')->name('informe-dependencias-eliminar');
 });
 
-// RUTAS DE EXPEDIENTE CONTRIBUYENTE
-Route::controller(ExpedienteContribuyenteController::class)->group(function(){
-    Route::get('expedienteContribuyente','index')->name('expediente-contribuyente');
-    Route::get('expedienteContribuyente/create','create')->name('expediente-contribuyente-crear');
-    Route::post('expedienteContribuyente/guardar','store')->name('expediente-contribuyente-guardar');
-    Route::get('expedienteContribuyente/mostrar/{id}','show')->name('expediente-contribuyente-mostrar');
-    Route::post('expedienteContribuyente/actualizar','update')->name('expediente-contribuyente-actualizar');
-    Route::get('expedienteContribuyente/eliminar/{id}','destroy')->name('expediente-contribuyente-eliminar');
-});
-
 // RUTAS DE DETALLE HABILITACION
 Route::controller(DetalleHabilitacionController::class)->group(function(){
     Route::get('detalleHabilitacion','index')->name('detalle-habilitacion');
@@ -135,15 +169,7 @@ Route::controller(DetalleHabilitacionController::class)->group(function(){
     Route::get('detalleHabilitacion/eliminar/{id}','destroy')->name('detalle-habilitacion-eliminar');
 });
 
-// RUTAS DE EXPEDIENTE PERSONA JURIDICA
-Route::controller(ExpedientePersonaJuridicaController::class)->group(function(){
-    Route::get('expedientePersonaJuridica','index')->name('expediente-persona-juridica');
-    Route::get('expedientePersonaJuridica/create','create')->name('expediente-persona-juridica-crear');
-    Route::post('expedientePersonaJuridica/guardar','store')->name('expediente-persona-juridica-guardar');
-    Route::get('expedientePersonaJuridica/mostrar/{id}','show')->name('expediente-persona-juridica-mostrar');
-    Route::post('expedientePersonaJuridica/actualizar','update')->name('expediente-persona-juridica-actualizar');
-    Route::get('expedientePersonaJuridica/eliminar/{id}','destroy')->name('expediente-persona-juridica-eliminar');
-});
+
 
 // RUTAS DE ESTADO DE BAJA
 Route::controller(EstadoBajaController::class)->group(function(){
@@ -235,71 +261,3 @@ Route::controller(TipoPermisoController::class)->group(function(){
     Route::post('tipoPermiso/actualizar','update')->name('tiposPermisos-actualizar');
     Route::get('tipoPermiso/eliminar/{id}','destroy')->name('tiposPermisos-eliminar');
 });
-
-
-
-
-
-// RUTAS DE USUARIOS
-/*Route::get('/usuario', $controller_path . '\UsuarioController@index')->name('usuarios');
-Route::get('/usuario/crear', $controller_path . '\UsuarioController@create')->name('usuarios-crear');
-Route::post('/usuario/guardar', $controller_path . '\UsuarioController@store')->name('usuarios-guardar');
-Route::get('/usuario/mostrar/{usuario_id}', $controller_path . '\UsuarioController@show')->name('usuarios-mostrar');
-Route::post('/usuario/actualizar', $controller_path . '\UsuarioController@update')->name('usuarios-actualizar');
-Route::get('/usuario/eliminar/{usuario_id}', $controller_path . '\UsuarioController@destroy')->name('usuarios-eliminar');*/
-
-// RUTAS DE EXPEDIENTES
-/*Route::get('/expediente', $controller_path . '\ExpedienteController@index')->name('expedientes');
-Route::get('/expediente/crear', $controller_path . '\ExpedienteController@create')->name('expedientes-crear');
-Route::post('/expediente/guardar', $controller_path . '\ExpedienteController@store')->name('expedientes-guardar');
-Route::get('/expediente/mostrar/{expediente_id}', $controller_path . '\ExpedienteController@show')->name('expedientes-mostrar');
-Route::post('/expediente/actualizar', $controller_path . '\ExpedienteController@update')->name('expedientes-actualizar');
-//Route::get('/expediente/eliminar/{expediente_id}', $controller_path . '\ExpedienteController@destroy')->name('expedientes-eliminar');*/
-
-// RUTAS DE CONTRIBUYENTES
-/*Route::get('/contribuyente', $controller_path . '\ContribuyenteController@index')->name('contribuyentes');
-Route::get('/contribuyente/crear', $controller_path . '\ContribuyenteController@create')->name('contribuyentes-crear');
-Route::post('/contribuyente/guardar', $controller_path . '\ContribuyenteController@store')->name('contribuyentes-guardar');
-Route::get('/contribuyente/mostrar/{contribuyente_id}', $controller_path . '\ContribuyenteController@show')->name('contribuyentes-mostrar');
-Route::post('/contribuyente/actualizar', $controller_path . '\ContribuyenteController@update')->name('contribuyentes-actualizar');*/
-//Route::get('/contribuyente/eliminar/{contribuyente_id}', $controller_path . '\ContribuyenteController@destroy')->name('contribuyentes-eliminar');
-
-// RUTAS DE PERSONA JURIDICA
-/*Route::get('/persona_juridica/crear', $controller_path . '\PersonaJuridicaController@create')->name('persona-juridica-crear');
-Route::post('/persona_juridica/guardar', $controller_path . '\PersonaJuridicaController@store')->name('persona-juridica-guardar');*/
-
-// RUTAS DE INMUEBLES
-/*Route::get('/inmueble/crear', $controller_path . '\InmuebleController@create')->name('inmueble-crear');
-Route::post('/inmueble/guardar', $controller_path . '\InmuebleController@store')->name('inmueble-guardar');*/
-
-// RUTAS DE DETALLE INMUEBLES
-/*Route::get('/detalle_inmueble/crear', $controller_path . '\DetalleInmuebleController@create')->name('detalle-inmueble-crear');
-Route::post('/detalle_inmueble/guardar', $controller_path . '\DetalleInmuebleController@store')->name('detalle-inmueble-guardar');*/
-
-// RUTAS DE CATASTRO
-/*Route::get('/catastro/crear', $controller_path . '\CatastroController@create')->name('catastro-crear');
-Route::post('/catastro/guardar', $controller_path . '\InmuebleController@store')->name('catastro-guardar');*/
-
-// RUTAS DE INFORME DEPENDENCIAS
-/*Route::get('/informe_dependencias/crear', $controller_path . '\InformeDependenciasController@create')->name('informe-dependencias-crear');
-Route::post('/informe_dependencias/guardar', $controller_path . '\InformeDependenciasController@store')->name('informe-dependencias-guardar');*/
-
-// RUTAS DE EXPEDIENTE CONTRIBUYENTE
-/*Route::get('/expediente_contribuyente/crear', $controller_path . '\ExpedieteContribuyenteController@create')->name('expediente-contribuyente-crear');
-Route::post('/expediente_contribuyente/guardar', $controller_path . '\ExpedieteContribuyenteController@store')->name('expediente-contribuyente-guardar');*/
-
-// RUTAS DE DETALLE HABILITACION
-/*Route::get('/detalle_habilitacion/crear', $controller_path . '\DetalleHabilitacionController@create')->name('detalle-habilitacion-crear');
-Route::post('/detalle_habilitacion/guardar', $controller_path . '\DetalleHabilitacionController@store')->name('detalle-habilitacion-guardar');*/
-
-// RUTAS DE EXPEDIENTE PERSONA JURIDICA
-/*Route::get('/expediente_persona_juridica/crear', $controller_path . '\ExpedientePersonaJuridicaController@create')->name('expediente-persona-juridica-crear');
-Route::post('/expediente_persona_juridica/guardar', $controller_path . '\ExpedientePersonaJuridicaController@store')->name('expediente-persona-juridica-guardar');*/
-
-// RUTAS DE ESTADO DE BAJA
-/*Route::get('/estado_baja/crear', $controller_path . '\EstadoBajaController@create')->name('estado-baja-crear');
-Route::post('/estado_baja/guardar', $controller_path . '\EstadoBajaController@store')->name('estado-baja-guardar');*/
-
-
-
-
