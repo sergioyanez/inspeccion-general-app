@@ -201,3 +201,38 @@ a:visited {
     height: 50px;
     border-color: white;
 }
+///////////////////////Fin inputs de búsqueda///////////////////////////////////
+
+///////////////////////Resultado de búsqueda///////////////////////////////////
+.resultadoBusqueda {
+    background-color: var(--color-info);
+    color: white;
+}
+.cabecera {
+    width: 280px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 20px;
+}
+.filas {
+    width: 280px;
+    text-align: center;
+    font-weight: normal;
+    font-size: 15px;
+}
+.btnVerMas {
+    background-color: var(--color-naranja);
+    color: white;
+    font-weight: bold;
+}
+.btnVerMas:hover {
+    background-color: var(--color-naranja);
+    opacity: 50%;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+.columnaBtn {
+    border: none;
+    background-color: white;
+}
