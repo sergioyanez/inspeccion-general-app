@@ -86,6 +86,7 @@ a:visited {
 ////////////////****FOOTER****///////////////////////////////////////////////////////
 .colorFooter {
     height: 70px;
+    width: 100%;
     background-color: var(--color-muted);
 }
 
@@ -235,4 +236,47 @@ a:visited {
 .columnaBtn {
     border: none;
     background-color: white;
+}
+.btn-info {
+    background-color: var(--color-info);
+    color: var(--color-light);
+}
+
+.btn-info:hover {
+    background-color: var(--color-info);
+    opacity: 50%;
+    color: var(--color-light);
+}
+
+.btn-violet {
+    background-color: var(--color-violeta);
+    color: var(--color-light);
+}
+
+.btn-violet:hover {
+    background-color: var(--color-violeta);
+    opacity: 50%;
+    color: var(--color-light);
+}
+
+.btn-danger {
+    background-color: var(--color-danger);
+    color: var(--color-light);
+}
+
+.btn-secundary {
+    background-color: var(--color-muted);
+    color: var(--color-light);
+}
+
+.btn-secundary:hover {
+    background-color: var(--color-muted);
+    color: var(--color-light);
+    opacity: 50%;
+}
+
+///////////////////***fin colores de botones***//////////////////////////////
+
+.btn-volver {
+    width: 150px;
 }

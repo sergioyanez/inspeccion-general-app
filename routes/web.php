@@ -37,6 +37,12 @@ use GuzzleHttp\Middleware;
 */
 
 
+Route::get('/', function () {
+    return view('auth.login');
+});
+
+$controller_path = 'App\Http\Controllers';
+
 Route::controller(LoginController::class)->group(function(){
     Route::get('','index')->name('login');
     Route::post('iniciar-sesion','login')->name('iniciar-sesion');
@@ -73,7 +79,11 @@ Route::controller(ExpedienteController::class)->group(function(){
     Route::get('expediente/createContribuyente','createContribuyente')->name('expedientes-crearContribuyente');
     Route::post('expediente/guardar','store')->name('expedientes-guardar');
     Route::get('expediente/mostrar/{id}','show')->name('expedientes-mostrar');
+    Route::get('expediente/mostrar1/{id1}','show1')->name('expedientes-mostrar1');
+    Route::get('expediente/mostrar2/{id2}','show2')->name('expedientes-mostrar2');
     Route::post('expediente/actualizar','update')->name('expedientes-actualizar');
+    Route::post('expediente/actualizar1','update1')->name('expedientes-actualizar1');
+    Route::post('expediente/actualizar2','update2')->name('expedientes-actualizar2');
     Route::get('expediente/eliminar/{id}','destroy')->name('expedientes-eliminar');
 });
 
@@ -170,7 +180,6 @@ Route::controller(DetalleHabilitacionController::class)->group(function(){
     Route::post('detalleHabilitacion/actualizar','update')->name('detalle-habilitacion-actualizar');
     Route::get('detalleHabilitacion/eliminar/{id}','destroy')->name('detalle-habilitacion-eliminar');
 });
-
 
 
 // RUTAS DE ESTADO DE BAJA

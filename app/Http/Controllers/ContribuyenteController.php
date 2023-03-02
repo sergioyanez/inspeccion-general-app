@@ -92,7 +92,7 @@ class ContribuyenteController extends Controller
      * Guarda el contribuyente creado en la base de datos
      * @param  \App\Http\Requests\StoreContribuyenteRequest $request
      */
-    public function store(StoreContribuyenteRequest $request)
+    public function store(Request $request)
     {
         $contribuyente = new contribuyente();
         $contribuyente->tipo_dni_id = $request->tipo_dni_id;
@@ -149,6 +149,7 @@ class ContribuyenteController extends Controller
 
     /**
      * Guarda los datos actualizados del contribuyente
+     *
      * @param  \App\Http\Requests\UpdateContribuyenteRequest  $request
      */
     public function update(UpdateContribuyenteRequest $request)
