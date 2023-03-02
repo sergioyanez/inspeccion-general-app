@@ -7,81 +7,30 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Storelogs_tipo_dependenciaRequest;
 use App\Http\Requests\Updatelogs_tipo_dependenciaRequest;
 
-class LogsTipoDependenciaController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+class LogsTipoDependenciaController extends Controller {
+
 
     /**
-     * Show the form for creating a new resource.
+     * Crea en la tabla logs las consultas realizadas
+     * sobre la tabla tipo_dependencias
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function store($tipo_dependencia, $char){
+
+        $logs_tipo_dependencia = new logs_tipo_dependencia();
+        $user = auth()->user();
+
+        $logs_tipo_dependencia->tipo_dependencia_id = $tipo_dependencia->id;
+        $logs_tipo_dependencia->nombre = $tipo_dependencia->nombre;
+        $logs_tipo_dependencia->accion = $char;
+        $logs_tipo_dependencia->usuario_id = $user->id; 
+        $logs_tipo_dependencia->usuario_nombre = $user->usuario; 
+
+        $logs_tipo_dependencia->save();
+
+
+        return 'guardado';
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storelogs_tipo_dependenciaRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storelogs_tipo_dependenciaRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\logs_tipo_dependencia  $logs_tipo_dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function show(logs_tipo_dependencia $logs_tipo_dependencia)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\logs_tipo_dependencia  $logs_tipo_dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(logs_tipo_dependencia $logs_tipo_dependencia)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatelogs_tipo_dependenciaRequest  $request
-     * @param  \App\Models\logs_tipo_dependencia  $logs_tipo_dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatelogs_tipo_dependenciaRequest $request, logs_tipo_dependencia $logs_tipo_dependencia)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\logs_tipo_dependencia  $logs_tipo_dependencia
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(logs_tipo_dependencia $logs_tipo_dependencia)
-    {
-        //
-    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\expediete_contribuyente;
+use App\Models\expediente_contribuyente;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Storeexpediete_contribuyenteRequest;
 use App\Http\Requests\Updateexpediete_contribuyenteRequest;
@@ -26,7 +26,7 @@ class ExpedieteContribuyenteController extends Controller
      */
     public function create()
     {
-        //
+        return "create expediente contribuyente";
     }
 
     /**
@@ -37,7 +37,7 @@ class ExpedieteContribuyenteController extends Controller
      */
     public function store(Storeexpediete_contribuyenteRequest $request)
     {
-        //
+        return "store expediente contribuyente";
     }
 
     /**
@@ -46,7 +46,7 @@ class ExpedieteContribuyenteController extends Controller
      * @param  \App\Models\expediete_contribuyente  $expediete_contribuyente
      * @return \Illuminate\Http\Response
      */
-    public function show(expediete_contribuyente $expediete_contribuyente)
+    public function show(expediente_contribuyente $expediete_contribuyente)
     {
         //
     }
@@ -57,7 +57,7 @@ class ExpedieteContribuyenteController extends Controller
      * @param  \App\Models\expediete_contribuyente  $expediete_contribuyente
      * @return \Illuminate\Http\Response
      */
-    public function edit(expediete_contribuyente $expediete_contribuyente)
+    public function edit(expediente_contribuyente $expediete_contribuyente)
     {
         //
     }
@@ -69,7 +69,7 @@ class ExpedieteContribuyenteController extends Controller
      * @param  \App\Models\expediete_contribuyente  $expediete_contribuyente
      * @return \Illuminate\Http\Response
      */
-    public function update(Updateexpediete_contribuyenteRequest $request, expediete_contribuyente $expediete_contribuyente)
+    public function update(Updateexpediete_contribuyenteRequest $request, expediente_contribuyente $expediete_contribuyente)
     {
         //
     }
@@ -80,7 +80,7 @@ class ExpedieteContribuyenteController extends Controller
      * @param  \App\Models\expediete_contribuyente  $expediete_contribuyente
      * @return \Illuminate\Http\Response
      */
-    public function destroy(expediete_contribuyente $expediete_contribuyente)
+    public function destroy(expediente_contribuyente $expediete_contribuyente)
     {
         //
     }

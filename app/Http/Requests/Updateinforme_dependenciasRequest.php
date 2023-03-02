@@ -13,7 +13,7 @@ class Updateinforme_dependenciasRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class Updateinforme_dependenciasRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'tipo_dependencia_id'=>'required',
+            'pdf_informe'=>'required|string|max:255',
+            'fecha_informe'=>'required',
+            'observaciones'=>'required|string|max:255',
         ];
     }
 }

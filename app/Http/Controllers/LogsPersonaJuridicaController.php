@@ -7,81 +7,34 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Storelogs_persona_juridicaRequest;
 use App\Http\Requests\Updatelogs_persona_juridicaRequest;
 
-class LogsPersonaJuridicaController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+class LogsPersonaJuridicaController extends Controller {
 
     /**
-     * Show the form for creating a new resource.
+     * Crea en la tabla logs las consultas realizadas 
+     * sobre la tabla PersonaJuridica
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function store($persona_juridica, $char) {
+        
+        $logs_persona_juridica = new logs_persona_juridica();
+
+        $user = auth()->user();
+
+        $logs_persona_juridica->persona_juridica_id = $persona_juridica->id;
+        $logs_persona_juridica->cuit = $persona_juridica->cuit;
+        $logs_persona_juridica->nombre_representante = $persona_juridica->nombre_representante;
+        $logs_persona_juridica->apellido_representante = $persona_juridica->apellido_representante;
+        $logs_persona_juridica->dni_representante = $persona_juridica->dni_representante;
+        $logs_persona_juridica->telefono = $persona_juridica->telefono;
+        $logs_persona_juridica->accion = $char;
+        $logs_persona_juridica->usuario_id = $user->id; 
+        $logs_persona_juridica->usuario_nombre = $user->usuario; 
+
+        $logs_persona_juridica->save();
+        
+
+        return 'guardado';
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storelogs_persona_juridicaRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storelogs_persona_juridicaRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\logs_persona_juridica  $logs_persona_juridica
-     * @return \Illuminate\Http\Response
-     */
-    public function show(logs_persona_juridica $logs_persona_juridica)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\logs_persona_juridica  $logs_persona_juridica
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(logs_persona_juridica $logs_persona_juridica)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatelogs_persona_juridicaRequest  $request
-     * @param  \App\Models\logs_persona_juridica  $logs_persona_juridica
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatelogs_persona_juridicaRequest $request, logs_persona_juridica $logs_persona_juridica)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\logs_persona_juridica  $logs_persona_juridica
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(logs_persona_juridica $logs_persona_juridica)
-    {
-        //
-    }
 }

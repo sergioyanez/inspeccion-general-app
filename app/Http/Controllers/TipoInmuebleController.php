@@ -5,82 +5,83 @@ namespace App\Http\Controllers;
 use App\Models\Tipo_inmueble;
 use App\Http\Requests\StoreTipo_inmuebleRequest;
 use App\Http\Requests\UpdateTipo_inmuebleRequest;
+use App\Http\Controllers\LogsTipoInmuebleController;
 
-class TipoInmuebleController extends Controller
-{
+class TipoInmuebleController extends Controller {
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Métodos que muestra todos los tipos de inmueble existentes
      */
-    public function index()
-    {
-        //
+    public function index() {
+
+        $tiposInmuebles = Tipo_inmueble::all();
+        return view('tipoInmueble.tiposInmuebles', ['tiposInmuebles'=>$tiposInmuebles]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Muestra un formulario para crear un tipo de inmueble
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('tipoInmueble.crear');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     * Método que crea un nuevo tipo de inmueble
      * @param  \App\Http\Requests\StoreTipo_inmuebleRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(StoreTipo_inmuebleRequest $request)
-    {
-        //
+    public function store(StoreTipo_inmuebleRequest $request) {
+
+        $tipoInmueble = new Tipo_inmueble();
+        $tipoInmueble->descripcion = $request->descripcion;
+
+        if($tipoInmueble->save()){
+            $log = new LogsTipoInmuebleController();
+            $log->store($tipoInmueble, 'c');
+            return redirect()->route('tiposInmuebles');
+        }
+
+        return back()->with('fail','No se pudo cargar el tipo de inmueble');
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Tipo_inmueble  $tipo_inmueble
-     * @return \Illuminate\Http\Response
+     * Métodos que muestra un solo tipo de inmueble
+     *@param  int $id
      */
-    public function show(Tipo_inmueble $tipo_inmueble)
-    {
-        //
+    public function show($id) {
+
+        $tipoInmueble = Tipo_inmueble::find($id);
+        return view('tipoInmueble.mostrar', ['tipoInmueble'=>$tipoInmueble]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Tipo_inmueble  $tipo_inmueble
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Tipo_inmueble $tipo_inmueble)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
+     * Método que edita un tipo de inmueble determinado
      * @param  \App\Http\Requests\UpdateTipo_inmuebleRequest  $request
-     * @param  \App\Models\Tipo_inmueble  $tipo_inmueble
-     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTipo_inmuebleRequest $request, Tipo_inmueble $tipo_inmueble)
-    {
-        //
+    public function update(UpdateTipo_inmuebleRequest $request) {
+
+        $tipoInmueble = Tipo_inmueble::find($request->id);
+        $tipoInmueble->descripcion = $request->descripcion;
+
+        if($tipoInmueble->save()){
+            $log = new LogsTipoInmuebleController();
+            $log->store($tipoInmueble, 'u');
+            return redirect()->route('tiposInmuebles');
+        }
+        return back()->with('fail','No se pudo actualizar el tipo de inmueble');
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Tipo_inmueble  $tipo_inmueble
-     * @return \Illuminate\Http\Response
+     * Método que elimina un tipo de inmueble determinado
+     * @param  int $id
      */
-    public function destroy(Tipo_inmueble $tipo_inmueble)
-    {
-        //
+    public function destroy($id) {
+
+        $tipoInmueble = Tipo_inmueble::find($id);
+        if($tipoInmueble->delete()){
+            $log = new LogsTipoInmuebleController();
+            $log->store($tipoInmueble, 'd');
+            return redirect()->route('tiposInmuebles');
+        }
+        return back()->with('fail','No se pudo eliminar el tipo de inmueble');
     }
 }

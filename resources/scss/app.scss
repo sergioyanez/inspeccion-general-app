@@ -1,0 +1,166 @@
+:root {
+    --color-naranja: #f67620;
+    --color-violeta: #7a53a5;
+    --color-success: #39b525;
+    --color-info: #22aeca;
+    --color-danger: #db3737;
+    --color-light: #e5e5e5;
+    --color-muted: #888888;
+    --color-dark: #555555;
+    --color-black: #0e0d0d;
+    --color-input: #d9dcde7e;
+}
+
+body {
+    font-family: "Roboto", "Nunito", sans-serif;
+}
+
+//font-weight: normal;
+//font-weight: bold;
+
+@import "bootstrap/scss/bootstrap";
+
+.navbar > .container,
+.navbar > .container-fluid,
+.navbar > .container-sm,
+.navbar > .container-md,
+.navbar > .container-lg,
+.navbar > .container-xl,
+.navbar > .container-xxl {
+    border-bottom: 0.1px solid var(--color-muted);
+}
+
+.bg-input {
+    background-color: var(--color-input);
+    border: none;
+}
+
+.btn-login {
+    width: 100%;
+    color: whitesmoke;
+    background-color: var(--color-success);
+    border: var(--color-success);
+}
+
+.btn-login:hover {
+    background-color: var(--color-success);
+    color: var(--color-light);
+    opacity: 50%;
+}
+
+.logo {
+    height: 67px;
+    width: 67px;
+}
+
+.textoHeader {
+    font-size: 30;
+    font-weight: bolder;
+    color: var(--color-muted);
+}
+
+.textUser {
+    font-size: 20;
+    font-weight: normal;
+    color: var(--color-muted);
+}
+
+.textUser:link,
+a:visited {
+    text-decoration: none;
+}
+
+.textUser:hover {
+    color: var(--color-muted);
+    opacity: 50%;
+}
+
+.btn-secundary {
+    background-color: var(--color-muted);
+    color: var(--color-light);
+}
+.btn-secundary:hover {
+    background-color: var(--color-muted);
+    color: var(--color-light);
+    opacity: 50%;
+}
+.btn-salir {
+    width: 173.52px;
+    height: 40px;
+}
+
+////////////////****FOOTER****///////////////////////////////////////////////////////
+footer {
+    height: 70px;
+    background-color: var(--color-muted);
+}
+
+.textoFooter {
+    font-size: 17;
+    color: var(--color-light);
+}
+
+.textoFooter a:link,
+a:visited {
+    text-decoration: none;
+}
+
+.textoFooter a:hover {
+    color: var(--color-light);
+    opacity: 50%;
+}
+////////////////****FIN FOOTER****///////////////////////////////////////////////////////
+
+////////////////****INICIO BOTONES PÁGINA PRINCIPAL****//////////////////////////////////
+.btnPrincipal {
+    width: 398.81px;
+    height: 150px;
+    margin: 20px;
+    margin-left: 70px;
+    margin-right: 70px;
+    color: white;
+    border-radius: 10px;
+    font-weight: normal;
+    font-size: 30px;
+    text-align: center;
+    border: none;
+}
+
+.btnExpediente {
+    background-color: var(--color-success);
+}
+
+.btnExpediente:hover {
+    background-color: var(--color-success);
+    opacity: 50%;
+    color: var(--color-light);
+}
+
+.btnBuscar {
+    background-color: var(--color-naranja);
+}
+.btnBuscar:hover {
+    background-color: var(--color-naranja);
+    opacity: 50%;
+    color: var(--color-light);
+}
+
+.btnReportes {
+    background-color: var(--color-info);
+}
+
+.btnReportes:hover {
+    background-color: var(--color-info);
+    opacity: 50%;
+    color: var(--color-light);
+}
+
+.btnAdministracion {
+    background-color: var(--color-violeta);
+}
+
+.btnAdministracion:hover {
+    background-color: var(--color-violeta);
+    opacity: 50%;
+    color: var(--color-light);
+}

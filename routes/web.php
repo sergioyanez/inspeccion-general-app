@@ -170,7 +170,6 @@ Route::controller(DetalleHabilitacionController::class)->group(function(){
 });
 
 
-
 // RUTAS DE ESTADO DE BAJA
 Route::controller(EstadoBajaController::class)->group(function(){
     Route::get('estadoBaja','index')->name('estadosBajas');

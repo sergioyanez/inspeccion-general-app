@@ -4,84 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\logs_tipo_habilitacion;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Storelogs_tipo_habilitacionRequest;
-use App\Http\Requests\Updatelogs_tipo_habilitacionRequest;
+use Illuminate\Support\Facades\Auth;
 
 class LogsTipoHabilitacionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function store($tipo_habilitacion, $char)
     {
-        //
+        $logs_tipo_habilitacion = new logs_tipo_habilitacion();
+
+        $user= Auth::user();
+
+        $logs_tipo_habilitacion->tipo_habilitacion_id = $tipo_habilitacion->id;
+        $logs_tipo_habilitacion->descripcion = $tipo_habilitacion->descripcion;
+        $logs_tipo_habilitacion->plazo_vencimiento = $tipo_habilitacion->plazo_vencimiento;
+        $logs_tipo_habilitacion->accion = $char;
+        $logs_tipo_habilitacion->usuario_id = $user->id; 
+        $logs_tipo_habilitacion->usuario_nombre = $user->usuario;
+
+        return $logs_tipo_habilitacion->save();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\Storelogs_tipo_habilitacionRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Storelogs_tipo_habilitacionRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\logs_tipo_habilitacion  $logs_tipo_habilitacion
-     * @return \Illuminate\Http\Response
-     */
-    public function show(logs_tipo_habilitacion $logs_tipo_habilitacion)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\logs_tipo_habilitacion  $logs_tipo_habilitacion
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(logs_tipo_habilitacion $logs_tipo_habilitacion)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\Updatelogs_tipo_habilitacionRequest  $request
-     * @param  \App\Models\logs_tipo_habilitacion  $logs_tipo_habilitacion
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Updatelogs_tipo_habilitacionRequest $request, logs_tipo_habilitacion $logs_tipo_habilitacion)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\logs_tipo_habilitacion  $logs_tipo_habilitacion
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(logs_tipo_habilitacion $logs_tipo_habilitacion)
-    {
-        //
-    }
 }

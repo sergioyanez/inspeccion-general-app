@@ -16,7 +16,7 @@ class ExpedienteController extends Controller
      */
     public function index()
     {
-        //
+        return "index expediente";
     }
 
     /**
@@ -26,7 +26,7 @@ class ExpedienteController extends Controller
      */
     public function create()
     {
-        //
+        return "create expediente";
     }
 
     /**
@@ -37,7 +37,7 @@ class ExpedienteController extends Controller
      */
     public function store(StoreexpedienteRequest $request)
     {
-        //
+        return "store expediente";
     }
 
     /**
@@ -48,7 +48,7 @@ class ExpedienteController extends Controller
      */
     public function show(expediente $expediente)
     {
-        //
+        return "show expediente";
     }
 
     /**
@@ -59,7 +59,7 @@ class ExpedienteController extends Controller
      */
     public function edit(expediente $expediente)
     {
-        //
+        return "edit expediente";
     }
 
     /**
@@ -71,7 +71,7 @@ class ExpedienteController extends Controller
      */
     public function update(UpdateexpedienteRequest $request, expediente $expediente)
     {
-        //
+        return "update expediente";
     }
 
     /**
@@ -82,6 +82,6 @@ class ExpedienteController extends Controller
      */
     public function destroy(expediente $expediente)
     {
-        //
+        return "destroy expediente";
     }
 }

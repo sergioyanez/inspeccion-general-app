@@ -6,7 +6,6 @@ use App\Models\Contribuyente;
 use App\Models\Tipo_dni;
 use App\Models\Estado_civil;
 use App\Http\Controllers\LogsContribuyenteController;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreContribuyenteRequest;
 use App\Http\Requests\UpdateContribuyenteRequest;
 
@@ -14,8 +13,6 @@ class ContribuyenteController extends Controller
 {
     /**
      * Muesta todos los contribuyentes
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -25,8 +22,6 @@ class ContribuyenteController extends Controller
 
     /**
      * Muestra un formulario para crear un contribuyente
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -37,14 +32,10 @@ class ContribuyenteController extends Controller
 
     /**
      * Guarda el contribuyente creado en la base de datos
-     *
-     * @param  \App\Http\Requests\Request $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\StoreContribuyenteRequest $request
      */
     public function store(Request $request)
     {
-        $log = new LogsContribuyenteController();
-
         $contribuyente = new contribuyente();
         $contribuyente->tipo_dni_id = $request->tipo_dni_id;
         $contribuyente->estado_civil_id = $request->estado_civil_id;
@@ -59,18 +50,17 @@ class ContribuyenteController extends Controller
         $contribuyente->apellido_conyuge = $request->apellido_conyuge;
         $contribuyente->dni_conyuge = $request->dni_conyuge;
 
-        $contribuyente->save();
-
-        $log->store($contribuyente, 'c');
-
-        return redirect()->route('contribuyentes');
+        if($contribuyente->save()){
+            $log = new LogsContribuyenteController();
+            $log->store($contribuyente, 'c');
+            return redirect()->route('contribuyentes');
+        }
+        return back()->with('fail','No se pudo crear el contribuyente');
     }
 
     /**
      * Muesta un contribuyente en un formulario con todos los campos cargados
-     *
-     * @param  \App\Models\Contribuyente  $contribuyente
-     * @return \Illuminate\Http\Response
+     * @param  int $id
      */
     public function show($id)
     {
@@ -84,10 +74,8 @@ class ContribuyenteController extends Controller
      * Guarda los datos actualizados del contribuyente
      *
      * @param  \App\Http\Requests\UpdateContribuyenteRequest  $request
-     * @param  \App\Models\Contribuyente  $contribuyente
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateContribuyenteRequest $request)
     {
         $log = new LogsContribuyenteController();
 
@@ -105,30 +93,26 @@ class ContribuyenteController extends Controller
         $contribuyente->apellido_conyuge = $request->apellido_conyuge;
         $contribuyente->dni_conyuge = $request->dni_conyuge;
 
-        $contribuyente->save();
-
-        $log->store($contribuyente, 'u');
-
-        return redirect()->route('contribuyentes');
+        if($contribuyente->save()){
+            $log = new LogsContribuyenteController();
+            $log->store($contribuyente, 'u');
+            return redirect()->route('contribuyentes');
+        }
+        return back()->with('fail','No se pudo editar el contribuyente');
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Contribuyente  $contribuyente
-     * @return \Illuminate\Http\Response
+     * @param  int $id
      */
     public function destroy($id)
     {
-        $log = new LogsContribuyenteController();
-
         $contribuyente = Contribuyente::find($id);
-        $contribuyente->delete();
-
-        $log->store($contribuyente, 'd');
-
-        return redirect()->route('contribuyentes');
-
-        
+        if($contribuyente->delete()){
+            $log = new LogsContribuyenteController();
+            $log->store($contribuyente, 'd');
+            return redirect()->route('contribuyentes');
+        }
+        return back()->with('fail','No se pudo eliminar el contribuyente');
     }
 }
