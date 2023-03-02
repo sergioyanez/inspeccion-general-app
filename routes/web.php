@@ -40,6 +40,14 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+$controller_path = 'App\Http\Controllers';
+
+Route::controller(LoginController::class)->group(function(){
+    Route::get('','index')->name('login');
+    Route::post('iniciar-sesion','login')->name('iniciar-sesion');
+    Route::get('salir','logout')->name('salir');
+});
+
 // RUTA PAGINA PRINCIPAL
 Route::controller(PaginaPrincipalController::class)->group(function(){
     Route::get('pagina-principal','index')->middleware('auth')->name('pagina-principal');
