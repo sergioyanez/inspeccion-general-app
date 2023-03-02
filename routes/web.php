@@ -23,6 +23,7 @@ use App\Http\Controllers\PaginaPrincipalController;
 use App\Http\Controllers\BusquedaExpedienteController;
 use App\Http\Controllers\ExpedienteContribuyenteController;
 use App\Http\Controllers\ExpedientePersonaJuridicaController;
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
