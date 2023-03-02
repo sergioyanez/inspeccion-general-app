@@ -55,6 +55,8 @@ Route::controller(UsuarioController::class)->group(function(){
     Route::get('usuario/create','create')->name('usuarios-crear');
     Route::post('usuario/guardar','store')->name('usuarios-guardar');
     Route::get('usuario/mostrar/{id}','show')->name('usuarios-mostrar');
+    Route::get('usuario/editar/{id}','edit')->name('usuarios-editar');
+    Route::post('usuario/actualizar-perfil','updateFace')->name('usuarios-actualizar-perfil');
     Route::post('usuario/actualizar','update')->name('usuarios-actualizar');
     Route::get('usuario/eliminar/{id}','destroy')->name('usuarios-eliminar');
 });
