@@ -23,6 +23,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->char('accion',1);
+            $table->bigInteger('usuario_id');//id del usuario que realiza la modificación
+            $table->string('usuario_nombre');//nombre del usuario que realiza la modificación
             $table->timestamps();
         });
     }
