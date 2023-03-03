@@ -78,9 +78,9 @@ if (divModal) {
 }
 
 if (!divModal) {
-    const ExistmodalPerfil = document.getElementById("ExistmodalPerfil");
+    const existmodalPerfil = document.getElementById("ExistmodalPerfil");
 
-    if (ExistmodalPerfil && modalperfil) {
+    if (existmodalPerfil && modalperfil) {
         const modalperfil = document.getElementById("modalperfil");
         const myModalPerfil = new bootstrap.Modal(modalperfil);
         if (myModalPerfil) {
