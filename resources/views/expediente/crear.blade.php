@@ -230,7 +230,7 @@
                             <a href="{{route('expedientes-mostrar', $expediente->id)}}" class="btn btn-primary">Seguir con la carga del expediente</a>
 
                         @endisset
-                        <a href="{{route('pagina_principal')}}" class="btn btn-primary">Pàgina principal</a>
+                        <a href="{{route('pagina-principal')}}" class="btn btn-primary">Pàgina principal</a>
                     </div>
                 </div>
             </div>

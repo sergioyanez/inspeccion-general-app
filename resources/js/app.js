@@ -79,3 +79,4 @@ function alertSuccess(mensaje) {
         timer: 1500,
     });
 }
+

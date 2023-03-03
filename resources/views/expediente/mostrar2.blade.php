@@ -81,6 +81,84 @@
                                 </div>
                             </div>
 
+                            {{-- ESTADO DE BAJA --}}
+                            <div>
+                                <label class="form-label" for="basic-default-fullname">Estado de baja</label>
+                                {{-- <input value="{{ $expediente-> }}" type="text" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" /> --}}
+                                <input type="text" name="estado_baja" class="form-control" id="basic-default-nombreCompleto" />
+
+                                <select required name="tipo_baja_id" class="form-control" id="tipo_baja">
+                                    <option>-- Seleccione --</option>
+                                    @foreach($tiposBajas as $tipo)
+                                        <option value="{{$tipo->id}}" >{{$tipo->descripcion}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div id="provisoria">
+                                @if($expediente->estadoBaja)
+                                    <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
+                                    <input value="{{$expediente->estadoBaja->deuda}}" type="text" name="deuda" class="form-control" />
+                                @else
+                                    <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
+                                    <input type="text" name="deuda" class="form-control" />
+                                @endif
+
+                                <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                @if ($expediente->estadoBaja)
+                                    <input value="{{$expediente->estadoBaja->fecha_baja}}" type="date" name="fecha_baja" class="form-control" id="fechaVencimiento" />
+                                @else
+                                    <input type="date" name="fecha_baja" class="form-control" id="fechaVencimiento" />
+                                @endif
+
+                                <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
+                                @if ($expediente->estadoBaja)
+                                    <p name="acta_baja">Acta de solicitud de baja: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p>
+                                @else
+                                    <input type="file" name="pdf_acta_solicitud_baja" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                @endif
+
+                                <label class="form-label" for="basic-default-fullname">Informe de deuda</label>
+                                @if ($expediente->estadoBaja)
+                                    <p name="informe_deuda">Informe de deuda: {{$expediente->estadoBaja->pdf_acta_solicitud_baja}}</p>
+                                @else
+                                    <input type="file" name="pdf_informe_deuda" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                @endif
+
+                            </div>
+                            <div id="permanente">
+                                <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                @if ($expediente->estadoBaja)
+                                    <input value="{{$expediente->estadoBaja->fecha_baja}}" type="date" name="fecha_baja" class="form-control" id="fechaVencimiento" />
+                                @else
+                                    <input type="date" name="fecha_baja" class="form-control" id="fechaVencimiento" />
+                                @endif
+
+                                <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
+                                @if ($expediente->estadoBaja)
+                                    <p name="acta_baja">Acta de solicitud de baja: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p>
+                                @else
+                                    <input type="file" name="pdf_acta_solicitud_baja" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                @endif
+                            </div>
+                            
+                                {{-- <select required name="tipo_inmueble_id" class="form-control" id="tipo_inmueble">
+                                    <option>-- Seleccione --</option>
+                                    @foreach($tiposInmuebles as $tipo)
+                                        
+                                        <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleInmueble->tipoInmueble->id) selected @endif>{{$tipo->descripcion}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div id="fecha_alquiler" >
+                                <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
+                                <input value="{{$expediente->detalleInmueble->fecha_venc_alquiler}}" type="date" name="fecha_vencimiento_alquiler" class="form-control" id="fechaVencimiento" />
+                            </div> --}}
+                            
+                            
+                            
+                            
+                            
+
                             <button type="submit" class="btn btn-primary">Finalizar</button>
                         </form>
                         <a href="{{route('expedientes-mostrar1', $expediente->id)}}" class="btn btn-primary">Volver</a>

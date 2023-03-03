@@ -17,7 +17,7 @@ use App\Models\Estado_baja;
 use App\Models\Tipo_estado;
 use App\Models\Tipo_habilitacion;
 use App\Models\Informe_dependencias;
-
+use App\Models\Tipo_baja;
 
 use App\Http\Controllers\LogsExpedienteController;
 use App\Http\Controllers\LogsDetalleInmuebleController;
@@ -308,7 +308,7 @@ class ExpedienteController extends Controller
 
     public function show2($id)
     {
-        //$infoDependencias = new Informe_dependencias();
+        $tiposBajas = Tipo_baja::all();
         $expediente = Expediente::find($id);
         $catastro = Catastro::all();
         $detalleHabilitaciones = Detalle_habilitacion::all();
@@ -331,7 +331,8 @@ class ExpedienteController extends Controller
                                         'tiposInmuebles' => $tiposInmuebles,
                                         'informesDependencias' => $informesDependencias,
                                         'contribuyentes' => $contribuyentes,
-                                        'personasJuridicas' => $personasJuridicas]);
+                                        'personasJuridicas' => $personasJuridicas,
+                                        'tiposBajas' => $tiposBajas]);
     }
 
 
@@ -1422,7 +1423,7 @@ class ExpedienteController extends Controller
             }
 
             //return redirect()->route('expedientes');
-            return redirect()->route('pagina_principal');
+            return redirect()->route('pagina-principal');
         }
         return back()->with('fail','No se pudo crear el expediente');
     }
