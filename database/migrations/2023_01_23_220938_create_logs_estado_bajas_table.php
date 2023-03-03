@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('logs_estados_bajas', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('estado_baja_id');
-            $table->bigInteger('tipo_baja_id')->nullable();
-            $table->float('deuda');
+            $table->bigInteger('tipo_baja_id');
+            $table->float('deuda')->nullable();
             $table->date('fecha_baja');
-            $table->string('pdf_acta_solicitud_baja');
-            $table->string('pdf_informe_deuda');
-            $table->string('pdf_solicitud_baja');
+            $table->string('pdf_acta_solicitud_baja')->nullable();
+            $table->string('pdf_informe_deuda')->nullable();
+            $table->string('pdf_solicitud_baja')->nullable();
             $table->char('accion',1);
             // $table->bigInteger('usuario_id');
             // $table->string('usuario_nombre');
