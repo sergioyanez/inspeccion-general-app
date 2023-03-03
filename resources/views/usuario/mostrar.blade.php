@@ -33,7 +33,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-company">Correo electrònico</label>
-                                <input type="text" name="email" class="form-control" id="basic-default-correo" value="{{$usuario->email}}" />
+                                <input type="email" name="email" class="form-control" id="basic-default-correo" value="{{$usuario->email}}" />
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-company">Contraseña vieja</label>

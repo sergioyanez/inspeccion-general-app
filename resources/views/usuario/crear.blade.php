@@ -20,7 +20,7 @@
 
                     <div class="mb-3">
                         <label class="form-label" >Correo electrónico</label>
-                        <input type="text" name="email" @if(isset($usuario)) value="{{$usuario->email}}" @else value="{{ old('email') }}" @endif class="form-control @error('email') is-invalid @enderror" />
+                        <input type="email" name="email" @if(isset($usuario)) value="{{$usuario->email}}" @else value="{{ old('email') }}" @endif class="form-control @error('email') is-invalid @enderror" />
                         @error('email')
                         <div class="invalid-feedback">
                             {{$message}}
