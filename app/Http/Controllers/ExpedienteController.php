@@ -1100,7 +1100,7 @@ class ExpedienteController extends Controller
         if($request->estado_baja_id != null) {
             $estadoBaja = Estado_baja::find($request->estado_baja_id);
             // PROVISORIA
-            if( $request->tipo_baja_id ===1){
+            if( $request->tipo_baja_id ==1){
 
                 $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
                 $estadoBaja->deuda = $request->deuda;
