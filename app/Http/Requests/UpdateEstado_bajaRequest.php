@@ -23,13 +23,13 @@ class UpdateEstado_bajaRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'tipo_baja_id'=>'required',
-            'deuda'=>'required',
-            'fecha_baja'=>'required',
-            'pdf_acta_solicitud_baja'=>'required|string|max:255',
-            'pdf_informe_deuda'=>'required|string|max:255',
-            'pdf_solicitud_baja'=>'required|string|max:255',
-        ];
+        // return [
+        //     'tipo_baja_id'=>'required',
+        //     'deuda'=>'required',
+        //     'fecha_baja'=>'required',
+        //     'pdf_acta_solicitud_baja'=>'required|string|max:255',
+        //     'pdf_informe_deuda'=>'required|string|max:255',
+        //     'pdf_solicitud_baja'=>'required|string|max:255',
+        // ];
     }
 }

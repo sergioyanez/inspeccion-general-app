@@ -126,7 +126,7 @@ class ExpedienteController extends Controller
      * @param  \App\Http\Requests\StoreexpedienteRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreexpedienteRequest $request) 
+    public function store(StoreexpedienteRequest $request)
     {
         // SE CREA INMUEBLE
         $inmueble = new InmuebleController();
@@ -135,11 +135,11 @@ class ExpedienteController extends Controller
         // SE CREA DETALLE INMUEBLE
         $detalleInmueble = new DetalleInmuebleController();
         $detalleInmueble_id = $detalleInmueble->store($inmueble_id, $request->tipo_inmueble_id, $request->fecha_vencimiento_alquiler);
-        
+
         // SE CREA DETALLE DE HABILITACION
         $detalleHabilitacion = new DetalleHabilitacionController();
         $detalleHabilitacion_id = $detalleHabilitacion->store($request->estado_habilitacion_id);
-        
+
         // SE CREA EXPEDIENTE
         $expediente = new Expediente();
         $expediente->nro_expediente = $request->nro_expediente;     //hecho
@@ -266,7 +266,7 @@ class ExpedienteController extends Controller
         $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
         $contribuyentes = ExpedienteContribuyente::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
         $personasJuridicas = ExpedientePersonaJuridica::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
-        
+
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
@@ -295,7 +295,7 @@ class ExpedienteController extends Controller
         $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
         $contribuyentes = ExpedienteContribuyente::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
         $personasJuridicas = ExpedientePersonaJuridica::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
-        
+
         return view('expediente.mostrar1', ['expediente'=>$expediente,
                                         'catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
@@ -323,7 +323,7 @@ class ExpedienteController extends Controller
         $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
         $contribuyentes = ExpedienteContribuyente::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
         $personasJuridicas = ExpedientePersonaJuridica::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
-        
+
         return view('expediente.mostrar2', ['expediente'=>$expediente,
                                         'catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
@@ -362,7 +362,7 @@ class ExpedienteController extends Controller
             $inmueble->numero = $request->numero;
             $inmueble->save();
         }
-        
+
         // SE ACTUALIZA DETALLE INMUEBLE
         $detalleInmueble = Detalle_inmueble::find($request->detalle_inmueble_id);
         $detalleInmueble->inmueble_id = $request->inmueble_id;
@@ -377,9 +377,9 @@ class ExpedienteController extends Controller
             } else {
                 $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
                 $detalleInmueble->save();
-            }   
-        } 
-            
+            }
+        }
+
         // SE CREA/ACTUALIZA CATASTRO
         // if($request->catastro_id != null) {
         //     $catastro = Catastro::find($request->catastro_id);
@@ -462,7 +462,7 @@ class ExpedienteController extends Controller
         $expediente->actividad_ppal = $request->actividad_ppal;
         $expediente->anexo = $request->anexo;
         $expediente->detalle_inmueble_id = $detalleInmueble->id;
-        if($request->hasFile('pdf_solicitud_nueva')) {                    
+        if($request->hasFile('pdf_solicitud_nueva')) {
             $archivo1 = $request->file('pdf_solicitud_nueva');
             $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
             $expediente->pdf_solicitud = $archivo1->getClientOriginalName();
@@ -554,7 +554,7 @@ class ExpedienteController extends Controller
             //         $log7->store($infomeDependencias, 'u');
             //     }
             // }
-            
+
             // BROMATOLOGÌA
             // if($request->bromatologia_id != null) {
             //     $infomeDependencias = Informe_dependencias::find($request->bromatologia_id);
@@ -578,7 +578,7 @@ class ExpedienteController extends Controller
             //         $log8->store($infomeDependencias, 'u');
             //     }
             // }
-            
+
             // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
             // if($request->inspeccion_id != null) {
             //     $infomeDependencias = Informe_dependencias::find($request->inspeccion_id);
@@ -602,7 +602,7 @@ class ExpedienteController extends Controller
             //         $log9->store($infomeDependencias, 'u');
             //     }
             // }
-            
+
             // JUZGADO DE FALTAS
             // if($request->juzgado_id != null) {
             //     $infomeDependencias = Informe_dependencias::find($request->juzgado_id);
@@ -626,7 +626,7 @@ class ExpedienteController extends Controller
             //         $log10->store($infomeDependencias, 'u');
             //     }
             // }
-            
+
             // BOMBEROS DE POLICÌA DE BUENOS AIRES
             // if($request->bomberos_id != null) {
             //     $infomeDependencias = Informe_dependencias::find($request->bomberos_id);
@@ -650,7 +650,7 @@ class ExpedienteController extends Controller
             //         $log11->store($infomeDependencias, 'u');
             //     }
             // }
-            
+
             // INSPECCIÒN GENERAL
             // if($request->inspeccion_general_id != null) {
             //     $infomeDependencias = Informe_dependencias::find($request->inspeccion_general_id);
@@ -674,7 +674,7 @@ class ExpedienteController extends Controller
             //         $log12->store($infomeDependencias, 'u');
             //     }
             // }
-            
+
             // REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS
             // if($request->deudores_alimentarios_id != null) {
             //     $infomeDependencias = Informe_dependencias::find($request->deudores_alimentarios_id);
@@ -701,7 +701,7 @@ class ExpedienteController extends Controller
 
             //return redirect()->route('expedientes');
             return redirect()->route('expedientes-mostrar1', [$expediente->id]);
-            
+
         }
         return back()->with('fail','No se pudo crear el expediente');
     }
@@ -729,7 +729,7 @@ class ExpedienteController extends Controller
         //     $inmueble->numero = $request->numero;
         //     $inmueble->save();
         // }
-        
+
         // SE ACTUALIZA DETALLE INMUEBLE
         // $detalleInmueble = Detalle_inmueble::find($request->detalle_inmueble_id);
         // $detalleInmueble->inmueble_id = $request->inmueble_id;
@@ -744,9 +744,9 @@ class ExpedienteController extends Controller
         //     } else {
         //         $detalleInmueble->fecha_venc_alquiler = $request->fecha_vencimiento_alquiler;
         //         $detalleInmueble->save();
-        //     }   
-        // } 
-            
+        //     }
+        // }
+
         // SE CREA/ACTUALIZA CATASTRO
         if($request->catastro_id != null) {
             $catastro = Catastro::find($request->catastro_id);
@@ -829,7 +829,7 @@ class ExpedienteController extends Controller
         //$expediente->actividad_ppal = $request->actividad_ppal;
         //$expediente->anexo = $request->anexo;
         //$expediente->detalle_inmueble_id = $detalleInmueble->id;
-        //if($request->hasFile('pdf_solicitud_nueva')) {                    
+        //if($request->hasFile('pdf_solicitud_nueva')) {
         //    $archivo1 = $request->file('pdf_solicitud_nueva');
         //    $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
         //    $expediente->pdf_solicitud = $archivo1->getClientOriginalName();
@@ -921,7 +921,7 @@ class ExpedienteController extends Controller
                     $log7->store($infomeDependencias, 'u');
                 }
             }
-            
+
             // BROMATOLOGÌA
             if($request->bromatologia_id != null) {
                 $infomeDependencias = Informe_dependencias::find($request->bromatologia_id);
@@ -945,7 +945,7 @@ class ExpedienteController extends Controller
                     $log8->store($infomeDependencias, 'u');
                 }
             }
-            
+
             // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
             if($request->inspeccion_id != null) {
                 $infomeDependencias = Informe_dependencias::find($request->inspeccion_id);
@@ -969,7 +969,7 @@ class ExpedienteController extends Controller
                     $log9->store($infomeDependencias, 'u');
                 }
             }
-            
+
             // JUZGADO DE FALTAS
             if($request->juzgado_id != null) {
                 $infomeDependencias = Informe_dependencias::find($request->juzgado_id);
@@ -993,7 +993,7 @@ class ExpedienteController extends Controller
                     $log10->store($infomeDependencias, 'u');
                 }
             }
-            
+
             // BOMBEROS DE POLICÌA DE BUENOS AIRES
             if($request->bomberos_id != null) {
                 $infomeDependencias = Informe_dependencias::find($request->bomberos_id);
@@ -1017,7 +1017,7 @@ class ExpedienteController extends Controller
                     $log11->store($infomeDependencias, 'u');
                 }
             }
-            
+
             // INSPECCIÒN GENERAL
             if($request->inspeccion_general_id != null) {
                 $infomeDependencias = Informe_dependencias::find($request->inspeccion_general_id);
@@ -1041,7 +1041,7 @@ class ExpedienteController extends Controller
                     $log12->store($infomeDependencias, 'u');
                 }
             }
-            
+
             // REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS
             if($request->deudores_alimentarios_id != null) {
                 $infomeDependencias = Informe_dependencias::find($request->deudores_alimentarios_id);
@@ -1074,7 +1074,7 @@ class ExpedienteController extends Controller
 
     public function update2(UpdateexpedienteRequest $request)
     {
-            
+
         // SE ACTUALIZA DETALLE DE HABILITACION
         $detalleHabilitacion = Detalle_habilitacion::find($request->detalle_habilitacion);
         if($request->tipo_habilitacion_id != "-- Seleccione --")
@@ -1099,65 +1099,94 @@ class ExpedienteController extends Controller
         // SE CREA/ACTUALIZA ESTADO DE BAJA
         if($request->estado_baja_id != null) {
             $estadoBaja = Estado_baja::find($request->estado_baja_id);
-            $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
+        //    $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
             // PROVISORIA
-            $estadoBaja->deuda = $request->deuda;
-            $estadoBaja->fecha_baja = $request->fecha_baja;
-            if($request->hasFile('acta_baja_nuevo')) {
-                $archivo2 = $request->file('acta_baja_nuevo');
-                $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
-                $estadoBaja->pdf_solicitud_baja = $archivo2->getClientOriginalName();
-            }
-            if($request->hasFile('informe_deuda_nuevo')) {
-                $archivo3 = $request->file('informe_deuda_nuevo');
-                $archivo3->move(public_path().'/archivos/', $archivo3->getClientOriginalName());
-                $estadoBaja->pdf_informe_deuda = $archivo3->getClientOriginalName();
+            if( $estadoBaja->tipo_baja_id ===1){
+                $estadoBaja->deuda = $request->deuda;
+                $estadoBaja->fecha_baja = $request->fecha_baja;
+                if($request->hasFile('acta_baja_nuevo')) {
+                    $archivo2 = $request->file('acta_baja_nuevo');
+                    $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
+                    $estadoBaja->pdf_solicitud_baja = $archivo2->getClientOriginalName();
+                }
+                if($request->hasFile('informe_deuda_nuevo')) {
+                    $archivo3 = $request->file('informe_deuda_nuevo');
+                    $archivo3->move(public_path().'/archivos/', $archivo3->getClientOriginalName());
+                    $estadoBaja->pdf_informe_deuda = $archivo3->getClientOriginalName();
+                }
+                if($estadoBaja->save()){
+                    $log = new LogsEstadoBajaController();
+                    $log->store($estadoBaja, 'u');
+                }
             }
             // PERMANENTE
-            $estadoBaja->fecha_baja = $request->fecha_baja1;
-            if($request->hasFile('acta_baja_nuevo1')) {
-                $archivo4 = $request->file('acta_baja_nuevo1');
-                $archivo4->move(public_path().'/archivos/', $archivo4->getClientOriginalName());
-                $estadoBaja->pdf_acta_solicitud_baja = $archivo4->getClientOriginalName();
+            else{
+                $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
+                $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
+                $estadoBaja->fecha_baja = $request->fecha_baja1;
+                $estadoBaja->deuda = 0;
+                $estadoBaja->pdf_informe_deuda = null;
+                $estadoBaja->pdf_solicitud_baja = null;
+                if($request->hasFile('acta_baja_nuevo1')) {
+                    $archivo4 = $request->file('acta_baja_nuevo1');
+                    $archivo4->move(public_path().'/archivos/', $archivo4->getClientOriginalName());
+                    $estadoBaja->pdf_acta_solicitud_baja = $archivo4->getClientOriginalName();
+                }
+                if($estadoBaja->save()){
+                    $log6 = new LogsEstadoBajaController();
+                    $log6->store($estadoBaja, 'u');
+                }
             }
-            if($estadoBaja->save()){
-                $log6 = new LogsEstadoBajaController();
-                $log6->store($estadoBaja, 'u');
-            }
+
         }
         else {
-            $estadoBaja = new Estado_baja();
-            $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
-            $estadoBaja->deuda = $request->deuda;
-            $estadoBaja->fecha_baja = $request->fecha_baja;
-            if($request->hasFile('acta_baja')) {
-                $archivo5 = $request->file('acta_baja');
-                $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
-                $estadoBaja->pdf_solicitud_baja = $archivo5->getClientOriginalName();
+            if($request->fecha_baja){
+                $estadoBaja = new Estado_baja();
+                $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
+                $estadoBaja->deuda = $request->deuda;
+                $estadoBaja->fecha_baja = $request->fecha_baja;
+                if($request->hasFile('acta_baja')) {
+                    $archivo5 = $request->file('acta_baja');
+                    $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
+                    $estadoBaja->pdf_solicitud_baja = $archivo5->getClientOriginalName();
+                }
+                if($request->hasFile('pdf_informe_deuda')) {
+                    $archivo6 = $request->file('pdf_informe_deuda');
+                    $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
+                    $estadoBaja->pdf_informe_deuda = $archivo6->getClientOriginalName();
+                }
+                if($estadoBaja->save()){
+                    $log5 = new LogsEstadoBajaController();
+                    $log5->store($estadoBaja, 'c');
+                }
             }
-            if($request->hasFile('pdf_informe_deuda')) {
-                $archivo6 = $request->file('pdf_informe_deuda');
-                $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
-                $estadoBaja->pdf_informe_deuda = $archivo6->getClientOriginalName();
-            }
-            //$estadoBaja->fecha_baja = $request->fecha_baja1;
-            // if($request->hasFile('acta_baja1')) {
-            //     $archivo7 = $request->file('acta_baja1');
-            //     $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
-            //     $estadoBaja->pdf_acta_solicitud_baja = $archivo7->getClientOriginalName();
-            // }
-            if($estadoBaja->save()){
-                $log5 = new LogsEstadoBajaController();
-                $log5->store($estadoBaja, 'c');
+            if($request->fecha_baja1){
+                $estadoBaja = new Estado_baja();
+                $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
+                $estadoBaja->fecha_baja = $request->fecha_baja1;
+                $estadoBaja->pdf_solicitud_baja = null;
+                $estadoBaja->pdf_informe_deuda = null;
+                if($request->hasFile('acta_baja1')) {
+                    $archivo7 = $request->file('acta_baja1');
+                    $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
+                    $estadoBaja->pdf_acta_solicitud_baja = $archivo7->getClientOriginalName();
+                }
+                if($estadoBaja->save()){
+                    $log5 = new LogsEstadoBajaController();
+                    $log5->store($estadoBaja, 'c');
+                }
             }
         }
 
 
         // SE CREA/ACTUALIZA EL EXPEDIENTE
         $expediente = Expediente::find($request->expediente_id);
-        
+
         $expediente->detalle_habilitacion_id = $detalleHabilitacion->id;
-        $expediente->estado_baja_id = $estadoBaja->id;
+        if(isset($estadoBaja->id)){
+            $expediente->estado_baja_id = $estadoBaja->id;
+        }
+
 
         if ($expediente->save()){
             $log = new LogsExpedienteController();
@@ -1166,7 +1195,7 @@ class ExpedienteController extends Controller
             //return redirect()->route('expedientes');
             return redirect()->route('pagina-principal');
         }
-        
+
     }
 
 
