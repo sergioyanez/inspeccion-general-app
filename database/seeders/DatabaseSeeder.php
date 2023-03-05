@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TipoPermisoSeeder::class);
         $this->call(TipoBajaSeeder::class);
         $this->call(TipoInmuebleSeeder::class);
+        $this->call(UsuarioSeeder::class);
 
 
         //$this->call(TipoHabilitacionSeeder::class);
