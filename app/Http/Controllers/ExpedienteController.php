@@ -1104,6 +1104,7 @@ class ExpedienteController extends Controller
             if( $estadoBaja->tipo_baja_id ===1){
                 $estadoBaja->deuda = $request->deuda;
                 $estadoBaja->fecha_baja = $request->fecha_baja;
+                $estadoBaja->pdf_acta_solicitud_baja = null;
                 if($request->hasFile('acta_baja_nuevo')) {
                     $archivo2 = $request->file('acta_baja_nuevo');
                     $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
@@ -1121,7 +1122,9 @@ class ExpedienteController extends Controller
             }
             // PERMANENTE
             else{
+
                 $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
+
                 $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
                 $estadoBaja->fecha_baja = $request->fecha_baja1;
                 $estadoBaja->deuda = 0;
