@@ -1,11 +1,11 @@
-@include('header.header') 
+@include('header.header')
 
 <div class="container">
-    
+
     <h4 class="my-5">Administrar usuarios</h4>
 
         <a class="btn btn-violet mb-4" href="{{route('usuarios-crear')}}">+Agregar usuario</a>
-        
+
         <div class="table-responsive text-nowrap">
             <table class="table table-striped">
                 <thead>
@@ -23,7 +23,8 @@
                                 <td>{{$usuario->usuario}}</td>
                                 <td>{{$usuario->tipoPermiso->tipo}}</td>
                                 <td><a class="btn btn-info" href="{{route('usuarios-editar', $usuario->id)}}">Editar </a></td>
-                                <td><button  class="btn btn-danger btnsDelete" value="{{$usuario->id}}">Eliminar</button></td>
+                                <td><a class="btn btn-danger " href="{{route('usuarios-eliminar', $usuario->id)}}">Eliminar</a></td>
+                                {{-- <td><button  class="btn btn-danger btnsDelete" value="{{$usuario->id}}">Eliminar</button></td> --}}
                             </tr>
                         @endif
                     @endforeach
@@ -33,6 +34,6 @@
         <div class="col-12 d-flex justify-content-end">
             <a href="{{route('pagina-principal')}}" class="mt-4 me-5 btn btn-secondary btn-salir">Volver</a>
         </div>
-        
+
 </div>
 @include('footer.footer')
