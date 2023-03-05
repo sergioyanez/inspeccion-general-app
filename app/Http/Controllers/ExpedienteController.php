@@ -1099,11 +1099,12 @@ class ExpedienteController extends Controller
         // SE CREA/ACTUALIZA ESTADO DE BAJA
         if($request->estado_baja_id != null) {
             $estadoBaja = Estado_baja::find($request->estado_baja_id);
-        //    $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
             // PROVISORIA
-            if( $estadoBaja->tipo_baja_id ===1){
+            if( $request->tipo_baja_id ===1){
+
+                $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
                 $estadoBaja->deuda = $request->deuda;
-                $estadoBaja->fecha_baja = $request->fecha_baja;
+                $estadoBaja->fecha_baja = $request->fecha_baja_provisoria;
                 $estadoBaja->pdf_acta_solicitud_baja = null;
                 if($request->hasFile('acta_baja_nuevo')) {
                     $archivo2 = $request->file('acta_baja_nuevo');
@@ -1115,6 +1116,7 @@ class ExpedienteController extends Controller
                     $archivo3->move(public_path().'/archivos/', $archivo3->getClientOriginalName());
                     $estadoBaja->pdf_informe_deuda = $archivo3->getClientOriginalName();
                 }
+
                 if($estadoBaja->save()){
                     $log = new LogsEstadoBajaController();
                     $log->store($estadoBaja, 'u');
@@ -1122,9 +1124,6 @@ class ExpedienteController extends Controller
             }
             // PERMANENTE
             else{
-
-                $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
-
                 $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
                 $estadoBaja->fecha_baja = $request->fecha_baja1;
                 $estadoBaja->deuda = 0;

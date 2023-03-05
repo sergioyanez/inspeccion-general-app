@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
     let fechaVencimiento = document.getElementById("fechaVencimiento");
 
     let tipoBaja = document.getElementById("tipo_baja");
+    //  let tipo_baja_id = document.getElementById("tipo_baja_id");
     let bajaProvisoria = document.getElementById("provisoria");
     let fechaVencimientoProvisoria = document.getElementById("fechaVencimientoProvisoria");
     let bajaPermanente = document.getElementById("permanente");
@@ -67,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (tipoBaja) {
-        console.log(estado_baja_id.value);
+
         console.log(fechaVencimientoProvisoria.value);
         tipoBaja.addEventListener("change", function() {
             if (Number(this.value) === 1) {

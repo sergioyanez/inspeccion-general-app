@@ -85,9 +85,9 @@
                             <div>
 
                                 @if($expediente->estado_baja_id != null)
-                                {{ $expediente }}
+
                                     <input type="hidden" name="estado_baja_id" value="{{$expediente->estado_baja_id}}" id="estado_baja_id">
-                                    <input type="hidden" name="tipo_baja_id" value="{{$expediente->estadoBaja->tipoBaja->id}}">
+                                    <input type="hidden" name="tipo_baja_id" value="{{$expediente->estadoBaja->tipoBaja->id}}" id="tipo_baja_id">
                                     <label class="form-label" for="basic-default-fullname">Estado de baja</label>
                                     @if ($expediente->estadoBaja->tipoBaja->descripcion == "Provisoria")
 
@@ -103,7 +103,7 @@
                                             <input value="{{$expediente->estadoBaja->deuda}}" type="text" name="deuda" class="form-control" />
 
                                             <label class="form-label" for="basic-default-fullname">Fecha de baja:</label>
-                                            <input value="{{$expediente->estadoBaja->fecha_baja}}" type="date" name="fecha_baja" class="form-control" id="fechaVencimientoProvisoria" />
+                                            <input value="{{$expediente->estadoBaja->fecha_baja}}" type="date" name="fecha_baja_provisoria" class="form-control" id="fechaVencimientoProvisoria" />
 
                                             <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja:</label>
                                             <input name="acta_baja"  value="{{$expediente->estadoBaja->pdf_solicitud_baja}}"/>
@@ -119,22 +119,19 @@
                                             <input type="date" name="fecha_baja1" class="form-control" id="fechaVencimientoPermanente"/>
 
                                             <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
-                                            <input type="file" name="acta_baja1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
+                                            <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
                                         </div>
                                     @else
                                         @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente")
-                                            <input value="{{ $expediente->estadoBaja->tipoBaja->descripcion }}" type="text" name="estado_baja" class="form-control" id="basic-default-nombreCompleto" />
+                                            <p name="estado_baja" class="form-control">{{ $expediente->estadoBaja->tipoBaja->descripcion }}</p>
                                             <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
-                                            <input value="{{$expediente->estadoBaja->fecha_baja}}" type="date" name="fecha_baja1" class="form-control" id="fechaVencimiento" />
+                                            <p name="fecha_baja1" class="form-control" >{{$expediente->estadoBaja->fecha_baja}}</p>
                                             <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
-                                            @if ($expediente->estadoBaja->pdf_acta_solicitud_baja)
-                                                <p name="acta_baja">Acta de solicitud de baja: {{$expediente->estadoBaja->pdf_acta_solicitud_baja}}</p>
-                                            @endif
-                                            <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            <p name="acta_baja" class="form-control"> {{$expediente->estadoBaja->pdf_acta_solicitud_baja}}</p>
                                         @endif
                                     @endif
-                                @else
 
+                                @else
                                     <label class="form-label" for="basic-default-fullname">Estado de baja</label>
                                     <input type="text" name="estado_baja" class="form-control" id="basic-default-nombreCompleto" />
                                     <select required name="tipo_baja_id" class="form-control" id="tipo_baja">
