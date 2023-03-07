@@ -5,9 +5,9 @@
     Reportes
     </button>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Habilitaciones próximas a vencer</a></li>
+        <li><a class="dropdown-item" href="{{route('habilitaciones-proximas-a-vencer')}}">Habilitaciones próximas a vencer</a></li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Habilitaciones vencidas</a></li>
+        <li><a class="dropdown-item" href="{{route('habilitaciones-vencidas')}}">Habilitaciones vencidas</a></li>
     </ul>
     </div>
     @if(Auth::user()->tipo_permiso_id == 1)

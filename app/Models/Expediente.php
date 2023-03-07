@@ -26,8 +26,8 @@ class Expediente extends Model
    public function detalleInmueble(){
     return $this->belongsTo('App\Models\Detalle_inmueble');
     }
-//Relacion uno a uno
-public function detalleHabilitacion(){
+    //Relacion uno a uno
+    public function detalleHabilitacion(){
     return $this->belongsTo('App\Models\Detalle_habilitacion');
     }
 
@@ -55,5 +55,4 @@ public function detalleHabilitacion(){
     public function informesDependencias(){
         return $this->hasMany('App\Models\Informe_dependencias');
     }
-
 }
