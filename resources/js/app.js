@@ -26,25 +26,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
     //console.log(tipoBaja.value);
     cajaFechaVencimiento("none");
-    if (tipoBaja) {
-        if (tipoBaja.value === 0) {
-            cajaBajaProvisoria("block");
-        }
-    } else {
-        cajaBajaProvisoria("none");
-
-    }
-
-    if (tipoBaja) {
-        if (tipoBaja.value === 1) {
-            cajaBajaPermanente("block");
-
-        }
-    } else {
-        cajaBajaPermanente("none");
-    }
-
     cajaBajaPermanente("none");
+    cajaBajaProvisoria("none");
+
+
+
+
 
     // cajaBajaProvisoria_1("none");
     // cajaBajaPermanente_1("none");
@@ -82,6 +69,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 cajaBajaPermanente("block");
                 fechaVencimientoProvisoria.required = false;
                 fechaVencimientoPermanente.required = true;
+            }
+            if (Number(this.value) != 1 && Number(this.value) != 2) {
+                cajaBajaPermanente("none");
+                cajaBajaProvisoria("none");
+                fechaVencimientoProvisoria.required = false;
+                fechaVencimientoPermanente.required = false;
             }
         });
     }
