@@ -78,6 +78,24 @@ class ExpedienteController extends Controller
             return view('expediente.expedientes', ['expedientes' => $expedientes]);
     }
 
+    public function vencidos() {
+        $expedientes = Expediente::query()
+            ->with(['detalleHabilitacion'])
+            ->when(function ($query) {
+
+                return $query->whereHas('detalleHabilitacion', function ($c) {
+// ver aca                        $c->where('nombre', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                    }
+                );
+            })
+            ->paginate(200);
+            return view('expediente.expedientes', ['expedientes' => $expedientes]);
+    }
+
+    public function aVencer() {
+
+    }
+
     public function buscarContribEnExpediente($id)
     {
         $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
