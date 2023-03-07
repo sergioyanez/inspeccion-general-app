@@ -17,12 +17,13 @@
                         {{-- @isset($expediente->nro_expediente)
                             <h2 class="mb-0">Expediente: {{$expediente->nro_expediente}}</h2>
                         @endisset --}}
+                        
                         <div>
                             <h3>Contribuyentes del expediente {{$expediente->nro_expediente}}</h3>
                             @forelse ($contribuyentes as $item)
                                 <p>Nombre: {{ $item->contribuyente->nombre }} 
                                     Apellido: {{ $item->contribuyente->apellido }}
-                                    Dni: {{ $item->contribuyente->apellido }}</p>
+                                    Dni: {{ $item->contribuyente->dni }}</p>
                             @empty
                             @endforelse
                         </div>

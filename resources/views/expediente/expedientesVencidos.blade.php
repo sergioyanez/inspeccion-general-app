@@ -34,7 +34,15 @@
                                 -
                             @endforeach
                         </td>
-                        <td class="filas">{{$expediente->contribuyentes->telefono}}</td>
+                        @forelse ($expediente->contribuyentes as $registro)
+                            <td class="filas">{{$registro->telefono}}</td>
+                        @empty
+                        <td class="filas">{{"-"}}</td>
+                        @endforelse
+                        {{-- @if ($expediente->contribuyentes->telefono != null)
+                            <td class="filas">{{$expediente->contribuyentes->telefono}}</td>
+                        @endif --}}
+                        
                         <td class="filas">{{$expediente->observaciones_grales}}</td>
                         <td class="filas">{{$expediente->detalleHabilitacion->fecha_vencimiento}}</td>
                         <td class="filas">{{$expediente->detalleHabilitacion->tipoEstado->descripcion}}</td>

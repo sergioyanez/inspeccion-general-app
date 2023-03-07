@@ -84,25 +84,25 @@ class ExpedienteController extends Controller
             ->when(function ($query) {
 
                 return $query->whereHas('detalleHabilitacion', function ($c) {
-// ver aca                        $c->where('nombre', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                        $c->whereDate('fecha_vencimiento', '<=', now());
                     }
                 );
             })
             ->paginate(200);
-            return view('expediente.expedientes', ['expedientes' => $expedientes]);
+            return view('expediente.expedientesVencidos', ['expedientes' => $expedientes]);
     }
 
     public function aVencer() {
 
     }
 
-    public function buscarContribEnExpediente($id)
-    {
-        $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
-        $expedientesContribuyentes = ExpedienteContribuyente::orderBy('id', 'asc')
-        ->where('expediente_id', 'LIKE', '%' . $id . '%');
-        return $expedientesContribuyentes;
-    }
+    // public function buscarContribEnExpediente($id)
+    // {
+    //     $expedienteID = Expediente::select('id')->orderBy('id', 'desc')->first();
+    //     $expedientesContribuyentes = ExpedienteContribuyente::orderBy('id', 'asc')
+    //     ->where('expediente_id', 'LIKE', '%' . $id . '%');
+    //     return $expedientesContribuyentes;
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -1123,6 +1123,7 @@ class ExpedienteController extends Controller
                 $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
                 $estadoBaja->deuda = $request->deuda;
                 $estadoBaja->fecha_baja = $request->fecha_baja_provisoria;
+                //$estadoBaja->fecha_baja_definitiva = 0;
                 $estadoBaja->pdf_acta_solicitud_baja = null;
                 if($request->hasFile('acta_baja_nuevo')) {
                     $archivo2 = $request->file('acta_baja_nuevo');
@@ -1137,25 +1138,29 @@ class ExpedienteController extends Controller
 
                 if($estadoBaja->save()){
                     $log = new LogsEstadoBajaController();
-                    $log->store($estadoBaja, 'u');
+                    $log->store($estadoBaja, 'c');
                 }
             }
             // PERMANENTE
             else{
-                $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
-                $estadoBaja->fecha_baja = $request->fecha_baja1;
-                $estadoBaja->deuda = 0;
-                $estadoBaja->pdf_informe_deuda = null;
-                $estadoBaja->pdf_solicitud_baja = null;
-                if($request->hasFile('acta_baja_nuevo1')) {
-                    $archivo4 = $request->file('acta_baja_nuevo1');
-                    $archivo4->move(public_path().'/archivos/', $archivo4->getClientOriginalName());
-                    $estadoBaja->pdf_acta_solicitud_baja = $archivo4->getClientOriginalName();
-                }
-                if($estadoBaja->save()){
-                    $log6 = new LogsEstadoBajaController();
-                    $log6->store($estadoBaja, 'u');
-                }
+                //if($estadoBaja->fecha_baja_definitiva != null) {
+                    $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
+                    //$estadoBaja->fecha_baja_definitiva = $request->fecha_baja1;
+                    $estadoBaja->fecha_baja = $request->fecha_baja1;
+                    $estadoBaja->deuda = 0;
+                    $estadoBaja->pdf_informe_deuda = null;
+                    $estadoBaja->pdf_solicitud_baja = null;
+                    if($request->hasFile('acta_baja_nuevo1')) {
+                        $archivo4 = $request->file('acta_baja_nuevo1');
+                        $archivo4->move(public_path().'/archivos/', $archivo4->getClientOriginalName());
+                        $estadoBaja->pdf_acta_solicitud_baja = $archivo4->getClientOriginalName();
+                    }
+                    if($estadoBaja->save()){
+                        $log6 = new LogsEstadoBajaController();
+                        $log6->store($estadoBaja, 'u');
+                    }
+                //}
+                
             }
 
         }
