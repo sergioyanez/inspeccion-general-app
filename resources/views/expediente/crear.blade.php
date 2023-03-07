@@ -102,7 +102,7 @@
                             <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button>
                         </form>
 
-                        {{-- BUSCAR UN CONTRIBUYENTE POR DNI --}}
+                        {{-- BUSCAR UN CONTRIBUYENTE POR DNI
                         <form method="GET" action="{{route('contribuyentes-buscar')}}">
                             @csrf
                             <div class="mb-3">
