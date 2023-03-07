@@ -22,6 +22,7 @@ use App\Http\Controllers\InformeDependenciasController;
 use App\Http\Controllers\BusquedaExpedienteController;
 use App\Http\Controllers\ExpedienteContribuyenteController;
 use App\Http\Controllers\ExpedientePersonaJuridicaController;
+use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PaginaPrincipal\PaginaPrincipalController;
 use GuzzleHttp\Middleware;
@@ -57,6 +58,20 @@ Route::controller(PaginaPrincipalController::class)->group(function(){
 // RUTA PAGINA DE BUSQUEDA DE EXPEDIENTES
 Route::controller(BusquedaExpedienteController::class)->group(function(){
     Route::get('busqueda-expediente','index')->name('busqueda-expediente');
+});
+
+
+// RUTA PAGINA DE REPORTES
+Route::controller(ReportesController::class)->group(function(){
+    Route::get('habilitaciones-proximas-a-vencer','proximasVencer')->name('habilitaciones-proximas-a-vencer');
+    Route::get('habilitaciones-vencidas','vencidas')->name('habilitaciones-vencidas');
+});
+
+// RUTA PAGINA DE avisos
+Route::controller(ReportesController::class)->group(function(){
+    Route::get('avisos/{id}','index')->name('avisos');
+    Route::get('avisos/create/{id}','create')->name('avisos-crear');
+    Route::post('avisos/guardar','store')->name('avisos-guardar');
 });
 
 // RUTA DE USUARIO

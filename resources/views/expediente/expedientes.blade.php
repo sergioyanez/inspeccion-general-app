@@ -35,7 +35,7 @@
                         
                         <td class="filas">{{$expediente->detalleHabilitacion->tipoEstado->descripcion}}</td>
                         
-                        <td class="d-flex justify-content-center columnaBtn"><a href="{{route('expedientes-mostrar', $expediente->id)}}" class="btn btnVerMas">Ver más</></td>
+                        <td class="columnaBtn"><a href="{{route('expedientes-mostrar', $expediente->id)}}" class="d-flex justify-content-center btn btnVerMas">Ver más</></td>
                     </tr>
 
                 @empty

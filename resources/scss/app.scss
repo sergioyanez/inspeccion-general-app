@@ -121,6 +121,7 @@ a:visited {
 ///////////////////***colores de botones***//////////////////////////////
 .btn-success {
     background-color: var(--color-success);
+    border: var(--color-success);
 }
 
 .btn-success:hover {
@@ -131,7 +132,7 @@ a:visited {
 
 .btn-orange {
     background-color: var(--color-naranja);
-    color: var(--color-light);
+    color: white;
 }
 .btn-orange:hover {
     background-color: var(--color-naranja);
@@ -197,9 +198,9 @@ a:visited {
     justify-content: center;
 }
 .btnBuscar {
-    background-image: url("../../public/img/lupa.jpg");
-    width: 50px;
-    height: 50px;
+    background: url("../../public/img/lupa.jpg");
+    width: 54px;
+    height: 54px;
     border-color: white;
 }
 ///////////////////////Fin inputs de búsqueda///////////////////////////////////
@@ -217,6 +218,7 @@ a:visited {
 }
 .filas {
     width: 280px;
+    height: 100%;
     text-align: center;
     font-weight: normal;
     font-size: 15px;
@@ -232,47 +234,6 @@ a:visited {
     color: white;
     display: flex;
     justify-content: center;
-}
-.columnaBtn {
-    border: none;
-    background-color: white;
-}
-.btn-info {
-    background-color: var(--color-info);
-    color: var(--color-light);
-}
-
-.btn-info:hover {
-    background-color: var(--color-info);
-    opacity: 50%;
-    color: var(--color-light);
-}
-
-.btn-violet {
-    background-color: var(--color-violeta);
-    color: var(--color-light);
-}
-
-.btn-violet:hover {
-    background-color: var(--color-violeta);
-    opacity: 50%;
-    color: var(--color-light);
-}
-
-.btn-danger {
-    background-color: var(--color-danger);
-    color: var(--color-light);
-}
-
-.btn-secundary {
-    background-color: var(--color-muted);
-    color: var(--color-light);
-}
-
-.btn-secundary:hover {
-    background-color: var(--color-muted);
-    color: var(--color-light);
-    opacity: 50%;
 }
 
 ///////////////////***fin colores de botones***//////////////////////////////
