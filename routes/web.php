@@ -25,6 +25,7 @@ use App\Http\Controllers\ExpedientePersonaJuridicaController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PaginaPrincipal\PaginaPrincipalController;
+use App\Http\Controllers\AvisosController;
 use GuzzleHttp\Middleware;
 /*
 |--------------------------------------------------------------------------
@@ -63,12 +64,12 @@ Route::controller(BusquedaExpedienteController::class)->group(function(){
 
 // RUTA PAGINA DE REPORTES
 Route::controller(ReportesController::class)->group(function(){
-    Route::get('habilitaciones-proximas-a-vencer','proximasVencer')->name('habilitaciones-proximas-a-vencer');
+    Route::post('habilitaciones-proximas-a-vencer','proximasVencer')->name('habilitaciones-proximas-a-vencer');
     Route::get('habilitaciones-vencidas','vencidas')->name('habilitaciones-vencidas');
 });
 
 // RUTA PAGINA DE avisos
-Route::controller(ReportesController::class)->group(function(){
+Route::controller(AvisosController::class)->group(function(){
     Route::get('avisos/{id}','index')->name('avisos');
     Route::get('avisos/create/{id}','create')->name('avisos-crear');
     Route::post('avisos/guardar','store')->name('avisos-guardar');

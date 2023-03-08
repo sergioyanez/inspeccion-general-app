@@ -46,4 +46,9 @@ class User extends Authenticatable
     public function tipoPermiso(){
         return $this->belongsTo('App\Models\Tipo_permiso');
     }
+
+    public function avisos()
+    {
+        return $this->hasMany('App\Models\Aviso', 'avisado_por');
+    }
 }
