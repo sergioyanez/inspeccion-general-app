@@ -19,8 +19,7 @@ class UsuarioController extends Controller {
      * Muestra todos los usuarios
      */
     public function index() {
-
-        $usuario = User::all();
+        $usuario = User::where('usuario', '!=', 'tudai')->get();
         return view('usuario.usuarios', ['usuarios'=>$usuario]);
     }
 
