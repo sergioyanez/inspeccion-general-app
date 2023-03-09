@@ -63,7 +63,7 @@ Route::controller(BusquedaExpedienteController::class)->group(function(){
 
 // RUTA PAGINA DE REPORTES
 Route::controller(ReportesController::class)->group(function(){
-    Route::get('habilitaciones-proximas-a-vencer','proximasVencer')->name('habilitaciones-proximas-a-vencer');
+    Route::post('habilitaciones-proximas-a-vencer','proximasVencer')->name('habilitaciones-proximas-a-vencer');
     Route::get('habilitaciones-vencidas','vencidas')->name('habilitaciones-vencidas');
 });
 

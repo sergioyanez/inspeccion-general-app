@@ -9,10 +9,14 @@ use Carbon\Carbon;
 
 class ReportesController extends Controller
 {
-    public function proximasVencer()
+    public function proximasVencer(Request $request)
     {
-        $reportes = $this->reportesPorVencer(15);
-        return view('reportes/tablaReportes', ['reportes'=>$reportes,'vencido'=>'Activo','plazo'=>'proximas a vencer en 15 dias']);
+        $request->validate([
+            'desde' => 'required|date',
+            'hasta' => 'required|date',
+        ]);
+        $reportes = $this->reportesPorVencer($request->desde,$request->hasta);
+        return view('reportes/tablaReportes', ['reportes'=>$reportes,'vencido'=>'Activo','plazo'=>'proximas a vencer entre: '.$request->desde.' y '.$request->hasta]);
     }
 
     public function vencidas()
@@ -21,20 +25,26 @@ class ReportesController extends Controller
         return view('reportes/tablaReportes', ['reportes'=>$reportes,'vencido'=>'Vencido','plazo'=>'vencidas']);
     }
 
-    private function reportesPorVencer($plazo){
-        return Expediente::with('detalleHabilitacion','contribuyentes')
-        ->whereHas('detalleHabilitacion', function ($query) use ($plazo) {
-            $query->whereDate('fecha_vencimiento', '>=', Carbon::now())
-                ->whereDate('fecha_vencimiento', '<=', Carbon::now()->addDays($plazo));
+    private function reportesPorVencer($desde,$hasta){
+        return Expediente::with('detalleHabilitacion','contribuyentes','avisos')
+        ->whereHas('detalleHabilitacion', function ($query) use ($desde,$hasta) {
+            $query->whereDate('fecha_vencimiento', '>=', $desde)
+                ->whereDate('fecha_vencimiento', '<=', $hasta);
+        })
+        ->whereDoesntHave('estadoBaja', function ($query) {
+            $query->where('tipo_baja_id', 2);
         })
         ->get();
     }
 
 
     private function vencencidos($plazo){
-        return Expediente::with('detalleHabilitacion','contribuyentes')
+        return Expediente::with('detalleHabilitacion','contribuyentes','avisos','estadoBaja')
         ->whereHas('detalleHabilitacion', function ($query) use ($plazo) {
             $query->whereDate('fecha_vencimiento', '<=', Carbon::now()->addDays($plazo));
+        })
+        ->whereDoesntHave('estadoBaja', function ($query) {
+            $query->where('tipo_baja_id', 2);
         })
         ->get();
     }

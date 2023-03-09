@@ -55,4 +55,8 @@ class Expediente extends Model
     public function informesDependencias(){
         return $this->hasMany('App\Models\Informe_dependencias');
     }
+
+    public function avisos(){
+        return $this->hasMany('App\Models\AvisosModel');
+    }
 }
