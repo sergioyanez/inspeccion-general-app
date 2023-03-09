@@ -75,15 +75,6 @@
                                 <input placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
                             
-                            {{-- HISTORIAL DE MODIFICACIONES --}}
-                            {{-- <div>
-                                <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Historial de modificaciones"/>
-                                <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                <input type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
-                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                            </div> --}}
-
                             {{-- DETALLE HABILITACION --}}
                             <div>
                                 <div class="mb-3">
@@ -98,23 +89,22 @@
                                     </select>
                                 </div>
                             </div>
-
                             <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button>
                         </form>
 
-                        {{-- BUSCAR UN CONTRIBUYENTE POR DNI
-                        <form method="GET" action="{{route('contribuyentes-buscar')}}">
+                        {{-- BUSCAR UN CONTRIBUYENTE POR DNI --}}
+                        {{-- <form method="GET" action="{{route('contribuyentes-buscar')}}">
                             @csrf
                             <div class="mb-3">
                                 <label>Buscar contribuyente</label>
                                 <input  type="text" name="buscarpor" class="form-control" placeholder="Nùmero de documento" />
                                 <input  class="btn btn-primary" type="submit" value="Buscar">
                             </div>
-                        </form>
+                        </form> --}}
 
                         {{-- MUESTRA EL CONTRIBUYENTE SI LO ENCONTRO Y DA LA OPCION DE AGREGARLO AL EXPEDIENTE
                         O SI NO LO ENCONTRO DA LA OPCION DE CREARLO --}}
-                        <div class="position-relative py-5 px-5">
+                        {{-- <div class="position-relative py-5 px-5">
                             <form class="justify-content-center" method="POST" action="{{ route('expedientesContribuyentes-guardar') }}">
                                 @csrf
                                 @isset($contribuyentes)
@@ -137,21 +127,21 @@
                                     @endif
                                 @endisset
                             </form>
-                        </div>
+                        </div> --}}
 
                         {{-- BUSCAR UNA PERSONA JURIDICA POR DNI --}}
-                        <form method="GET" action="{{route('personasJuridicas-buscar')}}">
+                        {{-- <form method="GET" action="{{route('personasJuridicas-buscar')}}">
                             @csrf
                             <div class="mb-3">
                                 <label>Buscar persona jurìdica</label>
                                 <input  type="text" name="buscarpor1" class="form-control" placeholder="Nùmero de documento"/>
                                 <input  class="btn btn-primary" type="submit" value="Buscar">
                             </div>
-                        </form>
+                        </form> --}}
 
                         {{-- MUESTRA LA PERSONA JURIDICA SI LA ENCONTRO Y DA LA OPCION DE AGREGARLA AL EXPEDIENTE
                         O SI NO LA ENCONTRO DA LA OPCION DE CREARLA --}}
-                        <div class="position-relative py-5 px-5">
+                        {{-- <div class="position-relative py-5 px-5">
                             <form method="POST" action="{{ route('expedientesPersonasJuridicas-guardar') }}">
                                 @csrf
                                 @isset($personasJuridicas)
@@ -174,10 +164,10 @@
                                     @endif
                                 @endisset
                             </form>
-                        </div>
+                        </div> --}}
 
                         {{-- MUESTRA EL/LOS CONTRIBUYENTES AGREGADOS AL EXPEDIENTE --}}
-                        <h3 class=" text-center font-weight">Contribuyentes del expediente</h3>
+                        {{-- <h3 class=" text-center font-weight">Contribuyentes del expediente</h3>
                         <table class="table table-warning table-hover ">
                             <thead>
                                 <tr>
@@ -199,10 +189,10 @@
                                     @endif
                                 @endforeach
                             </tbody>
-                        </table>
+                        </table> --}}
 
                         {{-- MUESTRA LA/LAS PERSONAS JURIDICAS AGREGADAS AL EXPEDIENTE --}}
-                        <h3 class=" text-center font-weight">Personas jurìdicas del expediente</h3>
+                        {{-- <h3 class=" text-center font-weight">Personas jurìdicas del expediente</h3>
                         <table class="table table-success table-hover">
                             <thead>
                                 <tr>
@@ -224,13 +214,13 @@
                                     @endif
                                 @endforeach
                             </tbody>
-                        </table>
+                        </table> --}}
                         
-                        @isset($expediente->id)
+                        {{-- @isset($expediente->id)
                             <a href="{{route('expedientes-mostrar', $expediente->id)}}" class="btn btn-primary">Seguir con la carga del expediente</a>
 
                         @endisset
-                        <a href="{{route('pagina-principal')}}" class="btn btn-primary">Pàgina principal</a>
+                        <a href="{{route('pagina-principal')}}" class="btn btn-primary">Pàgina principal</a> --}}
                     </div>
                 </div>
             </div>

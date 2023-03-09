@@ -17,7 +17,7 @@
                         {{-- @isset($expediente->nro_expediente)
                             <h2 class="mb-0">Expediente: {{$expediente->nro_expediente}}</h2>
                         @endisset --}}
-                        <div>
+                        {{-- <div>
                             <h3>Contribuyentes del expediente {{$expediente->nro_expediente}}</h3>
                             @forelse ($contribuyentes as $item)
                                 <p>Nombre: {{ $item->contribuyente->nombre }}
@@ -35,7 +35,7 @@
                             @empty
 
                             @endforelse
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="card-body">
@@ -176,31 +176,7 @@
                                         <input type="file" name="acta_baja1" class="form-control" class="form-control-file"  />
                                     </div>
                                 @endif
-
-
-
-
-
                             </div>
-
-                                {{-- <select required name="tipo_inmueble_id" class="form-control" id="tipo_inmueble">
-                                    <option>-- Seleccione --</option>
-                                    @foreach($tiposInmuebles as $tipo)
-
-                                        <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleInmueble->tipoInmueble->id) selected @endif>{{$tipo->descripcion}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div id="fecha_alquiler" >
-                                <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
-                                <input value="{{$expediente->detalleInmueble->fecha_venc_alquiler}}" type="date" name="fecha_vencimiento_alquiler" class="form-control" id="fechaVencimiento" />
-                            </div> --}}
-
-
-
-
-
-
                             <button type="submit" class="btn btn-primary">Finalizar</button>
                         </form>
                         <a href="{{route('expedientes-mostrar1', $expediente->id)}}" class="btn btn-primary">Volver</a>
