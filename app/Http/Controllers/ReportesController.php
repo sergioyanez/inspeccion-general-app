@@ -16,13 +16,13 @@ class ReportesController extends Controller
             'hasta' => 'required|date',
         ]);
         $reportes = $this->reportesPorVencer($request->desde,$request->hasta);
-        return view('reportes/tablaReportes', ['reportes'=>$reportes,'vencido'=>'Activo','plazo'=>'proximas a vencer entre: '.$request->desde.' y '.$request->hasta]);
+        return view('reportes.tablaReportes', ['reportes'=>$reportes,'vencido'=>'Activo','plazo'=>'proximas a vencer entre: '.$request->desde.' y '.$request->hasta]);
     }
 
     public function vencidas()
     {
         $reportes = $this->vencencidos(0);
-        return view('reportes/tablaReportes', ['reportes'=>$reportes,'vencido'=>'Vencido','plazo'=>'vencidas']);
+        return view('reportes.tablaReportes', ['reportes'=>$reportes,'vencido'=>'Vencido','plazo'=>'vencidas']);
     }
 
     private function reportesPorVencer($desde,$hasta){

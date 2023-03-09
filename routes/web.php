@@ -25,6 +25,7 @@ use App\Http\Controllers\ExpedientePersonaJuridicaController;
 use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PaginaPrincipal\PaginaPrincipalController;
+use App\Http\Controllers\AvisosController;
 use GuzzleHttp\Middleware;
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +69,7 @@ Route::controller(ReportesController::class)->group(function(){
 });
 
 // RUTA PAGINA DE avisos
-Route::controller(ReportesController::class)->group(function(){
+Route::controller(AvisosController::class)->group(function(){
     Route::get('avisos/{id}','index')->name('avisos');
     Route::get('avisos/create/{id}','create')->name('avisos-crear');
     Route::post('avisos/guardar','store')->name('avisos-guardar');
