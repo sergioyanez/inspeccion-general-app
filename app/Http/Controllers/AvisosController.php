@@ -7,12 +7,14 @@ use App\Models\AvisoModel;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AvisosStore;
 use App\Http\Controllers\LogsAvisosController;
+use App\Models\Expediente;
 use Carbon\Carbon;
 
 class AvisosController extends Controller
 {
     public function index($id)
     {
+        $expediente = Expediente::find($id);
         $avisos = AvisoModel::join('expedientes', 'aviso.expediente_id', '=', 'expedientes.id')
         ->join('detalles_habilitaciones', 'expedientes.detalle_habilitacion_id', '=', 'detalles_habilitaciones.id')
         ->join('users', 'aviso.avisado_por', '=', 'users.id')
@@ -20,11 +22,12 @@ class AvisosController extends Controller
         ->where('expedientes.id', '=', $id)
         ->orderBy('aviso.id', 'desc')
         ->get();
-        return view('avisos.avisos', ['avisos'=> $avisos,'expediente'=>$id]);
+        return view('avisos.avisos', ['avisos'=> $avisos,'expediente'=>$expediente]);
     }
 
     public function create($id)
     {
+        $expediente = Expediente::find($id);
         if(!isset($id)){
             return back();
         }
@@ -34,7 +37,7 @@ class AvisosController extends Controller
         ->select('aviso.*', 'detalles_habilitaciones.fecha_vencimiento','users.usuario')
         ->where('expedientes.id', '=', $id)
         ->get();
-        return view('avisos.guardarAviso', ['avisos'=>$avisos,'expediente'=>$id,'fecha_actual'=>Carbon::now()->format('Y-m-d')]);
+        return view('avisos.guardarAviso', ['avisos'=>$avisos,'expediente'=>$expediente,'fecha_actual'=>Carbon::now()->format('Y-m-d')]);
     }
 
     public function store(AvisosStore $request)
@@ -42,8 +45,8 @@ class AvisosController extends Controller
         if ($request->hasFile('pdf_file')) {
             $pdf_file = $request->file('pdf_file');
             $pdf_file_name = time() . '_' . $pdf_file->getClientOriginalName();
-            $pdf_file->move(public_path().'/archivos/avisos/', $pdf_file_name);
-            $pdf_file_name = 'public/archivos/avisos/'.$pdf_file_name;
+            $pdf_file->move(public_path().'/archivos/avisos/'.$request->input('nro_expediente').'/', $pdf_file_name);
+            $pdf_file_name = '/archivos/avisos/'.$request->input('nro_expediente').'/'.$pdf_file_name;
         }else{
             $pdf_file_name = '';
         }

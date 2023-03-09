@@ -17,7 +17,8 @@
                         </div>
                         @enderror
                     </div>
-                    <input type="hidden" value="{{$expediente}}" name="expediente_id">
+                    <input type="hidden" value="{{$expediente->id}}" name="expediente_id">
+                    <input type="hidden" value="{{$expediente->nro_expediente}}" name="nro_expediente">
 
                     <div class="mb-3">
                         <label class="form-label">Tipo comunicación</label>
@@ -48,7 +49,7 @@
                     </div>
                    
                     <div class="modal-footer">
-                        <a href="{{route('avisos',$expediente)}}" class="btn btn-danger">Cancelar</a>
+                        <a href="{{route('avisos',$expediente->id)}}" class="btn btn-danger">Cancelar</a>
                         <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
                 </form>

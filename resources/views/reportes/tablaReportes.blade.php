@@ -21,9 +21,11 @@
                 <td> {{$reporte->nro_expediente}}</td>
                 <td> 
                    @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())  
-                    @foreach ($reporte->contribuyentes as $c)
-                        <p>{{$c->nombre}} {{$c->apellido}}<p> 
-                    @endforeach
+                        @foreach ($reporte->contribuyentes as $c)
+                            <p>{{$c->nombre}} {{$c->apellido}}<p> 
+                        @endforeach
+                    @else 
+                    <span class="text-secondary">Sin datos..</span>
                    @endif
                 </td> 
                 <td> 
@@ -31,6 +33,8 @@
                      @foreach ($reporte->contribuyentes as $c)
                         <p>{{$c->telefono}}</p>
                      @endforeach
+                     @else 
+                        <span class="text-secondary">Sin datos..</span>
                     @endif
                  </td> 
                 <td> {{$reporte->observaciones_grales}}</td>
@@ -39,6 +43,8 @@
                 <td> 
                     @if (isset($reporte->avisos) and $reporte->avisos->count())  
                         {{$reporte->avisos[$reporte->avisos->count()-1]->fecha_aviso}}
+                    @else 
+                        <span class="text-secondary">Sin avisos..</span>
                     @endif
                 </td>
                 <td> 

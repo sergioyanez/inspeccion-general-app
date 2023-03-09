@@ -31,21 +31,17 @@ class ReportesController extends Controller
             $query->whereDate('fecha_vencimiento', '>=', $desde)
                 ->whereDate('fecha_vencimiento', '<=', $hasta);
         })
-        ->whereDoesntHave('estadoBaja', function ($query) {
-            $query->where('tipo_baja_id', 2);
-        })
+        ->whereNull('estado_baja_id')
         ->get();
     }
 
 
     private function vencencidos($plazo){
-        return Expediente::with('detalleHabilitacion','contribuyentes','avisos','estadoBaja')
+        return Expediente::with('detalleHabilitacion','contribuyentes','avisos')
         ->whereHas('detalleHabilitacion', function ($query) use ($plazo) {
             $query->whereDate('fecha_vencimiento', '<=', Carbon::now()->addDays($plazo));
         })
-        ->whereDoesntHave('estadoBaja', function ($query) {
-            $query->where('tipo_baja_id', 2);
-        })
+        ->whereNull('estado_baja_id')
         ->get();
     }
 }

@@ -1,7 +1,8 @@
 @include('header.header') 
-    <h1 class="h2 d-flex justify-content-start my-5">Avisos</h1>
+    <h1 class="h2 d-flex justify-content-start mt-3">Avisos para el expediente: {{$expediente->nro_expediente}}</h1>
+    <p class="mb-4">Comercio: {{$expediente->nro_comercio}}</p>
     <div class="col-12 d-flex justify-content-start p-0 ms-5">
-        <a href="{{route('avisos-crear', $expediente)}}" class="btn-lg btn btn-orange">+Agregar nuevo aviso</a>
+        <a href="{{route('avisos-crear', $expediente->id)}}" class="btn-lg btn btn-orange">+Agregar nuevo aviso</a>
     </div>
 
     @if($avisos->count())

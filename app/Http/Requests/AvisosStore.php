@@ -26,6 +26,7 @@ class AvisosStore extends FormRequest
         return [
             'fecha_aviso' => 'required|date',
             'expediente_id' => 'required|exists:expedientes,id',
+            'nro_expediente' => 'required',
             'tipo_comunicacion' => 'required|string',
             'detalle' => 'nullable|string',
             'pdf_file' => 'nullable',
