@@ -10,7 +10,7 @@
                     @csrf
                     <div class="mb-3">
                         <label class="form-label" >Fecha de aviso</label>
-                        <input type="date" name="fecha_aviso" value="{{$fecha_actual}}" class="form-control @error('fecha_aviso') is-invalid @enderror" autofocus/>
+                        <input type="date" name="fecha_aviso" @if(old('fecha_aviso') and old('fecha_aviso') != $fecha_actual) value="{{old('fecha_aviso')}}" @else value="{{$fecha_actual}}" @endif  class="form-control @error('fecha_aviso') is-invalid @enderror" autofocus/>
                         @error('fecha_aviso')
                         <div class="invalid-feedback">
                             {{$message}}
@@ -22,15 +22,15 @@
 
                     <div class="mb-3">
                         <label class="form-label">Tipo comunicación</label>
-                        <select class="form-select" name="tipo_comunicacion">
-                            <option selected value="telefonica">Telefónica</option>
-                            <option value="nota">Nota</option>
+                        <select class="form-select" name="tipo_comunicacion" id="selectAviso">
+                            <option @if(old('tipo_comunicacion') == 'telefonica') selected @endif value="telefonica">Telefónica</option>
+                            <option @if(old('tipo_comunicacion') == 'nota') selected @endif value="nota">Nota</option>
                         </select>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3" id="cajaPDFAviso">
                         <label class="form-label" >PDF (opcional)</label>
-                        <input type="file" accept="application/pdf" name="pdf_file" class="form-control @error('pdf_file') is-invalid @enderror">
+                        <input value="{{ old('pdf_file') }}" type="file" accept="application/pdf" name="pdf_file" class="form-control @error('pdf_file') is-invalid @enderror">
                         @error('pdf_file')
                         <div class="invalid-feedback">
                             {{$message}}
@@ -38,8 +38,8 @@
                         @enderror
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label" >Detalle</label>
+                    <div class="mb-3" id="cajaDetalleAviso">
+                        <label class="form-label">Detalle</label>
                         <textarea name="detalle" value="{{ old('detalle') }}" class="form-control @error('detalle') is-invalid @enderror" ></textarea>
                         @error('detalle')
                         <div class="invalid-feedback">

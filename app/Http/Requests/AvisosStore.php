@@ -28,8 +28,8 @@ class AvisosStore extends FormRequest
             'expediente_id' => 'required|exists:expedientes,id',
             'nro_expediente' => 'required',
             'tipo_comunicacion' => 'required|string',
-            'detalle' => 'nullable|string',
-            'pdf_file' => 'nullable',
+            'detalle' => 'required_if:tipo_comunicacion,telefonica',
+            'pdf_file' => 'required_if:tipo_comunicacion,nota|mimes:pdf'
         ];
     }
 }

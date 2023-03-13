@@ -20,7 +20,7 @@ class AvisosController extends Controller
         ->join('users', 'aviso.avisado_por', '=', 'users.id')
         ->select('aviso.*', 'detalles_habilitaciones.fecha_vencimiento','users.usuario')
         ->where('expedientes.id', '=', $id)
-        ->orderBy('aviso.id', 'desc')
+        ->orderBy('aviso.fecha_aviso', 'desc')
         ->get();
         return view('avisos.avisos', ['avisos'=> $avisos,'expediente'=>$expediente]);
     }
@@ -36,6 +36,7 @@ class AvisosController extends Controller
         ->join('users', 'aviso.avisado_por', '=', 'users.id')
         ->select('aviso.*', 'detalles_habilitaciones.fecha_vencimiento','users.usuario')
         ->where('expedientes.id', '=', $id)
+        ->orderBy('aviso.fecha_aviso', 'desc')
         ->get();
         return view('avisos.guardarAviso', ['avisos'=>$avisos,'expediente'=>$expediente,'fecha_actual'=>Carbon::now()->format('Y-m-d')]);
     }
