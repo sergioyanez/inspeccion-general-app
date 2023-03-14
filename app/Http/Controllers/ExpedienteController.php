@@ -104,6 +104,10 @@ class ExpedienteController extends Controller
      */
     public function store(StoreexpedienteRequest $request)
     {
+        // $request->validate([
+        //     'numero' => 'integer'
+        // ]);
+
         // SE CREA INMUEBLE
         $inmueble = new InmuebleController();
         $inmueble_id = $inmueble->store($request->calle, $request->numero);
