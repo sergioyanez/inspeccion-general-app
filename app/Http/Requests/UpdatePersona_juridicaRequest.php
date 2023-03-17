@@ -24,11 +24,25 @@ class UpdatePersona_juridicaRequest extends FormRequest
     public function rules()
     {
         return [
-            'cuit'=>'required|integer',
+            'cuit'=>'required|string',
             'nombre_representante'=>'required|string|max:50',
             'apellido_representante'=>'required|string|max:50',
-            'dni_representante'=>'required|string|max:10',
-            'telefono'=>'required|integer',
+            'dni_representante'=>'string|max:10',
+            'telefono'=>'required|string',
+        ];
+    }
+
+    public function messages() {
+        return [
+            'cuit.required' => 'el campo cuit no puede estar vacio',
+            //'cuit.numeric' => 'el campo cuit solo acepta nùmeros',
+            'nombre_representante.required' => 'el campo nombre del representante no puede estar vacio',
+            'nombre_representante.max' => 'el campo nombre del representante acepta solo 50 caracteres',
+            'apellido_representante.required' => 'el campo apellido del representante no puede estar vacio', 
+            'apellido_representante.max' => 'el campo apellido del representante acepta solo 50 caracteres',
+            'dni_representante.max' => 'el campo dni del representante acepta solo 10 caracteres',
+            'telefono.required' => 'el campo telefono no puede estar vacio',
+            //'telefono.numeric' => 'el campo telefono solo acepta nùmeros',
         ];
     }
 }

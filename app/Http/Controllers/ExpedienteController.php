@@ -119,10 +119,10 @@ class ExpedienteController extends Controller
 
         // SE CREA EXPEDIENTE
         $expediente = new Expediente();
-        $expediente->nro_expediente = $request->nro_expediente;     //hecho
-        $expediente->nro_comercio = $request->nro_comercio;         //hecho
-        $expediente->actividad_ppal = $request->actividad_ppal;     //hecho
-        $expediente->anexo = $request->anexo;                       //hecho
+        $expediente->nro_expediente = $request->nro_expediente;     
+        $expediente->nro_comercio = $request->nro_comercio;         
+        $expediente->actividad_ppal = $request->actividad_ppal;     
+        //$expediente->anexo = $request->anexo;                       
         if($request->hasFile('pdf_solicitud')) {
             $archivo1 = $request->file('pdf_solicitud');
             //$archivo1_name = $archivo1->getClientOriginalName();
@@ -130,8 +130,8 @@ class ExpedienteController extends Controller
             $expediente->pdf_solicitud = '/archivos/' . $archivo1->getClientOriginalName();
             
         }
-        $expediente->bienes_de_uso = $request->bienes_de_uso;       //hecho
-        $expediente->observaciones_grales = $request->observaciones_grales;     //hecho
+        $expediente->bienes_de_uso = $request->bienes_de_uso;       
+        $expediente->observaciones_grales = $request->observaciones_grales;     
         $expediente->detalle_habilitacion_id = $detalleHabilitacion_id;
         $expediente->detalle_inmueble_id = $detalleInmueble_id;
 
@@ -335,7 +335,7 @@ class ExpedienteController extends Controller
         $expediente->nro_expediente = $request->nro_expediente;
         $expediente->nro_comercio = $request->nro_comercio;
         $expediente->actividad_ppal = $request->actividad_ppal;
-        $expediente->anexo = $request->anexo;
+        //$expediente->anexo = $request->anexo;
         $expediente->detalle_inmueble_id = $detalleInmueble->id;
         if($request->hasFile('pdf_solicitud_nueva')) {
             $archivo1 = $request->file('pdf_solicitud_nueva');

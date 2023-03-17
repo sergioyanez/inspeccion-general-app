@@ -183,14 +183,14 @@
                                         {{$message}}
                                     </div>
                                 @enderror
-                                <label class="form-label" for="basic-default-fullname">Anexo</label>
+                                {{-- <label class="form-label" for="basic-default-fullname">Anexo</label>
                                 <input value="{{$expediente->anexo}}" type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
                                 @error('anexo')
-                                    {{-- <div class="invalid-feedback"> --}}
+                                    
                                     <div>
                                         {{$message}}
                                     </div>
-                                @enderror
+                                @enderror --}}
                             </div>
                             
                             {{-- DATOS DEL INMUEBLE --}}
