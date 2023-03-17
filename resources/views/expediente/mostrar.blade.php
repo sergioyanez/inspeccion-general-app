@@ -129,11 +129,25 @@
                             </table>
                         </div>
                     </div>
+
+                    
                     
                     {{-- PRIMER PARTE DE CARGA DE EXPEDIENTE. PRIMER PAGINA DEL FIGMA --}}
                     <div class="card-body">
+                        
                         <form method="POST" action="{{route('expedientes-actualizar')}}" enctype="multipart/form-data">
                             @csrf
+                            @foreach ($expedientesContribuyentes as $ec)
+                                @if($ec->expediente_id == $expediente->id)
+                                    <input required type="hidden" name="cargo" value="{{$ec->expediente_id}}">
+                                @endif
+                            @endforeach
+                            @error('cargo')
+                                <div class="alert alert-danger">
+                                    {{$message}}
+                                </div>
+                            @enderror
+                            
                             @isset($expediente->id)
                                 <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
                             @endisset
@@ -141,20 +155,42 @@
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
                                 <input value="{{$expediente->nro_expediente}}" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto"/>
-                                <input type="submit" value="Ver PDF">
-                                
+                                {{-- <input type="submit" value="Ver PDF"> --}}
+                                @error('nro_expediente')
+                                    
+                                    <div class="alert alert-danger">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de comercio</label>
                                 <input value="{{$expediente->nro_comercio}}" type="text" name="nro_comercio" class="form-control" id="basic-default-nombreCompleto" />
-                                
+                                @error('nro_comercio')
+                                    
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Actividad principal</label>
                                 <input value="{{$expediente->actividad_ppal}}" type="text" name="actividad_ppal" class="form-control" id="basic-default-nombreCompleto" />
+                                @error('actividad_ppal')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                                 <label class="form-label" for="basic-default-fullname">Anexo</label>
                                 <input value="{{$expediente->anexo}}" type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
+                                @error('anexo')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             
                             {{-- DATOS DEL INMUEBLE --}}
@@ -163,22 +199,40 @@
                                 <label class="form-label" for="basic-default-fullname">Domicilio inmueble/s</label>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Calle:</label>
-                                    <input value="{{$expediente->detalleInmueble->inmueble->calle}}" required type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input value="{{$expediente->detalleInmueble->inmueble->calle}}" type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
+                                    @error('calle')
+                                        {{-- <div class="invalid-feedback"> --}}
+                                        <div>
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Nº:</label>
-                                    <input value="{{$expediente->detalleInmueble->inmueble->numero}}" required type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input value="{{$expediente->detalleInmueble->inmueble->numero}}" type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
+                                    @error('numero')
+                                        {{-- <div class="invalid-feedback"> --}}
+                                        <div>
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <input type="hidden" name="detalle_inmueble_id" value="{{$expediente->detalleInmueble->id}}">
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Tipo de inmueble</label>
                                     <select required name="tipo_inmueble_id" class="form-control" id="tipo_inmueble">
-                                        <option>-- Seleccione --</option>
+                                        <option value="">-- Seleccione --</option>
                                         @foreach($tiposInmuebles as $tipo)
                                             <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleInmueble->tipoInmueble->id) selected @endif>{{$tipo->descripcion}}</option>
                                         @endforeach
                                     </select>
+                                    @error('tipo_inmueble_id')
+                                        {{-- <div class="invalid-feedback"> --}}
+                                        <div>
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div id="fecha_alquiler" >
                                     <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
@@ -189,10 +243,16 @@
                             <div>
                                 <label class="form-label" for="basic-default-fullname">Solicitud:</label>
                                 @if ($expediente->pdf_solicitud)
-                                    <p name="pdf_solicitud">PDF solicitud cargado: {{$expediente->pdf_solicitud}}</p>
-                                    {{-- <input value="{{$expediente->pdf_solicitud}}" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
+                                    <p name="pdf_solicitud">PDF solicitud cargado: <a href="{{ url($expediente->pdf_solicitud) }}" target="blank_" >{{$expediente->pdf_solicitud}}</a>
+                                    </p>
                                 @endif
                                 <input type="file" name="pdf_solicitud_nueva" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                @error('pdf_solicitud')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
 
                             {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}

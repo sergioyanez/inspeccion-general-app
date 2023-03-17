@@ -5,7 +5,7 @@ import * as bootstrap from "bootstrap";
 // ES6 Modules or TypeScript
 import Swal from "sweetalert2";
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let tipo = document.getElementById("tipo_inmueble");
     let caja = document.getElementById("fecha_alquiler");
     let fechaVencimiento = document.getElementById("fechaVencimiento");
@@ -13,9 +13,13 @@ document.addEventListener("DOMContentLoaded", function() {
     let tipoBaja = document.getElementById("tipo_baja");
     //  let tipo_baja_id = document.getElementById("tipo_baja_id");
     let bajaProvisoria = document.getElementById("provisoria");
-    let fechaVencimientoProvisoria = document.getElementById("fechaVencimientoProvisoria");
+    let fechaVencimientoProvisoria = document.getElementById(
+        "fechaVencimientoProvisoria"
+    );
     let bajaPermanente = document.getElementById("permanente");
-    let fechaVencimientoPermanente = document.getElementById("fechaVencimientoPermanente");
+    let fechaVencimientoPermanente = document.getElementById(
+        "fechaVencimientoPermanente"
+    );
 
     let estado_baja_id = document.getElementById("estado_baja_id");
     // let bajaProvisoria_1 = document.getElementById("provisoria_1");
@@ -23,15 +27,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // let bajaPermanente_1 = document.getElementById("permanente_1");
     // let fechaVencimientoPermanente_1 = document.getElementById("fechaVencimientoPermanente_1");
 
-
     //console.log(tipoBaja.value);
     cajaFechaVencimiento("none");
     cajaBajaPermanente("none");
     cajaBajaProvisoria("none");
-
-
-
-
 
     // cajaBajaProvisoria_1("none");
     // cajaBajaPermanente_1("none");
@@ -55,9 +54,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (tipoBaja) {
-
         console.log(fechaVencimientoProvisoria.value);
-        tipoBaja.addEventListener("change", function() {
+        tipoBaja.addEventListener("change", function () {
             if (Number(this.value) === 1) {
                 cajaBajaProvisoria("block");
                 cajaBajaPermanente("none");
@@ -80,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (tipo) {
-        tipo.addEventListener("change", function() {
+        tipo.addEventListener("change", function () {
             if (Number(this.value) === 1) {
                 cajaFechaVencimiento("block");
                 fechaVencimiento.required = true;
@@ -143,6 +141,7 @@ if (!divModal) {
     const existmodalPerfil = document.getElementById("ExistmodalPerfil");
 
     if (existmodalPerfil && modalperfil) {
+        console.log("Entró");
         const modalperfil = document.getElementById("modalperfil");
         const myModalPerfil = new bootstrap.Modal(modalperfil);
         if (myModalPerfil) {

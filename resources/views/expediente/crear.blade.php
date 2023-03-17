@@ -9,9 +9,10 @@
                     </div>
                     <div class="card-body">
                         {{-- PRIMER PARTE DE CARGA DE EXPEDIENTE. PRIMER PAGINA DEL FIGMA --}}
-                        <form method="POST" action="{{ route('expedientes-guardar') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('expedientes-guardar') }}" enctype="multipart/form-data" onKeyPress="if(event.keyCode == 13) event.returnValue = false;">
                             @csrf
                             <div class="mb-3">
+                                
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
                                 <input value="4093-" type="text" name="nro_expediente" class="form-control" value="{{ old('nro_expediente') }}"/>
                                 @error('nro_expediente')
@@ -57,6 +58,12 @@
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Calle:</label>
                                     <input type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
+                                    @error('calle')
+                                        {{-- <div class="invalid-feedback"> --}}
+                                        <div>
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Nº:</label>
@@ -71,11 +78,17 @@
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Tipo de inmueble</label>
                                     <select required name="tipo_inmueble_id" class="form-control" id="tipo_inmueble">
-                                        <option>-- Seleccione --</option>
+                                        <option value=" ">-- Seleccione --</option>
                                         @foreach($tiposInmuebles as $tipo)
                                             <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
                                         @endforeach
                                     </select>
+                                    @error('tipo_inmueble_id')
+                                        {{-- <div class="invalid-feedback"> --}}
+                                        <div>
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div id="fecha_alquiler" >
                                     <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
@@ -86,7 +99,13 @@
                             {{-- BOTON PARA CARGAR LA SOLICITUD --}}
                             <div>
                                 <label class="form-label" for="basic-default-fullname">Solicitud:</label>
-                                <input required type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                <input type="file" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                @error('pdf_solicitud')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
 
                             {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
@@ -112,12 +131,12 @@
                                 </div>
                             </div>
                             <input type="submit" value="Comenzar carga de expediente">
-                            {{-- <button type="submit" class="btn btn-primary">Comenzar carga de expediente</button> --}}
                         </form>
+                        <a href="{{route('pagina-principal')}}" class="btn btn-primary">Volver</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-@include('footer.footer')
+   </div>
+ @include('footer.footer')
     
