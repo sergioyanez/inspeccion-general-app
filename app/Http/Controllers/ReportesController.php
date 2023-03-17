@@ -26,22 +26,26 @@ class ReportesController extends Controller
     }
 
     private function reportesPorVencer($desde,$hasta){
-        return Expediente::with('detalleHabilitacion','contribuyentes','avisos')
-        ->whereHas('detalleHabilitacion', function ($query) use ($desde,$hasta) {
-            $query->whereDate('fecha_vencimiento', '>=', $desde)
-                ->whereDate('fecha_vencimiento', '<=', $hasta);
-        })
-        ->whereNull('estado_baja_id')
-        ->get();
+        return Expediente::with(['detalleHabilitacion', 'contribuyentes', 'avisos' => function ($query) {
+            $query->orderBy('fecha_aviso', 'asc'); //Obtener solo el aviso más reciente
+        }])
+            ->whereHas('detalleHabilitacion', function ($query) use ($desde, $hasta) {
+                $query->whereDate('fecha_vencimiento', '>=', $desde)
+                    ->whereDate('fecha_vencimiento', '<=', $hasta);
+            })
+            ->whereNull('estado_baja_id')
+            ->get();
     }
 
 
     private function vencencidos($plazo){
-        return Expediente::with('detalleHabilitacion','contribuyentes','avisos')
-        ->whereHas('detalleHabilitacion', function ($query) use ($plazo) {
-            $query->whereDate('fecha_vencimiento', '<=', Carbon::now()->addDays($plazo));
-        })
-        ->whereNull('estado_baja_id')
-        ->get();
+        return Expediente::with(['detalleHabilitacion', 'contribuyentes', 'avisos' => function ($query) {
+            $query->orderBy('fecha_aviso', 'asc'); //Obtener solo el aviso más reciente
+        }])
+            ->whereHas('detalleHabilitacion', function ($query) use ($plazo) {
+                $query->whereDate('fecha_vencimiento', '<=', Carbon::now()->addDays($plazo));
+            })
+            ->whereNull('estado_baja_id')
+            ->get();
     }
 }

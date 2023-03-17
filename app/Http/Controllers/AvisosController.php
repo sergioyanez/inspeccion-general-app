@@ -22,7 +22,9 @@ class AvisosController extends Controller
         ->where('expedientes.id', '=', $id)
         ->orderBy('aviso.fecha_aviso', 'desc')
         ->get();
-        return view('avisos.avisos', ['avisos'=> $avisos,'expediente'=>$expediente]);
+        return view('avisos.avisos', [
+            'avisos'=> $avisos,
+            'expediente'=>$expediente]);
     }
 
     public function create($id)
@@ -38,7 +40,10 @@ class AvisosController extends Controller
         ->where('expedientes.id', '=', $id)
         ->orderBy('aviso.fecha_aviso', 'desc')
         ->get();
-        return view('avisos.guardarAviso', ['avisos'=>$avisos,'expediente'=>$expediente,'fecha_actual'=>Carbon::now()->format('Y-m-d')]);
+        return view('avisos.guardarAviso', [
+            'avisos'=>$avisos,
+            'expediente'=>$expediente,
+            'fecha_actual'=>Carbon::now()->format('Y-m-d')]);
     }
 
     public function store(AvisosStore $request)

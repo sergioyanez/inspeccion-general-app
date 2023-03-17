@@ -6,7 +6,7 @@
         @if (isset($expediente->contribuyentes) and isset($expediente->contribuyentes[0]))
             @if($expediente->contribuyentes->count() <= 1)
                 <li class="list-group-item">
-                    Contribuyente: {{$expediente->contribuyentes[0]->nombre}} {{$expediente->contribuyentes[0]->nombre}} | Telefono: {{$expediente->contribuyentes[0]->telefono}}
+                    Contribuyente: {{$expediente->contribuyentes[0]->nombre}} {{$expediente->contribuyentes[0]->apellido}} | Telefono: {{$expediente->contribuyentes[0]->telefono}}
                 </li>
             @else
                 <li class="p-0 list-group-item accordion accordion-flush" id="accordionFlushExample">
