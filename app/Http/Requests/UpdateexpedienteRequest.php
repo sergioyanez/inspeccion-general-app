@@ -24,8 +24,8 @@ class UpdateexpedienteRequest extends FormRequest
     public function rules()
     {
         return [
-            'nro_expediente' => 'required',
-            'nro_comercio' => 'required',
+            'nro_expediente1' => 'required',
+            'nro_comercio1' => 'required',
             'actividad_ppal' => 'required|alpha',
             //'anexo' => 'numeric|nullable',
             'calle' => 'required|string',
@@ -38,9 +38,9 @@ class UpdateexpedienteRequest extends FormRequest
 
     public function messages() {
         return [
-            'nro_expediente.required' => 'el campo nùmero de expediente no puede estar vacio',
+            'nro_expediente1.required' => 'el campo nùmero de expediente no puede estar vacio',
             //'nro_expediente.unique' => 'no se permiten nùmeros de expedientes repetidos',
-            'nro_comercio.required' => 'el campo nùmero de comercio no puede estar vacio',
+            'nro_comercio1.required' => 'el campo nùmero de comercio no puede estar vacio',
             //'nro_comercio.unique' => 'no se permiten nùmeros de comercio repetidos',
             'actividad_ppal.required' => 'El campo actividad principal es obligatorio',
             'actividad_ppal.alpha' => 'El campo actividad principal solo acepta letras',

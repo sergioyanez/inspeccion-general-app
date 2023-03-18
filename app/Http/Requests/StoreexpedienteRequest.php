@@ -24,8 +24,9 @@ class StoreexpedienteRequest extends FormRequest
     public function rules()
     {
         return [
-            'nro_expediente' => 'required|unique:expedientes',
-            'nro_comercio' => 'required',
+            // 'nro_expediente1' => 'required|unique:expedientes',
+            // 'nro_comercio1' => 'required',
+            // 'nro_comercio2' => 'required',
             'actividad_ppal' => 'required|alpha',
             //'anexo' => 'numeric|nullable',
             'calle' => 'required|string',
@@ -37,9 +38,10 @@ class StoreexpedienteRequest extends FormRequest
 
     public function messages() {
         return [
-            'nro_expediente.required' => 'el campo nùmero de expediente no puede estar vacio',
-            'nro_expediente.unique' => 'no se permiten nùmeros de expedientes repetidos',
-            'nro_comercio.required' => 'el campo nùmero de comercio no puede estar vacio',
+            'nro_expediente1.required' => 'el campo nùmero de expediente no puede estar vacio',
+            'nro_expediente1.unique' => 'no se permiten nùmeros de expedientes repetidos',
+            'nro_comercio1.required' => 'el campo nùmero de comercio no puede estar vacio',
+            'nro_comercio2.required' => 'el campo nùmero de comercio no puede estar vacio',
             'actividad_ppal.required' => 'El campo actividad principal es obligatorio',
             'actividad_ppal.alpha' => 'El campo actividad principal solo acepta letras',
             //'anexo.numeric' => 'El campo anexo no acepta letras',
