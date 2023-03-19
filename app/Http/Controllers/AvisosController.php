@@ -24,7 +24,9 @@ class AvisosController extends Controller
         ->get();
         return view('avisos.avisos', [
             'avisos'=> $avisos,
-            'expediente'=>$expediente]);
+            'expediente'=>$expediente,
+            'fecha_actual'=>Carbon::now()->format('Y-m-d')
+        ]);
     }
 
     public function create($id)
