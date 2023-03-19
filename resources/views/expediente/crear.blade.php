@@ -16,29 +16,27 @@
                                 <label class="form-label" for="basic-default-fullname">Número de expediente</label>
                                 <input readonly value="4093-" type="text" name="nro_expediente" class="form-control" />
                                 <input type="text" name="nro_expediente1" class="form-control" value="{{ old('nro_expediente1') }}"/>
-                                <input readonly type="text" name="nro_expediente2" class="form-control" value="/{{ now()->year }}"/>
                                 @error('nro_expediente1')
                                     {{-- <div class="invalid-feedback"> --}}
                                     <div class="alert alert-danger">
                                         {{$message}}
                                     </div>
                                 @enderror
-                                {{-- <input type="submit" value="Ver PDF"> --}}
+                                <input readonly type="text" name="nro_expediente2" class="form-control" value="/{{ now()->year }}"/>
+                                
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Número de comercio</label>
                                 <input readonly value="2-"  type="text" name="nro_comercio" class="form-control" id="basic-default-nombreCompleto" />
                                 <input type="text" name="nro_comercio1" class="form-control" id="basic-default-nombreCompleto" value="{{ old('nro_comercio1') }}"/>
-                                <input readonly value="-"type="text" name="nro_comercio3" class="form-control" id="basic-default-nombreCompleto" />
-
-                                <input type="text" name="nro_comercio2" class="form-control" id="basic-default-nombreCompleto" value="{{ old('nro_comercio2') }}"/>
-
                                 @error('nro_comercio1')
                                     {{-- <div class="invalid-feedback"> --}}
                                     <div>
                                         {{$message}}
                                     </div>
                                 @enderror
+                                <input readonly value="-"type="text" name="nro_comercio3" class="form-control" id="basic-default-nombreCompleto" />
+                                <input type="text" name="nro_comercio2" class="form-control" id="basic-default-nombreCompleto" value="{{ old('nro_comercio2') }}"/>
                                 @error('nro_comercio2')
                                     {{-- <div class="invalid-feedback"> --}}
                                     <div>
