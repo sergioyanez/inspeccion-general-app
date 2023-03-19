@@ -353,7 +353,7 @@ class ExpedienteController extends Controller
             return redirect()->route('expedientes-mostrar1', [$expediente->id]);
 
         }
-        return back()->with('fail','No se pudo crear el expediente');
+        return back()->with('fail','No se pudo editar el expediente');
     }
 
     /**
@@ -790,6 +790,6 @@ class ExpedienteController extends Controller
             $log->create($expediente, 'd');
             return redirect()->route('expedientes');
         }
-        return back()->with('fail','No se pudo crear el expediente');
+        return back()->with('fail','No se pudo eliminar el expediente');
     }
 }

@@ -8,7 +8,7 @@
         <title>Contribuyentes</title>
     </head>
     <body>
-        <h4>Contribuyentes de la aplicacion</h4>
+        <h4>Contribuyentes en el sistema</h4>
         <div class="card">
             <div class="table-responsive text-nowrap">
                 <button href="{{route('contribuyentes-crear')}}" class="btn btn-primary">Crear nuevo contribuyente</button>
@@ -53,7 +53,7 @@
                                 <td><a href="{{route('contribuyentes-eliminar', $contribuyente->id)}}"class="btn btn-danger">Eliminar</a></td>
                             </tr>
                         @empty
-                            <h2>No hay contribuyentes cargados en la aplicacion</h2>
+                            <h2>No hay contribuyentes cargados en el sistema</h2>
                         @endforelse
                     </tbody>
                 </table>

@@ -25,7 +25,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Estado civìl</label>
+                                <label class="form-label" for="basic-default-fullname">Estado civíl</label>
                                 <select name="estado_civil_id" class="form-control" id="basic-default-nombreCompleto" >
                                     <option value=" ">-- Seleccione --</option>
                                     @foreach($estados as $estado)
@@ -80,7 +80,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Nùmero de documento</label>
+                                <label class="form-label" for="basic-default-fullname">Número de documento</label>
                                 <input type="text" name="dni" class="form-control" id="basic-default-nombreCompleto" value="{{ old('dni') }}"/>
                                 @error('dni')
                                     {{-- <div class="invalid-feedback"> --}}
@@ -100,19 +100,19 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Telèfono</label>
+                                <label class="form-label" for="basic-default-fullname">Teléfono</label>
                                 <input type="text" name="telefono" class="form-control" id="basic-default-nombreCompleto" value="{{ old('telefono') }}"/>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Nombre del cònyuge</label>
+                                <label class="form-label" for="basic-default-fullname">Nombre del cónyuge</label>
                                 <input type="text" name="nombre_conyuge" class="form-control" id="basic-default-nombreCompleto" value="{{ old('nombre_conyuge') }}"/>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Apellido del cònyuge</label>
+                                <label class="form-label" for="basic-default-fullname">Apellido del cónyuge</label>
                                 <input type="text" name="apellido_conyuge" class="form-control" id="basic-default-nombreCompleto" value="{{ old('apellido_conyuge') }}"/>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Dni del conyuge</label>
+                                <label class="form-label" for="basic-default-fullname">Dni del cónyuge</label>
                                 <input type="text" name="dni_conyuge" class="form-control" id="basic-default-nombreCompleto" value="{{ old('dni_conyuge') }}"/>
                             </div>
                             <button type="submit" class="btn btn-primary">Enviar</button>
