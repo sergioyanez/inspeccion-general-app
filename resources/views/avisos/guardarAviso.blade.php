@@ -1,5 +1,6 @@
-@include('avisos.avisos')  
-<div class="modal" id="example" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  
+<div class="modal" @if($errors->has('fecha_aviso') || $errors->has('detalle') || $errors->has('pdf_file')) id="#example" 
+    @else id="#modalReportes" @endif> </button> tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

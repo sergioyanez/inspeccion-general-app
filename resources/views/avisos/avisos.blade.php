@@ -33,8 +33,11 @@
     </ul>  
          
     <div class="col-12 d-flex justify-content-start p-0 mt-3">
-        <a href="{{route('avisos-crear', $expediente->id)}}" class="btn-lg btn btn-orange">+Agregar nuevo aviso</a>
-    </div>
+       <button class="btn btn-orange" type="button" data-bs-toggle="modal" 
+          @if($errors->has('fecha_aviso') || $errors->has('detalle') || $errors->has('pdf_file')) data-bs-target="#example" 
+          @else data-bs-target="#modalReportes" @endif> Nuevo Aviso </button>
+      
+           </div>
 
     @if($avisos and $avisos->count())
         <table class="table table-striped mb-5 mt-3">
@@ -72,5 +75,5 @@
     <div class="col-12 d-flex justify-content-end p-0 ms-5">
         <a href="{{ url()->previous() }}" class="mt-4 me-5 btn btn-secondary btn-salir">Volver</a>
     </div>
-
+@include('avisos.guardarAviso')
 @include('footer.footer')
