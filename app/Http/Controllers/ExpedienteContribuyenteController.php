@@ -106,6 +106,6 @@ class ExpedienteContribuyenteController extends Controller
         if($expedienteContribuyente->delete()){
             return redirect()->route('expedientes-mostrar', [$expedienteContribuyente->expediente_id]);
         }
-        return back()->with('fail','No se pudo crear el detalle de habilitación');
+        return back()->with('fail','No se pudo eliminar el expedienteContribuyente');
     }
 }

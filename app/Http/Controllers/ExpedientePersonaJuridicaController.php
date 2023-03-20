@@ -100,6 +100,6 @@ class ExpedientePersonaJuridicaController extends Controller
         if($expedientePersonaJuridica->delete()){
             return redirect()->route('expedientes-mostrar', [$expedientePersonaJuridica->expediente_id]);
         }
-        return back()->with('fail','No se pudo crear el detalle de habilitación');
+        return back()->with('fail','No se pudo eliminar el detalle de habilitación');
     }
 }

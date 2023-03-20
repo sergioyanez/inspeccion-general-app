@@ -13,7 +13,7 @@
                             @csrf
                             <div class="mb-3">
                                 
-                                <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
+                                <label class="form-label" for="basic-default-fullname">Número de expediente</label>
                                 <input readonly value="4093-" type="text" name="nro_expediente" class="form-control" />
                                 <input type="text" name="nro_expediente1" class="form-control" value="{{ old('nro_expediente1') }}"/>
                                 @error('nro_expediente1')
@@ -26,7 +26,7 @@
                                 
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Nùmero de comercio</label>
+                                <label class="form-label" for="basic-default-fullname">Número de comercio</label>
                                 <input readonly value="2-"  type="text" name="nro_comercio" class="form-control" id="basic-default-nombreCompleto" />
                                 <input type="text" name="nro_comercio1" class="form-control" id="basic-default-nombreCompleto" value="{{ old('nro_comercio1') }}"/>
                                 @error('nro_comercio1')
@@ -65,7 +65,7 @@
 
                             {{-- DATOS DEL INMUEBLE --}}
                             <div>
-                                <label class="form-label" for="basic-default-fullname">Domicilio inmueble/s</label>
+                                <label class="form-label" for="basic-default-fullname">Domicilio inmueble:</label>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Calle:</label>
                                     <input type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
@@ -130,7 +130,7 @@
                             {{-- DETALLE HABILITACION --}}
                             <div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Estado de habilitacion</label>
+                                    <label class="form-label" for="basic-default-fullname">Estado de habilitación</label>
                                     <select name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
                                         @foreach($tiposEstados as $tipo)
                                             @if ($tipo->descripcion == "En tramite")

@@ -39,18 +39,18 @@
                                 <div>
                                     <input type="hidden" name="detalle_habilitacion" value="{{$expediente->detalleHabilitacion->id}}">
                                     <div class="mb-3">
-                                        <label class="form-label" for="basic-default-fullname">Estado de habilitacion</label>
+                                        <label class="form-label" for="basic-default-fullname">Estado de habilitación</label>
                                         <select required name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
                                             <option>-- Seleccione --</option>
                                             @foreach($tiposEstados as $tipo)
                                                 <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoEstado->id) selected @endif>{{$tipo->descripcion}}</option>
                                             @endforeach
                                         </select>
-                                        <label class="form-label" for="basic-default-fullname">Fecha de primer habilitacion</label>
+                                        <label class="form-label" for="basic-default-fullname">Fecha de primer habilitación</label>
                                         <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
                                         <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
-                                        <label class="form-label" for="basic-default-fullname">Tipo de habilitacion</label>
+                                        <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
                                         <select name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
                                             @if($expediente->detalleHabilitacion->tipoHabilitacion)
                                                 @foreach($tiposhabilitaciones as $tipo)
@@ -86,9 +86,9 @@
                                             </div>
                                         @enderror  
                                         @endif --}}
-                                        <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
+                                        <label class="form-label" for="basic-default-fullname">Certificado de habilitación</label>
                                         @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
-                                            <p name="certificado_habilitacion">Certificado de habilitaciòn cargado: <a href="{{ url($expediente->detalleHabilitacion->pdf_certificado_habilitacion) }}" target="blank_" >{{ $expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</a>
+                                            <p name="certificado_habilitacion">Certificado de habilitación cargado: <a href="{{ url($expediente->detalleHabilitacion->pdf_certificado_habilitacion) }}" target="blank_" >{{ $expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</a>
                                         @endif
                                         <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
@@ -200,7 +200,7 @@
                                 <div>
                                     <input type="hidden" name="detalle_habilitacion" value="{{$expediente->detalleHabilitacion->id}}">
                                     <div class="mb-3">
-                                        <label class="form-label" for="basic-default-fullname">Estado de habilitacion</label>
+                                        <label class="form-label" for="basic-default-fullname">Estado de habilitación</label>
                                         <select readonly name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
                                             @foreach($tiposEstados as $tipo)
                                                 @if($expediente->detalleHabilitacion->tipoEstado->id == $tipo->id)
@@ -208,11 +208,11 @@
                                                 @endif
                                             @endforeach
                                         </select>
-                                        <label class="form-label" for="basic-default-fullname">Fecha de primer habilitacion</label>
+                                        <label class="form-label" for="basic-default-fullname">Fecha de primer habilitación</label>
                                         <input readonly value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
                                         <input readonly value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
-                                        <label class="form-label" for="basic-default-fullname">Tipo de habilitacion</label>
+                                        <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
                                         <select readonly name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
                                             @if($expediente->detalleHabilitacion->tipoHabilitacion)
                                                 @foreach($tiposhabilitaciones as $tipo)
@@ -227,10 +227,10 @@
                                                 @endforeach --}}
                                             @endif
                                         </select>
-                                        <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
+                                        <label class="form-label" for="basic-default-fullname">Certificado de habilitación</label>
                                         @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
                                             {{-- <p name="certificado_habilitacion">Certificado de habilitaciòn cargado: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p> --}}
-                                            <p name="certificado_habilitacion">Certificado de habilitaciòn cargado: <a href="{{ url($expediente->detalleHabilitacion->pdf_certificado_habilitacion) }}" target="blank_" >{{ $expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</a>
+                                            <p name="certificado_habilitacion">Certificado de habilitación cargado: <a href="{{ url($expediente->detalleHabilitacion->pdf_certificado_habilitacion) }}" target="blank_" >{{ $expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</a>
 
                                             @endif
                                         {{-- <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
