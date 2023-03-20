@@ -119,8 +119,8 @@ class ExpedienteController extends Controller
 
         // SE CREA EXPEDIENTE
         $expediente = new Expediente();
-        //$numero_expediente = $request->nro_expediente . $request->nro_expediente1 . $request->nro_expediente2;
-        $expediente->nro_expediente = $request->nro_expediente; 
+        $numero_expediente = $request->nro_expediente . $request->nro_expediente1 . $request->nro_expediente2;
+        $expediente->nro_expediente = $numero_expediente;
         $numero_comercio = $request->nro_comercio . $request->nro_comercio1 . $request->nro_comercio3 . $request->nro_comercio2;
         $expediente->nro_comercio = $numero_comercio;
         $expediente->actividad_ppal = $request->actividad_ppal;     

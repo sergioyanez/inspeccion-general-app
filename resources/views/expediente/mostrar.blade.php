@@ -40,9 +40,14 @@
                                             <input type="hidden" name="contribuyente_id" value="{{$contribuyente->id}}">
                                             <input type="hidden" name="idExpSiguiente" value="{{$expediente->id}}">
                                             <button  class="btn btn-primary"type="submit">Agregar</button>
+                                            @foreach ($expedientesContribuyentes as $ec)
+                                                @if($ec->expediente_id == $expediente->id && $ec->contribuyente_id == $contribuyente->id)
+                                                    {{ "El contribuyente ya esta cargado en el expediente" }}
+                                                    {{-- <input required type="text" name="cargoContribuyente" value="{{ "seba" }}"> --}}
+                                                @endif
+                                            @endforeach
                                         @endforeach
                                     @else
-                                    
                                         @if (request('buscarpor'))
                                             <h4>No se encontrò el contribuyente</h4>
                                             <a href="{{route('contribuyentes-crearEnExpediente')}}" class="btn btn-primary">Crear nuevo contribuyente para el expediente</a>
@@ -65,6 +70,12 @@
                                             <input type="hidden" name="persona_juridica_id" value="{{$pj->id}}">
                                             <input type="hidden" name="idExpSiguiente" value="{{$expediente->id}}">
                                             <button class="btn btn-primary" type="submit">Agregar</button>
+                                            @foreach ($expedientesPersonasJuridicas as $ec)
+                                                @if($ec->expediente_id == $expediente->id && $ec->persona_juridica_id == $pj->id)
+                                                    {{ "La persona juridica ya esta cargada en el expediente" }}
+                                                    {{-- <input required type="text" name="cargoContribuyente" value="{{ "seba" }}"> --}}
+                                                @endif
+                                            @endforeach
                                         @endforeach
                                     @else
                                         @if (request('buscarpor1'))
@@ -154,7 +165,7 @@
                             
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
-                                <input value="{{$expediente->nro_expediente}}" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto"/>
+                                <input readonly value="{{$expediente->nro_expediente}}" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto"/>
                                 {{-- <input type="submit" value="Ver PDF"> --}}
                                 @error('nro_expediente')
                                     
@@ -165,7 +176,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de comercio</label>
-                                <input value="{{$expediente->nro_comercio}}" type="text" name="nro_comercio" class="form-control" id="basic-default-nombreCompleto" />
+                                <input readonly value="{{$expediente->nro_comercio}}" type="text" name="nro_comercio" class="form-control" id="basic-default-nombreCompleto" />
                                 @error('nro_comercio')
                                     
                                     <div>
