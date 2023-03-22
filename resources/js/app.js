@@ -165,3 +165,17 @@ function alertSuccess(mensaje) {
         timer: 1500,
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    let fechaPrimerHabilitacion = document.getElementById(
+        "fechaPrimerHabilitacion"
+    );
+    let certificado = document.getElementById("certificadoHabilitacion");
+    fechaPrimerHabilitacion.addEventListener("change", () => {
+        if (fechaPrimerHabilitacion.value !== "") {
+            certificado.required = true;
+        } else {
+            certificado.required = false;
+        }
+    });
+});

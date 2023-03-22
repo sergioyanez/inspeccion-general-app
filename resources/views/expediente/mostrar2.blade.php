@@ -47,7 +47,7 @@
                                             @endforeach
                                         </select>
                                         <label class="form-label" for="basic-default-fullname">Fecha de primer habilitación</label>
-                                        <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="fechaPrimerHabilitacion" />
                                         <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
                                         <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
                                         <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
@@ -90,7 +90,7 @@
                                         @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
                                             <p name="certificado_habilitacion">Certificado de habilitación cargado: <a href="{{ url($expediente->detalleHabilitacion->pdf_certificado_habilitacion) }}" target="blank_" >{{ $expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</a>
                                         @endif
-                                        <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="certificadoHabilitacion" />
                                     </div>
                                 </div>
 
