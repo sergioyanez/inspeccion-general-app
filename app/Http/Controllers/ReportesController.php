@@ -9,33 +9,43 @@ use Carbon\Carbon;
 
 class ReportesController extends Controller
 {
-    public function proximasVencer()
+    public function proximasVencer(Request $request)
     {
-        $reportes = $this->reportesPorVencer(15);
-        return view('reportes/tablaReportes', ['reportes'=>$reportes,'vencido'=>'Activo','plazo'=>'proximas a vencer en 15 dias']);
+        $request->validate([
+            'desde' => 'required|date',
+            'hasta' => 'required|date',
+        ]);
+        $reportes = $this->reportesPorVencer($request->desde,$request->hasta);
+        return view('reportes.tablaReportes', ['reportes'=>$reportes,'vencido'=>'Activo','plazo'=>'proximas a vencer entre: '.$request->desde.' y '.$request->hasta,'desde'=>$request->desde,'hasta'=>$request->hasta]);
     }
 
     public function vencidas()
     {
         $reportes = $this->vencencidos(0);
-        return view('reportes/tablaReportes', ['reportes'=>$reportes,'vencido'=>'Vencido','plazo'=>'vencidas']);
+        return view('reportes.tablaReportes', ['reportes'=>$reportes,'vencido'=>'Vencido','plazo'=>'vencidas']);
     }
 
-    private function reportesPorVencer($plazo){
-        return Expediente::with('detalleHabilitacion','contribuyentes')
-        ->whereHas('detalleHabilitacion', function ($query) use ($plazo) {
-            $query->whereDate('fecha_vencimiento', '>=', Carbon::now())
-                ->whereDate('fecha_vencimiento', '<=', Carbon::now()->addDays($plazo));
-        })
-        ->get();
+    private function reportesPorVencer($desde,$hasta){
+        return Expediente::with(['detalleHabilitacion', 'contribuyentes', 'avisos' => function ($query) {
+            $query->orderBy('fecha_aviso', 'asc'); //Obtener solo el aviso más reciente
+        }])
+            ->whereHas('detalleHabilitacion', function ($query) use ($desde, $hasta) {
+                $query->whereDate('fecha_vencimiento', '>=', $desde)
+                    ->whereDate('fecha_vencimiento', '<=', $hasta);
+            })
+            ->whereNull('estado_baja_id')
+            ->get();
     }
 
 
     private function vencencidos($plazo){
-        return Expediente::with('detalleHabilitacion','contribuyentes')
-        ->whereHas('detalleHabilitacion', function ($query) use ($plazo) {
-            $query->whereDate('fecha_vencimiento', '<=', Carbon::now()->addDays($plazo));
-        })
-        ->get();
+        return Expediente::with(['detalleHabilitacion', 'contribuyentes', 'avisos' => function ($query) {
+            $query->orderBy('fecha_aviso', 'asc'); //Obtener solo el aviso más reciente
+        }])
+            ->whereHas('detalleHabilitacion', function ($query) use ($plazo) {
+                $query->whereDate('fecha_vencimiento', '<=', Carbon::now()->addDays($plazo));
+            })
+            ->whereNull('estado_baja_id')
+            ->get();
     }
 }

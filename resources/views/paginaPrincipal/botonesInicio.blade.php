@@ -5,7 +5,7 @@
     Reportes
     </button>
     <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="{{route('habilitaciones-proximas-a-vencer')}}">Habilitaciones próximas a vencer</a></li>
+        <li><button class="dropdown-item" type="button" data-bs-toggle="modal" @if($errors->has('desde') || $errors->has('hasta')) data-bs-target="#example" @else data-bs-target="#modalReportes" @endif >Habilitaciones próximas a vencer</button></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="{{route('habilitaciones-vencidas')}}">Habilitaciones vencidas</a></li>
     </ul>
@@ -15,3 +15,42 @@
             <a class="btn btnPrincipal btn-violet d-flex align-items-center justify-content-center" href="{{route('usuarios')}}">Administrar usuarios</a>
         </div>
     @endif
+
+    <!-- Modal -->
+    <div class="modal fade" @if($errors->has('desde') || $errors->has('hasta')) id="example" @else id="modalReportes" @endif  aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Indicar fecha</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{route('habilitaciones-proximas-a-vencer')}}">
+                    @csrf
+                    <div class="mb-3">
+                        <label class="form-label" >Desde</label>
+                        <input min="{{$fecha_actual}}" type="date" name="desde" value="{{$fecha_actual}}" class="form-control @error('desde') is-invalid @enderror" autofocus/>
+                        @error('desde')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" >Hasta</label>
+                        <input min="{{$fecha_actual}}" type="date" name="hasta" value="" class="form-control @error('hasta') is-invalid @enderror" autofocus/>
+                        @error('hasta')
+                        <div class="invalid-feedback">
+                            {{$message}}
+                        </div>
+                        @enderror
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Confirmar</button>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+    </div>

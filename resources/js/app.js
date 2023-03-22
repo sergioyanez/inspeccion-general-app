@@ -28,6 +28,29 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+
+    const selectAviso = document.getElementById("selectAviso");
+    let cajaPDFAviso = document.getElementById("cajaPDFAviso");
+    let cajaDetalleAviso = document.getElementById("cajaDetalleAviso");
+
+    if(selectAviso){
+        if(selectAviso.value == 'telefonica'){
+            cajaPDFAviso.style.display = "none";
+            cajaDetalleAviso.style.display = "block";
+        }else {
+            cajaPDFAviso.style.display = "block";
+            cajaDetalleAviso.style.display = "none";
+        }
+        selectAviso.addEventListener("change", function () {
+            if (this.value === 'telefonica') {
+                cajaPDFAviso.style.display = "none";
+                cajaDetalleAviso.style.display = "block";
+            } else {
+                cajaPDFAviso.style.display = "block";
+                cajaDetalleAviso.style.display = "none";
+            }
+        });
+    }
 });
 
 const btnsDelete = document.getElementsByClassName("btnsDelete");
