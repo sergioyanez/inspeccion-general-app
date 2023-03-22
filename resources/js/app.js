@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", function () {
         "fechaVencimientoPermanente"
     );
 
+    let deOficio = document.getElementById("deOficio");
+    let fechaBajaDeOficio = document.getElementById("fechaBajaDeOficio");
+
     let estado_baja_id = document.getElementById("estado_baja_id");
     // let bajaProvisoria_1 = document.getElementById("provisoria_1");
     // let fechaVencimientoProvisoria_1 = document.getElementById("fechaVencimientoProvisoria_1");
@@ -31,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
     cajaFechaVencimiento("none");
     cajaBajaPermanente("none");
     cajaBajaProvisoria("none");
+    cajaBajaDeOficio("none");
 
     // cajaBajaProvisoria_1("none");
     // cajaBajaPermanente_1("none");
@@ -53,6 +57,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function cajaBajaDeOficio(d) {
+        if (deOficio) {
+            deOficio.style.display = d;
+        }
+    }
+
     if (tipoBaja) {
         console.log(fechaVencimientoProvisoria.value);
         tipoBaja.addEventListener("change", function () {
@@ -61,12 +71,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 cajaBajaPermanente("none");
                 fechaVencimientoProvisoria.required = true;
                 fechaVencimientoPermanente.required = false;
+                fechaBajaDeOficio.required = false;
             }
             if (Number(this.value) === 2) {
                 cajaBajaProvisoria("none");
                 cajaBajaPermanente("block");
                 fechaVencimientoProvisoria.required = false;
                 fechaVencimientoPermanente.required = true;
+                fechaBajaDeOficio.required = false;
+            }
+            if (Number(this.value) === 3) {
+                cajaBajaProvisoria("none");
+                cajaBajaPermanente("block");
+                fechaVencimientoProvisoria.required = false;
+                fechaVencimientoPermanente.required = false;
+                fechaBajaDeOficio.required = true;
             }
             if (Number(this.value) != 1 && Number(this.value) != 2) {
                 cajaBajaPermanente("none");

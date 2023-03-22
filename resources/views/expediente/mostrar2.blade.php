@@ -137,6 +137,14 @@
                                                 <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
                                                 <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
                                             </div>
+
+                                            <div id="deOficio">
+                                                <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                                <input type="date" name="fecha_baja1" class="form-control" id="fechaBajaDeOficio"/>
+
+                                                <label class="form-label" for="basic-default-fullname">Acta de baja de oficio</label>
+                                                <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
+                                            </div>
                                         @else
                                             @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente")
                                                 <input readonly value="{{$expediente->estadoBaja->tipoBaja->descripcion}}" type="text" name="estado_baja" class="form-control" />
