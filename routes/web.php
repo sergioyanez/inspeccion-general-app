@@ -51,29 +51,29 @@ Route::controller(LoginController::class)->group(function(){
     Route::post('iniciar-sesion','login')->name('iniciar-sesion');
     Route::get('salir','logout')->name('salir');
 });
-Route::controller(PdfController::class)->group(function(){
+Route::controller(PdfController::class)->middleware('auth')->group(function(){
 Route::get('pdf', 'generarPdf')->name('generar-pdf');
 });
 
 // RUTA PAGINA PRINCIPAL
-Route::controller(PaginaPrincipalController::class)->group(function(){
-    Route::get('pagina-principal','index')->middleware('auth')->name('pagina-principal');
+Route::controller(PaginaPrincipalController::class)->middleware('auth')->group(function(){
+    Route::get('pagina-principal','index')->name('pagina-principal');
 });
 
 // RUTA PAGINA DE BUSQUEDA DE EXPEDIENTES
-Route::controller(BusquedaExpedienteController::class)->group(function(){
+Route::controller(BusquedaExpedienteController::class)->middleware('auth')->group(function(){
     Route::get('busqueda-expediente','index')->name('busqueda-expediente');
 });
 
 
 // RUTA PAGINA DE REPORTES
-Route::controller(ReportesController::class)->group(function(){
+Route::controller(ReportesController::class)->middleware('auth')->group(function(){
     Route::post('habilitaciones-proximas-a-vencer','proximasVencer')->name('habilitaciones-proximas-a-vencer');
     Route::get('habilitaciones-vencidas','vencidas')->name('habilitaciones-vencidas');
 });
 
 // RUTA PAGINA DE avisos
-Route::controller(AvisosController::class)->group(function(){
+Route::controller(AvisosController::class)->middleware('auth')->group(function(){
     Route::get('avisos/{id}','index')->name('avisos_1');
     Route::get('avisos/{id}/{desde}/{hasta}','index')->name('avisos');
     Route::get('avisos/create/{id}','create')->name('avisos-crear');
@@ -81,7 +81,7 @@ Route::controller(AvisosController::class)->group(function(){
 });
 
 // RUTA DE USUARIO
-Route::controller(UsuarioController::class)->group(function(){
+Route::controller(UsuarioController::class)->middleware('auth')->group(function(){
     Route::get('usuario','index')->name('usuarios');
     Route::get('usuario/create','create')->name('usuarios-crear');
     Route::post('usuario/guardar','store')->name('usuarios-guardar');
@@ -93,7 +93,7 @@ Route::controller(UsuarioController::class)->group(function(){
 });
 
 // RUTA DE EXPEDIENTE
-Route::controller(ExpedienteController::class)->group(function(){
+Route::controller(ExpedienteController::class)->middleware('auth')->group(function(){
     Route::get('expediente','index')->name('expedientes');
     Route::get('expediente1','index1')->name('expedientes1');
     Route::get('expediente/create','create')->name('expedientes-crear');
@@ -109,7 +109,7 @@ Route::controller(ExpedienteController::class)->group(function(){
 });
 
 // RUTA DE CONTRIBUYENTE
-Route::controller(ContribuyenteController::class)->group(function(){
+Route::controller(ContribuyenteController::class)->middleware('auth')->group(function(){
     Route::get('contribuyente','index')->name('contribuyentes');
     Route::get('contribuyenteBuscar','indexBuscar')->name('contribuyentes-buscar');
     Route::get('contribuyente/create','create')->name('contribuyentes-crear');
@@ -121,7 +121,7 @@ Route::controller(ContribuyenteController::class)->group(function(){
 });
 
 // RUTA DE EXPEDIENTES-CONTRIBUYENTES
-Route::controller(ExpedienteContribuyenteController::class)->group(function(){
+Route::controller(ExpedienteContribuyenteController::class)->middleware('auth')->group(function(){
     Route::get('expedienteContribuyente','index')->name('expedientesContribuyentes');
     Route::get('expedienteContribuyente/create','create')->name('expedientesContribuyentes-crear');
     Route::post('expedienteContribuyente/guardar','store')->name('expedientesContribuyentes-guardar');
@@ -131,7 +131,7 @@ Route::controller(ExpedienteContribuyenteController::class)->group(function(){
 });
 
 // RUTAS DE EXPEDIENTE PERSONA JURIDICA
-Route::controller(ExpedientePersonaJuridicaController::class)->group(function(){
+Route::controller(ExpedientePersonaJuridicaController::class)->middleware('auth')->group(function(){
     Route::get('expedientePersonaJuridica','index')->name('expedientesPersonasJuridicas');
     Route::get('expedientePersonaJuridica/create','create')->name('expedientesPersonasJuridicas-crear');
     Route::post('expedientePersonaJuridica/guardar','store')->name('expedientesPersonasJuridicas-guardar');
@@ -141,7 +141,7 @@ Route::controller(ExpedientePersonaJuridicaController::class)->group(function(){
 });
 
 // RUTA DE PERSONA JURIDICA
-Route::controller(PersonaJuridicaController::class)->group(function(){
+Route::controller(PersonaJuridicaController::class)->middleware('auth')->group(function(){
     Route::get('personaJuridica','index')->name('personasJuridicas');
     Route::get('personaJuridicaBuscar','indexBuscar')->name('personasJuridicas-buscar');
     Route::get('personaJuridica/create','create')->name('personasJuridicas-crear');
@@ -153,7 +153,7 @@ Route::controller(PersonaJuridicaController::class)->group(function(){
 });
 
 // RUTA DE INMUEBLE
-Route::controller(InmuebleController::class)->group(function(){
+Route::controller(InmuebleController::class)->middleware('auth')->group(function(){
     Route::get('inmueble','index')->name('inmuebles');
     Route::get('inmueble/create','create')->name('inmuebles-crear');
     Route::post('inmueble/guardar','store')->name('inmuebles-guardar');
@@ -163,7 +163,7 @@ Route::controller(InmuebleController::class)->group(function(){
 });
 
 // RUTA DE DETALLE INMUEBLE
-Route::controller(DetalleInmuebleController::class)->group(function(){
+Route::controller(DetalleInmuebleController::class)->middleware('auth')->group(function(){
     Route::get('detalleInmueble','index')->name('detallesInmuebles');
     Route::get('detalleInmueble/create','create')->name('detallesInmuebles-crear');
     Route::post('detalleInmueble/guardar','store')->name('detallesInmuebles-guardar');
@@ -173,7 +173,7 @@ Route::controller(DetalleInmuebleController::class)->group(function(){
 });
 
 // RUTA DE CATASTRO
-Route::controller(CatastroController::class)->group(function(){
+Route::controller(CatastroController::class)->middleware('auth')->group(function(){
     Route::get('catastro','index')->name('catastros');
     Route::get('catastro/create','create')->name('catastros-crear');
     Route::post('catastro/guardar','store')->name('catastros-guardar');
@@ -183,7 +183,7 @@ Route::controller(CatastroController::class)->group(function(){
 });
 
 // RUTA DE INFORME DE DEPENDENCIAS
-Route::controller(InformeDependenciasController::class)->group(function(){
+Route::controller(InformeDependenciasController::class)->middleware('auth')->group(function(){
     Route::get('informeDependencias','index')->name('informe-dependencias');
     Route::get('informeDependencias/create','create')->name('informe-dependencias-crear');
     Route::post('informeDependencias/guardar','store')->name('informe-dependencias-guardar');
@@ -193,7 +193,7 @@ Route::controller(InformeDependenciasController::class)->group(function(){
 });
 
 // RUTAS DE DETALLE HABILITACION
-Route::controller(DetalleHabilitacionController::class)->group(function(){
+Route::controller(DetalleHabilitacionController::class)->middleware('auth')->group(function(){
     Route::get('detalleHabilitacion','index')->name('detalle-habilitacion');
     Route::get('detalleHabilitacion/create','create')->name('detalle-habilitacion-crear');
     Route::post('detalleHabilitacion/guardar','store')->name('detalle-habilitacion-guardar');
@@ -204,7 +204,7 @@ Route::controller(DetalleHabilitacionController::class)->group(function(){
 
 
 // RUTAS DE ESTADO DE BAJA
-Route::controller(EstadoBajaController::class)->group(function(){
+Route::controller(EstadoBajaController::class)->middleware('auth')->group(function(){
     Route::get('estadoBaja','index')->name('estadosBajas');
     Route::get('estadoBaja/create','create')->name('estadosBajas-crear');
     Route::post('estadoBaja/guardar','store')->name('estadosBajas-guardar');
@@ -214,7 +214,7 @@ Route::controller(EstadoBajaController::class)->group(function(){
 });
 
 // RUTA DE ESTADO CIVIL
-Route::controller(EstadoCivilController::class)->group(function(){
+Route::controller(EstadoCivilController::class)->middleware('auth')->group(function(){
     Route::get('estadoCivil','index')->name('estadosCiviles');
     Route::get('estadoCivil/create','create')->name('estadosCiviles-crear');
     Route::post('estadoCivil/guardar','store')->name('estadosCiviles-guardar');
@@ -224,7 +224,7 @@ Route::controller(EstadoCivilController::class)->group(function(){
 });
 
 // RUTA DE TIPO DE BAJA
-Route::controller(TipoBajaController::class)->group(function(){
+Route::controller(TipoBajaController::class)->middleware('auth')->group(function(){
     Route::get('tipoBaja','index')->name('tiposBajas');
     Route::get('tipoBaja/create','create')->name('tiposBajas-crear');
     Route::post('tipoBaja/guardar','store')->name('tiposBajas-guardar');
@@ -234,7 +234,7 @@ Route::controller(TipoBajaController::class)->group(function(){
 });
 
 // RUTA DE TIPO DE DEPENDENCIAS
-Route::controller(TipoDependenciaController::class)->group(function(){
+Route::controller(TipoDependenciaController::class)->middleware('auth')->group(function(){
     Route::get('tipoDependencia','index')->name('tiposDependencias');
     Route::get('tipoDependencia/create','create')->name('tiposDependencias-crear');
     Route::post('tipoDependencia/guardar','store')->name('tiposDependencias-guardar');
@@ -244,7 +244,7 @@ Route::controller(TipoDependenciaController::class)->group(function(){
 });
 
 // RUTA DE TIPO DE DOCUMENTO
-Route::controller(TipoDniController::class)->group(function(){
+Route::controller(TipoDniController::class)->middleware('auth')->group(function(){
     Route::get('dni','index')->name('dnis');
     Route::get('dni/create','create')->name('dnis-crear');
     Route::post('dni/guardar','store')->name('dnis-guardar');
@@ -254,7 +254,7 @@ Route::controller(TipoDniController::class)->group(function(){
 });
 
 // RUTA DE TIPO DE ESTADOS DE HABILITACION
-Route::controller(TipoEstadoController::class)->group(function(){
+Route::controller(TipoEstadoController::class)->middleware('auth')->group(function(){
     Route::get('tipoEstadoHabilitacion','index')->name('tiposEstadosHabilitacion');
     Route::get('tipoEstadoHabilitacion/create','create')->name('tiposEstadosHabilitacion-crear');
     Route::post('tipoEstadoHabilitacion/guardar','store')->name('tiposEstadosHabilitacion-guardar');
@@ -265,7 +265,7 @@ Route::controller(TipoEstadoController::class)->group(function(){
 });
 
 // RUTA DE TIPO DE HABILITACION
-Route::controller(TipoHabilitacionController::class)->group(function(){
+Route::controller(TipoHabilitacionController::class)->middleware('auth')->group(function(){
     Route::get('tipoHabilitacion','index')->name('tiposHabilitaciones');
     Route::get('tipoHabilitacion/create','create')->name('tiposHabilitaciones-crear');
     Route::post('tipoHabilitacion/guardar','store')->name('tiposHabilitaciones-guardar');
@@ -275,7 +275,7 @@ Route::controller(TipoHabilitacionController::class)->group(function(){
 });
 
 // RUTA DE TIPO DE INMUEBLE
-Route::controller(TipoInmuebleController::class)->group(function(){
+Route::controller(TipoInmuebleController::class)->middleware('auth')->group(function(){
     Route::get('tipoInmueble','index')->name('tiposInmuebles');
     Route::get('tipoInmueble/create','create')->name('tiposInmuebles-crear');
     Route::post('tipoInmueble/guardar','store')->name('tiposInmuebles-guardar');
@@ -285,7 +285,7 @@ Route::controller(TipoInmuebleController::class)->group(function(){
 });
 
 // RUTA DE TIPO DE PERMISOS
-Route::controller(TipoPermisoController::class)->group(function(){
+Route::controller(TipoPermisoController::class)->middleware('auth')->group(function(){
     Route::get('tipoPermiso','index')->name('tiposPermisos');
     Route::get('tipoPermiso/create','create')->name('tiposPermisos-crear');
     Route::post('tipoPermiso/guardar','store')->name('tiposPermisos-guardar');
