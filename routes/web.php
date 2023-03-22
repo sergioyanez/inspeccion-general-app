@@ -26,6 +26,7 @@ use App\Http\Controllers\ReportesController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PaginaPrincipal\PaginaPrincipalController;
 use App\Http\Controllers\AvisosController;
+use App\Http\Controllers\PdfController;
 use GuzzleHttp\Middleware;
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,9 @@ Route::controller(LoginController::class)->group(function(){
     Route::get('','index')->name('login');
     Route::post('iniciar-sesion','login')->name('iniciar-sesion');
     Route::get('salir','logout')->name('salir');
+});
+Route::controller(PdfController::class)->group(function(){
+Route::get('pdf', 'generarPdf')->name('generar-pdf');
 });
 
 // RUTA PAGINA PRINCIPAL
