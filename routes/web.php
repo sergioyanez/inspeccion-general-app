@@ -70,7 +70,8 @@ Route::controller(ReportesController::class)->group(function(){
 
 // RUTA PAGINA DE avisos
 Route::controller(AvisosController::class)->group(function(){
-    Route::get('avisos/{id}','index')->name('avisos');
+    Route::get('avisos/{id}','index')->name('avisos_1');
+    Route::get('avisos/{id}/{desde}/{hasta}','index')->name('avisos');
     Route::get('avisos/create/{id}','create')->name('avisos-crear');
     Route::post('avisos/guardar','store')->name('avisos-guardar');
 });

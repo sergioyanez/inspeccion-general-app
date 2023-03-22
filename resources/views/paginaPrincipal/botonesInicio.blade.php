@@ -29,7 +29,7 @@
                     @csrf
                     <div class="mb-3">
                         <label class="form-label" >Desde</label>
-                        <input type="date" name="desde" value="{{$fecha_actual}}" class="form-control @error('desde') is-invalid @enderror" autofocus/>
+                        <input min="{{$fecha_actual}}" type="date" name="desde" value="{{$fecha_actual}}" class="form-control @error('desde') is-invalid @enderror" autofocus/>
                         @error('desde')
                         <div class="invalid-feedback">
                             {{$message}}
@@ -38,7 +38,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label" >Hasta</label>
-                        <input type="date" name="hasta" value="" class="form-control @error('hasta') is-invalid @enderror" autofocus/>
+                        <input min="{{$fecha_actual}}" type="date" name="hasta" value="" class="form-control @error('hasta') is-invalid @enderror" autofocus/>
                         @error('hasta')
                         <div class="invalid-feedback">
                             {{$message}}

@@ -1,7 +1,7 @@
   
-<div class="modal" @if($errors->has('fecha_aviso') || $errors->has('detalle') || $errors->has('pdf_file')) id="#example" 
-    @else id="#modalReportes" @endif> </button> tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" @if($errors->has('fecha_aviso') || $errors->has('detalle') || $errors->has('pdf_file')) id="example" 
+    @else id="modalAvisos" @endif aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Crear un aviso</h5>
@@ -20,7 +20,11 @@
                     </div>
                     <input type="hidden" value="{{$expediente->id}}" name="expediente_id">
                     <input type="hidden" value="{{$expediente->nro_expediente}}" name="nro_expediente">
-
+                    @if(isset($hasta) and isset($desde) and $hasta != 0)
+                        <input type="hidden" name="desde" value="{{$desde}}" />
+                        <input type="hidden" name="hasta" value="{{$hasta}}" />
+                    @endif
+                    
                     <div class="mb-3">
                         <label class="form-label">Tipo comunicación</label>
                         <select class="form-select" name="tipo_comunicacion" id="selectAviso">
@@ -50,7 +54,7 @@
                     </div>
                    
                     <div class="modal-footer">
-                        <a href="{{route('avisos',$expediente->id)}}" class="btn btn-danger">Cancelar</a>
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success">Guardar</button>
                     </div>
                 </form>

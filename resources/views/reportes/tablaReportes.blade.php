@@ -48,7 +48,11 @@
                     @endif
                 </td>
                 <td> 
-                    <a class="btn btn-orange" href="{{route('avisos', $reporte->id)}}">Ver/Registrar avisos</a>
+                    @if (isset($hasta) and isset($desde))
+                        <a class="btn btn-orange" href="{{route('avisos', ['id'=>$reporte->id,'desde'=>$desde,'hasta'=>$hasta])}}">Ver/Registrar avisos</a> 
+                    @else
+                        <a class="btn btn-orange" href="{{route('avisos_1', $reporte->id)}}">Ver/Registrar avisos</a> 
+                    @endif
                 </td>
                 <td> 
                     <a class="btn btn-success" href="{{route('expedientes-mostrar', $reporte->id)}}">Ver expediente</a>

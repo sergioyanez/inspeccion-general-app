@@ -1,4 +1,5 @@
 @include('header.header') 
+
     <ul class="list-group col-lg-4">
         <li class="list-group-item active">Avisos</li>
         <li class="list-group-item">Expediente: {{$expediente->nro_expediente}}</li>
@@ -35,9 +36,9 @@
     <div class="col-12 d-flex justify-content-start p-0 mt-3">
        <button class="btn btn-orange" type="button" data-bs-toggle="modal" 
           @if($errors->has('fecha_aviso') || $errors->has('detalle') || $errors->has('pdf_file')) data-bs-target="#example" 
-          @else data-bs-target="#modalReportes" @endif> Nuevo Aviso </button>
-      
-           </div>
+          @else data-bs-target="#modalAvisos" @endif> + Nuevo Aviso </button>
+          @include('avisos.guardarAviso')
+    </div>
 
     @if($avisos and $avisos->count())
         <table class="table table-striped mb-5 mt-3">
@@ -73,7 +74,16 @@
     @endif
 
     <div class="col-12 d-flex justify-content-end p-0 ms-5">
-        <a href="{{ url()->previous() }}" class="mt-4 me-5 btn btn-secondary btn-salir">Volver</a>
+        @if(isset($hasta) and isset($desde) and $hasta != 0)
+            <form method="POST" action="{{route('habilitaciones-proximas-a-vencer')}}">
+                @csrf
+                <input type="hidden" name="desde" value="{{$desde}}" />
+                <input type="hidden" name="hasta" value="{{$hasta}}" />
+                <button type="submit" class="mt-4 me-5 btn btn-secondary btn-salir">Volver</button>
+            </form>
+        @else
+            <a href="{{route('habilitaciones-vencidas')}}" class="mt-4 me-5 btn btn-secondary btn-salir">Volver</a>
+        @endif
     </div>
-@include('avisos.guardarAviso')
+
 @include('footer.footer')

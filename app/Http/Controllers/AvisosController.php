@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class AvisosController extends Controller
 {
-    public function index($id)
+    public function index($id,$desde = 0,$hasta = 0)
     {
         $expediente = Expediente::find($id);
         $avisos = AvisoModel::join('expedientes', 'aviso.expediente_id', '=', 'expedientes.id')
@@ -22,30 +22,21 @@ class AvisosController extends Controller
         ->where('expedientes.id', '=', $id)
         ->orderBy('aviso.fecha_aviso', 'desc')
         ->get();
-        return view('avisos.avisos', [
-            'avisos'=> $avisos,
-            'expediente'=>$expediente,
-            'fecha_actual'=>Carbon::now()->format('Y-m-d')
-        ]);
-    }
-
-    public function create($id)
-    {
-        $expediente = Expediente::find($id);
-        if(!isset($id)){
-            return back();
+        if($desde !=0 && $hasta !=0){
+            return view('avisos.avisos', [
+                'avisos'=> $avisos,
+                'expediente'=>$expediente,
+                'desde' => $desde,
+                'hasta' => $hasta,
+                'fecha_actual'=>Carbon::now()->format('Y-m-d')
+            ]);
+        }else{
+            return view('avisos.avisos', [
+                'avisos'=> $avisos,
+                'expediente'=>$expediente,
+                'fecha_actual'=>Carbon::now()->format('Y-m-d')
+            ]);
         }
-        $avisos = AvisoModel::join('expedientes', 'aviso.expediente_id', '=', 'expedientes.id')
-        ->join('detalles_habilitaciones', 'expedientes.detalle_habilitacion_id', '=', 'detalles_habilitaciones.id')
-        ->join('users', 'aviso.avisado_por', '=', 'users.id')
-        ->select('aviso.*', 'detalles_habilitaciones.fecha_vencimiento','users.usuario')
-        ->where('expedientes.id', '=', $id)
-        ->orderBy('aviso.fecha_aviso', 'desc')
-        ->get();
-        return view('avisos.guardarAviso', [
-            'avisos'=>$avisos,
-            'expediente'=>$expediente,
-            'fecha_actual'=>Carbon::now()->format('Y-m-d')]);
     }
 
     public function store(AvisosStore $request)
@@ -69,7 +60,10 @@ class AvisosController extends Controller
         if($aviso->save()){
             $log = new LogsAvisosController();
             $log->store($aviso, 'c');
-            return redirect()->route('avisos',$aviso->expediente_id)->with('success','Creado con éxito');
+            if($request->input('desde') && $request->input('hasta')){
+                return redirect()->route('avisos',['id'=>$aviso->expediente_id,'desde'=>$request->input('desde'),'hasta'=>$request->input('hasta')])->with('success','Creado con éxito');
+            }
+            return redirect()->route('avisos_1',$aviso->expediente_id)->with('success','Creado con éxito');
         }
         return back()->with('fail','No se pudo crear el aviso');
     }
