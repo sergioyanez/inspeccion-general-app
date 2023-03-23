@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 cajaBajaProvisoria("none");
                 cajaBajaPermanente("block");
                 fechaVencimientoProvisoria.required = false;
-                fechaVencimientoPermanente.required = false;
+                fechaVencimientoPermanente.required = true;
                 fechaBajaDeOficio.required = true;
             }
             if (Number(this.value) != 1 && Number(this.value) != 2) {
