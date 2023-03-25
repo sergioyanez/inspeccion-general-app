@@ -1,89 +1,249 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-        
-        <title>Expediente</title>
-        @vite(['resources/js/app.js'])
-    </head>
-    <body>
+@include('header.header')
+    <div class="container">
         <div class="row">
             <div class="col-xl-12">
-                <div class="card mb-4">
+                <div class="card mb-6">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        {{-- @isset($expediente->nro_expediente)
-                            <h2 class="mb-0">Expediente: {{$expediente->nro_expediente}}</h2>
-                        @endisset --}}
                         <div>
-                            <h3>Contribuyentes del expediente {{$expediente->nro_expediente}}</h3>
-                            @forelse ($contribuyentes as $item)
-                                <p>Nombre: {{ $item->contribuyente->nombre }} 
-                                    Apellido: {{ $item->contribuyente->apellido }}
-                                    Dni: {{ $item->contribuyente->apellido }}</p>
-                            @empty
-                            @endforelse
+                            {{-- BUSCAR UN CONTRIBUYENTE POR DNI --}}
+                            <form method="GET" action="{{route('contribuyentes-buscar')}}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label>Buscar contribuyente</label>
+                                    <input  type="text" name="buscarpor" class="form-control" placeholder="Número de documento" />
+                                    <input  class="btn btn-primary" type="submit" value="Buscar">
+                                </div>
+                            </form>
+                            {{-- BUSCAR UNA PERSONA JURIDICA POR DNI --}}
+                            <form method="GET" action="{{route('personasJuridicas-buscar')}}">
+                                @csrf
+                                <div class="mb-3">
+                                    <label>Buscar persona jurídica</label>
+                                    <input  type="text" name="buscarpor1" class="form-control" placeholder="Número de documento"/>
+                                    <input  class="btn btn-primary" type="submit" value="Buscar">
+                                </div>
+                            </form>
                         </div>
+                        
+                        <div class="position-relative py-5 px-5">
+                            {{-- MUESTRA EL CONTRIBUYENTE SI LO ENCONTRO Y DA LA OPCION DE AGREGARLO AL EXPEDIENTE
+                            O SI NO LO ENCONTRO DA LA OPCION DE CREARLO --}}
+                            <form class="justify-content-center" method="POST" action="{{ route('expedientesContribuyentes-guardar') }}">
+                                @csrf
+                                @isset($contribuyentes)
+                                    @if ($contribuyentes != null and count($contribuyentes) == 1 and request('buscarpor'))
+                                    <h5 class=" text-left font-weight">Agregar al expediente el contribuyente:</h5>
+                                        @foreach ($contribuyentes as $contribuyente)
+                                            <td>{{$contribuyente->nombre}}</td>
+                                            <td>{{$contribuyente->apellido}}</td>
+                                            <td>{{$contribuyente->dni}}</td>
+                                            <input type="hidden" name="contribuyente_id" value="{{$contribuyente->id}}">
+                                            <input type="hidden" name="idExpSiguiente" value="{{$expediente->id}}">
+                                            <button  class="btn btn-primary"type="submit">Agregar</button>
+                                            @foreach ($expedientesContribuyentes as $ec)
+                                                @if($ec->expediente_id == $expediente->id && $ec->contribuyente_id == $contribuyente->id)
+                                                    {{ "El contribuyente ya esta cargado en el expediente" }}
+                                                    {{-- <input required type="text" name="cargoContribuyente" value="{{ "seba" }}"> --}}
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+                                    @else
+                                        @if (request('buscarpor'))
+                                            <h4>No se encontró el contribuyente</h4>
+                                            <a href="{{route('contribuyentes-crearEnExpediente')}}" class="btn btn-primary">Crear nuevo contribuyente para el expediente</a>
+                                        @endif
+
+                                    @endif
+                                @endisset
+                            </form>
+                            {{-- MUESTRA LA PERSONA JURIDICA SI LA ENCONTRO Y DA LA OPCION DE AGREGARLA AL EXPEDIENTE
+                            O SI NO LA ENCONTRO DA LA OPCION DE CREARLA --}}
+                            <form method="POST" action="{{ route('expedientesPersonasJuridicas-guardar') }}">
+                                @csrf
+                                @isset($personasJuridicas)
+                                    @if ($personasJuridicas != null and count($personasJuridicas) == 1 and request('buscarpor1'))
+                                    <h5 class=" text-left font-weight">Agregar al expediente la persona jurídica:</h5>
+                                        @foreach ($personasJuridicas as $pj)
+                                            <td>{{$pj->nombre_representante}}</td>
+                                            <td>{{$pj->apellido_representante}}</td>
+                                            <td>{{$pj->dni_representante}}</td>
+                                            <input type="hidden" name="persona_juridica_id" value="{{$pj->id}}">
+                                            <input type="hidden" name="idExpSiguiente" value="{{$expediente->id}}">
+                                            <button class="btn btn-primary" type="submit">Agregar</button>
+                                            @foreach ($expedientesPersonasJuridicas as $ec)
+                                                @if($ec->expediente_id == $expediente->id && $ec->persona_juridica_id == $pj->id)
+                                                    {{ "La persona juridica ya esta cargada en el expediente" }}
+                                                    {{-- <input required type="text" name="cargoContribuyente" value="{{ "seba" }}"> --}}
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+                                    @else
+                                        @if (request('buscarpor1'))
+                                            <h4>No se encontró la persona jurídica</h4>
+                                            <a href="{{route('personasJuridicas-crearEnExpediente')}}" class="btn btn-primary">Crear persona jurídica para el expediente</a>
+                                        @endif
+
+                                    @endif
+                                @endisset
+                            </form>
+                        </div>
+
                         <div>
-                            <h3>Personas juridicas del expediente {{$expediente->nro_expediente}}</h3>
-                            @forelse ($personasJuridicas as $item1)
-                                <p>Nombre: {{ $item1->personaJuridica->nombre_representante }} 
-                                    Apellido: {{ $item1->personaJuridica->apellido_representante }}
-                                    Dni: {{ $item1->personaJuridica->dni_representante }}</p>
-                            @empty
-                                
-                            @endforelse
+                            {{-- MUESTRA EL/LOS CONTRIBUYENTES AGREGADOS AL EXPEDIENTE --}}
+                            <h3>Contribuyentes del expediente</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>NOMBRE  </th>
+                                        <th>APELLIDO  </th>
+                                        <th>DNI  </th>
+                                        <th>ACCIÓN  </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse ($expedientesContribuyentes as $expedContrib)
+                                        @if ($expedContrib->expediente_id ==$expediente->id)
+                                            <tr>
+                                                <td>{{$expedContrib->contribuyente->nombre}}</td>
+                                                <td>{{$expedContrib->contribuyente->apellido}}</td>
+                                                <td>{{$expedContrib->contribuyente->dni}}</td>
+                                                <td><a  href="{{route('expedientesContribuyentes-eliminar', $expedContrib->id)}}"class="btn btn-danger">Eliminar</a></td>
+                                            </tr>
+                                        @endif
+                                    @empty
+                                    @endforelse
+                                </tbody>
+                            </table>
+                            {{-- MUESTRA LA/LAS PERSONAS JURIDICAS AGREGADAS AL EXPEDIENTE --}}
+                            <h3 >Personas jurídicas del expediente</h3>
+                            <table >
+                                <thead>
+                                    <tr>
+                                        <th>NOMBRE  </th>
+                                        <th>APELLIDO  </th>
+                                        <th>DNI  </th>
+                                        <th>ACCIÓN  </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($expedientesPersonasJuridicas as $expedPersJurid)
+                                        @if ($expedPersJurid->expediente_id ==$expediente->id)
+                                            <tr>
+                                                <td>{{$expedPersJurid->personaJuridica->nombre_representante}}</td>
+                                                <td>{{$expedPersJurid->personaJuridica->apellido_representante}}</td>
+                                                <td>{{$expedPersJurid->personaJuridica->dni_representante}}</td>
+                                                <td><a  href="{{route('expedientesPersonasJuridicas-eliminar', $expedPersJurid->id)}}"class="btn btn-danger">Eliminar</a></td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+
+                    
+                    
                     {{-- PRIMER PARTE DE CARGA DE EXPEDIENTE. PRIMER PAGINA DEL FIGMA --}}
                     <div class="card-body">
+                        
                         <form method="POST" action="{{route('expedientes-actualizar')}}" enctype="multipart/form-data">
                             @csrf
+                            @foreach ($expedientesContribuyentes as $ec)
+                                @if($ec->expediente_id == $expediente->id)
+                                    <input required type="hidden" name="cargo" value="{{$ec->expediente_id}}">
+                                @endif
+                            @endforeach
+                            @error('cargo')
+                                <div class="alert alert-danger">
+                                    {{$message}}
+                                </div>
+                            @enderror
+                            
                             @isset($expediente->id)
                                 <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
                             @endisset
-
+                            
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de expediente</label>
-                                <input value="{{$expediente->nro_expediente}}" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto"/>
-                                <input type="submit" value="Ver PDF">
+                                <input readonly value="{{$expediente->nro_expediente}}" type="text" name="nro_expediente" class="form-control" id="basic-default-nombreCompleto"/>
+                                {{-- <input type="submit" value="Ver PDF"> --}}
+                                @error('nro_expediente')
+                                    
+                                    <div class="alert alert-danger">
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de comercio</label>
-                                <input value="{{$expediente->nro_comercio}}" type="text" name="nro_comercio" class="form-control" id="basic-default-nombreCompleto" />
+                                <input readonly value="{{$expediente->nro_comercio}}" type="text" name="nro_comercio" class="form-control" id="basic-default-nombreCompleto" />
+                                @error('nro_comercio')
+                                    
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
+                            
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Actividad principal</label>
                                 <input value="{{$expediente->actividad_ppal}}" type="text" name="actividad_ppal" class="form-control" id="basic-default-nombreCompleto" />
-                                <label class="form-label" for="basic-default-fullname">Anexo</label>
+                                @error('actividad_ppal')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
+                                {{-- <label class="form-label" for="basic-default-fullname">Anexo</label>
                                 <input value="{{$expediente->anexo}}" type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
+                                @error('anexo')
+                                    
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror --}}
                             </div>
-
+                            
                             {{-- DATOS DEL INMUEBLE --}}
                             <div>
                                 <input type="hidden" name="inmueble_id" value="{{$expediente->detalleInmueble->inmueble->id}}">
-                                <label class="form-label" for="basic-default-fullname">Domicilio inmueble/s</label>
+                                <label class="form-label" for="basic-default-fullname">Domicilio inmueble</label>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Calle:</label>
-                                    <input value="{{$expediente->detalleInmueble->inmueble->calle}}" required type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input value="{{$expediente->detalleInmueble->inmueble->calle}}" type="text" name="calle" class="form-control" id="basic-default-nombreCompleto" />
+                                    @error('calle')
+                                        {{-- <div class="invalid-feedback"> --}}
+                                        <div>
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div>
                                     <label class="form-label" for="basic-default-fullname">Nº:</label>
-                                    <input value="{{$expediente->detalleInmueble->inmueble->numero}}" required type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
+                                    <input value="{{$expediente->detalleInmueble->inmueble->numero}}" type="text" name="numero" class="form-control" id="basic-default-nombreCompleto" />
+                                    @error('numero')
+                                        {{-- <div class="invalid-feedback"> --}}
+                                        <div>
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
 
                                 <input type="hidden" name="detalle_inmueble_id" value="{{$expediente->detalleInmueble->id}}">
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-fullname">Tipo de inmueble</label>
                                     <select required name="tipo_inmueble_id" class="form-control" id="tipo_inmueble">
-                                        <option>-- Seleccione --</option>
+                                        <option value="">-- Seleccione --</option>
                                         @foreach($tiposInmuebles as $tipo)
-                                            {{-- <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option> --}}
                                             <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleInmueble->tipoInmueble->id) selected @endif>{{$tipo->descripcion}}</option>
                                         @endforeach
                                     </select>
+                                    @error('tipo_inmueble_id')
+                                        {{-- <div class="invalid-feedback"> --}}
+                                        <div>
+                                            {{$message}}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div id="fecha_alquiler" >
                                     <label class="form-label" for="basic-default-fullname">Fecha vencimiento alquiler</label>
@@ -94,10 +254,16 @@
                             <div>
                                 <label class="form-label" for="basic-default-fullname">Solicitud:</label>
                                 @if ($expediente->pdf_solicitud)
-                                    <p name="pdf_solicitud">PDF solicitud cargado: {{$expediente->pdf_solicitud}}</p>
-                                    {{-- <input value="{{$expediente->pdf_solicitud}}" name="pdf_solicitud" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
+                                    <p name="pdf_solicitud">PDF solicitud cargado: <a href="{{ url($expediente->pdf_solicitud) }}" target="blank_" >{{$expediente->pdf_solicitud}}</a>
+                                    </p>
                                 @endif
                                 <input type="file" name="pdf_solicitud_nueva" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                @error('pdf_solicitud')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
 
                             {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
@@ -107,292 +273,11 @@
                             <div>
                                 <input value="{{$expediente->observaciones_grales}}" placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
-
-                            {{-- SEGUNDA PAGINA DEL FIGMA. DEPENDENCIAS --}}
-                            {{-- <div>
-                                @forelse ($informesDependencias as $item) --}}
-
-                                    {{-- SECRETARIA DE GOBIERNO --}}
-                                    {{-- <label class="form-label" for="basic-default-fullname">{{$item->tipoDependencia->nombre}}</label>
-                                    @if ($item->tipo_dependencia_id == 1)
-                                        <input type="hidden" name="secretaria_id" value="{{ $item->id }}">
-                                        <div>
-                                            <input value="{{ $item->observaciones }}" type="text" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
-                                            @if ($item->pdf_informe)
-                                                <p name="pdf_secretaria_gobierno">PDF cargado: {{ $item->pdf_informe }}</p>
-                                            @endif
-                                            <input type="file" name="pdf_secretaria_gobierno_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif --}}
-
-                                    {{-- OBRAS PARTICULARES --}}
-                                    {{-- @if ($item->tipo_dependencia_id == 3)
-                                        <input type="hidden" name="obras_id" value="{{ $item->id }}">
-                                        <div>
-                                            <input value="{{ $item->observaciones }}" type="text" name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_obras_particulares" class="form-control" id="basic-default-nombreCompleto" />
-                                            @if ($item->pdf_informe)
-                                                <p name="pdf_obras_particulares">PDF cargado: {{ $item->pdf_informe }}</p>
-                                            @endif
-                                            <input type="file" name="pdf_obras_particulares_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif --}}
-
-                                    {{-- TASA POR ALUMBRADO, BARRIDO Y LIMPIEZA --}}
-                                    {{-- @if ($item->tipo_dependencia_id == 4)
-                                        <input type="hidden" name="alumbrado_id" value="{{ $item->id }}"> 
-                                        <div>
-                                            <input value="{{ $item->observaciones }}" type="text" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_alumbrado" class="form-control" id="basic-default-nombreCompleto" />
-                                            @if ($item->pdf_informe)
-                                                <p name="pdf_alumbrado">PDF cargado: {{ $item->pdf_informe }}</p>
-                                            @endif
-                                            <input type="file" name="pdf_alumbrado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif --}}
-                                    
-                                    {{-- BROMATOLOGÌA --}}
-                                    {{-- @if ($item->tipo_dependencia_id == 5)
-                                        <input type="hidden" name="bromatologia_id" value="{{ $item->id }}"> 
-                                        <div>
-                                            <input value="{{ $item->observaciones }}" type="text" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_bromatologia" class="form-control" id="basic-default-nombreCompleto" />
-                                            @if ($item->pdf_informe)
-                                                <p name="pdf_bromatologia">PDF cargado: {{ $item->pdf_informe }}</p>
-                                            @endif
-                                            <input type="file" name="pdf_bromatologia_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif --}}
-                                    
-                                    {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL --}}
-                                    {{-- @if ($item->tipo_dependencia_id == 6)
-                                        <input type="hidden" name="inspeccion_id" value="{{ $item->id }}"> 
-                                        <div>
-                                            <input value="{{ $item->observaciones }}" type="text" name="inspeccion" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_inspeccion" class="form-control" id="basic-default-nombreCompleto" />
-                                            @if ($item->pdf_informe)
-                                                <p name="pdf_inspeccion">PDF cargado: {{ $item->pdf_informe }}</p>
-                                            @endif
-                                            <input type="file" name="pdf_inspeccion_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif --}}
-                                    
-                                    {{-- JUZGADO DE FALTAS --}}
-                                    {{-- @if ($item->tipo_dependencia_id == 7)
-                                        <input type="hidden" name="juzgado_id" value="{{ $item->id }}"> 
-                                        <div>
-                                            <input value="{{ $item->observaciones }}" type="text" name="juzgado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_juzgado" class="form-control" id="basic-default-nombreCompleto" />
-                                            @if ($item->pdf_informe)
-                                                <p name="pdf_juzgado">PDF cargado: {{ $item->pdf_informe }}</p>
-                                            @endif
-                                            <input type="file" name="pdf_juzgado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif --}}
-
-                                    {{-- BOMBEROS DE POLICÌA DE BUENOS AIRES --}}
-                                    {{-- @if ($item->tipo_dependencia_id == 8)
-                                        <input type="hidden" name="bomberos_id" value="{{ $item->id }}"> 
-                                        <div>
-                                            <input value="{{ $item->observaciones }}" type="text" name="bomberos" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_bomberos" class="form-control" id="basic-default-nombreCompleto" />
-                                            @if ($item->pdf_informe)
-                                                <p name="pdf_bomberos">PDF cargado: {{ $item->pdf_informe }}</p>
-                                            @endif
-                                            <input type="file" name="pdf_bomberos_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif --}}
-
-                                    {{-- INSPECCIÒN GENERAL --}}
-                                    {{-- @if ($item->tipo_dependencia_id == 9)
-                                        <input type="hidden" name="inspeccion_general_id" value="{{ $item->id }}"> 
-                                        <div>
-                                            <input value="{{ $item->observaciones }}" type="text" name="inspeccion_general" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_inspeccion_general" class="form-control" id="basic-default-nombreCompleto" />
-                                            @if ($item->pdf_informe)
-                                                <p name="pdf_inspeccion_general">PDF cargado: {{ $item->pdf_informe }}</p>
-                                            @endif
-                                            <input type="file" name="pdf_inspeccion_general_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif --}}
-
-                                    {{-- REGISTRO DE DEUDORES ALIMENTARIOS MOROSOS --}}
-                                    {{-- @if ($item->tipo_dependencia_id == 10)
-                                        <input type="hidden" name="deudores_alimentarios_id" value="{{ $item->id }}"> 
-                                        <div>
-                                            <input value="{{ $item->observaciones }}" type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"/>
-                                            <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                            <input value="{{ $item->fecha_informe }}" type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
-                                            @if ($item->pdf_informe)
-                                                <p name="pdf_deudores_alimentarios">PDF cargado: {{ $item->pdf_informe }}</p>
-                                            @endif
-                                            <input type="file" name="pdf_deudores_alimentarios_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                        </div>
-                                    @endif
-                                @empty
-                                @endforelse
-                            </div> --}}
-
-                            {{-- CATASTRO --}}
-                            {{-- <div>
-                                @if ($expediente->catastro_id != null)
-                                    <input type="hidden" name="catastro_id" value="{{$expediente->catastro_id}}">
-                                    <label class="form-label" for="basic-default-fullname">CATASTRO</label>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Circ</label>
-                                        <input value="{{$expediente->catastro->circunscripcion}}" required type="text" name="circunscripcion" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Secc</label>
-                                        <input value="{{$expediente->catastro->seccion}}" required type="text" name="seccion" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Chacra</label>
-                                        <input value="{{$expediente->catastro->chacra}}" required type="text" name="chacra" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Quinta</label>
-                                        <input value="{{$expediente->catastro->quinta}}" required type="text" name="quinta" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Fracciòn</label>
-                                        <input value="{{$expediente->catastro->fraccion}}" required type="text" name="fraccion" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Manzana</label>
-                                        <input value="{{$expediente->catastro->manzana}}" required type="text" name="manzana" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Parcela</label>
-                                        <input value="{{$expediente->catastro->parcela}}" required type="text" name="parcela" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">SubPar</label>
-                                        <input value="{{$expediente->catastro->sub_parcela}}" required type="text" name="sub_parcela" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Observaciones</label>
-                                        <input value="{{$expediente->catastro->observacion}}" type="text" name="observaciones" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Fecha informe</label>
-                                        <input value="{{$expediente->catastro->fecha_informe}}" type="date" name="fecha_informe" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                        @if ($expediente->catastro->pdf_informe)
-                                            <p name="pdf_informe">PDF catastro cargado: {{$expediente->catastro->pdf_informe}}</p>
-                                        @endif
-                                        <input type="file" name="pdf_informe_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>
-                                @else
-                                    <label class="form-label" for="basic-default-fullname">CATASTRO</label>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Circ</label>
-                                        <input type="text" name="circunscripcion" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Secc</label>
-                                        <input type="text" name="seccion" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Chacra</label>
-                                        <input type="text" name="chacra" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Quinta</label>
-                                        <input type="text" name="quinta" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Fracciòn</label>
-                                        <input type="text" name="fraccion" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Manzana</label>
-                                        <input type="text" name="manzana" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Parcela</label>
-                                        <input type="text" name="parcela" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">SubPar</label>
-                                        <input type="text" name="sub_parcela" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Observaciones</label>
-                                        <input type="text" name="observaciones" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Fecha informe</label>
-                                        <input type="date" name="fecha_informe" class="form-control" id="basic-default-nombreCompleto" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                        <input type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                    </div>
-                                @endif
-                            </div> --}}
-
-                            {{-- HISTORIAL DE MODIFICACIONES --}}
-                            {{-- <div>
-                                <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Historial de modificaciones"/>
-                                <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                <input type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
-                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                            </div> --}}
-
-                            {{-- TERCER PAGINA DEL FIGMA --}}
-                            {{-- DETALLE HABILITACION --}}
-                            {{-- <div>
-                                <input type="hidden" name="detalle_habilitacion" value="{{$expediente->detalleHabilitacion->id}}">
-                                <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Estado de habilitacion</label>
-                                    <select required name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
-                                        <option>-- Seleccione --</option>
-                                        @foreach($tiposEstados as $tipo)
-                                            <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoEstado->id) selected @endif>{{$tipo->descripcion}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label class="form-label" for="basic-default-fullname">Fecha de primer habilitacion</label>
-                                    <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
-                                    <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
-                                    <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
-                                    <label class="form-label" for="basic-default-fullname">Tipo de habilitacion</label>
-                                    <select name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
-                                        @if($expediente->detalleHabilitacion->tipoHabilitacion)
-                                            @foreach($tiposhabilitaciones as $tipo)
-                                                <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
-                                            @endforeach
-                                        @else
-                                            <option>-- Seleccione --</option>
-                                            @foreach($tiposhabilitaciones as $tipo)
-                                                <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
-                                    @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
-                                        <p name="certificado_habilitacion">Certificado de habilitaciòn cargado: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p>
-                                    @endif
-                                    <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                                </div>
-                            </div> --}}
                             <button type="submit" class="btn btn-primary">Siguiente</button>
-                            {{-- <button type="submit" class="btn btn-primary">Enviar</button> --}}
                         </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+@include('footer.footer')

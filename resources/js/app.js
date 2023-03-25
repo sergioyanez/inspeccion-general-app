@@ -9,7 +9,35 @@ document.addEventListener("DOMContentLoaded", function () {
     let tipo = document.getElementById("tipo_inmueble");
     let caja = document.getElementById("fecha_alquiler");
     let fechaVencimiento = document.getElementById("fechaVencimiento");
+
+    let tipoBaja = document.getElementById("tipo_baja");
+    //  let tipo_baja_id = document.getElementById("tipo_baja_id");
+    let bajaProvisoria = document.getElementById("provisoria");
+    let fechaVencimientoProvisoria = document.getElementById(
+        "fechaVencimientoProvisoria"
+    );
+    let bajaPermanente = document.getElementById("permanente");
+    let fechaVencimientoPermanente = document.getElementById(
+        "fechaVencimientoPermanente"
+    );
+
+    let deOficio = document.getElementById("deOficio");
+    let fechaBajaDeOficio = document.getElementById("fechaBajaDeOficio");
+
+    let estado_baja_id = document.getElementById("estado_baja_id");
+    // let bajaProvisoria_1 = document.getElementById("provisoria_1");
+    // let fechaVencimientoProvisoria_1 = document.getElementById("fechaVencimientoProvisoria_1");
+    // let bajaPermanente_1 = document.getElementById("permanente_1");
+    // let fechaVencimientoPermanente_1 = document.getElementById("fechaVencimientoPermanente_1");
+
+    //console.log(tipoBaja.value);
     cajaFechaVencimiento("none");
+    cajaBajaPermanente("none");
+    cajaBajaProvisoria("none");
+    cajaBajaDeOficio("none");
+
+    // cajaBajaProvisoria_1("none");
+    // cajaBajaPermanente_1("none");
 
     function cajaFechaVencimiento(d) {
         if (caja) {
@@ -17,7 +45,87 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function cajaBajaProvisoria(d) {
+        if (bajaProvisoria) {
+            bajaProvisoria.style.display = d;
+        }
+    }
+
+    function cajaBajaPermanente(d) {
+        if (bajaPermanente) {
+            bajaPermanente.style.display = d;
+        }
+    }
+
+    function cajaBajaDeOficio(d) {
+        if (deOficio) {
+            deOficio.style.display = d;
+        }
+    }
+
+    if (tipoBaja) {
+        console.log(fechaVencimientoProvisoria.value);
+
+        if(Number(tipoBaja.value) === 1){
+            cajaBajaProvisoria("block");
+            cajaBajaPermanente("none");
+            fechaVencimientoProvisoria.required = true;
+            fechaVencimientoPermanente.required = false;
+            fechaBajaDeOficio.required = false;
+        }
+        if (Number(tipoBaja.value) === 2) {
+            cajaBajaProvisoria("none");
+            cajaBajaPermanente("block");
+            fechaVencimientoProvisoria.required = false;
+            fechaVencimientoPermanente.required = true;
+            fechaBajaDeOficio.required = false;
+        }
+        if (Number(tipoBaja.value) === 3) {
+            cajaBajaProvisoria("none");
+            cajaBajaPermanente("block");
+            fechaVencimientoProvisoria.required = false;
+            fechaVencimientoPermanente.required = true;
+            fechaBajaDeOficio.required = true;
+        }
+        tipoBaja.addEventListener("change", function () {
+            if (Number(this.value) === 1) {
+                cajaBajaProvisoria("block");
+                cajaBajaPermanente("none");
+                fechaVencimientoProvisoria.required = true;
+                fechaVencimientoPermanente.required = false;
+                fechaBajaDeOficio.required = false;
+            }
+            if (Number(this.value) === 2) {
+                cajaBajaProvisoria("none");
+                cajaBajaPermanente("block");
+                fechaVencimientoProvisoria.required = false;
+                fechaVencimientoPermanente.required = true;
+                fechaBajaDeOficio.required = false;
+            }
+            if (Number(this.value) === 3) {
+                cajaBajaProvisoria("none");
+                cajaBajaPermanente("block");
+                fechaVencimientoProvisoria.required = false;
+                fechaVencimientoPermanente.required = true;
+                fechaBajaDeOficio.required = true;
+            }
+            if (Number(this.value) != 1 && Number(this.value) != 2) {
+                cajaBajaPermanente("none");
+                cajaBajaProvisoria("none");
+                fechaVencimientoProvisoria.required = false;
+                fechaVencimientoPermanente.required = false;
+            }
+        });
+    }
+
     if (tipo) {
+        if (Number(tipo.value) === 1) {
+            cajaFechaVencimiento("block");
+            fechaVencimiento.required = true;
+        } else {
+            cajaFechaVencimiento("none");
+            fechaVencimiento.required = false;
+        }
         tipo.addEventListener("change", function () {
             if (Number(this.value) === 1) {
                 cajaFechaVencimiento("block");
@@ -104,6 +212,7 @@ if (!divModal) {
     const existmodalPerfil = document.getElementById("ExistmodalPerfil");
 
     if (existmodalPerfil && modalperfil) {
+        console.log("Entró");
         const modalperfil = document.getElementById("modalperfil");
         const myModalPerfil = new bootstrap.Modal(modalperfil);
         if (myModalPerfil) {
@@ -127,3 +236,17 @@ function alertSuccess(mensaje) {
         timer: 1500,
     });
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    let fechaPrimerHabilitacion = document.getElementById(
+        "fechaPrimerHabilitacion"
+    );
+    let certificado = document.getElementById("certificadoHabilitacion");
+    fechaPrimerHabilitacion.addEventListener("change", () => {
+        if (fechaPrimerHabilitacion.value !== "") {
+            certificado.required = true;
+        } else {
+            certificado.required = false;
+        }
+    });
+});

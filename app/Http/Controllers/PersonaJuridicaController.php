@@ -31,14 +31,15 @@ class PersonaJuridicaController extends Controller {
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
         $tiposInmuebles = Tipo_inmueble::all();
-        $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+        $expediente = Expediente::select()->orderBy('id', 'desc')->first();
         $expedientesContribuyentes= ExpedienteContribuyente::all();
         $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         $buscar = $request->buscarpor1;
         $personasJuridicas = Persona_juridica::orderBy('dni_representante', 'asc')
         ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
+        ->orwhere('cuit', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
-        return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,
+        return view('expediente.mostrar', ['personasJuridicas' => $personasJuridicas,
                                         'expediente'=>$expediente,
                                         'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
                                         'expedientesContribuyentes'=>$expedientesContribuyentes,
@@ -85,14 +86,14 @@ class PersonaJuridicaController extends Controller {
             //    return redirect()->route('personasJuridicas');
             //}
             //else{
-                $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+                $expediente = Expediente::select()->orderBy('id', 'desc')->first();
                 $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
                 $expedientesContribuyentes= ExpedienteContribuyente::all();
                 $personasJuridicas=Persona_juridica::all();
                 $tiposInmuebles = Tipo_inmueble::all();
                 $tiposEstados = Tipo_estado::all();
                 $tiposhabilitaciones = Tipo_habilitacion::all();
-                return view('expediente.crear', ['personasJuridicas' => $personasJuridicas,
+                return view('expediente.mostrar', ['personasJuridicas' => $personasJuridicas,
                                                 'expediente'=>$expediente,
                                                 'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
                                                 'expedientesContribuyentes'=>$expedientesContribuyentes,

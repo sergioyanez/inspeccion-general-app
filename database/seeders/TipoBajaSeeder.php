@@ -22,5 +22,9 @@ class TipoBajaSeeder extends Seeder
         $baja2 = new Tipo_baja();
         $baja2->descripcion = "Permanente";
         $baja2->save();
+
+        $baja3 = new Tipo_baja();
+        $baja3->descripcion = "De oficio";
+        $baja3->save();
     }
 }

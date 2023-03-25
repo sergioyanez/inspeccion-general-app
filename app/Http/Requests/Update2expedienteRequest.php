@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateEstado_bajaRequest extends FormRequest
+class Update2expedienteRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +23,14 @@ class UpdateEstado_bajaRequest extends FormRequest
      */
     public function rules()
     {
-        // return [
-        //     'tipo_baja_id'=>'required',
-        //     'deuda'=>'required',
-        //     'fecha_baja'=>'required',
-        //     'pdf_acta_solicitud_baja'=>'required|string|max:255',
-        //     'pdf_informe_deuda'=>'required|string|max:255',
-        //     'pdf_solicitud_baja'=>'required|string|max:255',
-        // ];
+        return [
+            //'certificado_nuevo' => 'required',
+        ];
+    }
+
+    public function messages() {
+        return [
+            //'certificado_nuevo.required' => 'debe cargar un certificado',
+        ];
     }
 }

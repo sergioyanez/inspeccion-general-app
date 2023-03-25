@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('cuit');
             $table->string('nombre_representante',50);
             $table->string('apellido_representante',50);
-            $table->bigInteger('dni_representante');
+            $table->bigInteger('dni_representante')->nullable();
             $table->bigInteger('telefono');
             $table->char('accion',1);
             // $table->bigInteger('usuario_id');
