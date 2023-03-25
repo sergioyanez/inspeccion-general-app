@@ -121,6 +121,11 @@ class ExpedienteController extends Controller
         // SE CREA EXPEDIENTE
         $expediente = new Expediente();
         $numero_expediente = $request->nro_expediente . $request->nro_expediente1 . $request->nro_expediente2;
+        if(Expediente::where('nro_expediente',$numero_expediente)->exists()){
+            throw ValidationException::withMessages([
+                'nro_expediente' => 'Expediente duplicado.',
+            ]);
+        }
         $expediente->nro_expediente = $numero_expediente;
         $numero_comercio = $request->nro_comercio . $request->nro_comercio1 . $request->nro_comercio3 . $request->nro_comercio2;
         $expediente->nro_comercio = $numero_comercio;
