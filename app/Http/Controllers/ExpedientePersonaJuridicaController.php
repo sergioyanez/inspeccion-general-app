@@ -43,7 +43,7 @@ class ExpedientePersonaJuridicaController extends Controller
         $expedientePersonaJuridica->expediente_id = $request->idExpSiguiente;
 
         if($expedientePersonaJuridica->save()) {
-            return redirect()->route('expedientes-crear');
+            return redirect()->route('expedientes-mostrar', [$request->idExpSiguiente]);
         }
 
         return back()->with('fail','No se pudo crear el expediente-persona juridica');
@@ -81,7 +81,7 @@ class ExpedientePersonaJuridicaController extends Controller
     {
         $expedientePersonaJuridica = new ExpedientePersonaJuridica();
         $expedientePersonaJuridica->expediente_id = $request->expediente_id;
-        $expedientePersonaJuridica->contribuyente_id = $request->persona_juridica_id;
+        $expedientePersonaJuridica->persona_juridica_id = $request->persona_juridica_id;
 
         if($expedientePersonaJuridica->save()){
             return redirect()->route('expedientesPersonasJuridicas');
@@ -98,7 +98,7 @@ class ExpedientePersonaJuridicaController extends Controller
     {
         $expedientePersonaJuridica = ExpedientePersonaJuridica::find($id);
         if($expedientePersonaJuridica->delete()){
-            return redirect()->route('expedientes-crear');
+            return redirect()->route('expedientes-mostrar', [$expedientePersonaJuridica->expediente_id]);
         }
         return back()->with('fail','No se pudo crear el detalle de habilitación');
     }

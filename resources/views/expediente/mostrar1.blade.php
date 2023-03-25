@@ -14,28 +14,7 @@
             <div class="col-xl-12">
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        {{-- @isset($expediente->nro_expediente)
-                            <h2 class="mb-0">Expediente: {{$expediente->nro_expediente}}</h2>
-                        @endisset --}}
-                        <div>
-                            <h3>Contribuyentes del expediente {{$expediente->nro_expediente}}</h3>
-                            @forelse ($contribuyentes as $item)
-                                <p>Nombre: {{ $item->contribuyente->nombre }} 
-                                    Apellido: {{ $item->contribuyente->apellido }}
-                                    Dni: {{ $item->contribuyente->apellido }}</p>
-                            @empty
-                            @endforelse
-                        </div>
-                        <div>
-                            <h3>Personas juridicas del expediente {{$expediente->nro_expediente}}</h3>
-                            @forelse ($personasJuridicas as $item1)
-                                <p>Nombre: {{ $item1->personaJuridica->nombre_representante }} 
-                                    Apellido: {{ $item1->personaJuridica->apellido_representante }}
-                                    Dni: {{ $item1->personaJuridica->dni_representante }}</p>
-                            @empty
-                                
-                            @endforelse
-                        </div>
+                        
                     </div>
                     
                     <div class="card-body">
@@ -176,6 +155,7 @@
                                         </div>
                                     @endif
                                 @empty
+                                {{ "hola" }}
                                 @endforelse
                             </div>
 

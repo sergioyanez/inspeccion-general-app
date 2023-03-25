@@ -76,9 +76,9 @@
                                 <input type="text" name="dni_conyuge" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
 
-                            <div >
+                            {{-- <div >
                                 <input  type="hidden" name="expediente" value="{{$expediente}}" />
-                            </div>
+                            </div> --}}
 
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>
