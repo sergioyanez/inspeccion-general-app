@@ -22,9 +22,18 @@
             @error('failFace')
                 <input type="hidden" id="ExistmodalPerfil">
             @enderror
-            @if($errors->any())
+            @error('usuarioFace')
                 <input type="hidden" id="ExistmodalPerfil">
-            @endif
+            @enderror
+            @error('passwordFace')
+                <input type="hidden" id="ExistmodalPerfil">
+            @enderror
+            @error('newPasswordFace')
+                <input type="hidden" id="ExistmodalPerfil">
+            @enderror
+            @error('repetirPasswordFace')
+                <input type="hidden" id="ExistmodalPerfil">
+            @enderror
             @if ($success = Session::get('success'))
                 <input type="hidden" id="alertSuccess" value="{{$success}}">
             @endif
@@ -39,7 +48,7 @@
                                 @csrf
                                 <div class="mb-3">
                                     <label class="form-label" >Usuario</label>
-                                    <input type="text" name="usuarioFace" value="{{Auth::user()->usuario}}" class="form-control @error('usuarioFace') is-invalid @enderror" autofocus/>
+                                    <input type="text" name="usuarioFace" value="{{Auth::user()->usuario}}" class="form-control @error('usuarioFace') is-invalid @enderror" autofocus />
                                     @error('usuarioFace')
                                     <div class="invalid-feedback">
                                         {{$message}}
@@ -54,7 +63,7 @@
                                 <input type="hidden" name="usuario_id_face" value="{{Auth::user()->id}}">
                                 <div class="mb-3">
                                     <label class="form-label"  >Contraseña actual</label>
-                                    <input type="password" name="passwordFace" class="form-control @error('passwordFace') is-invalid @enderror"/>
+                                    <input type="password" name="passwordFace" class="form-control @error('passwordFace') is-invalid @enderror" />
                                     @error('passwordFace')
                                         <div class="invalid-feedback">
                                             {{$message}}

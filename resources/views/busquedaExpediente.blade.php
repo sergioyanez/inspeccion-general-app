@@ -15,7 +15,7 @@
     <form action="{{route('expedientes1')}}" method="get" class="my-5 formBusqueda">
         @csrf
         <div>
-            <input required type="text" name="buscarporcontribuyente" class="inputBusqueda" placeholder="Contribuyente"/>
+            <input required type="text" name="buscarporcontribuyente" class="inputBusqueda" placeholder="Contribuyente/Persona jurìdica"/>
             <input type="submit" value="   " class="m-2 btnBuscar">
         </div>
     </form>

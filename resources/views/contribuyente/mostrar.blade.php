@@ -25,6 +25,12 @@
                                         <option value="{{$tipo->id}}" @if($tipo->id == $contribuyente->tipo_dni_id) selected @endif>{{$tipo->descripcion}}</option>
                                     @endforeach
                                 </select>
+                                @error('tipo_dni_id')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
 
                             <div class="mb-3">
@@ -34,30 +40,72 @@
                                         <option value="{{$estado->id}}" @if($estado->id == $contribuyente->estado_civil_id) selected @endif>{{$estado->descripcion}}</option>
                                     @endforeach
                                 </select>
+                                @error('estado_civil_id')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Cuit</label>
                                 <input required type="text" name="cuit" class="form-control" id="basic-default-nombreCompleto" value="{{$contribuyente->cuit}}"/>
+                                @error('cuit')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Ingresos brutos</label>
                                 <input required type="text" name="ingresos_brutos" class="form-control" id="basic-default-nombreCompleto" value="{{$contribuyente->ingresos_brutos}}"/>
+                                @error('ingresos_brutos')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nombre</label>
                                 <input required type="text" name="nombre" class="form-control" id="basic-default-nombreCompleto" value="{{$contribuyente->nombre}}"/>
+                                @error('nombre')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Apellido</label>
                                 <input required type="text" name="apellido" class="form-control" id="basic-default-nombreCompleto" value="{{$contribuyente->apellido}}"/>
+                                @error('apellido')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nùmero de documento</label>
                                 <input required type="text" name="dni" class="form-control" id="basic-default-nombreCompleto" value="{{$contribuyente->dni}}"/>
+                                @error('dni')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Fecha de nacimiento</label>
                                 <input required type="text" name="fecha_nacimiento" class="form-control" id="basic-default-nombreCompleto" value="{{$contribuyente->fecha_nacimiento}}"/>
+                                @error('fecha_nacimiento')
+                                    {{-- <div class="invalid-feedback"> --}}
+                                    <div>
+                                        {{$message}}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Telèfono</label>

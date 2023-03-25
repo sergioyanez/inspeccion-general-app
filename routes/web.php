@@ -102,6 +102,8 @@ Route::controller(ExpedienteController::class)->group(function(){
     Route::post('expediente/actualizar1','update1')->name('expedientes-actualizar1');
     Route::post('expediente/actualizar2','update2')->name('expedientes-actualizar2');
     Route::get('expediente/eliminar/{id}','destroy')->name('expedientes-eliminar');
+    Route::get('expediente/vencidos','vencidos')->name('expedientes-vencidos');
+    Route::get('expediente/a-vencer','aVencer')->name('expedientes-aVencer');
 });
 
 // RUTA DE CONTRIBUYENTE

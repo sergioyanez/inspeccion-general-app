@@ -32,12 +32,9 @@
                         </td>
                         <td class="filas">{{$expediente->observaciones_grales}}</td>
                         {{-- <td><a class="btn-btn-danger" href="archivos/{{ $expediente->pdf_solicitud }}" target="blank_">Ver documento</td> --}}
-                        
                         <td class="filas">{{$expediente->detalleHabilitacion->tipoEstado->descripcion}}</td>
-                        
                         <td class="columnaBtn"><a href="{{route('expedientes-mostrar', $expediente->id)}}" class="d-flex justify-content-center btn btnVerMas">Ver más</></td>
                     </tr>
-
                 @empty
                     <h2>No se encontraron Expedientes</h2>
                 @endforelse

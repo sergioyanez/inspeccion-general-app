@@ -16,6 +16,6 @@
     "dependencies": {
         "@popperjs/core": "^2.11.6",
         "popper.js": "^1.16.1",
-        "sweetalert2": "^11.7.2"
+        "sweetalert2": "^11.7.3"
     }
 }

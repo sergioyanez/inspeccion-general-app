@@ -109,27 +109,29 @@ class UsuarioController extends Controller {
             'passwordFace' => 'required',
         ]);
         $usuario = User::find($request->usuario_id_face);
-        if(isset($request->newPasswordFace)){
-            if(Hash::check($request->passwordFace,$usuario->password)){
+        if(Hash::check($request->passwordFace,$usuario->password)){
+            if(isset($request->newPasswordFace)){
                 $request->validate([
                     'newPasswordFace' => 'required|min:8',
                     'repetirPasswordFace' => 'required|same:newPasswordFace',
                 ]);
                 $usuario->password = Hash::make($request->newPasswordFace);
             }
-            else{
-                throw ValidationException::withMessages([
-                    'passwordFace' => 'Contraseña no válida.',
-                    'failFace' => 'No se pudo actualizar el perfil',
-                ]);
-            }
-        }
-        $usuario->usuario = $request->usuarioFace;
+            $usuario->usuario = $request->usuarioFace;
 
-        if($usuario->save()){
-            $log = new LogsUsuarioController();
-            $log->store($usuario, 'u');
-            return back()->with('success','Editado con éxito');
+            if($usuario->save()){
+                $log = new LogsUsuarioController();
+                $log->store($usuario, 'u');
+                return back()->with('success','Editado con éxito');
+            }
+            
+        }
+        
+        else{
+            throw ValidationException::withMessages([
+                'passwordFace' => 'Contraseña no válida.',
+                'failFace' => 'No se pudo actualizar el perfil',
+            ]);
         }
         return back()->with('failFace','No se pudo actualizar el usuario');
      

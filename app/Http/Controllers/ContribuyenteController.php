@@ -7,6 +7,7 @@ use App\Models\Expediente;
 use App\Models\Tipo_dni;
 use App\Models\Estado_civil;
 use App\Models\Tipo_inmueble;
+use App\Models\Detalle_inmueble;
 use App\Models\Tipo_estado;
 use App\Models\Tipo_habilitacion;
 use Illuminate\Http\Request;
@@ -30,24 +31,24 @@ class ContribuyenteController extends Controller
 
     public function indexBuscar(Request $request)
     {
-        $tiposEstados = Tipo_estado::all();
-        $tiposhabilitaciones = Tipo_habilitacion::all();
-        $tiposInmuebles = Tipo_inmueble::all();
-        $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
-        $expedientesContribuyentes= ExpedienteContribuyente::all();
-        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         $buscar = $request->buscarpor;
         $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
         ->where('dni', 'LIKE', '%' . $buscar . '%')
-        // ->orWhere('apellido', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
-        return view('expediente.crear', ['contribuyentes' => $contribuyentes,
+        $detalleInmuebles = Detalle_inmueble::all();
+        $tiposInmuebles = Tipo_inmueble::all();
+        $expediente = Expediente::select()->orderBy('id', 'desc')->first();
+        $expedientesContribuyentes= ExpedienteContribuyente::all();
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
+
+        // return redirect()->route('expedientes-mostrar', [$expediente->id]);
+        
+        return view('expediente.mostrar', ['contribuyentes' => $contribuyentes,
                                         'expediente'=>$expediente,
                                         'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
                                         'expedientesContribuyentes'=>$expedientesContribuyentes,
                                         'tiposInmuebles' => $tiposInmuebles,
-                                        'tiposEstados' => $tiposEstados,
-                                        'tiposhabilitaciones' => $tiposhabilitaciones]);
+                                        'detalleInmuebles' => $detalleInmuebles]);
     }
 
     /**
@@ -79,20 +80,20 @@ class ContribuyenteController extends Controller
         $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         $expediente = true;
         return view('contribuyente.crear', ['estados'=>$estadosCivil, 
-                                            'tipos'=>$tiposDni,
-                                            'expediente'=>$expediente,
-                                            'tiposInmuebles' => $tiposInmuebles,
-                                            'tiposEstados' => $tiposEstados,
-                                            'tiposhabilitaciones' => $tiposhabilitaciones,
-                                            'expedientesContribuyentes'=>$expedientesContribuyentes,
-                                            'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas]);
+                                            'tipos'=>$tiposDni]);
+                                            //'expediente'=>$expediente,
+                                            //'tiposInmuebles' => $tiposInmuebles,
+                                            //'tiposEstados' => $tiposEstados,
+                                            //'tiposhabilitaciones' => $tiposhabilitaciones,
+                                            //'expedientesContribuyentes'=>$expedientesContribuyentes,
+                                            //'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas]);
     }
 
     /**
      * Guarda el contribuyente creado en la base de datos
      * @param  \App\Http\Requests\StoreContribuyenteRequest $request
      */
-    public function store(Request $request)
+    public function store(StoreContribuyenteRequest $request)
     {
         $contribuyente = new contribuyente();
         $contribuyente->tipo_dni_id = $request->tipo_dni_id;
@@ -115,14 +116,14 @@ class ContribuyenteController extends Controller
             //    return redirect()->route('contribuyentes');
             //}
             //else{
-                $expediente = Expediente::select('id')->orderBy('id', 'desc')->first();
+                $expediente = Expediente::select()->orderBy('id', 'desc')->first();
                 $expedientesContribuyentes= ExpedienteContribuyente::all();
                 $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
                 $contribuyentes=Contribuyente::all();
                 $tiposInmuebles = Tipo_inmueble::all();
                 $tiposEstados = Tipo_estado::all();
                 $tiposhabilitaciones = Tipo_habilitacion::all();
-                return view('expediente.crear', ['contribuyentes' => $contribuyentes,
+                return view('expediente.mostrar', ['contribuyentes' => $contribuyentes,
                             'expediente'=>$expediente,
                             'expedientesContribuyentes'=>$expedientesContribuyentes,
                             'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
