@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('personas_juridicas', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('cuit');
+            $table->bigInteger('cuit')->unique();
             $table->string('nombre_representante',50);
             $table->string('apellido_representante',50);
-            $table->bigInteger('dni_representante')->unique();
+            $table->bigInteger('dni_representante')->unique()->nullable();
             $table->bigInteger('telefono');
             $table->timestamps();
         });

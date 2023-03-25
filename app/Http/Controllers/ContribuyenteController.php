@@ -31,8 +31,6 @@ class ContribuyenteController extends Controller
 
     public function indexBuscar(Request $request)
     {
-        //$tiposEstados = Tipo_estado::all();
-        //$tiposhabilitaciones = Tipo_habilitacion::all();
         $buscar = $request->buscarpor;
         $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
         ->where('dni', 'LIKE', '%' . $buscar . '%')
@@ -51,11 +49,7 @@ class ContribuyenteController extends Controller
                                         'expedientesContribuyentes'=>$expedientesContribuyentes,
                                         'tiposInmuebles' => $tiposInmuebles,
                                         'detalleInmuebles' => $detalleInmuebles]);
-                                        //'tiposEstados' => $tiposEstados,
-                                        //'tiposhabilitaciones' => $tiposhabilitaciones]);
     }
-
-    
 
     /**
      * Muestra un formulario para crear un contribuyente
@@ -99,7 +93,7 @@ class ContribuyenteController extends Controller
      * Guarda el contribuyente creado en la base de datos
      * @param  \App\Http\Requests\StoreContribuyenteRequest $request
      */
-    public function store(Request $request)
+    public function store(StoreContribuyenteRequest $request)
     {
         $contribuyente = new contribuyente();
         $contribuyente->tipo_dni_id = $request->tipo_dni_id;

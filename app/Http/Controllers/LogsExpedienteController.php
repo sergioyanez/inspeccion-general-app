@@ -20,7 +20,7 @@ class LogsExpedienteController extends Controller
         $logs_expediente->nro_expediente = $expediente->nro_expediente;
         $logs_expediente->nro_comercio = $expediente->nro_comercio;
         $logs_expediente->actividad_ppal = $expediente->actividad_ppal;
-        $logs_expediente->anexo = $expediente->anexo;
+        //$logs_expediente->anexo = $expediente->anexo;
         $logs_expediente->pdf_solicitud = $expediente->pdf_solicitud;
         $logs_expediente->bienes_de_uso = $expediente->bienes_de_uso;
         $logs_expediente->observaciones_grales = $expediente->observaciones_grales;

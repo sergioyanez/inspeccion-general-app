@@ -37,7 +37,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreexpedienteRequest;
 use App\Http\Requests\UpdateexpedienteRequest;
+use App\Http\Requests\Update1expedienteRequest;
+use App\Http\Requests\Update2expedienteRequest;
 use Exception;
+use Illuminate\Validation\ValidationException;
 
 
 class ExpedienteController extends Controller
@@ -54,7 +57,6 @@ class ExpedienteController extends Controller
                 return $query->where('nro_comercio', 'LIKE', '%' . request('buscarporcomercio') . '%');
             })
             ->paginate(200);
-
             return view('expediente.expedientes', ['expedientes' => $expedientes]);
     }
 
@@ -104,10 +106,6 @@ class ExpedienteController extends Controller
      */
     public function store(StoreexpedienteRequest $request)
     {
-        // $request->validate([
-        //     'numero' => 'integer'
-        // ]);
-
         // SE CREA INMUEBLE
         $inmueble = new InmuebleController();
         $inmueble_id = $inmueble->store($request->calle, $request->numero);
@@ -122,17 +120,25 @@ class ExpedienteController extends Controller
 
         // SE CREA EXPEDIENTE
         $expediente = new Expediente();
-        $expediente->nro_expediente = $request->nro_expediente;     //hecho
-        $expediente->nro_comercio = $request->nro_comercio;         //hecho
-        $expediente->actividad_ppal = $request->actividad_ppal;     //hecho
-        $expediente->anexo = $request->anexo;                       //hecho
-        if($request->hasFile('pdf_solicitud')) {                    //hecho pdf_informe
-            $archivo1 = $request->file('pdf_solicitud');
-            $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
-            $expediente->pdf_solicitud = $archivo1->getClientOriginalName();
+        $numero_expediente = $request->nro_expediente . $request->nro_expediente1 . $request->nro_expediente2;
+        if(Expediente::where('nro_expediente',$numero_expediente)->exists()){
+            throw ValidationException::withMessages([
+                'nro_expediente' => 'Expediente duplicado.',
+            ]);
         }
-        $expediente->bienes_de_uso = $request->bienes_de_uso;       //hecho
-        $expediente->observaciones_grales = $request->observaciones_grales;     //hecho
+        $expediente->nro_expediente = $numero_expediente;
+        $numero_comercio = $request->nro_comercio . $request->nro_comercio1 . $request->nro_comercio3 . $request->nro_comercio2;
+        $expediente->nro_comercio = $numero_comercio;
+        $expediente->actividad_ppal = $request->actividad_ppal;     
+        if($request->hasFile('pdf_solicitud')) {
+            $archivo1 = $request->file('pdf_solicitud');
+            //$archivo1_name = $archivo1->getClientOriginalName();
+            $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
+            $expediente->pdf_solicitud = '/archivos/' . $archivo1->getClientOriginalName();
+            
+        }
+        $expediente->bienes_de_uso = $request->bienes_de_uso;       
+        $expediente->observaciones_grales = $request->observaciones_grales;     
         $expediente->detalle_habilitacion_id = $detalleHabilitacion_id;
         $expediente->detalle_inmueble_id = $detalleInmueble_id;
 
@@ -240,8 +246,8 @@ class ExpedienteController extends Controller
         $tiposInmuebles = Tipo_inmueble::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
-        $expedientesContribuyentes = ExpedienteContribuyente::all(); //NECESITO
-        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();   //NECESITO
+        $expedientesContribuyentes = ExpedienteContribuyente::all(); 
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();   
 
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
@@ -270,10 +276,7 @@ class ExpedienteController extends Controller
     {
         $tiposBajas = Tipo_baja::all();
         $expediente = Expediente::find($id);
-        $catastro = Catastro::all();
         $detalleHabilitaciones = Detalle_habilitacion::all();
-        $detalleInmuebles = Detalle_inmueble::all();
-        $tiposInmuebles = Tipo_inmueble::all();
         $estadosBaja = Estado_baja::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
@@ -282,13 +285,10 @@ class ExpedienteController extends Controller
         $personasJuridicas = ExpedientePersonaJuridica::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(200);
 
         return view('expediente.mostrar2', ['expediente'=>$expediente,
-                                        //'catastro'=>$catastro,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
-                                        //'detalleInmuebles'=>$detalleInmuebles,
                                         'estadosBaja' =>$estadosBaja,
                                         'tiposEstados' => $tiposEstados,
                                         'tiposhabilitaciones' => $tiposhabilitaciones,
-                                        //'tiposInmuebles' => $tiposInmuebles,
                                         'informesDependencias' => $informesDependencias,
                                         //'contribuyentes' => $contribuyentes,
                                         //'personasJuridicas' => $personasJuridicas,
@@ -342,12 +342,13 @@ class ExpedienteController extends Controller
         $expediente->nro_expediente = $request->nro_expediente;
         $expediente->nro_comercio = $request->nro_comercio;
         $expediente->actividad_ppal = $request->actividad_ppal;
-        $expediente->anexo = $request->anexo;
+        //$expediente->anexo = $request->anexo;
         $expediente->detalle_inmueble_id = $detalleInmueble->id;
         if($request->hasFile('pdf_solicitud_nueva')) {
             $archivo1 = $request->file('pdf_solicitud_nueva');
             $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
-            $expediente->pdf_solicitud = $archivo1->getClientOriginalName();
+            //$archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
+            $expediente->pdf_solicitud = '/archivos/' . $archivo1->getClientOriginalName();
         }
         $expediente->bienes_de_uso = $request->bienes_de_uso;
         $expediente->observaciones_grales = $request->observaciones_grales;
@@ -358,7 +359,7 @@ class ExpedienteController extends Controller
             return redirect()->route('expedientes-mostrar1', [$expediente->id]);
 
         }
-        return back()->with('fail','No se pudo crear el expediente');
+        return back()->with('fail','No se pudo editar el expediente');
     }
 
     /**
@@ -368,7 +369,7 @@ class ExpedienteController extends Controller
      * @param  \App\Models\expediente  $expediente
      * @return \Illuminate\Http\Response
      */
-    public function update1(UpdateexpedienteRequest $request)
+    public function update1(Update1expedienteRequest $request)
     {
         // SE CREA/ACTUALIZA CATASTRO
         if($request->catastro_id != null) {
@@ -388,7 +389,7 @@ class ExpedienteController extends Controller
             if($request->hasFile('pdf_informe_nuevo')) {
                 $archivo = $request->file('pdf_informe_nuevo');
                 $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
-                $catastro->pdf_informe = $archivo->getClientOriginalName();
+                $catastro->pdf_informe = '/archivos/' . $archivo->getClientOriginalName();
             }
             if($catastro->save()){
                 $log3 = new LogsCatastroController();
@@ -396,10 +397,15 @@ class ExpedienteController extends Controller
             }
         }
         else {
-            if($request->circunscripcion) {
+            //if($request->circunscripcion || $request->seccion || $request->chacra || $request->quinta || $request->fraccion || $request->manzana
+            //|| $request->parcela || $request->sub_parcela || $request->observaciones || $request->fecha_informe || $request->hasFile('pdf_informe')) {
                 $catastro = new Catastro;
+                //if($request->circunscripcion)
                 $catastro->circunscripcion = $request->circunscripcion;
                 $catastro->seccion = $request->seccion;
+                if($request->chacra) {
+                    $catastro->chacra = $request->chacra;
+                }
                 $catastro->chacra = $request->chacra;
                 $catastro->quinta = $request->quinta;
                 $catastro->fraccion = $request->fraccion;
@@ -413,14 +419,13 @@ class ExpedienteController extends Controller
                 if($request->hasFile('pdf_informe')) {
                     $archivo = $request->file('pdf_informe');
                     $archivo->move(public_path().'/archivos/', $archivo->getClientOriginalName());
-                    $catastro->pdf_informe = $archivo->getClientOriginalName();
+                    $catastro->pdf_informe = '/archivos/' . $archivo->getClientOriginalName();
                 }
-
                 if($catastro->save()){
                     $log3 = new LogsCatastroController();
                     $log3->store($catastro, 'c');
                 }
-            }
+            //}
         }
 
         // SE CREA/ACTUALIZA EL EXPEDIENTE
@@ -445,12 +450,12 @@ class ExpedienteController extends Controller
                 if($request->hasFile('pdf_secretaria_gobierno')) {
                     $archivo5 = $request->file('pdf_secretaria_gobierno');
                     $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo5->getClientOriginalName();
                 }
                 if($request->hasFile('pdf_secretaria_gobierno_nuevo')) {
                     $archivo5 = $request->file('pdf_secretaria_gobierno_nuevo');
                     $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo5->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo5->getClientOriginalName();
                 }
                 if($infomeDependencias->save()){
                     $log5 = new LogsInformeDependenciaController();
@@ -469,12 +474,12 @@ class ExpedienteController extends Controller
                 if($request->hasFile('pdf_obras_particulares')) {
                     $archivo6 = $request->file('pdf_obras_particulares');
                     $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo6->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo6->getClientOriginalName();
                 }
                 if($request->hasFile('pdf_obras_particulares_nuevo')) {
                     $archivo6 = $request->file('pdf_obras_particulares_nuevo');
                     $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo6->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo6->getClientOriginalName();
                 }
                 if($infomeDependencias->save()){
                     $log6 = new LogsInformeDependenciaController();
@@ -493,12 +498,12 @@ class ExpedienteController extends Controller
                 if($request->hasFile('pdf_alumbrado')) {
                     $archivo7 = $request->file('pdf_alumbrado');
                     $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo7->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo7->getClientOriginalName();
                 }
                 if($request->hasFile('pdf_alumbrado_nuevo')) {
                     $archivo7 = $request->file('pdf_alumbrado_nuevo');
                     $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo7->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo7->getClientOriginalName();
                 }
                 if($infomeDependencias->save()){
                     $log7 = new LogsInformeDependenciaController();
@@ -517,12 +522,12 @@ class ExpedienteController extends Controller
                 if($request->hasFile('pdf_bromatologia')) {
                     $archivo8 = $request->file('pdf_bromatologia');
                     $archivo8->move(public_path().'/archivos/', $archivo8->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo8->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo8->getClientOriginalName();
                 }
                 if($request->hasFile('pdf_bromatologia_nuevo')) {
                     $archivo8 = $request->file('pdf_bromatologia_nuevo');
                     $archivo8->move(public_path().'/archivos/', $archivo8->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo8->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo8->getClientOriginalName();
                 }
                 if($infomeDependencias->save()){
                     $log8 = new LogsInformeDependenciaController();
@@ -541,12 +546,12 @@ class ExpedienteController extends Controller
                 if($request->hasFile('pdf_inspeccion')) {
                     $archivo9 = $request->file('pdf_inspeccion');
                     $archivo9->move(public_path().'/archivos/', $archivo9->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo9->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo9->getClientOriginalName();
                 }
                 if($request->hasFile('pdf_inspeccion_nuevo')) {
                     $archivo9 = $request->file('pdf_inspeccion_nuevo');
                     $archivo9->move(public_path().'/archivos/', $archivo9->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo9->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo9->getClientOriginalName();
                 }
                 if($infomeDependencias->save()){
                     $log9 = new LogsInformeDependenciaController();
@@ -565,12 +570,12 @@ class ExpedienteController extends Controller
                 if($request->hasFile('pdf_juzgado')) {
                     $archivo10 = $request->file('pdf_juzgado');
                     $archivo10->move(public_path().'/archivos/', $archivo10->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo10->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo10->getClientOriginalName();
                 }
                 if($request->hasFile('pdf_juzgado_nuevo')) {
                     $archivo10 = $request->file('pdf_juzgado_nuevo');
                     $archivo10->move(public_path().'/archivos/', $archivo10->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo10->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo10->getClientOriginalName();
                 }
                 if($infomeDependencias->save()){
                     $log10 = new LogsInformeDependenciaController();
@@ -589,12 +594,12 @@ class ExpedienteController extends Controller
                 if($request->hasFile('pdf_bomberos')) {
                     $archivo11 = $request->file('pdf_bomberos');
                     $archivo11->move(public_path().'/archivos/', $archivo11->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo11->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo11->getClientOriginalName();
                 }
                 if($request->hasFile('pdf_bomberos_nuevo')) {
                     $archivo11 = $request->file('pdf_bomberos_nuevo');
                     $archivo11->move(public_path().'/archivos/', $archivo11->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo11->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo11->getClientOriginalName();
                 }
                 if($infomeDependencias->save()){
                     $log11 = new LogsInformeDependenciaController();
@@ -613,12 +618,12 @@ class ExpedienteController extends Controller
                 if($request->hasFile('pdf_inspeccion_general')) {
                     $archivo12 = $request->file('pdf_inspeccion_general');
                     $archivo12->move(public_path().'/archivos/', $archivo12->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo12->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo12->getClientOriginalName();
                 }
                 if($request->hasFile('pdf_inspeccion_general_nuevo')) {
                     $archivo12 = $request->file('pdf_inspeccion_general_nuevo');
                     $archivo12->move(public_path().'/archivos/', $archivo12->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo12->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo12->getClientOriginalName();
                 }
                 if($infomeDependencias->save()){
                     $log12 = new LogsInformeDependenciaController();
@@ -637,12 +642,12 @@ class ExpedienteController extends Controller
                 if($request->hasFile('pdf_deudores_alimentarios')) {
                     $archivo13 = $request->file('pdf_deudores_alimentarios');
                     $archivo13->move(public_path().'/archivos/', $archivo13->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo13->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo13->getClientOriginalName();
                 }
                 if($request->hasFile('pdf_deudores_alimentarios_nuevo')) {
                     $archivo13 = $request->file('pdf_deudores_alimentarios_nuevo');
                     $archivo13->move(public_path().'/archivos/', $archivo13->getClientOriginalName());
-                    $infomeDependencias->pdf_informe = $archivo13->getClientOriginalName();
+                    $infomeDependencias->pdf_informe = '/archivos/' . $archivo13->getClientOriginalName();
                 }
                 if($infomeDependencias->save()){
                     $log13 = new LogsInformeDependenciaController();
@@ -653,7 +658,7 @@ class ExpedienteController extends Controller
         }
     }
 
-    public function update2(UpdateexpedienteRequest $request)
+    public function update2(Update2expedienteRequest $request)
     {
         // SE ACTUALIZA DETALLE DE HABILITACION
         $detalleHabilitacion = Detalle_habilitacion::find($request->detalle_habilitacion);
@@ -665,7 +670,7 @@ class ExpedienteController extends Controller
         if($request->hasFile('certificado_nuevo')) {
             $archivo2 = $request->file('certificado_nuevo');
             $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
-            $detalleHabilitacion->pdf_certificado_habilitacion = $archivo2->getClientOriginalName();
+            $detalleHabilitacion->pdf_certificado_habilitacion = '/archivos/' . $archivo2->getClientOriginalName();
         }
         else {
             if($request->certificado_habilitacion)
@@ -689,12 +694,18 @@ class ExpedienteController extends Controller
                 if($request->hasFile('acta_baja_nuevo')) {
                     $archivo2 = $request->file('acta_baja_nuevo');
                     $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
-                    $estadoBaja->pdf_solicitud_baja = $archivo2->getClientOriginalName();
+                    $estadoBaja->pdf_solicitud_baja = '/archivos/' . $archivo2->getClientOriginalName();
                 }
-                if($request->hasFile('informe_deuda_nuevo')) {
-                    $archivo3 = $request->file('informe_deuda_nuevo');
-                    $archivo3->move(public_path().'/archivos/', $archivo3->getClientOriginalName());
-                    $estadoBaja->pdf_informe_deuda = $archivo3->getClientOriginalName();
+                if($estadoBaja->deuda){
+                    if($request->hasFile('informe_deuda_nuevo')){
+                        $archivo3 = $request->file('informe_deuda_nuevo');
+                        $archivo3->move(public_path().'/archivos/', $archivo3->getClientOriginalName());
+                        $estadoBaja->pdf_informe_deuda = '/archivos/' . $archivo3->getClientOriginalName();
+                    }else{
+                        throw ValidationException::withMessages([
+                            'informe_deuda_nuevo' => 'Debe cargar un PDF.',
+                        ]);
+                    }
                 }
 
                 if($estadoBaja->save()){
@@ -702,21 +713,28 @@ class ExpedienteController extends Controller
                     $log->store($estadoBaja, 'c');
                 }
             }
-            // PERMANENTE
-            else{
-                $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
-                $estadoBaja->fecha_baja = $request->fecha_baja1;
-                $estadoBaja->deuda = 0;
-                $estadoBaja->pdf_informe_deuda = null;
-                $estadoBaja->pdf_solicitud_baja = null;
-                if($request->hasFile('acta_baja_nuevo1')) {
-                    $archivo4 = $request->file('acta_baja_nuevo1');
-                    $archivo4->move(public_path().'/archivos/', $archivo4->getClientOriginalName());
-                    $estadoBaja->pdf_acta_solicitud_baja = $archivo4->getClientOriginalName();
-                }
-                if($estadoBaja->save()){
-                    $log6 = new LogsEstadoBajaController();
-                    $log6->store($estadoBaja, 'u');
+            // PERMANENTE o de oficio
+            else {
+                if($request->fecha_baja1 && $request->hasFile('acta_baja_nuevo1')){
+                    $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
+                    $estadoBaja->fecha_baja = $request->fecha_baja1;
+                    $estadoBaja->deuda = 0;
+                    $estadoBaja->pdf_informe_deuda = null;
+                    $estadoBaja->pdf_solicitud_baja = null;
+                    if($request->hasFile('acta_baja_nuevo1')) {
+                        $archivo4 = $request->file('acta_baja_nuevo1');
+                        $archivo4->move(public_path().'/archivos/', $archivo4->getClientOriginalName());
+                        $estadoBaja->pdf_acta_solicitud_baja = '/archivos/' . $archivo4->getClientOriginalName();
+                    }
+                    if($estadoBaja->save()){
+                        $log6 = new LogsEstadoBajaController();
+                        $log6->store($estadoBaja, 'u');
+                    }
+                }else{
+                    throw ValidationException::withMessages([
+                        'fecha_baja1' => 'Debe cargar una fecha.',
+                        'acta_baja_nuevo1' => 'Debe cargar un PDF.',
+                    ]);
                 }
             }
         }
@@ -729,12 +747,12 @@ class ExpedienteController extends Controller
                 if($request->hasFile('acta_baja')) {
                     $archivo5 = $request->file('acta_baja');
                     $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
-                    $estadoBaja->pdf_solicitud_baja = $archivo5->getClientOriginalName();
+                    $estadoBaja->pdf_solicitud_baja = '/archivos/' . $archivo5->getClientOriginalName();
                 }
                 if($request->hasFile('pdf_informe_deuda')) {
                     $archivo6 = $request->file('pdf_informe_deuda');
                     $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
-                    $estadoBaja->pdf_informe_deuda = $archivo6->getClientOriginalName();
+                    $estadoBaja->pdf_informe_deuda = '/archivos/' . $archivo6->getClientOriginalName();
                 }
                 if($estadoBaja->save()){
                     $log5 = new LogsEstadoBajaController();
@@ -750,7 +768,7 @@ class ExpedienteController extends Controller
                 if($request->hasFile('acta_baja1')) {
                     $archivo7 = $request->file('acta_baja1');
                     $archivo7->move(public_path().'/archivos/', $archivo7->getClientOriginalName());
-                    $estadoBaja->pdf_acta_solicitud_baja = $archivo7->getClientOriginalName();
+                    $estadoBaja->pdf_acta_solicitud_baja = '/archivos/' . $archivo7->getClientOriginalName();
                 }
                 if($estadoBaja->save()){
                     $log5 = new LogsEstadoBajaController();
@@ -791,6 +809,6 @@ class ExpedienteController extends Controller
             $log->create($expediente, 'd');
             return redirect()->route('expedientes');
         }
-        return back()->with('fail','No se pudo crear el expediente');
+        return back()->with('fail','No se pudo eliminar el expediente');
     }
 }

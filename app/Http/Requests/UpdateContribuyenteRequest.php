@@ -30,10 +30,26 @@ class UpdateContribuyenteRequest extends FormRequest
             'apellido'=>'required|string|max:20',
             'dni'=>'required|string|max:8',
             'fecha_nacimiento'=>'required|date',
-            // 'telefono'=>'string|max:20', No va  porque sino lo toma como required aunque no se lo ponga
-            // 'nombre_conyuge'=>'string|max:20',
-            // 'apellido_conyuge'=>'string|max:20',
-            // 'dni_conyuge'=>'string|max:8',
+            'telefono'=>'string|nullable|max:20', 
+            'nombre_conyuge'=>'string|nullable|max:20',
+            'apellido_conyuge'=>'string|nullable|max:20',
+            'dni_conyuge'=>'string|nullable|max:8',
+        ];
+    }
+
+    public function messages() {
+        return [
+            'cuit.required' => 'el campo cuit no puede estar vacio',
+            'cuit.max' => 'el campo cuit tiene un maximo de 11 caracteres',
+            'ingresos_brutos.required' => 'el campo ingresos brutos no puede estar vacio',
+            'ingresos_brutos.max' => 'el campo ingresos brutos tiene un maximo de 11 caracteres',
+            'nombre.required' => 'el campo nombre no puede estar vacio',
+            'nombre.max' => 'el campo nombre tiene un maximo de 20 caracteres',
+            'apellido.required' => 'el campo apellido no puede estar vacio',
+            'apellido.max' => 'el campo apellido tiene un maximo de 20 caracteres',
+            'dni.required' => 'el campo dni no puede estar vacio',
+            'dni.max' => 'el campo cuit tiene un maximo de 8 caracteres',
+            'fecha_nacimiento.required' => ' el campo fecha de nacimiento no puede estar vacio',
         ];
     }
 }

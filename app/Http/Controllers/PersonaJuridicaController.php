@@ -37,6 +37,7 @@ class PersonaJuridicaController extends Controller {
         $buscar = $request->buscarpor1;
         $personasJuridicas = Persona_juridica::orderBy('dni_representante', 'asc')
         ->where('dni_representante', 'LIKE', '%' . $buscar . '%')
+        ->orwhere('cuit', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
         return view('expediente.mostrar', ['personasJuridicas' => $personasJuridicas,
                                         'expediente'=>$expediente,

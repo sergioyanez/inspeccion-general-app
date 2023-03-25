@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-
-        <title>Expediente</title>
-        @vite(['resources/js/app.js'])
-    </head>
-    <body>
+@include('header.header')
+    <div class="container">
         <div class="row">
             <div class="col-xl-12">
                 <div class="card mb-4">
@@ -37,151 +27,351 @@
                             @endforelse
                         </div> --}}
                     </div>
-
-                    <div class="card-body">
-                        <form method="POST" action="{{route('expedientes-actualizar2')}}" enctype="multipart/form-data">
-                            @csrf
-                            @isset($expediente->id)
-                                <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
-                            @endisset
-                            {{-- TERCER PAGINA DEL FIGMA --}}
-                            {{-- DETALLE HABILITACION --}}
-                            <div>
-                                <input type="hidden" name="detalle_habilitacion" value="{{$expediente->detalleHabilitacion->id}}">
-                                <div class="mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Estado de habilitacion</label>
-                                    <select required name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
-                                        <option>-- Seleccione --</option>
-                                        @foreach($tiposEstados as $tipo)
-                                            <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoEstado->id) selected @endif>{{$tipo->descripcion}}</option>
-                                        @endforeach
-                                    </select>
-                                    <label class="form-label" for="basic-default-fullname">Fecha de primer habilitacion</label>
-                                    <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
-                                    <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
-                                    <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
-                                    <label class="form-label" for="basic-default-fullname">Tipo de habilitacion</label>
-                                    <select name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
-                                        @if($expediente->detalleHabilitacion->tipoHabilitacion)
-                                            @foreach($tiposhabilitaciones as $tipo)
-                                                <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
-                                            @endforeach
+                    @if(Auth::user()->tipo_permiso_id == 1)
+                        <div class="card-body">
+                            <form method="POST" action="{{route('expedientes-actualizar2')}}" enctype="multipart/form-data">
+                                @csrf
+                                @isset($expediente->id)
+                                    <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
+                                @endisset
+                                {{-- TERCER PAGINA DEL FIGMA --}}
+                                {{-- DETALLE HABILITACION --}}
+                                <div>
+                                    <input type="hidden" name="detalle_habilitacion" value="{{$expediente->detalleHabilitacion->id}}">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">Estado de habilitación</label>
+                                        @if($expediente->detalleHabilitacion->fecha_vencimiento && $expediente->detalleHabilitacion->fecha_vencimiento < now())
+                                            <select required name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
+                                                <option value="3">Vencida</option>
+                                                @foreach($tiposEstados as $tipo)
+                                                    <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoEstado->id) selected @endif>{{$tipo->descripcion}}</option>
+                                                @endforeach
+                                            </select>
+                                            <label class="form-label" for="basic-default-fullname">Fecha de primer habilitación</label>
+                                            <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="fechaPrimerHabilitacion" />
+                                            <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
+                                            <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
+                                            <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
+                                            <select name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
+                                                @if($expediente->detalleHabilitacion->tipoHabilitacion)
+                                                    @foreach($tiposhabilitaciones as $tipo)
+                                                        <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
+                                                    @endforeach
+                                                @else
+                                                    <option>-- Seleccione --</option>
+                                                    @foreach($tiposhabilitaciones as $tipo)
+                                                        <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         @else
-                                            <option>-- Seleccione --</option>
-                                            @foreach($tiposhabilitaciones as $tipo)
-                                                <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
-                                            @endforeach
+                                            <select required name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
+                                                <option>-- Seleccione --</option>
+                                                @foreach($tiposEstados as $tipo)
+                                                    <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoEstado->id) selected @endif>{{$tipo->descripcion}}</option>
+                                                @endforeach
+                                            </select>
+                                            <label class="form-label" for="basic-default-fullname">Fecha de primer habilitación</label>
+                                            <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="fechaPrimerHabilitacion" />
+                                            <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
+                                            <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
+                                            <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
+                                            <select name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
+                                                @if($expediente->detalleHabilitacion->tipoHabilitacion)
+                                                    @foreach($tiposhabilitaciones as $tipo)
+                                                        <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
+                                                    @endforeach
+                                                @else
+                                                    <option>-- Seleccione --</option>
+                                                    @foreach($tiposhabilitaciones as $tipo)
+                                                        <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         @endif
-                                    </select>
-                                    <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
-                                    @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
-                                        <p name="certificado_habilitacion">Certificado de habilitaciòn cargado: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p>
-                                    @endif
-                                    <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                        {{-- <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
+                                        @if (request('fecha_primer_habilitacion'))
+                                        
+                                            @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
+                                                <p name="certificado_habilitacion">Certificado de habilitaciòn cargado: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p>
+                                            @endif
+                                            <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            @error('certificado_nuevo')
+                                                <div class="alert alert-danger">
+                                                    {{$message}}
+                                                </div>
+                                            @enderror
+                                        @else
+                                            @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
+                                                <p name="certificado_habilitacion">Certificado de habilitaciòn cargado: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p>
+                                            @endif
+                                            <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
+                                            @error('certificado_nuevo')
+                                            <div class="alert alert-danger">
+                                                {{$message}}
+                                            </div>
+                                        @enderror  
+                                        @endif --}}
+                                        <label class="form-label" for="basic-default-fullname">Certificado de habilitación</label>
+                                        @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
+                                            <p name="certificado_habilitacion">Certificado de habilitación cargado: <a href="{{ url($expediente->detalleHabilitacion->pdf_certificado_habilitacion) }}" target="blank_" >{{ $expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</a>
+                                        @endif
+                                        <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="certificadoHabilitacion" />
+                                    </div>
                                 </div>
-                            </div>
 
-                            {{-- ESTADO DE BAJA --}}
-                            <div>
+                                {{-- ESTADO DE BAJA --}}
+                                <div>
+                                    @if($expediente->estado_baja_id != null)
+                                        <input type="hidden" name="estado_baja_id" value="{{$expediente->estado_baja_id}}" id="estado_baja_id">
+                                        <input type="hidden" name="tipo_baja_id" value="{{$expediente->estadoBaja->tipoBaja->id}}" id="tipo_baja_id">
+                                        <label class="form-label" for="basic-default-fullname">Estado de baja</label>
+                                        @if ($expediente->estadoBaja->tipoBaja->descripcion == "Provisoria")
+                                            <select required name="tipo_baja_id" class="form-control" id="tipo_baja">
+                                                <option >-- Seleccione --</option>
+                                                @foreach($tiposBajas as $tipo)
+                                                    <option value="{{$tipo->id}}"@if($tipo->id == $expediente->estadoBaja->tipoBaja->id) selected @endif >{{$tipo->descripcion}}</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- <div id="provisoria"> --}}
+                                            <div id="provisoria">
+                                                <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
+                                                <input value="{{$expediente->estadoBaja->deuda}}" type="text" name="deuda" class="form-control" />
 
-                                @if($expediente->estado_baja_id != null)
+                                                <label class="form-label" for="basic-default-fullname">Fecha de baja:</label>
+                                                <input value="{{$expediente->estadoBaja->fecha_baja}}" type="date" name="fecha_baja_provisoria" class="form-control" id="fechaVencimientoProvisoria" />
 
-                                    <input type="hidden" name="estado_baja_id" value="{{$expediente->estado_baja_id}}" id="estado_baja_id">
-                                    <input type="hidden" name="tipo_baja_id" value="{{$expediente->estadoBaja->tipoBaja->id}}" id="tipo_baja_id">
-                                    <label class="form-label" for="basic-default-fullname">Estado de baja</label>
-                                    @if ($expediente->estadoBaja->tipoBaja->descripcion == "Provisoria")
+                                                <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja:</label>
+                                                @if ($expediente->estadoBaja->pdf_solicitud_baja)
+                                                    {{-- <input name="acta_baja"  value="{{$expediente->estadoBaja->pdf_solicitud_baja}}"/> --}}
+                                                    <p name="acta_baja">Acta solicitud de baja: <a href="{{ url($expediente->estadoBaja->pdf_solicitud_baja) }}" target="blank_" >{{$expediente->estadoBaja->pdf_solicitud_baja}}</a>
+                                                @endif
+                                                <input type="file" name="acta_baja_nuevo" class="form-control" class="form-control-file" id="ActaSolicitudBajaProvisoria" />
 
-                                        {{-- <input value="{{ $expediente->estadoBaja->tipoBaja->descripcion }}" type="text" name="estado_baja" class="form-control" id="estadoDeBajaAsignado" /> --}}
+                                                <label class="form-label" for="basic-default-fullname">Informe de deuda</label>
+                                                @if ($expediente->estadoBaja->pdf_informe_deuda)
+                                                    {{-- <input name="informe_deuda" value="{{$expediente->estadoBaja->pdf_informe_deuda}}"/> --}}
+                                                    <p name="informe_deuda">Acta solicitud de baja: <a href="{{ url($expediente->estadoBaja->pdf_informe_deuda) }}" target="blank_" >{{$expediente->estadoBaja->pdf_informe_deuda}}</a>
+                                                @endif
+                                                <input type="file" name="informe_deuda_nuevo" class="form-control" class="form-control-file" id="informeDeuda" />
+                                            </div>
+
+                                            <div id="permanente">
+                                                <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                                <input type="date" name="fecha_baja1" class="form-control" id="fechaVencimientoPermanente"/>
+
+                                                <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
+                                                <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
+                                            </div>
+
+                                            <div id="deOficio">
+                                                <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                                <input type="date" name="fecha_baja1" class="form-control" id="fechaBajaDeOficio"/>
+
+                                                <label class="form-label" for="basic-default-fullname">Acta de baja de oficio</label>
+                                                <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
+                                            </div>
+                                        @else
+                                            
+                                            @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente" || $expediente->estadoBaja->tipoBaja->descripcion == "De oficio")
+                                                <input readonly value="{{$expediente->estadoBaja->tipoBaja->descripcion}}" type="text" name="estado_baja" class="form-control" />
+                                                <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                                <input readonly value="{{$expediente->estadoBaja->fecha_baja}}" type="text" name="fecha_baja1" class="form-control" />
+                                                <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
+                                                @if($expediente->estadoBaja->pdf_acta_solicitud_baja)
+                                                    {{-- <input readonly value="{{$expediente->estadoBaja->pdf_acta_solicitud_baja}}" type="text" name="acta_baja" class="form-control" /> --}}
+                                                    <p name="acta_baja">Acta de solicitud de baja cargado: <a href="{{ url($expediente->estadoBaja->pdf_acta_solicitud_baja) }}" target="blank_" >{{ $expediente->estadoBaja->pdf_acta_solicitud_baja}}</a>
+
+                                                    @endif
+                                                <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
+                                            @endif
+                                            
+                                        @endif
+
+                                    @else
+                                        <label class="form-label" for="basic-default-fullname">Estado de baja</label>
+                                        <input type="text" name="estado_baja" class="form-control" id="basic-default-nombreCompleto" />
                                         <select required name="tipo_baja_id" class="form-control" id="tipo_baja">
-                                            <option >-- Seleccione --</option>
+                                            <option>-- Seleccione --</option>
                                             @foreach($tiposBajas as $tipo)
-                                                <option value="{{$tipo->id}}"@if($tipo->id == $expediente->estadoBaja->tipoBaja->id) selected @endif >{{$tipo->descripcion}}</option>
+                                                <option value="{{$tipo->id}}" >{{$tipo->descripcion}}</option>
                                             @endforeach
                                         </select>
+
                                         <div id="provisoria">
                                             <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
-                                            <input value="{{$expediente->estadoBaja->deuda}}" type="text" name="deuda" class="form-control" />
+                                            <input type="text" name="deuda" class="form-control" />
 
-                                            <label class="form-label" for="basic-default-fullname">Fecha de baja:</label>
-                                            <input value="{{$expediente->estadoBaja->fecha_baja}}" type="date" name="fecha_baja_provisoria" class="form-control" id="fechaVencimientoProvisoria" />
+                                            <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                            <input type="date" name="fecha_baja" class="form-control" id="fechaVencimientoProvisoria" />
 
-                                            <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja:</label>
-                                            @if ($expediente->estadoBaja->pdf_solicitud_baja)
-                                                <input name="acta_baja"  value="{{$expediente->estadoBaja->pdf_solicitud_baja}}"/>
-                                            @endif
-                                            <input type="file" name="acta_baja_nuevo" class="form-control" class="form-control-file" id="ActaSolicitudBajaProvisoria" />
+                                            <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
+                                            <input type="file" name="acta_baja" class="form-control" class="form-control-file"  />
 
                                             <label class="form-label" for="basic-default-fullname">Informe de deuda</label>
-                                            @if ($expediente->estadoBaja->pdf_informe_deuda)
-                                                <input name="informe_deuda" value="{{$expediente->estadoBaja->pdf_informe_deuda}}"/>
-                                            @endif
-                                            <input type="file" name="informe_deuda_nuevo" class="form-control" class="form-control-file" id="informeDeuda" />
+                                            <input type="file" name="pdf_informe_deuda" class="form-control" class="form-control-file"  />
                                         </div>
-
                                         <div id="permanente">
                                             <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
                                             <input type="date" name="fecha_baja1" class="form-control" id="fechaVencimientoPermanente"/>
 
                                             <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
-                                            <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
+                                            <input type="file" name="acta_baja1" class="form-control" class="form-control-file"  />
                                         </div>
-                                    @else
-                                        @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente")
-                                            <input readonly value="{{$expediente->estadoBaja->tipoBaja->descripcion}}" type="text" name="estado_baja" class="form-control" />
-
-                                            {{-- <p name="estado_baja" >{{ $expediente->estadoBaja->tipoBaja->descripcion }}</p> --}}
-                                            <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
-                                            <input readonly value="{{$expediente->estadoBaja->fecha_baja}}" type="text" name="fecha_baja1" class="form-control" />
-
-                                            {{-- <p name="fecha_baja1" >{{$expediente->estadoBaja->fecha_baja}}</p> --}}
-                                            <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
-                                            @if($expediente->estadoBaja->pdf_acta_solicitud_baja)
-                                                <input readonly value="{{$expediente->estadoBaja->pdf_acta_solicitud_baja}}" type="text" name="acta_baja" class="form-control" />
-                                                {{-- <p name="acta_baja" class="form-control"> {{$expediente->estadoBaja->pdf_acta_solicitud_baja}}</p> --}}
-                                            @endif
-                                            <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
-
-                                        @endif
                                     @endif
+                                </div>
+                                <button type="submit" class="btn btn-primary">Finalizar</button>
+                            </form>
+                            <a href="{{route('expedientes-mostrar1', $expediente->id)}}" class="btn btn-primary">Volver</a>
+                        </div>
+                    @else
+                        <div class="card-body">
+                            <form method="POST" action="{{route('expedientes-actualizar2')}}" enctype="multipart/form-data">
+                                @csrf
+                                @isset($expediente->id)
+                                    <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
+                                @endisset
+                                {{-- TERCER PAGINA DEL FIGMA --}}
+                                {{-- DETALLE HABILITACION --}}
+                                <div>
+                                    <input type="hidden" name="detalle_habilitacion" value="{{$expediente->detalleHabilitacion->id}}">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">Estado de habilitación</label>
+                                        <select readonly name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
+                                            @foreach($tiposEstados as $tipo)
+                                                @if($expediente->detalleHabilitacion->tipoEstado->id == $tipo->id)
+                                                    <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoEstado->id) selected @endif>{{$tipo->descripcion}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                        <label class="form-label" for="basic-default-fullname">Fecha de primer habilitación</label>
+                                        <input readonly value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
+                                        <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
+                                        <input readonly value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
+                                        <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
+                                        <select readonly name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
+                                            @if($expediente->detalleHabilitacion->tipoHabilitacion)
+                                                @foreach($tiposhabilitaciones as $tipo)
+                                                    @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id)
+                                                        <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
+                                                    @endif
+                                                @endforeach
+                                            @else
+                                                {{--<option>-- Seleccione --</option>
+                                                 @foreach($tiposhabilitaciones as $tipo)
+                                                    <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                                @endforeach --}}
+                                            @endif
+                                        </select>
+                                        <label class="form-label" for="basic-default-fullname">Certificado de habilitación</label>
+                                        @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
+                                            {{-- <p name="certificado_habilitacion">Certificado de habilitaciòn cargado: {{$expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</p> --}}
+                                            <p name="certificado_habilitacion">Certificado de habilitación cargado: <a href="{{ url($expediente->detalleHabilitacion->pdf_certificado_habilitacion) }}" target="blank_" >{{ $expediente->detalleHabilitacion->pdf_certificado_habilitacion}}</a>
 
-                                @else
-                                    <label class="form-label" for="basic-default-fullname">Estado de baja</label>
-                                    <input type="text" name="estado_baja" class="form-control" id="basic-default-nombreCompleto" />
-                                    <select required name="tipo_baja_id" class="form-control" id="tipo_baja">
-                                        <option>-- Seleccione --</option>
-                                        @foreach($tiposBajas as $tipo)
-                                            <option value="{{$tipo->id}}" >{{$tipo->descripcion}}</option>
-                                        @endforeach
-                                    </select>
-
-                                    <div id="provisoria">
-                                        <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
-                                        <input type="text" name="deuda" class="form-control" />
-
-                                        <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
-                                        <input type="date" name="fecha_baja" class="form-control" id="fechaVencimientoProvisoria" />
-
-                                        <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
-                                        <input type="file" name="acta_baja" class="form-control" class="form-control-file"  />
-
-                                        <label class="form-label" for="basic-default-fullname">Informe de deuda</label>
-                                        <input type="file" name="pdf_informe_deuda" class="form-control" class="form-control-file"  />
-
+                                            @endif
+                                        {{-- <input type="file" name="certificado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
                                     </div>
-                                    <div id="permanente">
-                                        <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
-                                        <input type="date" name="fecha_baja1" class="form-control" id="fechaVencimientoPermanente"/>
+                                </div>
 
-                                        <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
-                                        <input type="file" name="acta_baja1" class="form-control" class="form-control-file"  />
-                                    </div>
-                                @endif
-                            </div>
-                            <button type="submit" class="btn btn-primary">Finalizar</button>
-                        </form>
-                        <a href="{{route('expedientes-mostrar1', $expediente->id)}}" class="btn btn-primary">Volver</a>
-                </div>
+                                {{-- ESTADO DE BAJA --}}
+                                <div>
+                                    @if($expediente->estado_baja_id != null)
+                                        <input type="hidden" name="estado_baja_id" value="{{$expediente->estado_baja_id}}" id="estado_baja_id">
+                                        <input type="hidden" name="tipo_baja_id" value="{{$expediente->estadoBaja->tipoBaja->id}}" id="tipo_baja_id">
+                                        <label class="form-label" for="basic-default-fullname">Estado de baja</label>
+                                        @if ($expediente->estadoBaja->tipoBaja->descripcion == "Provisoria")
+                                            <select readonly name="tipo_baja_id" class="form-control" id="tipo_baja">
+                                                {{-- <option >-- Seleccione --</option> --}}
+                                                @foreach($tiposBajas as $tipo)
+                                                    @if($tipo->id == $expediente->estadoBaja->tipoBaja->id)
+                                                        <option value="{{$tipo->id}}"@if($tipo->id == $expediente->estadoBaja->tipoBaja->id) selected @endif >{{$tipo->descripcion}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                            <div id="provisoria">
+                                                <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
+                                                <input readonly value="{{$expediente->estadoBaja->deuda}}" type="text" name="deuda" class="form-control" />
+
+                                                <label class="form-label" for="basic-default-fullname">Fecha de baja:</label>
+                                                <input readonly value="{{$expediente->estadoBaja->fecha_baja}}" type="date" name="fecha_baja_provisoria" class="form-control" id="fechaVencimientoProvisoria" />
+
+                                                <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja:</label>
+                                                @if ($expediente->estadoBaja->pdf_solicitud_baja)
+                                                    <input readonly name="acta_baja"  value="{{$expediente->estadoBaja->pdf_solicitud_baja}}"/>
+                                                @endif
+                                                {{-- <input type="file" name="acta_baja_nuevo" class="form-control" class="form-control-file" id="ActaSolicitudBajaProvisoria" /> --}}
+
+                                                <label class="form-label" for="basic-default-fullname">Informe de deuda</label>
+                                                @if ($expediente->estadoBaja->pdf_informe_deuda)
+                                                    <input readonly name="informe_deuda" value="{{$expediente->estadoBaja->pdf_informe_deuda}}"/>
+                                                @endif
+                                                {{-- <input type="file" name="informe_deuda_nuevo" class="form-control" class="form-control-file" id="informeDeuda" /> --}}
+                                            </div>
+
+                                            <div id="permanente">
+                                                <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                                <input readonly type="date" name="fecha_baja1" class="form-control" id="fechaVencimientoPermanente"/>
+
+                                                <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
+                                                <p name="acta_baja">PDF cargado: <a href="{{ url($expediente->estadoBaja->pdf_acta_solicitud_baja) }}" target="blank_" >{{ $expediente->estadoBaja->pdf_acta_solicitud_baja}}</a>
+
+                                                {{-- <input readonly type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" /> --}}
+                                            </div>
+                                        @else
+                                            @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente")
+                                                <input readonly value="{{$expediente->estadoBaja->tipoBaja->descripcion}}" type="text" name="estado_baja" class="form-control" />
+                                                <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                                <input readonly value="{{$expediente->estadoBaja->fecha_baja}}" type="text" name="fecha_baja1" class="form-control" />
+                                                <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
+                                                @if($expediente->estadoBaja->pdf_acta_solicitud_baja)
+                                                    <p readonly name="acta_baja">PDF cargado: <a href="{{ url($expediente->estadoBaja->pdf_acta_solicitud_baja) }}" target="blank_" >{{ $expediente->estadoBaja->pdf_acta_solicitud_baja}}</a>
+
+                                                    {{-- <input readonly value="{{$expediente->estadoBaja->pdf_acta_solicitud_baja}}" type="text" name="acta_baja" class="form-control" /> --}}
+                                                @endif
+                                                {{-- <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" /> --}}
+                                            @endif
+                                        @endif
+
+                                    @else
+                                        <label class="form-label" for="basic-default-fullname">Estado de baja</label>
+                                        <input type="text" name="estado_baja" class="form-control" id="basic-default-nombreCompleto" />
+                                        <select readonly name="tipo_baja_id" class="form-control" id="tipo_baja">
+                                            <option>-- Seleccione --</option>
+                                            {{-- @foreach($tiposBajas as $tipo)
+                                                <option value="{{$tipo->id}}" >{{$tipo->descripcion}}</option>
+                                            @endforeach --}}
+                                        </select>
+
+                                        {{-- <div id="provisoria">
+                                            <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
+                                            <input readonly type="text" name="deuda" class="form-control" />
+
+                                            <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                            <input readonly type="date" name="fecha_baja" class="form-control" id="fechaVencimientoProvisoria" />
+
+                                            <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
+                                            <input readonly type="file" name="acta_baja" class="form-control" class="form-control-file"  />
+
+                                            <label class="form-label" for="basic-default-fullname">Informe de deuda</label>
+                                            <input readonly type="file" name="pdf_informe_deuda" class="form-control" class="form-control-file"  />
+                                        </div>
+                                        <div id="permanente">
+                                            <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
+                                            <input readonly type="date" name="fecha_baja1" class="form-control" id="fechaVencimientoPermanente"/>
+
+                                            <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
+                                            <input readonly type="file" name="acta_baja1" class="form-control" class="form-control-file"  />
+                                        </div> --}}
+                                    @endif
+                                </div>
+                                <button type="submit" class="btn btn-primary">Finalizar</button>
+                            </form>
+                            <a href="{{route('expedientes-mostrar1', $expediente->id)}}" class="btn btn-primary">Volver</a>
+                        </div>
+
+                    @endif
             </div>
         </div>
-    </body>
-</html>
+    </div>
+@include('footer.footer')
+    

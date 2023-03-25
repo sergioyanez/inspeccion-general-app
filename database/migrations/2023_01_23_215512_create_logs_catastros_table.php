@@ -18,12 +18,12 @@ return new class extends Migration
             $table->bigInteger('catastro_id');
             $table->string('circunscripcion',10);
             $table->string('seccion',10);
-            $table->string('chacra',10);
-            $table->string('quinta',10);
-            $table->string('fraccion',10);
-            $table->string('manzana',10);
-            $table->string('parcela',10);
-            $table->string('sub_parcela',10);
+            $table->string('chacra',10)->nullable();
+            $table->string('quinta',10)->nullable();
+            $table->string('fraccion',10)->nullable();
+            $table->string('manzana',10)->nullable();
+            $table->string('parcela',10)->nullable();
+            $table->string('sub_parcela',10)->nullable();
             $table->string('observacion')->nullable();
             $table->date('fecha_informe')->nullable();
             $table->string('pdf_informe')->nullable();

@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
-        
-        <title>Expediente</title>
-        @vite(['resources/js/app.js'])
-    </head>
-    <body>
+@include('header.header')
+    <div class="container">
         <div class="row">
             <div class="col-xl-12">
                 <div class="card mb-4">
@@ -37,7 +27,7 @@
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" />
                                             @if ($item->pdf_informe)
-                                                <p name="pdf_secretaria_gobierno">PDF cargado: {{ $item->pdf_informe }}</p>
+                                                <p name="pdf_secretaria_gobierno">PDF cargado: <a href="{{ url( $item->pdf_informe) }}" target="blank_" >{{ $item->pdf_informe}}</a>
                                             @endif
                                             <input type="file" name="pdf_secretaria_gobierno_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
@@ -51,7 +41,7 @@
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_obras_particulares" class="form-control" id="basic-default-nombreCompleto" />
                                             @if ($item->pdf_informe)
-                                                <p name="pdf_obras_particulares">PDF cargado: {{ $item->pdf_informe }}</p>
+                                                <p name="pdf_obras_particulares">PDF cargado: <a href="{{ url($item->pdf_informe) }}" target="blank_" >{{ $item->pdf_informe}}</a>
                                             @endif
                                             <input type="file" name="pdf_obras_particulares_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
@@ -65,7 +55,7 @@
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_alumbrado" class="form-control" id="basic-default-nombreCompleto" />
                                             @if ($item->pdf_informe)
-                                                <p name="pdf_alumbrado">PDF cargado: {{ $item->pdf_informe }}</p>
+                                                <p name="pdf_alumbrado">PDF cargado: <a href="{{ url( $item->pdf_informe) }}" target="blank_" >{{ $item->pdf_informe}}</a>
                                             @endif
                                             <input type="file" name="pdf_alumbrado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
@@ -79,7 +69,7 @@
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_bromatologia" class="form-control" id="basic-default-nombreCompleto" />
                                             @if ($item->pdf_informe)
-                                                <p name="pdf_bromatologia">PDF cargado: {{ $item->pdf_informe }}</p>
+                                                <p name="pdf_bromatologia">PDF cargado: <a href="{{ url( $item->pdf_informe) }}" target="blank_" >{{ $item->pdf_informe}}</a>
                                             @endif
                                             <input type="file" name="pdf_bromatologia_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
@@ -93,7 +83,7 @@
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_inspeccion" class="form-control" id="basic-default-nombreCompleto" />
                                             @if ($item->pdf_informe)
-                                                <p name="pdf_inspeccion">PDF cargado: {{ $item->pdf_informe }}</p>
+                                                <p name="pdf_inspeccion">PDF cargado: <a href="{{ url( $item->pdf_informe) }}" target="blank_" >{{ $item->pdf_informe}}</a>
                                             @endif
                                             <input type="file" name="pdf_inspeccion_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
@@ -107,7 +97,7 @@
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_juzgado" class="form-control" id="basic-default-nombreCompleto" />
                                             @if ($item->pdf_informe)
-                                                <p name="pdf_juzgado">PDF cargado: {{ $item->pdf_informe }}</p>
+                                                <p name="pdf_juzgado">PDF cargado: <a href="{{ url( $item->pdf_informe) }}" target="blank_" >{{ $item->pdf_informe}}</a>
                                             @endif
                                             <input type="file" name="pdf_juzgado_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
@@ -121,7 +111,7 @@
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_bomberos" class="form-control" id="basic-default-nombreCompleto" />
                                             @if ($item->pdf_informe)
-                                                <p name="pdf_bomberos">PDF cargado: {{ $item->pdf_informe }}</p>
+                                                <p name="pdf_bomberos">PDF cargado: <a href="{{ url( $item->pdf_informe) }}" target="blank_" >{{ $item->pdf_informe}}</a>
                                             @endif
                                             <input type="file" name="pdf_bomberos_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
@@ -135,7 +125,7 @@
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_inspeccion_general" class="form-control" id="basic-default-nombreCompleto" />
                                             @if ($item->pdf_informe)
-                                                <p name="pdf_inspeccion_general">PDF cargado: {{ $item->pdf_informe }}</p>
+                                                <p name="pdf_inspeccion_general">PDF cargado: <a href="{{ url( $item->pdf_informe) }}" target="blank_" >{{ $item->pdf_informe}}</a>
                                             @endif
                                             <input type="file" name="pdf_inspeccion_general_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
@@ -149,13 +139,13 @@
                                             <label class="form-label" for="basic-default-fullname">Rauch</label>
                                             <input value="{{ $item->fecha_informe }}" type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
                                             @if ($item->pdf_informe)
-                                                <p name="pdf_deudores_alimentarios">PDF cargado: {{ $item->pdf_informe }}</p>
+                                                <p name="pdf_deudores_alimentarios">PDF cargado: <a href="{{ url( $item->pdf_informe) }}" target="blank_" >{{ $item->pdf_informe}}</a>
                                             @endif
                                             <input type="file" name="pdf_deudores_alimentarios_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                         </div>
                                     @endif
                                 @empty
-                                {{ "hola" }}
+                                
                                 @endforelse
                             </div>
 
@@ -174,27 +164,27 @@
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Chacra</label>
-                                        <input value="{{$expediente->catastro->chacra}}" required type="text" name="chacra" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input value="{{$expediente->catastro->chacra}}" type="text" name="chacra" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Quinta</label>
-                                        <input value="{{$expediente->catastro->quinta}}" required type="text" name="quinta" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input value="{{$expediente->catastro->quinta}}" type="text" name="quinta" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Fracciòn</label>
-                                        <input value="{{$expediente->catastro->fraccion}}" required type="text" name="fraccion" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input value="{{$expediente->catastro->fraccion}}" type="text" name="fraccion" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Manzana</label>
-                                        <input value="{{$expediente->catastro->manzana}}" required type="text" name="manzana" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input value="{{$expediente->catastro->manzana}}" type="text" name="manzana" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Parcela</label>
-                                        <input value="{{$expediente->catastro->parcela}}" required type="text" name="parcela" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input value="{{$expediente->catastro->parcela}}" type="text" name="parcela" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">SubPar</label>
-                                        <input value="{{$expediente->catastro->sub_parcela}}" required type="text" name="sub_parcela" class="form-control" id="basic-default-nombreCompleto" />
+                                        <input value="{{$expediente->catastro->sub_parcela}}" type="text" name="sub_parcela" class="form-control" id="basic-default-nombreCompleto" />
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Observaciones</label>
@@ -207,8 +197,7 @@
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
                                         @if ($expediente->catastro->pdf_informe)
-                                            <p name="pdf_informe">PDF catastro cargado: {{$expediente->catastro->pdf_informe}}</p>
-                                            {{-- <input value="{{$expediente->catastro->pdf_informe}}" type="file" name="pdf_informe" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" /> --}}
+                                            <p name="pdf_informe">PDF cargado: <a href="{{ url($expediente->catastro->pdf_informe) }}" target="blank_" >{{ $expediente->catastro->pdf_informe}}</a>
                                         @endif
                                         <input type="file" name="pdf_informe_nuevo" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
                                     </div>
@@ -217,10 +206,22 @@
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Circ</label>
                                         <input type="text" name="circunscripcion" class="form-control" id="basic-default-nombreCompleto" />
+                                        @error('circunscripcion')
+                                            {{-- <div class="invalid-feedback"> --}}
+                                            <div>
+                                                {{$message}}
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Secc</label>
                                         <input type="text" name="seccion" class="form-control" id="basic-default-nombreCompleto" />
+                                        @error('seccion')
+                                            {{-- <div class="invalid-feedback"> --}}
+                                            <div>
+                                                {{$message}}
+                                            </div>
+                                        @enderror
                                     </div>
                                     <div>
                                         <label class="form-label" for="basic-default-fullname">Chacra</label>
@@ -260,21 +261,11 @@
                                     </div>
                                 @endif
                             </div>
-
-                            {{-- HISTORIAL DE MODIFICACIONES --}}
-                            {{-- <div>
-                                <input required type="text" name="deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" placeholder="Historial de modificaciones"/>
-                                <label class="form-label" for="basic-default-fullname">Rauch</label>
-                                <input type="date" name="fecha_deudores_alimentarios" class="form-control" id="basic-default-nombreCompleto" />
-                                <label class="form-label" for="basic-default-fullname">Adjuntar PDF</label>
-                                <input type="file" name="pdf_deudores_alimentarios" class="form-control" class="form-control-file" id="basic-default-nombreCompleto" />
-                            </div> --}}
-
                             <button type="submit" class="btn btn-primary">Siguiente</button>
                         </form>
                         <a href="{{route('expedientes-mostrar', $expediente->id)}}" class="btn btn-primary">Volver</a>
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+@include('footer.footer')
