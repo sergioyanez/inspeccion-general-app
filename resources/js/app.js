@@ -65,6 +65,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (tipoBaja) {
         console.log(fechaVencimientoProvisoria.value);
+
+        if(Number(tipoBaja.value) === 1){
+            cajaBajaProvisoria("block");
+            cajaBajaPermanente("none");
+            fechaVencimientoProvisoria.required = true;
+            fechaVencimientoPermanente.required = false;
+            fechaBajaDeOficio.required = false;
+        }
+        if (Number(tipoBaja.value) === 2) {
+            cajaBajaProvisoria("none");
+            cajaBajaPermanente("block");
+            fechaVencimientoProvisoria.required = false;
+            fechaVencimientoPermanente.required = true;
+            fechaBajaDeOficio.required = false;
+        }
+        if (Number(tipoBaja.value) === 3) {
+            cajaBajaProvisoria("none");
+            cajaBajaPermanente("block");
+            fechaVencimientoProvisoria.required = false;
+            fechaVencimientoPermanente.required = true;
+            fechaBajaDeOficio.required = true;
+        }
         tipoBaja.addEventListener("change", function () {
             if (Number(this.value) === 1) {
                 cajaBajaProvisoria("block");
@@ -97,6 +119,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (tipo) {
+        if (Number(tipo.value) === 1) {
+            cajaFechaVencimiento("block");
+            fechaVencimiento.required = true;
+        } else {
+            cajaFechaVencimiento("none");
+            fechaVencimiento.required = false;
+        }
         tipo.addEventListener("change", function () {
             if (Number(this.value) === 1) {
                 cajaFechaVencimiento("block");

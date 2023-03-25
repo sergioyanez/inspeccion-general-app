@@ -40,6 +40,7 @@ use App\Http\Requests\UpdateexpedienteRequest;
 use App\Http\Requests\Update1expedienteRequest;
 use App\Http\Requests\Update2expedienteRequest;
 use Exception;
+use Illuminate\Validation\ValidationException;
 
 
 class ExpedienteController extends Controller
@@ -690,10 +691,16 @@ class ExpedienteController extends Controller
                     $archivo2->move(public_path().'/archivos/', $archivo2->getClientOriginalName());
                     $estadoBaja->pdf_solicitud_baja = '/archivos/' . $archivo2->getClientOriginalName();
                 }
-                if($request->hasFile('informe_deuda_nuevo')) {
-                    $archivo3 = $request->file('informe_deuda_nuevo');
-                    $archivo3->move(public_path().'/archivos/', $archivo3->getClientOriginalName());
-                    $estadoBaja->pdf_informe_deuda = '/archivos/' . $archivo3->getClientOriginalName();
+                if($estadoBaja->deuda){
+                    if($request->hasFile('informe_deuda_nuevo')){
+                        $archivo3 = $request->file('informe_deuda_nuevo');
+                        $archivo3->move(public_path().'/archivos/', $archivo3->getClientOriginalName());
+                        $estadoBaja->pdf_informe_deuda = '/archivos/' . $archivo3->getClientOriginalName();
+                    }else{
+                        throw ValidationException::withMessages([
+                            'informe_deuda_nuevo' => 'Debe cargar un PDF.',
+                        ]);
+                    }
                 }
 
                 if($estadoBaja->save()){
@@ -701,21 +708,28 @@ class ExpedienteController extends Controller
                     $log->store($estadoBaja, 'c');
                 }
             }
-            // PERMANENTE
-            else{
-                $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
-                $estadoBaja->fecha_baja = $request->fecha_baja1;
-                $estadoBaja->deuda = 0;
-                $estadoBaja->pdf_informe_deuda = null;
-                $estadoBaja->pdf_solicitud_baja = null;
-                if($request->hasFile('acta_baja_nuevo1')) {
-                    $archivo4 = $request->file('acta_baja_nuevo1');
-                    $archivo4->move(public_path().'/archivos/', $archivo4->getClientOriginalName());
-                    $estadoBaja->pdf_acta_solicitud_baja = '/archivos/' . $archivo4->getClientOriginalName();
-                }
-                if($estadoBaja->save()){
-                    $log6 = new LogsEstadoBajaController();
-                    $log6->store($estadoBaja, 'u');
+            // PERMANENTE o de oficio
+            else {
+                if($request->fecha_baja1 && $request->hasFile('acta_baja_nuevo1')){
+                    $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
+                    $estadoBaja->fecha_baja = $request->fecha_baja1;
+                    $estadoBaja->deuda = 0;
+                    $estadoBaja->pdf_informe_deuda = null;
+                    $estadoBaja->pdf_solicitud_baja = null;
+                    if($request->hasFile('acta_baja_nuevo1')) {
+                        $archivo4 = $request->file('acta_baja_nuevo1');
+                        $archivo4->move(public_path().'/archivos/', $archivo4->getClientOriginalName());
+                        $estadoBaja->pdf_acta_solicitud_baja = '/archivos/' . $archivo4->getClientOriginalName();
+                    }
+                    if($estadoBaja->save()){
+                        $log6 = new LogsEstadoBajaController();
+                        $log6->store($estadoBaja, 'u');
+                    }
+                }else{
+                    throw ValidationException::withMessages([
+                        'fecha_baja1' => 'Debe cargar una fecha.',
+                        'acta_baja_nuevo1' => 'Debe cargar un PDF.',
+                    ]);
                 }
             }
         }

@@ -40,29 +40,55 @@
                                     <input type="hidden" name="detalle_habilitacion" value="{{$expediente->detalleHabilitacion->id}}">
                                     <div class="mb-3">
                                         <label class="form-label" for="basic-default-fullname">Estado de habilitación</label>
-                                        <select required name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
-                                            <option>-- Seleccione --</option>
-                                            @foreach($tiposEstados as $tipo)
-                                                <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoEstado->id) selected @endif>{{$tipo->descripcion}}</option>
-                                            @endforeach
-                                        </select>
-                                        <label class="form-label" for="basic-default-fullname">Fecha de primer habilitación</label>
-                                        <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="fechaPrimerHabilitacion" />
-                                        <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
-                                        <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
-                                        <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
-                                        <select name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
-                                            @if($expediente->detalleHabilitacion->tipoHabilitacion)
-                                                @foreach($tiposhabilitaciones as $tipo)
-                                                    <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
+                                        @if($expediente->detalleHabilitacion->fecha_vencimiento && $expediente->detalleHabilitacion->fecha_vencimiento < now())
+                                            <select required name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
+                                                <option value="3">Vencida</option>
+                                                @foreach($tiposEstados as $tipo)
+                                                    <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoEstado->id) selected @endif>{{$tipo->descripcion}}</option>
                                                 @endforeach
-                                            @else
+                                            </select>
+                                            <label class="form-label" for="basic-default-fullname">Fecha de primer habilitación</label>
+                                            <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="fechaPrimerHabilitacion" />
+                                            <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
+                                            <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
+                                            <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
+                                            <select name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
+                                                @if($expediente->detalleHabilitacion->tipoHabilitacion)
+                                                    @foreach($tiposhabilitaciones as $tipo)
+                                                        <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
+                                                    @endforeach
+                                                @else
+                                                    <option>-- Seleccione --</option>
+                                                    @foreach($tiposhabilitaciones as $tipo)
+                                                        <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        @else
+                                            <select required name="estado_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
                                                 <option>-- Seleccione --</option>
-                                                @foreach($tiposhabilitaciones as $tipo)
-                                                    <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                                @foreach($tiposEstados as $tipo)
+                                                    <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoEstado->id) selected @endif>{{$tipo->descripcion}}</option>
                                                 @endforeach
-                                            @endif
-                                        </select>
+                                            </select>
+                                            <label class="form-label" for="basic-default-fullname">Fecha de primer habilitación</label>
+                                            <input value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="fechaPrimerHabilitacion" />
+                                            <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
+                                            <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
+                                            <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
+                                            <select name="tipo_habilitacion_id" class="form-control" id="basic-default-nombreCompleto" >
+                                                @if($expediente->detalleHabilitacion->tipoHabilitacion)
+                                                    @foreach($tiposhabilitaciones as $tipo)
+                                                        <option value="{{$tipo->id}}" @if($tipo->id == $expediente->detalleHabilitacion->tipoHabilitacion->id) selected @endif>{{$tipo->descripcion}}</option>
+                                                    @endforeach
+                                                @else
+                                                    <option>-- Seleccione --</option>
+                                                    @foreach($tiposhabilitaciones as $tipo)
+                                                        <option value="{{$tipo->id}}">{{$tipo->descripcion}}</option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
+                                        @endif
                                         {{-- <label class="form-label" for="basic-default-fullname">Certificado de habilitaciòn</label>
                                         @if (request('fecha_primer_habilitacion'))
                                         
@@ -108,7 +134,7 @@
                                                 @endforeach
                                             </select>
                                             {{-- <div id="provisoria"> --}}
-                                            <div>
+                                            <div id="provisoria">
                                                 <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
                                                 <input value="{{$expediente->estadoBaja->deuda}}" type="text" name="deuda" class="form-control" />
 
@@ -146,7 +172,8 @@
                                                 <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
                                             </div>
                                         @else
-                                            @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente")
+                                            
+                                            @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente" || $expediente->estadoBaja->tipoBaja->descripcion == "De oficio")
                                                 <input readonly value="{{$expediente->estadoBaja->tipoBaja->descripcion}}" type="text" name="estado_baja" class="form-control" />
                                                 <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
                                                 <input readonly value="{{$expediente->estadoBaja->fecha_baja}}" type="text" name="fecha_baja1" class="form-control" />
@@ -158,6 +185,7 @@
                                                     @endif
                                                 <input type="file" name="acta_baja_nuevo1" class="form-control" class="form-control-file" id="ActaSolicitudBajaPermanente" />
                                             @endif
+                                            
                                         @endif
 
                                     @else
