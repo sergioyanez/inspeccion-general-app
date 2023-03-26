@@ -121,9 +121,11 @@
 
                             {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
                             <div>
+                                <label class="form-label" for="basic-default-fullname">Bienes de uso:</label>
                                 <input placeholder="detalle de bienes de uso" type="text" name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
                             <div>
+                                <label class="form-label" for="basic-default-fullname">Observaciones Generales:</label>
                                 <input placeholder="OBSERVACIONES GENERALES" type="text" name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto" />
                             </div>
                             
