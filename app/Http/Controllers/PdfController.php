@@ -16,82 +16,129 @@ use Dompdf\Dompdf;
 
 class PdfController extends Controller
 {
-    public function generarPdf()
-    {
-        $data = [
-            'title' => 'Ejemplo de PDF con Laravel',
-            'content' => 'Este es el contenido de mi PDF generado con Laravel.'
-        ];
+    // public function generarPdf()
+    // {
+    //     $data = [
+    //         'title' => 'Ejemplo de PDF con Laravel',
+    //         'content' => 'Este es el contenido de mi PDF generado con Laravel.'
+    //     ];
 
-        $pdf = new Dompdf();
-        $pdf->loadHtml(View::make('pdf.pdf', $data));
-        $pdf->setPaper('A4', 'portrait');
-        $pdf->render();
-        return $pdf->stream();
-    }
+    //     $pdf = new Dompdf();
+    //     $pdf->loadHtml(View::make('pdf.pdf', $data));
+    //     $pdf->setPaper('A4', 'portrait');
+    //     $pdf->render();
+    //     return $pdf->stream();
+    // }
 
 
 
     public function generarExpedientePdf(Request $request){
 
         $expediente = Expediente::find($request->expediente_id);
-        $catastro = DB::table('catastros')
-                    ->where('id', '=', $expediente->catastro_id)
-                    ->select('catastros.*')
-                    ->get();
+        $contribuyentes = DB::table('expediente_contribuyente')
+                            ->join('expedientes','expediente_contribuyente.expediente_id', '=', 'expedientes.id')
+                            ->join('contribuyentes','expediente_contribuyente.contribuyente_id', '=', 'contribuyentes.id')
+                            ->where('expediente_contribuyente.expediente_id', '=', $request->expediente_id)
+                            ->select('contribuyentes.*')
+                            ->get();
+        $personasJuridicas = DB::table('expedientes_personas_juridicas')
+                            ->join('expedientes','expedientes_personas_juridicas.expediente_id', '=', 'expedientes.id')
+                            ->join('personas_juridicas','expedientes_personas_juridicas.persona_juridica_id', '=', 'personas_juridicas.id')
+                            ->where('expedientes_personas_juridicas.expediente_id', '=', $request->expediente_id)
+                            ->select('personas_juridicas.*')
+                            ->get();
         $numExpediente = $expediente->nro_expediente;
         $numComercio = $expediente->nro_comercio;
         $actividadPrincipal = $expediente->actividad_ppal;
         $bienes_uso = $expediente->bienes_de_uso;
         $observaciones = $expediente->observaciones_grales;
 
-        $informesDependencias = Informe_dependencias::orderBy('id', 'asc')->where('expediente_id', $expediente->id)->paginate(10);
+        $informesDependencias =  DB::table('informes_dependencias')
+                                    ->join('expedientes','informes_dependencias.expediente_id', '=', 'expedientes.id')
+                                    ->join('tipos_dependencias','informes_dependencias.tipo_dependencia_id', '=', 'tipos_dependencias.id')
+                                    ->where('expedientes.id', '=', $request->expediente_id)
+                                    ->select('informes_dependencias.fecha_informe','informes_dependencias.observaciones','tipos_dependencias.nombre','tipos_dependencias.id')
+                                    ->get();
 
-        $tipo_estado_baja = DB::table('tipos_bajas')
-                        ->join('estados_bajas','estados_bajas.tipo_baja_id', '=', 'tipos_bajas.id')
-                        ->where('id', '=', $expediente->estado_baja_id)
-                        ->select('tipos_bajas.descripcion')
-                        ->get();
-        $deuda = DB::table('estados_bajas')
-                        ->where('id', '=', $expediente->estado_baja_id)
-                        ->select('estados_bajas.deuda')
-                        ->get();
-        $fecha_baja = DB::table('estados_bajas')
-                        ->where('id', '=', $expediente->estado_baja_id)
-                        ->select('estados_bajas.fecha_baja')
-                        ->get();
-        $tipo_detalle_habilitacion = DB::table('tipos_habilitaciones')
-                        ->join('detalles_habilitaciones','detalles_habilitaciones.tipo_habilitacion_id', '=', 'tipos_habilitaciones.id')
-                        ->where('detalles_habilitaciones.id', '=', $expediente->detalle_habilitacion_id)
-                        ->select('tipos_habilitaciones.descripcion')
-                        ->get();
-        $estado_detalle_habilitacion = DB::table('tipos_estados')
-                        ->join('detalles_habilitaciones','detalles_habilitaciones.tipo_estado_id', '=', 'tipos_estados.id')
-                        ->where('detalles_habilitaciones.id', '=', $expediente->detalle_habilitacion_id)
-                        ->select('descripcion')
-                        ->get();
+        $catastro = DB::table('catastros')
+                    ->where('id', '=', $expediente->catastro_id)
+                    ->select('catastros.*')
+                    ->get();
+        if($expediente->estado_baja_id){
+            $tipo_estado_baja = DB::table('tipos_bajas')
+            ->join('estados_bajas','estados_bajas.tipo_baja_id', '=', 'tipos_bajas.id')
+            ->where('id', '=', $expediente->estado_baja_id)
+            ->select('tipos_bajas.descripcion')
+            ->get();
+            $deuda = DB::table('estados_bajas')
+            ->where('id', '=', $expediente->estado_baja_id)
+            ->select('estados_bajas.deuda')
+            ->get();
+            $fecha_baja = DB::table('estados_bajas')
+            ->where('id', '=', $expediente->estado_baja_id)
+            ->select('estados_bajas.fecha_baja')
+            ->get();
+        }else{
+            $tipo_estado_baja ="";
+            $deuda ="";
+            $fecha_baja ="";
+        }
+
+            $tipo_detalle_habilitacion = DB::table('tipos_habilitaciones')
+            ->join('detalles_habilitaciones','detalles_habilitaciones.tipo_habilitacion_id', '=', 'tipos_habilitaciones.id')
+            ->where('detalles_habilitaciones.id', '=', $expediente->detalle_habilitacion_id)
+            ->select('tipos_habilitaciones.descripcion')
+            ->get();
+
+            $estado_detalle_habilitacion = DB::table('tipos_estados')
+            ->join('detalles_habilitaciones','detalles_habilitaciones.tipo_estado_id', '=', 'tipos_estados.id')
+            ->where('detalles_habilitaciones.id', '=', $expediente->detalle_habilitacion_id)
+            ->select('descripcion')
+            ->get();
 
 
-        $fecha_vencimiento_detalle_habilitacion= DB::table('detalles_habilitaciones')
-                                                    ->where('id', '=', $expediente->detalle_habilitacion_id)
-                                                    ->select('detalles_habilitaciones.fecha_vencimiento')
-                                                    ->get();
+            $fecha_vencimiento_detalle_habilitacion= DB::table('detalles_habilitaciones')
+                                        ->where('id', '=', $expediente->detalle_habilitacion_id)
+                                        ->select('detalles_habilitaciones.fecha_vencimiento')
+                                        ->get();
+            $fecha_primer_habilitacion= DB::table('detalles_habilitaciones')
+                                        ->where('id', '=', $expediente->detalle_habilitacion_id)
+                                        ->select('detalles_habilitaciones.fecha_primer_habilitacion')
+                                        ->get();
 
 
-        $detalleInmueble=DB::table('detalles_inmuebles')
-                            ->where('id', '=', $expediente->detalle_inmueble_id)
-                            ->select('detalles_inmuebles.*')
-                            ->get();
+
+
+        $domicilio=DB::table('detalles_inmuebles')
+                    ->join('expedientes','expedientes.detalle_inmueble_id', '=', 'detalles_inmuebles.id')
+                    ->join('inmuebles','detalles_inmuebles.inmueble_id', '=', 'inmuebles.id')
+                    ->where('expedientes.id', '=', $request->expediente_id)
+                    ->select('inmuebles.*')
+                    ->get();
+
+        $tipoInmueble=DB::table('detalles_inmuebles')
+                    ->join('expedientes','expedientes.detalle_inmueble_id', '=', 'detalles_inmuebles.id')
+                    ->join('tipos_inmuebles','detalles_inmuebles.tipo_inmueble_id', '=', 'tipos_inmuebles.id')
+                    ->where('expedientes.id', '=', $request->expediente_id)
+                    ->select('tipos_inmuebles.descripcion')
+                    ->get();
 
         $datosExpediente = [
+            'contribuyentes'=>$contribuyentes,
+            'personasJuridicas' => $personasJuridicas,
             'numExpediente' => $numExpediente,
             'numComercio' =>   $numComercio,
             'actividadPrincipal' => $actividadPrincipal,
+            'domicilio' => $domicilio,
+            'tipoInmueble' => $tipoInmueble,
             'bienes_uso'=> $bienes_uso,
             'observaciones' => $observaciones,
+            'informesDependencias' => $informesDependencias,
+            'catastro' => $catastro,
             'tipo_detalle_habilitacion'=>$tipo_detalle_habilitacion,
             'estado_detalle_habilitacion'=>$estado_detalle_habilitacion,
             'fecha_vencimiento_detalle_habilitacion'=>$fecha_vencimiento_detalle_habilitacion,
+            'fecha_primer_habilitacion' => $fecha_primer_habilitacion,
             'tipo_estado_baja' => $tipo_estado_baja,
             'deuda' =>$deuda,
             'fecha_baja' =>$fecha_baja,
