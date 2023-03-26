@@ -61,68 +61,58 @@ class PdfController extends Controller
                                     ->get();
 
         $catastro = DB::table('catastros')
-                    ->where('id', '=', $expediente->catastro_id)
-                    ->select('catastros.*')
-                    ->get();
+                        ->where('id', '=', $expediente->catastro_id)
+                        ->select('catastros.*')
+                        ->get();
         if($expediente->estado_baja_id){
             $tipo_estado_baja = DB::table('tipos_bajas')
-            ->join('estados_bajas','estados_bajas.tipo_baja_id', '=', 'tipos_bajas.id')
-            ->where('id', '=', $expediente->estado_baja_id)
-            ->select('tipos_bajas.descripcion')
-            ->get();
+                                ->join('estados_bajas','estados_bajas.tipo_baja_id', '=', 'tipos_bajas.id')
+                                ->where('id', '=', $expediente->estado_baja_id)
+                                ->select('tipos_bajas.descripcion')
+                                ->get();
             $deuda = DB::table('estados_bajas')
-            ->where('id', '=', $expediente->estado_baja_id)
-            ->select('estados_bajas.deuda')
-            ->get();
+                        ->where('id', '=', $expediente->estado_baja_id)
+                        ->select('estados_bajas.deuda')
+                        ->get();
             $fecha_baja = DB::table('estados_bajas')
-            ->where('id', '=', $expediente->estado_baja_id)
-            ->select('estados_bajas.fecha_baja')
-            ->get();
+                            ->where('id', '=', $expediente->estado_baja_id)
+                            ->select('estados_bajas.fecha_baja')
+                            ->get();
         }else{
             $tipo_estado_baja ="";
             $deuda ="";
             $fecha_baja ="";
         }
-
-            $tipo_detalle_habilitacion = DB::table('tipos_habilitaciones')
-            ->join('detalles_habilitaciones','detalles_habilitaciones.tipo_habilitacion_id', '=', 'tipos_habilitaciones.id')
-            ->where('detalles_habilitaciones.id', '=', $expediente->detalle_habilitacion_id)
-            ->select('tipos_habilitaciones.descripcion')
-            ->get();
-
-            $estado_detalle_habilitacion = DB::table('tipos_estados')
-            ->join('detalles_habilitaciones','detalles_habilitaciones.tipo_estado_id', '=', 'tipos_estados.id')
-            ->where('detalles_habilitaciones.id', '=', $expediente->detalle_habilitacion_id)
-            ->select('descripcion')
-            ->get();
-
-
-            $fecha_vencimiento_detalle_habilitacion= DB::table('detalles_habilitaciones')
+        $tipo_detalle_habilitacion = DB::table('tipos_habilitaciones')
+                                        ->join('detalles_habilitaciones','detalles_habilitaciones.tipo_habilitacion_id', '=', 'tipos_habilitaciones.id')
+                                        ->where('detalles_habilitaciones.id', '=', $expediente->detalle_habilitacion_id)
+                                        ->select('tipos_habilitaciones.descripcion')
+                                        ->get();
+        $estado_detalle_habilitacion = DB::table('tipos_estados')
+                                        ->join('detalles_habilitaciones','detalles_habilitaciones.tipo_estado_id', '=', 'tipos_estados.id')
+                                        ->where('detalles_habilitaciones.id', '=', $expediente->detalle_habilitacion_id)
+                                        ->select('descripcion')
+                                        ->get();
+        $fecha_vencimiento_detalle_habilitacion= DB::table('detalles_habilitaciones')
                                         ->where('id', '=', $expediente->detalle_habilitacion_id)
                                         ->select('detalles_habilitaciones.fecha_vencimiento')
                                         ->get();
-            $fecha_primer_habilitacion= DB::table('detalles_habilitaciones')
+        $fecha_primer_habilitacion= DB::table('detalles_habilitaciones')
                                         ->where('id', '=', $expediente->detalle_habilitacion_id)
                                         ->select('detalles_habilitaciones.fecha_primer_habilitacion')
                                         ->get();
-
-
-
-
         $domicilio=DB::table('detalles_inmuebles')
                     ->join('expedientes','expedientes.detalle_inmueble_id', '=', 'detalles_inmuebles.id')
                     ->join('inmuebles','detalles_inmuebles.inmueble_id', '=', 'inmuebles.id')
                     ->where('expedientes.id', '=', $request->expediente_id)
                     ->select('inmuebles.*')
                     ->get();
-
         $tipoInmueble=DB::table('detalles_inmuebles')
                     ->join('expedientes','expedientes.detalle_inmueble_id', '=', 'detalles_inmuebles.id')
                     ->join('tipos_inmuebles','detalles_inmuebles.tipo_inmueble_id', '=', 'tipos_inmuebles.id')
                     ->where('expedientes.id', '=', $request->expediente_id)
                     ->select('tipos_inmuebles.descripcion')
                     ->get();
-
         $datosExpediente = [
             'contribuyentes'=>$contribuyentes,
             'personasJuridicas' => $personasJuridicas,
@@ -143,9 +133,38 @@ class PdfController extends Controller
             'deuda' =>$deuda,
             'fecha_baja' =>$fecha_baja,
         ];
+        $pdf = new Dompdf();
+        $pdf->loadHtml(View::make('pdf.pdfExpediente', $datosExpediente));
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+        return $pdf->stream();
+    }
+
+    public function generarReporteHabilitacionesAvencerPdf(Request $request){
+
+        $data = [
+            //         'title' => 'Ejemplo de PDF con Laravel',
+            //         'content' => 'Este es el contenido de mi PDF generado con Laravel.'
+                 ];
+
 
         $pdf = new Dompdf();
-        $pdf->loadHtml(View::make('pdf.pdf', $datosExpediente));
+        $pdf->loadHtml(View::make('pdf.pdfExpediente', $data));
+        $pdf->setPaper('A4', 'portrait');
+        $pdf->render();
+        return $pdf->stream();
+    }
+
+
+    public function generarReporteHabilitacionesVencidasPdf(Request $request){
+        $data = [
+            //         'title' => 'Ejemplo de PDF con Laravel',
+            //         'content' => 'Este es el contenido de mi PDF generado con Laravel.'
+                 ];
+
+
+        $pdf = new Dompdf();
+        $pdf->loadHtml(View::make('pdf.pdfExpediente', $data));
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
         return $pdf->stream();

@@ -15,7 +15,6 @@
             <a class="btn btnPrincipal btn-violet d-flex align-items-center justify-content-center" href="{{route('usuarios')}}">Administrar usuarios</a>
         </div>
     @endif
-    <a class="dropdown-item" href="{{route('generar-pdf')}}">pdf</a>
 
 
     <!-- Modal -->
