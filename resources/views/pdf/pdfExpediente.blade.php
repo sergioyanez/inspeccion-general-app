@@ -20,7 +20,9 @@
         </thead>
         <tbody>
             <tr>
-                @if($contribuyentes->count()) )
+
+                @if($contribuyentes->count())
+                @foreach ($contribuyentes as $contribuyente)
                 <tr scope="row">
                     <th>Contribuyentes</th>
                     <th>Apellido</th>
@@ -34,17 +36,19 @@
                     <th>Apellido conyuge</th>
                     <th>Dni conyuge</th>
                 </tr>
-                <th scope="row">{{$contribuyentes[0]->id}}</th>
-                <td>{{$contribuyentes[0]->apellido}}</td>
-                <td>{{$contribuyentes[0]->nombre}}</td>
-                <td>{{$contribuyentes[0]->dni}}</td>
-                <td>{{$contribuyentes[0]->cuit}}</td>
-                <td>{{$contribuyentes[0]->ingresos_brutos}}</td>
-                <td>{{$contribuyentes[0]->fecha_nacimiento}}</td>
-                <td>{{$contribuyentes[0]->telefono}}</td>
-                <td>{{$contribuyentes[0]->nombre_conyuge}}</td>
-                <td>{{$contribuyentes[0]->apellido_conyuge}}</td>
-                <td>{{$contribuyentes[0]->dni_conyuge}}</td>
+
+                <th scope="row">{{$contribuyente->id}}</th>
+                <td>{{$contribuyente->apellido}}</td>
+                <td>{{$contribuyente->nombre}}</td>
+                <td>{{$contribuyente->dni}}</td>
+                <td>{{$contribuyente->cuit}}</td>
+                <td>{{$contribuyente->ingresos_brutos}}</td>
+                <td>{{$contribuyente->fecha_nacimiento}}</td>
+                <td>{{$contribuyente->telefono}}</td>
+                <td>{{$contribuyente->nombre_conyuge}}</td>
+                <td>{{$contribuyente->apellido_conyuge}}</td>
+                <td>{{$contribuyente->dni_conyuge}}</td>
+                @endforeach
               </tr>
               @endif
           <tr>
@@ -59,16 +63,16 @@
                     <th>Cuit Representante</th>
                     <th>Teléfono Representante</th>
                 </tr>
-                <th scope="row">{{$personasJuridicas[0]->id}}</th>
-
-                    <td>{{$personasJuridicas[0]->apellido_representante}}</td>
-                    <td>{{$personasJuridicas[0]->nombre_representante}}</td>
-                    <td>{{$personasJuridicas[0]->dni_representante}}</td>
-                    <td>{{$personasJuridicas[0]->cuit}}</td>
-                    <td>{{$personasJuridicas[0]->telefono}}</td>
-                    @endif
+                @foreach ($personasJuridicas as $personaJuridica)
+                <th scope="row">{{$personaJuridica[0]->id}}</th>
+                    <td>{{$personaJuridica->apellido_representante}}</td>
+                    <td>{{$personaJuridica->nombre_representante}}</td>
+                    <td>{{$personaJuridica->dni_representante}}</td>
+                    <td>{{$personaJuridica->cuit}}</td>
+                    <td>{{$personaJuridica->telefono}}</td>
                 </tr>
-
+                @endforeach
+                @endif
             <tr>
                 <th scope="row">Número de Expediente</th>
                 <td>{{$numExpediente}}</td>
