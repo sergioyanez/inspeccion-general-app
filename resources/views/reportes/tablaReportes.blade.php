@@ -1,8 +1,15 @@
-@include('header.header') 
+@include('header.header')
 
 <h1 class="h3 my-5 ps-0">Reporte de habilitaciones {{$plazo}}</h1>
-@if($reportes->count())
 
+@if($reportes->count())
+<form method="POST" action="{{route('generar-reportes-habilitaciones-vencidas-pdf')}}" enctype="multipart/form-data">
+    @csrf
+    @isset($reportes)
+        <input type="hidden" name="reportes" value="{{$reportes}}">
+    @endisset
+    <button type="submit" class="btn btn-primary">Imprimir PDF</button>
+</form>
 <table class="table table-striped">
     <thead class="resultadoBusqueda">
         <tr>
@@ -19,42 +26,42 @@
         @foreach ($reportes as $reporte)
             <tr>
                 <td> {{$reporte->nro_expediente}}</td>
-                <td> 
-                   @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())  
+                <td>
+                   @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())
                         @foreach ($reporte->contribuyentes as $c)
-                            <p>{{$c->nombre}} {{$c->apellido}}<p> 
+                            <p>{{$c->nombre}} {{$c->apellido}}<p>
                         @endforeach
-                    @else 
+                    @else
                     <span class="text-secondary">Sin datos..</span>
                    @endif
-                </td> 
-                <td> 
-                    @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())  
+                </td>
+                <td>
+                    @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())
                      @foreach ($reporte->contribuyentes as $c)
                         <p>{{$c->telefono}}</p>
                      @endforeach
-                     @else 
+                     @else
                         <span class="text-secondary">Sin datos..</span>
                     @endif
-                 </td> 
+                 </td>
                 <td> {{$reporte->observaciones_grales}}</td>
                 <td> {{$reporte->detalleHabilitacion->fecha_vencimiento}}</td>
                 <td> {{$vencido}}</td>
-                <td> 
-                    @if (isset($reporte->avisos) and $reporte->avisos->count())  
+                <td>
+                    @if (isset($reporte->avisos) and $reporte->avisos->count())
                         {{$reporte->avisos[$reporte->avisos->count()-1]->fecha_aviso}}
-                    @else 
+                    @else
                         <span class="text-secondary">Sin avisos..</span>
                     @endif
                 </td>
-                <td> 
+                <td>
                     @if (isset($hasta) and isset($desde))
-                        <a class="btn btn-orange" href="{{route('avisos', ['id'=>$reporte->id,'desde'=>$desde,'hasta'=>$hasta])}}">Ver/Registrar avisos</a> 
+                        <a class="btn btn-orange" href="{{route('avisos', ['id'=>$reporte->id,'desde'=>$desde,'hasta'=>$hasta])}}">Ver/Registrar avisos</a>
                     @else
-                        <a class="btn btn-orange" href="{{route('avisos_1', $reporte->id)}}">Ver/Registrar avisos</a> 
+                        <a class="btn btn-orange" href="{{route('avisos_1', $reporte->id)}}">Ver/Registrar avisos</a>
                     @endif
                 </td>
-                <td> 
+                <td>
                     <a class="btn btn-success" href="{{route('expedientes-mostrar', $reporte->id)}}">Ver expediente</a>
                 </td>
             </tr>

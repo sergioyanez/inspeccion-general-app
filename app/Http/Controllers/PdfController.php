@@ -11,6 +11,7 @@ use App\Models\Detalle_habilitacion;
 use App\Models\Catastro;
 use App\Models\Estado_baja;
 use App\Models\Informe_dependencias;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Dompdf\Dompdf;
 
@@ -157,16 +158,30 @@ class PdfController extends Controller
 
 
     public function generarReporteHabilitacionesVencidasPdf(Request $request){
+
         $data = [
-            //         'title' => 'Ejemplo de PDF con Laravel',
-            //         'content' => 'Este es el contenido de mi PDF generado con Laravel.'
+                     'reportes' => $this->vencidos(0),
+                     'vencido'=>'Vencido',
+                     'plazo'=>'vencidas'
+
                  ];
 
 
         $pdf = new Dompdf();
-        $pdf->loadHtml(View::make('pdf.pdfExpediente', $data));
+        $pdf->loadHtml(View::make('pdf.pdfReportesHabilitacionesVencidas', $data));
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
         return $pdf->stream();
+    }
+
+    private function vencidos($plazo){
+        return Expediente::with(['detalleHabilitacion', 'contribuyentes', 'avisos' => function ($query) {
+            $query->orderBy('fecha_aviso', 'asc'); //Obtener solo el aviso más reciente
+        }])
+            ->whereHas('detalleHabilitacion', function ($query) use ($plazo) {
+                $query->whereDate('fecha_vencimiento', '<=', Carbon::now()->addDays($plazo));
+            })
+            ->whereNull('estado_baja_id')
+            ->get();
     }
 }

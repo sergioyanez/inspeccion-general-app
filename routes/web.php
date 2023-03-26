@@ -52,10 +52,9 @@ Route::controller(LoginController::class)->group(function(){
     Route::get('salir','logout')->name('salir');
 });
 Route::controller(PdfController::class)->middleware('auth')->group(function(){
-    Route::get('pdf', 'generarPdf')->name('generar-pdf');
     Route::post('expediente-pdf', 'generarExpedientePdf')->name('generar-expediente-pdf');
-    Route::get('reportes-habilitaciones-vencidas-pdf', 'generarReporteHabilitacionesVencidasPdf')->name('generar-reportes-habilitaciones-vencidas-pdf');
-    Route::get('reportes-habilitaciones-a-vencer-pdf', 'generarReporteHabilitacionesAvencerPdf')->name('generar-reportes-habilitaciones-a-vencer-pdf');
+    Route::post('reportes-habilitaciones-vencidas-pdf', 'generarReporteHabilitacionesVencidasPdf')->name('generar-reportes-habilitaciones-vencidas-pdf');
+    Route::post('reportes-habilitaciones-a-vencer-pdf', 'generarReporteHabilitacionesAvencerPdf')->name('generar-reportes-habilitaciones-a-vencer-pdf');
 });
 
 // RUTA PAGINA PRINCIPAL
