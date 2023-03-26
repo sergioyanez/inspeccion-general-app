@@ -1,15 +1,10 @@
 @include('header.header')
 
+
 <h1 class="h3 my-5 ps-0">Reporte de habilitaciones {{$plazo}}</h1>
 
 @if($reportes->count())
-<form method="POST" action="{{route('generar-reportes-habilitaciones-vencidas-pdf')}}" enctype="multipart/form-data">
-    @csrf
-    @isset($reportes)
-        <input type="hidden" name="reportes" value="{{$reportes}}">
-    @endisset
-    <button type="submit" class="btn btn-primary">Imprimir PDF</button>
-</form>
+
 <table class="table table-striped">
     <thead class="resultadoBusqueda">
         <tr>
@@ -73,9 +68,34 @@
 @else
     <p class="border p-5 h4 d-flex mt-5 justify-content-center">No contiene reportes</p>
 @endif
+<div class="row">
+    <div class="col-12 d-flex justify-content-end p-0 ms-5">
 
+    @if (isset($hasta) and isset($desde))
 
-<div class="col-12 d-flex justify-content-end p-0 ms-5">
-    <a href="{{route('pagina-principal')}}" class="mt-4 me-5 btn btn-secondary btn-salir">Volver</a>
+    <form method="POST" action="{{route('generar-reportes-habilitaciones-a-vencer-pdf')}}" enctype="multipart/form-data">
+        @csrf
+        @isset($reportes)
+            <input type="hidden" name="desde" value="{{$desde}}">
+            <input type="hidden" name="hasta" value="{{$hasta}}">
+            <input type="hidden" name="reportes" value="{{$reportes}}">
+        @endisset
+        <button type="submit" class="btn btn-warning">Generar PDF Habilitaciones a vencer</button>
+    </form>
+    @else
+    <form method="POST" action="{{route('generar-reportes-habilitaciones-vencidas-pdf')}}" enctype="multipart/form-data">
+        @csrf
+        @isset($reportes)
+            <input type="hidden" name="reportes" value="{{$reportes}}">
+        @endisset
+        <button type="submit" class="btn btn-danger">Generar PDF Habilitaciones vencidas</button>
+    </form>
+    @endif
+    </div>
+
+    <div class="col-12 d-flex justify-content-end p-0 ms-5">
+        <a href="{{route('pagina-principal')}}" class="mt-4 me-5 btn btn-secondary btn-salir">Volver</a>
+    </div>
 </div>
+
 @include('footer.footer')

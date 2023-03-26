@@ -142,15 +142,23 @@ class PdfController extends Controller
     }
 
     public function generarReporteHabilitacionesAvencerPdf(Request $request){
+        $request->validate([
+            'desde' => 'required|date',
+            'hasta' => 'required|date',
+        ]);
 
         $data = [
-            //         'title' => 'Ejemplo de PDF con Laravel',
-            //         'content' => 'Este es el contenido de mi PDF generado con Laravel.'
+                     'reportes' => $this->reportesPorVencer($request->desde,$request->hasta),
+                     'vencido'=>'Activo',
+                     'plazo'=>'proximas a vencer entre: '.$request->desde.' y '.$request->hasta,
+                     'desde'=>$request->desde,
+                     'hasta'=>$request->hasta
+
                  ];
 
 
         $pdf = new Dompdf();
-        $pdf->loadHtml(View::make('pdf.pdfExpediente', $data));
+        $pdf->loadHtml(View::make('pdf.pdfReportesHabilitacionesAvencer', $data));
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
         return $pdf->stream();
@@ -165,8 +173,6 @@ class PdfController extends Controller
                      'plazo'=>'vencidas'
 
                  ];
-
-
         $pdf = new Dompdf();
         $pdf->loadHtml(View::make('pdf.pdfReportesHabilitacionesVencidas', $data));
         $pdf->setPaper('A4', 'portrait');
@@ -174,12 +180,25 @@ class PdfController extends Controller
         return $pdf->stream();
     }
 
+
     private function vencidos($plazo){
         return Expediente::with(['detalleHabilitacion', 'contribuyentes', 'avisos' => function ($query) {
             $query->orderBy('fecha_aviso', 'asc'); //Obtener solo el aviso más reciente
         }])
             ->whereHas('detalleHabilitacion', function ($query) use ($plazo) {
                 $query->whereDate('fecha_vencimiento', '<=', Carbon::now()->addDays($plazo));
+            })
+            ->whereNull('estado_baja_id')
+            ->get();
+    }
+
+    private function reportesPorVencer($desde,$hasta){
+        return Expediente::with(['detalleHabilitacion', 'contribuyentes', 'avisos' => function ($query) {
+            $query->orderBy('fecha_aviso', 'asc'); //Obtener solo el aviso más reciente
+        }])
+            ->whereHas('detalleHabilitacion', function ($query) use ($desde, $hasta) {
+                $query->whereDate('fecha_vencimiento', '>=', $desde)
+                    ->whereDate('fecha_vencimiento', '<=', $hasta);
             })
             ->whereNull('estado_baja_id')
             ->get();
