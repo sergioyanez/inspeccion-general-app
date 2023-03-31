@@ -167,6 +167,7 @@ class ComposerStaticInit4a0ea7c4a18909ce599204054bf1fb40
         'B' => 
         array (
             'Brick\\Math\\' => 11,
+            'Barryvdh\\DomPDF\\' => 16,
         ),
         'A' => 
         array (
@@ -512,6 +513,10 @@ class ComposerStaticInit4a0ea7c4a18909ce599204054bf1fb40
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
+        'Barryvdh\\DomPDF\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src',
+        ),
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
@@ -612,6 +617,8 @@ class ComposerStaticInit4a0ea7c4a18909ce599204054bf1fb40
         'App\\Http\\Requests\\Storeexpediente_persona_juridicaRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Storeexpediente_persona_juridicaRequest.php',
         'App\\Http\\Requests\\Storeinforme_dependenciasRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Storeinforme_dependenciasRequest.php',
         'App\\Http\\Requests\\Storelogs_estado_civilRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Storelogs_estado_civilRequest.php',
+        'App\\Http\\Requests\\Update1expedienteRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Update1expedienteRequest.php',
+        'App\\Http\\Requests\\Update2expedienteRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Update2expedienteRequest.php',
         'App\\Http\\Requests\\UpdateCatastroRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateCatastroRequest.php',
         'App\\Http\\Requests\\UpdateContribuyenteRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateContribuyenteRequest.php',
         'App\\Http\\Requests\\UpdateDetalle_habilitacionRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateDetalle_habilitacionRequest.php',
@@ -716,6 +723,9 @@ class ComposerStaticInit4a0ea7c4a18909ce599204054bf1fb40
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
+        'Barryvdh\\DomPDF\\Facade\\Pdf' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade/Pdf.php',
+        'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
+        'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
         'Brick\\Math\\BigInteger' => __DIR__ . '/..' . '/brick/math/src/BigInteger.php',
         'Brick\\Math\\BigNumber' => __DIR__ . '/..' . '/brick/math/src/BigNumber.php',
