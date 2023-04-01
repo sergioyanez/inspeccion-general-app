@@ -273,7 +273,7 @@
                                                         @endif
                                                     @endforeach
                                                 @else
-                                                    <option>-- Sin datos --</option>
+                                                    <option value="">-- Sin datos --</option>
                                                 @endif
                                             </select>
                                         </div>
@@ -354,7 +354,7 @@
                                             <div class="col-6">            
                                                 <label class="form-label" for="basic-default-fullname">Estado de baja</label>
                                                 <select readonly name="tipo_baja_id" class="form-select" id="tipo_baja">
-                                                    <option>-- Sin datos --</option>
+                                                    <option value="">-- Sin datos --</option>
                                                 </select>
                                             </div>
                                         @endif

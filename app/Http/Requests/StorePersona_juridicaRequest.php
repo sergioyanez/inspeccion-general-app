@@ -34,14 +34,14 @@ class StorePersona_juridicaRequest extends FormRequest
 
     public function messages() {
         return [
-            'cuit.required' => 'el campo cuit no puede estar vacio',
+            'cuit.required' => 'El campo cuit no puede estar vacio.',
             //'cuit.numeric' => 'el campo cuit solo acepta nùmeros',
-            'nombre_representante.required' => 'el campo nombre del representante no puede estar vacio',
-            'nombre_representante.max' => 'el campo nombre del representante acepta solo 50 caracteres',
-            'apellido_representante.required' => 'el campo apellido del representante no puede estar vacio', 
-            'apellido_representante.max' => 'el campo apellido del representante acepta solo 50 caracteres',
-            'dni_representante.max' => 'el campo dni del representante acepta solo 10 caracteres',
-            'telefono.required' => 'el campo telefono no puede estar vacio',
+            'nombre_representante.required' => 'El campo nombre del representante no puede estar vacio.',
+            'nombre_representante.max' => 'El campo nombre del representante acepta solo 50 caracteres.',
+            'apellido_representante.required' => 'El campo apellido del representante no puede estar vacio.', 
+            'apellido_representante.max' => 'El campo apellido del representante acepta solo 50 caracteres.',
+            'dni_representante.max' => 'El campo dni del representante acepta solo 10 caracteres.',
+            'telefono.required' => 'El campo telefono no puede estar vacio.',
             //'telefono.numeric' => 'el campo telefono solo acepta nùmeros',
         ];
     }
