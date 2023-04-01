@@ -73,10 +73,11 @@
                                             <input type="hidden" name="estado_baja_id" value="{{$expediente->estado_baja_id}}" id="estado_baja_id">
                                             <input type="hidden" name="tipo_baja_id" value="{{$expediente->estadoBaja->tipoBaja->id}}" id="tipo_baja_id">
 
-                                            <div class="col-6">
+                                            
                                                 <label class="form-label" for="basic-default-fullname">Estado de baja</label>
-                                                <div class="col-6">
+                                               
                                                     @if ($expediente->estadoBaja->tipoBaja->descripcion == "Provisoria")
+                                                    <div class="col-6">
                                                         <select required name="tipo_baja_id" class="form-select" id="tipo_baja">
                                                             <option >-- Seleccione --</option>
                                                             @foreach($tiposBajas as $tipo)
@@ -84,7 +85,7 @@
                                                             @endforeach
                                                         </select>
                                                         {{-- <div id="provisoria"> --}}
-                                                </div>
+                                                    </div>
                                                         <div class="col-6">
                                                             <div id="provisoria">
                                                                 <div class="mb-3">
@@ -141,7 +142,7 @@
                                                     @else
                                                 
                                                     @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente" || $expediente->estadoBaja->tipoBaja->descripcion == "De oficio")
-
+                                                        <div class="col-6">
                                                             <select required name="tipo_baja_id" class="form-select" id="tipo_baja">
                                                                 @foreach($tiposBajas as $tipo)
                                                                     @if($tipo->id == $expediente->estadoBaja->tipoBaja->id)
@@ -189,15 +190,15 @@
                                             <div class="col-6" id="provisoria">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
-                                                    <input type="text" name="deuda" class="form-control" />
+                                                    <input type="text" name="deuda" class="form-control" value="{{old('deuda')}}"/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
-                                                    <input type="date" name="fecha_baja" class="form-control" id="fechaVencimientoProvisoria" />
+                                                    <input type="date" name="fecha_baja" class="form-control" id="fechaVencimientoProvisoria" value="{{old('fecha_baja')}}"/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
-                                                    <input type="file" name="acta_baja" class="form-control" class="form-control-file"  />
+                                                    <input type="file" name="acta_baja" class="form-control" class="form-control-file"/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label" for="basic-default-fullname">Informe de deuda</label>
@@ -212,7 +213,7 @@
                                             <div class="col-6" id="permanente">
                                                 <div class="mb-3">
                                                     <label class="form-label" for="basic-default-fullname">Fecha de baja</label>
-                                                    <input type="date" name="fecha_baja1" class="form-control" id="fechaVencimientoPermanente"/>
+                                                    <input type="date" name="fecha_baja1" class="form-control" id="fechaVencimientoPermanente"  value="{{old('fechaVencimientoPermanente')}}"/>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label" for="basic-default-fullname">Acta de solicitud de baja</label>
@@ -232,6 +233,7 @@
                             </form>
                         </div>
                     @else
+                        <!--USUARION NO ADMIN-->
                         <div class="card-body">
                             <form method="POST" action="{{route('expedientes-actualizar2')}}" enctype="multipart/form-data">
                                 @csrf
