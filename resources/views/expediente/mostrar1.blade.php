@@ -59,7 +59,7 @@
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label class="form-label" for="basic-default-fullname">Observaciones</label>
-                                            <textarea value="{{$expediente->catastro->observacion}}" name="observaciones" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"></textarea>
+                                            <textarea name="observaciones" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones">{{$expediente->catastro->observacion}}</textarea>
                                         </div>
                                         <div class="col-12 col-lg-3 mb-3">
                                             <label class="form-label" for="basic-default-fullname">Fecha informe</label>
@@ -144,7 +144,7 @@
                                                 <input type="hidden" name="secretaria_id" value="{{ $item->id }}">
                                             </div>
                                             <div class="col-12 mt-2">
-                                                <textarea value="{{ $item->observaciones }}" name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"></textarea>
+                                                <textarea name="secretaria_gobierno" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones">{{ $item->observaciones }}</textarea>
                                             </div>
                                             <div class="col-12 col-lg-3  mt-2">
                                                 <label class="form-label" for="basic-default-fullname">Fecha</label>
@@ -164,7 +164,7 @@
                                         @if ($item->tipo_dependencia_id == 3)
                                             <input type="hidden" name="obras_id" value="{{ $item->id }}">
                                             <div class="col-12 mt-2">
-                                                <textarea value="{{ $item->observaciones }}" name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"></textarea>
+                                                <textarea name="obras_particulares" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones">{{ $item->observaciones }}</textarea>
                                             </div>
                                             <div class="col-12 col-lg-3  mt-2">
                                                 <label class="form-label" for="basic-default-fullname">Fecha</label>
@@ -183,7 +183,7 @@
                                         @if ($item->tipo_dependencia_id == 4)
                                             <input type="hidden" name="alumbrado_id" value="{{ $item->id }}"> 
                                             <div class="col-12 mt-2">
-                                                <textarea value="{{ $item->observaciones }}" name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"></textarea>
+                                                <textarea name="alumbrado" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones">{{ $item->observaciones }}</textarea>
                                             </div>
                                             <div class="col-12 col-lg-3  mt-2">
                                                 <label class="form-label" for="basic-default-fullname">Fecha</label>
@@ -202,7 +202,7 @@
                                         @if ($item->tipo_dependencia_id == 5)
                                             <input type="hidden" name="bromatologia_id" value="{{ $item->id }}"> 
                                             <div class="col-12 mt-2">  
-                                                <textarea value="{{ $item->observaciones }}" name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"></textarea>
+                                                <textarea name="bromatologia" class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones">{{ $item->observaciones }}</textarea>
                                             </div>
                                             <div class="col-12 col-lg-3  mt-2">      
                                                 <label class="form-label" for="basic-default-fullname">Fecha</label>
@@ -221,8 +221,7 @@
                                         @if ($item->tipo_dependencia_id == 6)
                                             <input type="hidden" name="inspeccion_id" value="{{ $item->id }}"> 
                                             <div class="col-12 mt-2">  
-                                                <textarea value="{{ $item->observaciones }}" name="inspeccion" class="form-control" 
-                                                    id="basic-default-nombreCompleto" placeholder="Observaciones"></textarea>
+                                                <textarea name="inspeccion" class="form-control" placeholder="Observaciones">{{ $item->observaciones }}</textarea>
                                             </div>
                                             <div class="col-12 col-lg-3  mt-2">  
                                                 <label class="form-label" for="basic-default-fullname">Fecha</label>
@@ -241,8 +240,8 @@
                                         @if ($item->tipo_dependencia_id == 7)
                                             <input type="hidden" name="juzgado_id" value="{{ $item->id }}"> 
                                             <div class="col-12 mt-2">  
-                                                <textarea value="{{ $item->observaciones }}" name="juzgado" class="form-control" 
-                                                    id="basic-default-nombreCompleto" placeholder="Observaciones"></textarea>
+                                                <textarea name="juzgado" class="form-control" 
+                                                    id="basic-default-nombreCompleto" placeholder="Observaciones">{{ $item->observaciones }}</textarea>
                                             </div>
                                             <div class="col-12 col-lg-3  mt-2">
                                                 <label class="form-label" for="basic-default-fullname">Fecha</label>
@@ -261,8 +260,8 @@
                                         @if ($item->tipo_dependencia_id == 8)
                                             <input type="hidden" name="bomberos_id" value="{{ $item->id }}"> 
                                             <div class="col-12 mt-2">  
-                                                <textarea value="{{ $item->observaciones }}" name="bomberos" 
-                                                    class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"></textarea>
+                                                <textarea name="bomberos" 
+                                                    class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones">{{ $item->observaciones }}</textarea>
                                             </div>
                                             <div class="col-12 col-lg-3  mt-2">  
                                                 <label class="form-label" for="basic-default-fullname">Fecha</label>
@@ -281,8 +280,8 @@
                                         @if ($item->tipo_dependencia_id == 9)
                                             <input type="hidden" name="inspeccion_general_id" value="{{ $item->id }}"> 
                                             <div class="col-12 mt-2">  
-                                                <textarea value="{{ $item->observaciones }}" name="inspeccion_general" class="form-control" 
-                                                    id="basic-default-nombreCompleto" placeholder="Observaciones"></textarea>
+                                                <textarea name="inspeccion_general" class="form-control" 
+                                                    id="basic-default-nombreCompleto" placeholder="Observaciones">{{ $item->observaciones }}</textarea>
                                             </div>
                                             <div class="col-12 col-lg-3  mt-2">  
                                                 <label class="form-label" for="basic-default-fullname">Fecha</label>
@@ -301,8 +300,8 @@
                                         @if ($item->tipo_dependencia_id == 10)
                                             <input type="hidden" name="deudores_alimentarios_id" value="{{ $item->id }}"> 
                                             <div class="col-12 mt-2">  
-                                                <textarea value="{{ $item->observaciones }}" name="deudores_alimentarios" 
-                                                    class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones"></textarea>
+                                                <textarea name="deudores_alimentarios" 
+                                                    class="form-control" id="basic-default-nombreCompleto" placeholder="Observaciones">{{ $item->observaciones }}</textarea>
                                             </div>
                                             <div class="col-12 col-lg-3 mt-2">  
                                                 <label class="form-label" for="basic-default-fullname">Fecha</label>

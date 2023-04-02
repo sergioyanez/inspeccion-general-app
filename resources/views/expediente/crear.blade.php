@@ -136,7 +136,7 @@
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label class="form-label" for="basic-default-fullname">Observaciones Generales</label>
-                                    <textarea placeholder="Observaciones.." name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto"></textarea>
+                                    <textarea cols="40" rows="5" placeholder="Observaciones.." name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto"></textarea>
                                 </div>
                                 
                                 {{-- DETALLE HABILITACION --}}

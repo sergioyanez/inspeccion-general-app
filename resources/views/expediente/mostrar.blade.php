@@ -281,11 +281,11 @@
                             {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
                             <div class="col-12 mb-3">
                                 <label class="form-label" for="basic-default-fullname">Bienes de uso</label>
-                                <textarea value="{{$expediente->bienes_de_uso}}" placeholder="Detalle de bienes de uso.." name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto"></textarea>
+                                <textarea placeholder="Detalle de bienes de uso.." name="bienes_de_uso" class="form-control">{{$expediente->bienes_de_uso}}</textarea>
                             </div>
                             <div class="col-12 mb-3">
                                 <label class="form-label" for="basic-default-fullname">Observaciones Generales</label>
-                                <textarea value="{{$expediente->observaciones_grales}}" placeholder="Observaciones.." name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto"></textarea>
+                                <textarea cols="40" rows="5" placeholder="Observaciones.." name="observaciones_grales" class="form-control">{{$expediente->observaciones_grales}}</textarea> 
                             </div>
                             <button type="submit" class="mt-4 btn btn btn-success btn-salir">Siguiente</button>
                         </form>

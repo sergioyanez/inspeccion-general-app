@@ -117,7 +117,7 @@
                                 <div class="row col-12 mb-3">
                                     <label class="form-label" for="basic-default-fullname">Estado civíl <span class="text-muted">(obligatorio)</span></label>
                                     <div class="col-2">
-                                        <select name="estado_civil_id" class="form-select @error('estado_civil_id') is-invalid @enderror" id="basic-default-nombreCompleto" >
+                                        <select name="estado_civil_id" class="form-select @error('estado_civil_id') is-invalid @enderror" id="selectCasado" >
                                             <option value=" ">-- Seleccione --</option>
                                             @foreach($estados as $estado)
                                                 <option value="{{$estado->id}}">{{$estado->descripcion}}</option>
@@ -132,7 +132,7 @@
                                     </div>
                                 </div>
                                
-                                <div class="col-12 row mb-3">
+                                <div class="col-12 row mb-3" id="divConyuge">
                                     <div class="col-3">
                                         <label class="form-label" for="basic-default-fullname">Nombre del cónyuge</label>
                                         <input type="text" name="nombre_conyuge" class="form-control" id="basic-default-nombreCompleto" value="{{ old('nombre_conyuge') }}"/>
@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
                                 
-                                <div class="col-3">
+                                <div class="col-3" id="divConyuge2">
                                     <label class="form-label" for="basic-default-fullname">Dni del cónyuge</label>
                                     <input type="text" name="dni_conyuge" class="form-control" id="basic-default-nombreCompleto" value="{{ old('dni_conyuge') }}"/>
                                 </div>

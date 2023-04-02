@@ -780,11 +780,6 @@ class ExpedienteController extends Controller
                     $log5 = new LogsEstadoBajaController();
                     $log5->store($estadoBaja, 'c');
                 }
-            } else {
-                throw ValidationException::withMessages([
-                    'fecha_baja1' => 'Debe cargar una fecha.',
-                    'acta_baja1' => 'Debe cargar un PDF.',
-                ]);
             }
         }
 
