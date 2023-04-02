@@ -37,6 +37,22 @@
             tr:hover {
               background-color: #ddd;
             }
+
+
+            /* Estilos para los bordes */
+            .table-bordered th, .table-bordered td {
+            border: 1px solid #dee2e6;
+            }
+
+            /* Estilos para las filas rayadas */
+            .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f8f9fa;
+            }
+
+            /* Estilos para el hover en filas rayadas */
+            .table-striped tbody tr:hover {
+            background-color: #e2e6ea;
+            }
           </style>
     </head>
     <body>

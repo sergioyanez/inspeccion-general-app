@@ -214,7 +214,6 @@
             <th scope="row">Fecha de primera habilitación</th>
             <td>{{$fecha_primer_habilitacion[0]->fecha_primer_habilitacion}}</td>
           </tr>
-
           <tr>
             <th scope="row">Tipo de habilitación</th>
             <td>{{$tipo_detalle_habilitacion[0]->descripcion}}</td>
