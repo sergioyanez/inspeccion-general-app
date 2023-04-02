@@ -53,8 +53,8 @@
               @endif
           <tr>
 
-            <tr>
-                @if( $personasJuridicas->count() )
+             <tr>
+                @if( $personasJuridicas )
                 <tr scope="row">
                     <th>Personas Juridicas</th>
                     <th>Apellido Representante</th>
@@ -64,7 +64,7 @@
                     <th>Teléfono Representante</th>
                 </tr>
                 @foreach ($personasJuridicas as $personaJuridica)
-                <th scope="row">{{$personaJuridica[0]->id}}</th>
+                <th scope="row">{{$personaJuridica->id}}</th>
                     <td>{{$personaJuridica->apellido_representante}}</td>
                     <td>{{$personaJuridica->nombre_representante}}</td>
                     <td>{{$personaJuridica->dni_representante}}</td>
@@ -104,7 +104,7 @@
             <th scope="row">Observaciones Generales del expediente</th>
             <td>{{$observaciones}}</td>
           </tr>
-        {{-- Fin primera página expediente/mostrar --}}
+
 
             <tr>
                 <tr scope="row">
@@ -169,7 +169,7 @@
                 </tr>
              </tr>
 
-            {{-- Fin segunda página expediente/mostrar1 --}}
+
 
           <tr>
             <th scope="row">Estado de habilitación</th>
@@ -185,10 +185,11 @@
             <td>{{$fecha_primer_habilitacion[0]->fecha_primer_habilitacion}}</td>
           </tr>
 
-          <tr>
-            <th scope="row">Tipo de habilitación</th>
-            <td>{{$tipo_detalle_habilitacion[0]->descripcion}}</td>
-          </tr>
+            <tr>
+                <th scope="row">Tipo de habilitación</th>
+                <td>{{$tipo_detalle_habilitacion}}</td>
+            </tr>
+
         @if(isset($tipo_estado_baja))
           <tr>
             <th scope="row">Tipo de Baja</th>
