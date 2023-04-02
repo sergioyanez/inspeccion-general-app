@@ -749,17 +749,23 @@ class ExpedienteController extends Controller
                     $archivo5->move(public_path().'/archivos/', $archivo5->getClientOriginalName());
                     $estadoBaja->pdf_solicitud_baja = '/archivos/' . $archivo5->getClientOriginalName();
                 }
-                if($request->hasFile('pdf_informe_deuda')) {
-                    $archivo6 = $request->file('pdf_informe_deuda');
-                    $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
-                    $estadoBaja->pdf_informe_deuda = '/archivos/' . $archivo6->getClientOriginalName();
+                if($estadoBaja->deuda){
+                    if($request->hasFile('pdf_informe_deuda')) {
+                        $archivo6 = $request->file('pdf_informe_deuda');
+                        $archivo6->move(public_path().'/archivos/', $archivo6->getClientOriginalName());
+                        $estadoBaja->pdf_informe_deuda = '/archivos/' . $archivo6->getClientOriginalName();
+                    }else{
+                        throw ValidationException::withMessages([
+                            'pdf_informe_deuda' => 'Debe cargar un PDF.',
+                        ]);
+                    }
                 }
                 if($estadoBaja->save()){
                     $log5 = new LogsEstadoBajaController();
                     $log5->store($estadoBaja, 'c');
                 }
             }
-            if($request->fecha_baja1){
+            if($request->fecha_baja1 && $request->hasFile('acta_baja_nuevo1')){
                 $estadoBaja = new Estado_baja();
                 $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
                 $estadoBaja->fecha_baja = $request->fecha_baja1;

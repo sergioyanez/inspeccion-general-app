@@ -41,19 +41,19 @@ class StoreContribuyenteRequest extends FormRequest
 
     public function messages() {
         return [
-            'cuit.required' => 'el campo cuit no puede estar vacio',
-            'cuit.max' => 'el campo cuit tiene un maximo de 11 caracteres',
-            'ingresos_brutos.required' => 'el campo ingresos brutos no puede estar vacio',
-            'ingresos_brutos.max' => 'el campo ingresos brutos tiene un maximo de 11 caracteres',
-            'nombre.required' => 'el campo nombre no puede estar vacio',
-            'nombre.max' => 'el campo nombre tiene un maximo de 20 caracteres',
-            'apellido.required' => 'el campo apellido no puede estar vacio',
-            'apellido.max' => 'el campo apellido tiene un maximo de 20 caracteres',
-            'dni.required' => 'el campo dni no puede estar vacio',
-            'dni.max' => 'el campo cuit tiene un maximo de 8 caracteres',
-            'fecha_nacimiento.required' => ' el campo fecha de nacimiento no puede estar vacio',
-            'tipo_dni_id.required' => 'debe seleccionar un tipo de documento',
-            'estado_civil_id.required' => 'debe seleccionar un estado civil',
+            'cuit.required' => 'El campo cuit no puede estar vacio.',
+            'cuit.max' => 'El campo cuit tiene un maximo de 11 caracteres.',
+            'ingresos_brutos.required' => 'El campo ingresos brutos no puede estar vacio.',
+            'ingresos_brutos.max' => 'El campo ingresos brutos tiene un maximo de 11 caracteres.',
+            'nombre.required' => 'El campo nombre no puede estar vacio.',
+            'nombre.max' => 'El campo nombre tiene un maximo de 20 caracteres.',
+            'apellido.required' => 'El campo apellido no puede estar vacio.',
+            'apellido.max' => 'El campo apellido tiene un maximo de 20 caracteres.',
+            'dni.required' => 'El campo número de documento no puede estar vacio.',
+            'dni.max' => 'El campo cuit tiene un maximo de 8 caracteres.',
+            'fecha_nacimiento.required' => 'El campo fecha de nacimiento no puede estar vacio.',
+            'tipo_dni_id.required' => 'Debe seleccionar un tipo de documento.',
+            'estado_civil_id.required' => 'Debe seleccionar un estado civil.',
         ];
     }
 }

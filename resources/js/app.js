@@ -6,6 +6,11 @@ import * as bootstrap from "bootstrap";
 import Swal from "sweetalert2";
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    let selectCasado = document.getElementById('selectCasado');
+    let divConyuge2 = document.getElementById('divConyuge2');
+    let divConyuge = document.getElementById('divConyuge');
+
     let tipo = document.getElementById("tipo_inmueble");
     let caja = document.getElementById("fecha_alquiler");
     let fechaVencimiento = document.getElementById("fechaVencimiento");
@@ -21,9 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "fechaVencimientoPermanente"
     );
 
-    let deOficio = document.getElementById("deOficio");
-    let fechaBajaDeOficio = document.getElementById("fechaBajaDeOficio");
-
     let estado_baja_id = document.getElementById("estado_baja_id");
     // let bajaProvisoria_1 = document.getElementById("provisoria_1");
     // let fechaVencimientoProvisoria_1 = document.getElementById("fechaVencimientoProvisoria_1");
@@ -34,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
     cajaFechaVencimiento("none");
     cajaBajaPermanente("none");
     cajaBajaProvisoria("none");
-    cajaBajaDeOficio("none");
 
     // cajaBajaProvisoria_1("none");
     // cajaBajaPermanente_1("none");
@@ -57,10 +58,20 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function cajaBajaDeOficio(d) {
-        if (deOficio) {
-            deOficio.style.display = d;
-        }
+    if(selectCasado){
+        divConyuge2.style.display = 'none';
+        divConyuge.style.display = 'none';
+    
+        selectCasado.addEventListener("change", function () {
+            if (Number(selectCasado.value) === 2) {
+                divConyuge2.style.display = 'block';
+                divConyuge.style.display = 'block';
+            }
+            else{
+                divConyuge2.style.display = 'none';
+                divConyuge.style.display = 'none';
+            }
+        });
     }
 
     if (tipoBaja) {
@@ -71,21 +82,19 @@ document.addEventListener("DOMContentLoaded", function () {
             cajaBajaPermanente("none");
             fechaVencimientoProvisoria.required = true;
             fechaVencimientoPermanente.required = false;
-            fechaBajaDeOficio.required = false;
+
         }
         if (Number(tipoBaja.value) === 2) {
             cajaBajaProvisoria("none");
             cajaBajaPermanente("block");
             fechaVencimientoProvisoria.required = false;
             fechaVencimientoPermanente.required = true;
-            fechaBajaDeOficio.required = false;
         }
         if (Number(tipoBaja.value) === 3) {
             cajaBajaProvisoria("none");
             cajaBajaPermanente("block");
             fechaVencimientoProvisoria.required = false;
             fechaVencimientoPermanente.required = true;
-            fechaBajaDeOficio.required = true;
         }
         tipoBaja.addEventListener("change", function () {
             if (Number(this.value) === 1) {
@@ -93,23 +102,20 @@ document.addEventListener("DOMContentLoaded", function () {
                 cajaBajaPermanente("none");
                 fechaVencimientoProvisoria.required = true;
                 fechaVencimientoPermanente.required = false;
-                fechaBajaDeOficio.required = false;
             }
             if (Number(this.value) === 2) {
                 cajaBajaProvisoria("none");
                 cajaBajaPermanente("block");
                 fechaVencimientoProvisoria.required = false;
                 fechaVencimientoPermanente.required = true;
-                fechaBajaDeOficio.required = false;
             }
             if (Number(this.value) === 3) {
                 cajaBajaProvisoria("none");
                 cajaBajaPermanente("block");
                 fechaVencimientoProvisoria.required = false;
                 fechaVencimientoPermanente.required = true;
-                fechaBajaDeOficio.required = true;
             }
-            if (Number(this.value) != 1 && Number(this.value) != 2) {
+            if (Number(this.value) != 1 && Number(this.value) != 2 && Number(this.value) != 3) {
                 cajaBajaPermanente("none");
                 cajaBajaProvisoria("none");
                 fechaVencimientoProvisoria.required = false;

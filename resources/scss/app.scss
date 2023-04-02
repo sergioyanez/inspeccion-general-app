@@ -189,7 +189,8 @@ a:visited {
     width: 526px;
     height: 86px;
     background-color: var(--color-input);
-    border-color: white;
+    border: none;
+    border-radius: 3px;
 }
 
 .formBusqueda {
@@ -201,7 +202,6 @@ a:visited {
     background: url("../../public/img/lupa.jpg");
     width: 54px;
     height: 54px;
-    border-color: white;
 }
 ///////////////////////Fin inputs de búsqueda///////////////////////////////////
 

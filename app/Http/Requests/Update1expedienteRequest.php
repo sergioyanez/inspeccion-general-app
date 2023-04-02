@@ -40,9 +40,9 @@ class Update1expedienteRequest extends FormRequest
 
     public function messages() {
         return [
-            'circunscripcion.required' => 'el campo circunscripciòn no puede estar vacio',
+            'circunscripcion.required' => 'El campo circunscripción no puede estar vacio',
             //'nro_expediente.unique' => 'no se permiten nùmeros de expedientes repetidos',
-            'seccion.required' => 'el campo seccion no puede estar vacio',
+            'seccion.required' => 'El campo seccion no puede estar vacio',
         ];
     }
 }

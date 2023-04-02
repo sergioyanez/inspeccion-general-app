@@ -7,16 +7,16 @@
     <form action="{{route('expedientes')}}" method="get" class="my-5 formBusqueda">
         @csrf
         <div>
-            <input required type="text" name="buscarporcomercio" placeholder="Nº comercio" class="inputBusqueda"/>
-            <input type="submit" value="    " class="m-2 btnBuscar">
+            <input required type="text" name="buscarporcomercio" placeholder="  Nº comercio" class="inputBusqueda"/>
+            <button type="submit" class="m-2 btnBuscar btn btn-outline-dark"></button>
         </div>
     </form>
 
     <form action="{{route('expedientes1')}}" method="get" class="my-5 formBusqueda">
         @csrf
         <div>
-            <input required type="text" name="buscarporcontribuyente" class="inputBusqueda" placeholder="Contribuyente/Persona jurìdica"/>
-            <input type="submit" value="   " class="m-2 btnBuscar">
+            <input required type="text" name="buscarporcontribuyente" class="inputBusqueda" placeholder="  Contribuyente/Persona jurìdica"/>
+            <button type="submit" class="m-2 btnBuscar btn btn-outline-dark"></button>
         </div>
     </form>
 
