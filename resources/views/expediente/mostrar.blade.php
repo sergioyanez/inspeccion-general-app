@@ -1,18 +1,20 @@
 @include('header.header')
     <div class="container mb-3">
-        <form method="POST" action="{{route('generar-expediente-pdf')}}" enctype="multipart/form-data">
-            @csrf
-            @isset($expediente->id)
-                <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
-            @endisset
-            <button type="submit" class="btn btn-primary">Generar Expediente en PDF</button>
-        </form>
+        
 
         <div class="row">
             <div class="col-xl-12">
                 <div class="card mb-6">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h1 class="mb-0 h2">Registrar expediente</h1>
+
+                        <form method="POST" action="{{route('generar-expediente-pdf')}}" enctype="multipart/form-data">
+                            @csrf
+                            @isset($expediente->id)
+                                <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
+                            @endisset
+                            <button type="submit" class="btn btn-primary">Generar Expediente en PDF</button>
+                        </form>
                     </div>
                     <div class="card-body">
                         <div class="col-12 row">
