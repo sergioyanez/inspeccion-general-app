@@ -16,6 +16,7 @@
         </div>
     @endif
 
+
     <!-- Modal -->
     <div class="modal fade" @if($errors->has('desde') || $errors->has('hasta')) id="example" @else id="modalReportes" @endif  aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

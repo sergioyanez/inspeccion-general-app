@@ -1,5 +1,13 @@
 @include('header.header')
     <div class="container mb-3">
+        <form method="POST" action="{{route('generar-expediente-pdf')}}" enctype="multipart/form-data">
+            @csrf
+            @isset($expediente->id)
+                <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
+            @endisset
+            <button type="submit" class="btn btn-primary">Generar Expediente en PDF</button>
+        </form>
+
         <div class="row">
             <div class="col-xl-12">
                 <div class="card mb-6">
@@ -166,7 +174,7 @@
                     
                     {{-- PRIMER PARTE DE CARGA DE EXPEDIENTE. PRIMER PAGINA DEL FIGMA --}}
                     <div class="card-body">
-                        
+
                         <form method="POST" action="{{route('expedientes-actualizar')}}" enctype="multipart/form-data">
                             @csrf
                             @foreach ($expedientesContribuyentes as $ec)
@@ -179,7 +187,7 @@
                                     {{$message}}
                                 </div>
                             @enderror
-                            
+
                             @isset($expediente->id)
                                 <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
                             @endisset
