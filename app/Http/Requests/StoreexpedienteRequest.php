@@ -29,7 +29,7 @@ class StoreexpedienteRequest extends FormRequest
             //'nro_expediente . nro_expediente1 . nro_expediente2' => 'unique:expedientes',
             'nro_comercio1' => 'required|numeric',
             'nro_comercio2' => 'required|numeric',
-            'actividad_ppal' => 'required|alpha',
+            'actividad_ppal' => 'required|string',
             'calle' => 'required|string',
             'numero' => 'numeric|nullable',
             'tipo_inmueble_id' => 'required',

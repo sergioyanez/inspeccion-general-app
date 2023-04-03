@@ -89,6 +89,7 @@
                 <td> {{$reporte->observaciones_grales}}</td>
                 <td> {{$reporte->detalleHabilitacion->fecha_vencimiento}}</td>
                 <td> {{$vencido}}</td>
+                <td> {{$reporte->avisos[0]->fecha_aviso}}</td>
             </tr>
         @endforeach
     </tbody>

@@ -208,14 +208,14 @@
                                             {{$message}}
                                         </div>
                                     @enderror
-                                    {{-- <label class="form-label" for="basic-default-fullname">Anexo</label>
+                                    <label class="form-label" for="basic-default-fullname">Anexo</label>
                                     <input value="{{$expediente->anexo}}" type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" />
                                     @error('anexo')
                                         
                                         <div>
                                             {{$message}}
                                         </div>
-                                    @enderror --}}
+                                    @enderror 
                                 </div>
                             </div>
                            
@@ -290,7 +290,7 @@
 
                             {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
                             <div class="col-12 mb-3">
-                                <label class="form-label" for="basic-default-fullname">Bienes de uso</label>
+                                <label class="form-label" for="basic-default-fullname">Antecedentes</label>
                                 <textarea placeholder="Detalle de bienes de uso.." name="bienes_de_uso" class="form-control">{{$expediente->bienes_de_uso}}</textarea>
                             </div>
                             <div class="col-12 mb-3">

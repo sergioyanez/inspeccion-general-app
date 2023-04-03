@@ -24,11 +24,11 @@ class StorePersona_juridicaRequest extends FormRequest
     public function rules()
     {
         return [
-            'cuit'=>'required|string',
-            'nombre_representante'=>'required|string|max:50',
-            'apellido_representante'=>'required|string|max:50',
-            'dni_representante'=>'string|max:10|nullable',
-            'telefono'=>'required|string',
+            'cuit'=>'required|string|unique:personas_juridicas',
+            // 'nombre_representante'=>'string|max:50',
+            // 'apellido_representante'=>'string|max:50',
+            // 'dni_representante'=>'string|max:10|nullable',
+            // 'telefono'=>'string',
         ];
     }
 
@@ -42,6 +42,7 @@ class StorePersona_juridicaRequest extends FormRequest
             'apellido_representante.max' => 'El campo apellido del representante acepta solo 50 caracteres.',
             'dni_representante.max' => 'El campo dni del representante acepta solo 10 caracteres.',
             'telefono.required' => 'El campo telefono no puede estar vacio.',
+            'cuit.unique' => 'La persona jurídica ya se encuentra cargada.',
             //'telefono.numeric' => 'el campo telefono solo acepta nùmeros',
         ];
     }

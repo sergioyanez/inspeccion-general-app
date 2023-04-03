@@ -26,7 +26,7 @@ class UpdateexpedienteRequest extends FormRequest
         return [
             //'nro_expediente1' => 'required',
             //'nro_comercio1' => 'required',
-            'actividad_ppal' => 'required|alpha',
+            'actividad_ppal' => 'required|string',
             //'anexo' => 'numeric|nullable',
             'calle' => 'required|string',
             'numero' => 'numeric|nullable',

@@ -27,7 +27,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-1">
-                                            <input readonly type="text" name="nro_expediente2" class="form-control" value="/{{ now()->year }}"/>
+                                            <input type="text" name="nro_expediente2" class="form-control" value="/{{ now()->year }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,8 @@
                                         
                                     </div>
                                 </div>
-                                <div class="col-3 mb-3">
+                                <div class="row">
+                                <div class="col-5 mb-3">
                                     <label class="form-label" for="basic-default-fullname">Actividad principal <span class="text-muted">(obligatorio)</span></label>
                                     <input type="text" name="actividad_ppal" class="form-control @error('actividad_ppal') is-invalid @enderror" id="basic-default-nombreCompleto" value="{{ old('actividad_ppal') }}"/>
                                     @error('actividad_ppal')
@@ -67,14 +68,18 @@
                                             {{$message}}
                                         </div>
                                     @enderror
-                                    {{-- <label class="form-label" for="basic-default-fullname">Anexo</label>
+                                </div>
+                                <div class="col-5 mb-3">
+                                 <label class="form-label" for="basic-default-fullname">Anexo</label>
                                     <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" value="{{ old('anexo') }}"/>
                                     @error('anexo')
                                         
                                         <div>
                                             {{$message}}
                                         </div>
-                                    @enderror --}}
+                                    @enderror
+                                </div>
+                            </div>
                                 </div>
 
                                 {{-- DATOS DEL INMUEBLE --}}
@@ -131,7 +136,7 @@
 
                                 {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
                                 <div class="col-12 mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Bienes de uso</label>
+                                    <label class="form-label" for="basic-default-fullname">Antecedentes</label>
                                     <textarea placeholder="Detalle de bienes de uso.." name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto"></textarea>
                                 </div>
                                 <div class="col-12 mb-3">

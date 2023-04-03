@@ -217,7 +217,7 @@
                                             </div>
                                         @endif
                                         
-                                        {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL --}}
+                                        {{-- TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE --}}
                                         @if ($item->tipo_dependencia_id == 6)
                                             <input type="hidden" name="inspeccion_id" value="{{ $item->id }}"> 
                                             <div class="col-12 mt-2">  

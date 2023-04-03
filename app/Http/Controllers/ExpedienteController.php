@@ -129,7 +129,9 @@ class ExpedienteController extends Controller
         $expediente->nro_expediente = $numero_expediente;
         $numero_comercio = $request->nro_comercio . $request->nro_comercio1 . $request->nro_comercio3 . $request->nro_comercio2;
         $expediente->nro_comercio = $numero_comercio;
-        $expediente->actividad_ppal = $request->actividad_ppal;     
+        $expediente->actividad_ppal = $request->actividad_ppal; 
+        $expediente->anexo = $request->anexo;     
+
         if($request->hasFile('pdf_solicitud')) {
             $archivo1 = $request->file('pdf_solicitud');
             //$archivo1_name = $archivo1->getClientOriginalName();
@@ -182,7 +184,7 @@ class ExpedienteController extends Controller
                 $log8->store($infomeDependencias, 'c');
             }
 
-            // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
+            // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE
             $infomeDependencias = new Informe_dependencias;
             $infomeDependencias->expediente_id = $expediente->id;
             $infomeDependencias->tipo_dependencia_id = 6;
@@ -535,7 +537,7 @@ class ExpedienteController extends Controller
                 }
             }
 
-            // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
+            // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE
             if($request->inspeccion_id != null) {
                 $infomeDependencias = Informe_dependencias::find($request->inspeccion_id);
                 $infomeDependencias->expediente_id = $expediente->id;

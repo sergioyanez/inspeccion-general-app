@@ -74,6 +74,7 @@ class PersonaJuridicaController extends Controller {
 
         $personaJuridica = new Persona_juridica();
         $personaJuridica->cuit = $request->cuit;
+    //    $personaJuridica->nombre_persona_juridica = $request->nombre_persona_juridica;
         $personaJuridica->nombre_representante = $request->nombre_representante;
         $personaJuridica->apellido_representante = $request->apellido_representante;
         $personaJuridica->dni_representante = $request->dni_representante;
@@ -125,6 +126,7 @@ class PersonaJuridicaController extends Controller {
 
         $personaJuridica = Persona_juridica::find($request->id);
         $personaJuridica->cuit = $request->cuit;
+       // $personaJuridica->nombre_persona_juridica = $request->nombre_persona_juridica;
         $personaJuridica->nombre_representante = $request->nombre_representante;
         $personaJuridica->apellido_representante = $request->apellido_representante;
         $personaJuridica->dni_representante = $request->dni_representante;
