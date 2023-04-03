@@ -1,0 +1,32 @@
+openapi: 3.0.0
+info:
+  title: 'Sistema de Gestión de Habilitaciones Municipales'
+  version: 1.0.0
+paths:
+  /:
+    get:
+      summary: 'Mostrar página Login'
+      operationId: b74a090444f397cb66d245abf332e816
+      responses:
+        '200':
+          description: 'Redirecciona a Página Principal.'
+        default:
+          description: 'Ha ocurrido un error.'
+  /login:
+    post:
+      summary: 'Mostrar página Login'
+      operationId: a0bad38435a32b5ad173da486ba8f59d
+      responses:
+        '200':
+          description: 'Redirecciona a Página Principal.'
+        default:
+          description: 'Ha ocurrido un error.'
+  /logout:
+    get:
+      summary: 'Mostrar página Login'
+      operationId: 28cd12adae926b3770416ee54f52cabb
+      responses:
+        '200':
+          description: 'Redirecciona a Página Login.'
+        default:
+          description: 'Ha ocurrido un error.'
