@@ -22,8 +22,8 @@ return new class extends Migration
             $table->date('fecha_informe')->nullable();
             $table->longText('observaciones')->nullable();
             $table->char('accion',1);
-            // $table->bigInteger('usuario_id');
-            // $table->string('usuario_nombre');
+            $table->bigInteger('usuario_id');
+            $table->string('usuario_nombre');
             $table->timestamps();
         });
     }

@@ -23,8 +23,8 @@ return new class extends Migration
             $table->string('pdf_informe_deuda')->nullable();
             $table->string('pdf_solicitud_baja')->nullable();
             $table->char('accion',1);
-            // $table->bigInteger('usuario_id');
-            // $table->string('usuario_nombre');
+             $table->bigInteger('usuario_id');
+             $table->string('usuario_nombre');
             // $table->string('tipo',25);
             $table->timestamps();
         });
