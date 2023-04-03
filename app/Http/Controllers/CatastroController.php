@@ -7,6 +7,19 @@ use App\Http\Requests\StoreCatastroRequest;
 use App\Http\Requests\UpdateCatastroRequest;
 use App\Http\Controllers\LogsCatastroController;
 
+/**
+ * Controller de Catastro: brinda acceso a los servicios de catastro.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez02@gmail.com
+ * @see Catastro
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class CatastroController extends Controller {
 
     /**
