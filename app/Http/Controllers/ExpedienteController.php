@@ -129,18 +129,18 @@ class ExpedienteController extends Controller
         $expediente->nro_expediente = $numero_expediente;
         $numero_comercio = $request->nro_comercio . $request->nro_comercio1 . $request->nro_comercio3 . $request->nro_comercio2;
         $expediente->nro_comercio = $numero_comercio;
-        $expediente->actividad_ppal = $request->actividad_ppal; 
-        $expediente->anexo = $request->anexo;     
+        $expediente->actividad_ppal = $request->actividad_ppal;
+        $expediente->anexo = $request->anexo;
 
         if($request->hasFile('pdf_solicitud')) {
             $archivo1 = $request->file('pdf_solicitud');
             //$archivo1_name = $archivo1->getClientOriginalName();
             $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
             $expediente->pdf_solicitud = '/archivos/' . $archivo1->getClientOriginalName();
-            
+
         }
-        $expediente->bienes_de_uso = $request->bienes_de_uso;       
-        $expediente->observaciones_grales = $request->observaciones_grales;     
+        $expediente->bienes_de_uso = $request->bienes_de_uso;
+        $expediente->observaciones_grales = $request->observaciones_grales;
         $expediente->detalle_habilitacion_id = $detalleHabilitacion_id;
         $expediente->detalle_inmueble_id = $detalleInmueble_id;
 
@@ -248,8 +248,8 @@ class ExpedienteController extends Controller
         $tiposInmuebles = Tipo_inmueble::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
-        $expedientesContribuyentes = ExpedienteContribuyente::all(); 
-        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();   
+        $expedientesContribuyentes = ExpedienteContribuyente::all();
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
 
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
@@ -354,7 +354,7 @@ class ExpedienteController extends Controller
         }
         $expediente->bienes_de_uso = $request->bienes_de_uso;
         $expediente->observaciones_grales = $request->observaciones_grales;
-        
+
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
@@ -432,11 +432,11 @@ class ExpedienteController extends Controller
 
         // SE CREA/ACTUALIZA EL EXPEDIENTE
         $expediente = Expediente::find($request->expediente_id);
-        
+
         if(isset($catastro->id)) {
             $expediente->catastro_id = $catastro->id;
         }
-        
+
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
