@@ -13,7 +13,15 @@
                                     <label class="form-label" for="basic-default-fullname">Cuit <span class="text-muted">(obligatorio)</span></label>
                                     <input type="text" name="cuit" class="form-control @error('cuit') is-invalid @enderror" id="basic-default-cuit" value="{{ old('cuit') }}"/>
                                     @error('cuit')
-                                        {{-- <div class="invalid-feedback"> --}}
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="col-4 mb-3">
+                                    <label class="form-label" for="basic-default-fullname">Nombre persona jurídica <span class="text-muted">(obligatorio)</span></label>
+                                    <input type="text" name="nombre_persona_juridica" class="form-control @error('nombre_persona_juridica') is-invalid @enderror" id="basic-default-cuit" value="{{ old('nombre_persona_juridica') }}"/>
+                                    @error('nombre_persona_juridica')
                                         <div class="invalid-feedback">
                                             {{$message}}
                                         </div>
@@ -22,7 +30,7 @@
                             </div>
                             <div class="col-12 row">
                                 <div class="col-4 mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Nombre del Representante <span class="text-muted">(obligatorio)</span></label>
+                                    <label class="form-label" for="basic-default-fullname">Nombre del Representante <span class="text-muted"></span></label>
                                     <input type="text" name="nombre_representante" class="form-control @error('nombre_representante') is-invalid @enderror" id="basic-default-nombreRepre" value="{{ old('nombre_representante') }}"/>
                                     @error('nombre_representante')
                                         {{-- <div class="invalid-feedback"> --}}
@@ -32,7 +40,7 @@
                                     @enderror
                                 </div>
                                 <div class="col-4 mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Apellido del Representante <span class="text-muted">(obligatorio)</span></label>
+                                    <label class="form-label" for="basic-default-fullname">Apellido del Representante <span class="text-muted"></span></label>
                                     <input type="text" name="apellido_representante" class="form-control @error('apellido_representante') is-invalid @enderror" id="basic-default-apellidoReprea" value="{{ old('apellido_representante') }}"/>
                                     @error('apellido_representante')
                                         {{-- <div class="invalid-feedback"> --}}
@@ -57,7 +65,7 @@
                             </div>
                           
                             <div class="col-4 mb-3">
-                                <label class="form-label" for="basic-default-fullname">Telefono <span class="text-muted">(obligatorio)</span></label>
+                                <label class="form-label" for="basic-default-fullname">Telefono <span class="text-muted"></span></label>
                                 <input type="text" name="telefono" class="form-control @error('telefono') is-invalid @enderror" id="basic-default-telefonoRepre" />
                                 @error('telefono')
                                     {{-- <div class="invalid-feedback"> --}}

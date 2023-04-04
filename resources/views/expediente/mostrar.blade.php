@@ -149,7 +149,8 @@
                                             <ul class="list-group">
                                                 @foreach ($personasJuridicas as $pj)
                                                 <li class="list-group-item list-group-item-action" data-toggle="list">{{$pj->nombre_representante}}
-                                                    {{$pj->apellido_representante}} / {{$pj->dni_representante}}
+                                                    {{-- {{$pj->apellido_representante}} / {{$pj->dni_representante}} --}}
+                                                    {{$pj->nombre_persona_juridica}} / {{$pj->cuit}}
                                                     <input type="hidden" name="persona_juridica_id" value="{{$pj->id}}">
                                                     <input type="hidden" name="idExpSiguiente" value="{{$expediente->id}}">
                                                     <button class="btn btn-primary ms-3 btn-sm" type="submit">Agregar</button>
@@ -184,11 +185,27 @@
                                     <input required type="hidden" name="cargo" value="{{$ec->expediente_id}}">
                                 @endif
                             @endforeach
+                            @foreach ($expedientesPersonasJuridicas as $epj)
+                                @if($epj->expediente_id == $expediente->id)
+                                    <input required type="hidden" name="cargo" value="{{$epj->expediente_id}}">
+                                @endif
+                            @endforeach
                             @error('cargo')
                                 <div class="alert alert-danger">
                                     {{$message}}
                                 </div>
                             @enderror
+
+                            {{-- @foreach ($expedientesPersonasJuridicas as $epj)
+                                @if($epj->expediente_id == $expediente->id)
+                                    <input required type="hidden" name="cargo1" value="{{$epj->expediente_id}}">
+                                @endif
+                            @endforeach
+                            @error('cargo1')
+                                <div class="alert alert-danger">
+                                    {{$message}}
+                                </div>
+                            @enderror --}}
 
                             @isset($expediente->id)
                                 <input type="hidden" name="expediente_id" value="{{$expediente->id}}">
