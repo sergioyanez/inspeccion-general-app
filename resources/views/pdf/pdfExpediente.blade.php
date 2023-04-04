@@ -204,25 +204,30 @@
                 </tr>
                 </tr>
             @endif
-            <tr>
-                <th scope="row">Estado de habilitación</th>
-                <td>{{ $estado_detalle_habilitacion[0]->descripcion }}</td>
-            </tr>
-            <tr>
-                <th scope="row">Fecha de vencimiento de habilitación</th>
-                <td>{{ $fecha_vencimiento_detalle_habilitacion[0]->fecha_vencimiento }}</td>
-            </tr>
-
-            <tr>
-                <th scope="row">Fecha de primera habilitación</th>
-                <td>{{ $fecha_primer_habilitacion[0]->fecha_primer_habilitacion }}</td>
-            </tr>
-
-            <tr>
-                <th scope="row">Tipo de habilitación</th>
-                <td>{{ $tipo_detalle_habilitacion }}</td>
-            </tr>
-
+            @if (isset($estado_detalle_habilitacion[0]))
+                <tr>
+                    <th scope="row">Estado de habilitación</th>
+                    <td>{{ $estado_detalle_habilitacion[0]->descripcion }}</td>
+                </tr>
+            @endif
+            @if (isset($fecha_vencimiento_detalle_habilitacion[0]))
+                <tr>
+                    <th scope="row">Fecha de vencimiento de habilitación</th>
+                    <td>{{ $fecha_vencimiento_detalle_habilitacion[0]->fecha_vencimiento }}</td>
+                </tr>
+            @endif
+            @if (isset($fecha_primer_habilitacion[0]))
+                <tr>
+                    <th scope="row">Fecha de primera habilitación</th>
+                    <td>{{ $fecha_primer_habilitacion[0]->fecha_primer_habilitacion }}</td>
+                </tr>
+            @endif
+            @if (isset($tipo_detalle_habilitacion))
+                <tr>
+                    <th scope="row">Tipo de habilitación</th>
+                    <td>{{ $tipo_detalle_habilitacion }}</td>
+                </tr>
+            @endif
             @if (isset($tipo_estado_baja))
                 <tr>
                     <th scope="row">Tipo de Baja</th>
