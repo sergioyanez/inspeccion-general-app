@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\expediente;
+use App\Models\Expediente;
 use App\Models\ExpedientePersonaJuridica;
 use App\Models\ExpedienteContribuyente;
 use App\Models\Tipo_inmueble;
@@ -229,7 +229,7 @@ class ExpedienteController extends Controller
                 $log13->store($infomeDependencias, 'c');
             }
 
-            return redirect()->route('expedientes-mostrar', [$expediente->id]);
+            return redirect()->route('expedientes-mostrar', [$expediente->id])->with('success','Creado con éxito');
         }
         return back()->with('fail','No se pudo crear el expediente');
     }
@@ -358,7 +358,7 @@ class ExpedienteController extends Controller
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
-            return redirect()->route('expedientes-mostrar1', [$expediente->id]);
+            return redirect()->route('expedientes-mostrar1', [$expediente->id])->with('success','Editado con éxito');
 
         }
         return back()->with('fail','No se pudo editar el expediente');
@@ -656,7 +656,7 @@ class ExpedienteController extends Controller
                     $log13->store($infomeDependencias, 'u');
                 }
             }
-            return redirect()->route('expedientes-mostrar2', [$expediente->id]);
+            return redirect()->route('expedientes-mostrar2', [$expediente->id])->with('success','Editado con éxito');
         }
     }
 
@@ -799,7 +799,7 @@ class ExpedienteController extends Controller
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
 
-            return redirect()->route('pagina-principal');
+            return redirect()->route('pagina-principal')->with('success','Expediente guardado con éxito');
         }
     }
 
