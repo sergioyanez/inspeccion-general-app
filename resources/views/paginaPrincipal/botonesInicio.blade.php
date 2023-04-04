@@ -8,6 +8,8 @@
         <li><button class="dropdown-item" type="button" data-bs-toggle="modal" @if($errors->has('desde') || $errors->has('hasta')) data-bs-target="#example" @else data-bs-target="#modalReportes" @endif >Habilitaciones próximas a vencer</button></li>
         <li><hr class="dropdown-divider"></li>
         <li><a class="dropdown-item" href="{{route('habilitaciones-vencidas')}}">Habilitaciones vencidas</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="{{route('habilitaciones-en-tramite')}}">Habilitaciones en trámite</a></li>
     </ul>
     </div>
     @if(Auth::user()->tipo_permiso_id == 1)

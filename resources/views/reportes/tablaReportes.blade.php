@@ -82,6 +82,16 @@
         @endisset
         <button type="submit" class="btn btn-warning">Generar PDF Habilitaciones a vencer</button>
     </form>
+
+    @elseif (isset($tramite))
+    <form method="POST" action="{{route('generar-reportes-habilitaciones-en-tramite-pdf')}}" enctype="multipart/form-data">
+        @csrf
+        @isset($reportes)
+            <input type="hidden" name="reportes" value="{{$reportes}}">
+        @endisset
+        <button type="submit" class="btn btn-success">Generar PDF Habilitaciones en trámite</button>
+    </form>
+
     @else
     <form method="POST" action="{{route('generar-reportes-habilitaciones-vencidas-pdf')}}" enctype="multipart/form-data">
         @csrf
@@ -90,6 +100,7 @@
         @endisset
         <button type="submit" class="btn btn-danger">Generar PDF Habilitaciones vencidas</button>
     </form>
+
     @endif
     </div>
 

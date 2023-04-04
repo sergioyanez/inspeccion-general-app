@@ -165,7 +165,7 @@ class PdfController extends Controller
     }
 
 
-    public function generarReporteHabilitacionesVencidasPdf(Request $request){
+    public function generarReporteHabilitacionesVencidasPdf(){
 
         $data = [
                      'reportes' => $this->vencidos(0),
@@ -175,6 +175,20 @@ class PdfController extends Controller
                  ];
         $pdf = new Dompdf();
         $pdf->loadHtml(View::make('pdf.pdfReportesHabilitacionesVencidas', $data));
+        $pdf->setPaper('A4', 'landscape');
+        $pdf->render();
+        return $pdf->stream();
+    }
+
+    public function generarReporteHabilitacionesEnTramitePdf(Request $request){
+
+        $data = [
+                     'reportes' => $this->habilitacionesEnTramite(),
+                     'vencido'=>'En tramite'
+
+                 ];
+        $pdf = new Dompdf();
+        $pdf->loadHtml(View::make('pdf.pdfReportesHabilitacionesEnTramite', $data));
         $pdf->setPaper('A4', 'landscape');
         $pdf->render();
         return $pdf->stream();
@@ -199,6 +213,17 @@ class PdfController extends Controller
             ->whereHas('detalleHabilitacion', function ($query) use ($desde, $hasta) {
                 $query->whereDate('fecha_vencimiento', '>=', $desde)
                     ->whereDate('fecha_vencimiento', '<=', $hasta);
+            })
+            ->whereNull('estado_baja_id')
+            ->get();
+    }
+
+    private function habilitacionesEnTramite(){
+        return Expediente::with(['detalleHabilitacion', 'contribuyentes', 'avisos' => function ($query) {
+            $query->orderBy('fecha_aviso', 'asc'); //Obtener solo el aviso más reciente
+        }])
+            ->whereHas('detalleHabilitacion', function ($query) {
+                $query->where('tipo_estado_id', '=', 1);
             })
             ->whereNull('estado_baja_id')
             ->get();
