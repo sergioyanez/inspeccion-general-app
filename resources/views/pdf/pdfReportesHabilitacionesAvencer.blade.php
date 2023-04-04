@@ -16,7 +16,7 @@
                 width: 100%;
                 font-family: Arial, sans-serif; /* Cambia la tipografía de toda la tabla */
             }
-          
+
             th, td {
               text-align: left;
               padding: 8px;
@@ -24,16 +24,16 @@
                 padding: 8px;
                 font-family: Verdana, Geneva, Tahoma, sans-serif; /* Cambia la tipografía de las celdas de encabezado y de datos */
             }
-          
+
             th {
               background-color: #39b525;
               color: white;
             }
-          
+
             tr:nth-child(even) {
               background-color: #f2f2f2;
             }
-          
+
             tr:hover {
               background-color: #ddd;
             }
@@ -89,7 +89,11 @@
                 <td> {{$reporte->observaciones_grales}}</td>
                 <td> {{$reporte->detalleHabilitacion->fecha_vencimiento}}</td>
                 <td> {{$vencido}}</td>
+                @if(isset($reporte->avisos[0]))
                 <td> {{$reporte->avisos[0]->fecha_aviso}}</td>
+                @else
+                <td>Sin Aviso</td>
+                @endif
             </tr>
         @endforeach
     </tbody>

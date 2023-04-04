@@ -64,6 +64,7 @@
         <th>Observaciones</th>
         <th>Fecha de vencimiento</th>
         <th>Estado</th>
+        <th>Fecha último aviso</th>
         </tr>
     </thead>
     <tbody>
@@ -87,6 +88,11 @@
                 <td> {{$reporte->observaciones_grales}}</td>
                 <td> {{$reporte->detalleHabilitacion->fecha_vencimiento}}</td>
                  <td> {{$vencido}}</td>
+                 @if(isset($reporte->avisos[0]))
+                <td> {{$reporte->avisos[0]->fecha_aviso}}</td>
+                @else
+                <td>Sin Aviso</td>
+                @endif
             </tr>
         @endforeach
     </tbody>
