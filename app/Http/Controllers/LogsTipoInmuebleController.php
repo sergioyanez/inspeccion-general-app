@@ -7,6 +7,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Storelogs_tipo_inmuebleRequest;
 use App\Http\Requests\Updatelogs_tipo_inmuebleRequest;
 
+/**
+ * Controller de LogsTipoInmueble: brinda acceso al servicio de guardado del historial de cambios realizados en la tabla correspondiente.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez02@gmail.com
+ * @see logs_tipo_inmueble
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class LogsTipoInmuebleController extends Controller {
 
     /**

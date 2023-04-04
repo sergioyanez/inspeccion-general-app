@@ -7,11 +7,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Storelogs_contribuyenteRequest;
 use App\Http\Requests\Updatelogs_contribuyenteRequest;
 
+
+/**
+ * Controller de LogsContribuyente: brinda acceso al servicio de guardado del historial de cambios realizados en la tabla correspondiente.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez02@gmail.com
+ * @see logs_contribuyente
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class LogsContribuyenteController extends Controller
 {
-
-
-
     // Crea un nuevo registro de log contribuyente
     public function store($contribuyente, $char)
     {

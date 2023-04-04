@@ -8,6 +8,19 @@ use App\Models\Tipo_inmueble;
 use App\Http\Requests\StoreDetalle_inmuebleRequest;
 use App\Http\Requests\UpdateDetalle_inmuebleRequest;
 
+/**
+ * Controller de DetalleInmueble: brinda acceso a los servicios de los detalles de inmueble.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez02@gmail.com
+ * @see Detalle_inmueble
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class DetalleInmuebleController extends Controller
 {
     /**
