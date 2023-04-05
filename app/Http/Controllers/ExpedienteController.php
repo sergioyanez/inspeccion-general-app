@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\expediente;
+use App\Models\Expediente;
 use App\Models\ExpedientePersonaJuridica;
 use App\Models\ExpedienteContribuyente;
 use App\Models\Tipo_inmueble;
