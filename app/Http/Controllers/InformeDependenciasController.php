@@ -17,7 +17,7 @@ use App\Http\Controllers\LogsInformeDependenciaController;
  *          Elva Kheler: mekdy.20@gmail.com
  *          Héctor Liceaga: lice2187@gmail.com
  *          Eugenio Miller: eugeniomiller93@gmail.com
- *          Sergio Yañez: sergiomyanez02@gmail.com
+ *          Sergio Yañez: sergiomyanez01@gmail.com
  * @see Informe_dependencias
  * @see Tipo_dependencia
  * @version 1.0

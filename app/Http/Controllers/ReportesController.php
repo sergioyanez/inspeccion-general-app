@@ -7,6 +7,20 @@ use Illuminate\Http\Request;
 use App\Models\Expediente;
 use Carbon\Carbon;
 
+/**
+ * Controller de Reportes: brinda acceso a los servicios de los reportes.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez01@gmail.com
+ * @see Expediente
+ * @see Carbon - Dependencia de gestión de fechas
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class ReportesController extends Controller
 {
     public function proximasVencer(Request $request)
