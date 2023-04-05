@@ -358,7 +358,7 @@ class ExpedienteController extends Controller
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
-            return redirect()->route('expedientes-mostrar1', [$expediente->id])->with('success','Editado con éxito');
+            return redirect()->route('expedientes-mostrar1', [$expediente->id]) /*->with('success','Editado con éxito')*/;
 
         }
         return back()->with('fail','No se pudo editar el expediente');
@@ -656,7 +656,7 @@ class ExpedienteController extends Controller
                     $log13->store($infomeDependencias, 'u');
                 }
             }
-            return redirect()->route('expedientes-mostrar2', [$expediente->id])->with('success','Editado con éxito');
+            return redirect()->route('expedientes-mostrar2', [$expediente->id])/*->with('success','Editado con éxito')*/;
         }
     }
 

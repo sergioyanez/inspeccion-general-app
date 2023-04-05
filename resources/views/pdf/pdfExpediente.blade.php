@@ -222,28 +222,28 @@
                     <td>{{ $fecha_primer_habilitacion[0]->fecha_primer_habilitacion }}</td>
                 </tr>
             @endif
-            @if (isset($tipo_detalle_habilitacion))
+            @if (isset($tipo_detalle_habilitacion[0]))
                 <tr>
                     <th scope="row">Tipo de habilitación</th>
-                    <td>{{ $tipo_detalle_habilitacion }}</td>
+                    <td>{{ $tipo_detalle_habilitacion[0]->descripcion }}</td>
                 </tr>
             @endif
-            @if (isset($tipo_estado_baja))
+            @if (isset($tipo_estado_baja[0]))
                 <tr>
                     <th scope="row">Tipo de Baja</th>
-                    <td>{{ $tipo_estado_baja }}</td>
+                    <td>{{ $tipo_estado_baja[0]->descripcion }}</td>
                 </tr>
             @endif
-            @if (isset($deuda))
+            @if (isset($deuda[0]))
                 <tr>
                     <th scope="row">Deuda</th>
-                    <td>{{ $deuda }}</td>
+                    <td> $ {{ $deuda[0]->deuda }}</td>
                 </tr>
             @endif
-            @if (isset($fecha_baja))
+            @if (isset($fecha_baja[0]))
                 <tr>
                     <th scope="row">Fecha de Baja</th>
-                    <td>{{ $fecha_baja }}</td>
+                    <td>aa/mm/dd {{ $fecha_baja[0]->fecha_baja }}</td>
                 </tr>
             @endif
         </tbody>

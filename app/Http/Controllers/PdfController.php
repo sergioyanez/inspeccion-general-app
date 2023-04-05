@@ -68,7 +68,7 @@ class PdfController extends Controller
         if($expediente->estado_baja_id){
             $tipo_estado_baja = DB::table('tipos_bajas')
                                 ->join('estados_bajas','estados_bajas.tipo_baja_id', '=', 'tipos_bajas.id')
-                                ->where('id', '=', $expediente->estado_baja_id)
+                                ->where('estados_bajas.id', '=', $expediente->estado_baja_id)
                                 ->select('tipos_bajas.descripcion')
                                 ->get();
             $deuda = DB::table('estados_bajas')
