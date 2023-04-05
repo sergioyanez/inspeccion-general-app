@@ -32,6 +32,7 @@ class UpdateexpedienteRequest extends FormRequest
             'numero' => 'numeric|nullable',
             'tipo_inmueble_id' => 'required',
             'cargo' => 'required',
+            //'cargo1' => 'required',
             
         ];
     }
@@ -48,7 +49,8 @@ class UpdateexpedienteRequest extends FormRequest
             'calle.required' => 'El campo calle es obligatorio',
             'numero.numeric' => 'El campo nùmero no acepta letras',
             'tipo_inmueble_id.required' => 'debe seleccionar un tipo de inmueble',
-            'cargo.required' => 'debe cargar un contribuyente',
+            'cargo.required' => 'debe cargar un contribuyente o persona jurìdica',
+            //'cargo1.required' => 'debe cargar una persona jurìdica',
             //'cargoContribuyente.required' => 'ya cargo ese contribuyente'
         ];
     }
