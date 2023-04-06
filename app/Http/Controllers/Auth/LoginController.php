@@ -34,25 +34,32 @@ class LoginController extends Controller
 /**
  * @OA\Post(
  * path="/login",
- * summary="Sign in",
- * description="Login by email, password",
+ * summary="Iniciar sesión en el sistema",
+ * description="Logueo mediante email y password",
  * operationId="authLogin",
  * tags={"auth"},
  * @OA\RequestBody(
  *    required=true,
- *    description="Pass user credentials",
+ *    description="Credenciales del ususario",
  *    @OA\JsonContent(
  *       required={"email","password"},
- *       @OA\Property(property="email", type="string", format="email", example="user1@mail.com"),
+ *       @OA\Property(property="email", type="string", format="email", example="usuario@mail.com"),
  *       @OA\Property(property="password", type="string", format="password", example="PassWord12345"),
- *       @OA\Property(property="persistent", type="boolean", example="true"),
+ *       @OA\Property(property="remember", type="boolean", example="true"),
  *    ),
  * ),
  * @OA\Response(
- *    response=422,
- *    description="Wrong credentials response",
+ *    response=200,
+ *    description="Credencial válida",       
  *    @OA\JsonContent(
- *       @OA\Property(property="message", type="string", example="Usuario no valido.")
+ *      @OA\Property(property="message"), type="string", example="Usuario válido."
+ *      )
+ * ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Error en la credencial",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="message"), type="string", example="Usuario no válido."
  *        )
  *     )
  * )
@@ -74,7 +81,22 @@ class LoginController extends Controller
             'password' => 'Contraseña no valida.',
         ]);
     }
-
+    /**
+    * @OA\Post(
+    * path="/loguot",
+    * summary="Terminar sesión en el sistema",
+    * description="Salir del sistema.",
+    * operationId="authLogout",
+    * tags={"auth"},
+    * @OA\Response(
+    *    response=200,
+    *    description="Sesión terminada",       
+    *    @OA\JsonContent(
+    *      @OA\Property(property="message"), type="string", example="Sesión terminada."
+    *      )
+    * ),
+    *)
+    */
     public function logout(Request $request)
     {
         Auth::logout();

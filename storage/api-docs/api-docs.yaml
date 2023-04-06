@@ -1,20 +1,18 @@
 openapi: 3.0.0
 info:
   title: 'Documentación API del Sistema de Gestión de Habilitaciones Municipales de Rauch'
-  description: 'Documentado por Héctor Liceaga'
-  contact:
-    email: 'hr.liceaga@gmail.com '
+  description: 'Sistema de digitalización de expedientes de habilitaciones comerciales de la Municipalidad de Rauch'
   version: 1.0.0
 paths:
   /login:
     post:
       tags:
         - auth
-      summary: 'Sign in'
-      description: 'Login by email, password'
+      summary: 'Iniciar sesión en el sistema'
+      description: 'Logueo mediante email y password'
       operationId: authLogin
       requestBody:
-        description: 'Pass user credentials'
+        description: 'Credenciales del ususario'
         required: true
         content:
           application/json:
@@ -26,23 +24,58 @@ paths:
                 email:
                   type: string
                   format: email
-                  example: user1@mail.com
+                  example: usuario@mail.com
                 password:
                   type: string
                   format: password
                   example: PassWord12345
-                persistent:
+                remember:
                   type: boolean
                   example: 'true'
               type: object
       responses:
-        422:
-          description: 'Wrong credentials response'
+        200:
+          description: 'Credencial válida'
           content:
             application/json:
               schema:
                 properties:
-                  message:
-                    type: string
-                    example: 'Sorry, wrong email address or password. Please try again'
-                type: object
+                  message: []
+                type: string
+              example: 'Usuario válido.'
+        422:
+          description: 'Error en la credencial'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: []
+                type: string
+              example: 'Usuario no válido.'
+  /loguot:
+    post:
+      tags:
+        - auth
+      summary: 'Terminar sesión en el sistema'
+      description: 'Salir del sistema.'
+      operationId: authLogout
+      responses:
+        200:
+          description: 'Sesión terminada'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: []
+                type: string
+              example: 'Sesión terminada.'
+  /index:
+    get:
+      tags:
+        - index
+      summary: 'Página principal del sistema.'
+      description: 'Ingreso al sistema luego del inicio de sesión.'
+      operationId: index
+      responses:
+        200:
+          description: 'Página principal'

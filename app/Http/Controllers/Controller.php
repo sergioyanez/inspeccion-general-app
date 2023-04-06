@@ -11,10 +11,7 @@ use Illuminate\Routing\Controller as BaseController;
  *  @OA\Info(  
  *  version="1.0.0",
  *  title="Documentación API del Sistema de Gestión de Habilitaciones Municipales de Rauch",
- *  description="Documentado por Héctor Liceaga",
- *  @OA\Contact(  
- *      email="hr.liceaga@gmail.com "  
- *      )
+ *  description="Sistema de digitalización de expedientes de habilitaciones comerciales de la Municipalidad de Rauch",
  * ) 
  */
 class Controller extends BaseController
