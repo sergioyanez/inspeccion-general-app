@@ -41,7 +41,7 @@
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
-                                            <input required value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
+                                            <input  value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
