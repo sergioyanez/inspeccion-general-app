@@ -24,7 +24,7 @@ paths:
                 email:
                   type: string
                   format: email
-                  example: usuario@mail.com
+                  example: usuario
                 password:
                   type: string
                   format: password
@@ -69,6 +69,85 @@ paths:
                   message: []
                 type: string
               example: 'Sesión terminada.'
+  '/avisos/{id}/{desde}/{hasta}':
+    get:
+      tags:
+        - avisos
+      summary: 'Lista de avisos delimitados por fechas.'
+      description: "Devuelve un listado de los avisos desde la fecha ingresada 'desde', hasta la fecha 'hasta'"
+      operationId: avisosGet
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del aviso'
+          required: true
+          example: '1'
+        -
+          name: desde
+          in: path
+          description: 'fecha desde la cual se filtran los avisos'
+          required: true
+        -
+          name: hasta
+          in: path
+          description: 'fecha hasta la cual se filtran los avisos'
+          required: true
+      responses:
+        200:
+          description: 'Lista de avisos'
+          content:
+            application/json:
+              schema:
+                properties:
+                  data: []
+                type: object
+  /avisos/guardar:
+    post:
+      tags:
+        - avisos
+      summary: 'Almacena un aviso.'
+      description: 'Guarda un aviso.'
+      operationId: avisoPost
+      requestBody:
+        description: 'Nuevo aviso'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - fecha_aviso
+                - detalle
+                - expediente_id
+                - tipo_comunicacion
+              properties:
+                fecha_aviso:
+                  type: string
+                  format: YYYY-MM-DD
+                  example: '2023-12-25'
+                detalle:
+                  type: string
+                  example: 'Detalle de aviso'
+                expediente_id:
+                  type: integer
+                  example: '1'
+                tipo_comunicacion:
+                  type: integer
+                  example: '1'
+                file:
+                  type: string
+                  format: binary
+              type: object
+      responses:
+        200:
+          description: 'Guardado con éxito.'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: []
+                type: string
+              example: 'Guardado con éxito.'
   /index:
     get:
       tags:

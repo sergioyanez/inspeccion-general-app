@@ -31,39 +31,39 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
-/**
- * @OA\Post(
- * path="/login",
- * summary="Iniciar sesión en el sistema",
- * description="Logueo mediante email y password",
- * operationId="authLogin",
- * tags={"auth"},
- * @OA\RequestBody(
- *    required=true,
- *    description="Credenciales del ususario",
- *    @OA\JsonContent(
- *       required={"email","password"},
- *       @OA\Property(property="email", type="string", format="email", example="usuario@mail.com"),
- *       @OA\Property(property="password", type="string", format="password", example="PassWord12345"),
- *       @OA\Property(property="remember", type="boolean", example="true"),
- *    ),
- * ),
- * @OA\Response(
- *    response=200,
- *    description="Credencial válida",       
- *    @OA\JsonContent(
- *      @OA\Property(property="message"), type="string", example="Usuario válido."
- *      )
- * ),
- * @OA\Response(
- *    response=422,
- *    description="Error en la credencial",
- *    @OA\JsonContent(
- *       @OA\Property(property="message"), type="string", example="Usuario no válido."
- *        )
- *     )
- * )
- */
+    /**
+     * @OA\Post(
+     * path="/login",
+     * summary="Iniciar sesión en el sistema",
+     * description="Logueo mediante email y password",
+     * operationId="authLogin",
+     * tags={"auth"},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Credenciales del ususario",
+     *    @OA\JsonContent(
+     *       required={"email","password"},
+     *       @OA\Property(property="email", type="string", format="email", example="usuario"),
+     *       @OA\Property(property="password", type="string", format="password", example="PassWord12345"),
+     *       @OA\Property(property="remember", type="boolean", example="true"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Credencial válida",       
+     *    @OA\JsonContent(
+     *      @OA\Property(property="message"), type="string", example="Usuario válido."
+     *      )
+     * ),
+     * @OA\Response(
+     *    response=422,
+     *    description="Error en la credencial",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message"), type="string", example="Usuario no válido."
+     *        )
+     *     )
+     * )
+     */
     public function login(LoginRequest $request)
     {
         $remember = ($request->has('remember') ? true : false);

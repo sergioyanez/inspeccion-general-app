@@ -297,16 +297,3 @@ Route::controller(TipoPermisoController::class)->middleware('auth')->group(funct
     Route::post('tipoPermiso/actualizar','update')->name('tiposPermisos-actualizar');
     Route::get('tipoPermiso/eliminar/{id}','destroy')->name('tiposPermisos-eliminar');
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
