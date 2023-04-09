@@ -41,7 +41,7 @@
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
-                                            <input value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
+                                            <input  value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
@@ -73,9 +73,9 @@
                                             <input type="hidden" name="estado_baja_id" value="{{$expediente->estado_baja_id}}" id="estado_baja_id">
                                             <input type="hidden" name="tipo_baja_id" value="{{$expediente->estadoBaja->tipoBaja->id}}" id="tipo_baja_id">
 
-                                            
+
                                                 <label class="form-label" for="basic-default-fullname">Estado de baja</label>
-                                               
+
                                                     @if ($expediente->estadoBaja->tipoBaja->descripcion == "Provisoria")
                                                     <div class="col-6">
                                                         <select required name="tipo_baja_id" class="form-select" id="tipo_baja">
@@ -92,7 +92,7 @@
                                                                     <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
                                                                     <input value="{{$expediente->estadoBaja->deuda}}" type="text" name="deuda" class="form-control" />
                                                                 </div>
-                                                                
+
                                                                 <div class="mb-3">
                                                                     <label class="form-label" for="basic-default-fullname">Fecha de baja:</label>
                                                                     <input value="{{$expediente->estadoBaja->fecha_baja}}" type="date" name="fecha_baja_provisoria" class="form-control" id="fechaVencimientoProvisoria" />
@@ -106,7 +106,7 @@
                                                                     @endif
                                                                     <input type="file" name="acta_baja_nuevo" class="form-control" class="form-control-file" id="ActaSolicitudBajaProvisoria" />
                                                                 </div>
-                                                                
+
                                                                 <div class="mb-3">
                                                                     <label class="form-label" for="basic-default-fullname">Informe de deuda</label>
                                                                     @if ($expediente->estadoBaja->pdf_informe_deuda)
@@ -135,12 +135,12 @@
                                                                             {{$message}}
                                                                         </div>
                                                                     @enderror
-                                                                </div> 
+                                                                </div>
                                                             </div>
                                                         </div>
-    
+
                                                     @else
-                                                
+
                                                     @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente" || $expediente->estadoBaja->tipoBaja->descripcion == "De oficio")
                                                         <div class="col-6">
                                                             <select required name="tipo_baja_id" class="form-select" id="tipo_baja">
@@ -170,12 +170,12 @@
                                                             </div>
                                                         </div>
                                                     @endif
-                                                
+
                                                 @endif
-                                            
+
 
                                         @else
-                                            
+
                                             <div class="col-6">
                                                 <label class="form-label" for="basic-default-fullname">Estado de baja</label>
                                                 <select required name="tipo_baja_id" class="form-select" id="tipo_baja">
@@ -185,7 +185,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                            
+
 
                                             <div class="col-6" id="provisoria">
                                                 <div class="mb-3">
@@ -208,7 +208,7 @@
                                                             {{$message}}
                                                         </div>
                                                     @enderror
-                                                </div>    
+                                                </div>
                                             </div>
                                             <div class="col-6" id="permanente">
                                                 <div class="mb-3">
@@ -258,13 +258,13 @@
                                         <div class="col-12 mb-3">
                                             <label class="form-label" for="basic-default-fullname">Fecha de primer habilitación</label>
                                             <input readonly value="{{ $expediente->detalleHabilitacion->fecha_primer_habilitacion }}" type="date" name="fecha_primer_habilitacion" class="form-control" id="basic-default-nombreCompleto" />
-                                        </div>  
-                                        
+                                        </div>
+
                                         <div class="col-12 mb-3">
                                             <label class="form-label" for="basic-default-fullname">Fecha de vencimiento</label>
                                             <input readonly value="{{ $expediente->detalleHabilitacion->fecha_vencimiento }}" type="date" name="fecha_vencimiento" class="form-control" id="basic-default-nombreCompleto" />
-                                        </div>  
-                                            
+                                        </div>
+
                                         <div class="col-12 mb-3">
                                             <label class="form-label" for="basic-default-fullname">Tipo de habilitación</label>
                                             <select readonly name="tipo_habilitacion_id" class="form-select" id="basic-default-nombreCompleto" >
@@ -279,7 +279,7 @@
                                                 @endif
                                             </select>
                                         </div>
-                                            
+
                                         <div class="col-12 mb-3">
                                             <label class="form-label" for="basic-default-fullname">Certificado de habilitación</label>
                                             @if ($expediente->detalleHabilitacion->pdf_certificado_habilitacion)
@@ -328,7 +328,7 @@
                                                         @endif
                                                     </div>
                                                 </div>
-                                                    
+
                                             @else
                                                 @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente" || $expediente->estadoBaja->tipoBaja->descripcion == "De oficio")
                                                     <select readonly required name="estado_baja" class="form-select" id="tipo_baja">
@@ -347,13 +347,13 @@
                                                         @else
                                                             <p class="text-muted" >Sin acta cargada</p>
                                                         @endif
-                                                    </div> 
-                                                </div>   
+                                                    </div>
+                                                </div>
                                                 @endif
                                             @endif
 
                                         @else
-                                            <div class="col-6">            
+                                            <div class="col-6">
                                                 <label class="form-label" for="basic-default-fullname">Estado de baja</label>
                                                 <select readonly name="tipo_baja_id" class="form-select" id="tipo_baja">
                                                     <option value="">-- Sin datos --</option>
@@ -364,9 +364,9 @@
                                 </div>
                                 <a href="{{route('expedientes-mostrar1', $expediente->id)}}" class="ms-1 mt-4 me-3 btn btn-secondary btn-salir">Volver</a>
                                 <button type="submit" class="mt-4 btn btn btn-success btn-salir">Finalizar</button>
-                                
+
                             </form>
-                            
+
                         </div>
 
                     @endif
@@ -374,4 +374,4 @@
         </div>
     </div>
 @include('footer.footer')
-    
+

@@ -36,7 +36,7 @@ class TipoDependenciaSeeder extends Seeder
         $tipoDependencia5 ->save();
 
         $tipoDependencia6 = new Tipo_dependencia();
-        $tipoDependencia6 ->nombre = "Tasa por inspección de seguridad e higiene/Habilitacion comercial";
+        $tipoDependencia6 ->nombre = "Tasa por inspección de seguridad e higiene";
         $tipoDependencia6 ->save();
 
         $tipoDependencia7 = new Tipo_dependencia();

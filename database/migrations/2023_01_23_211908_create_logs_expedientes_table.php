@@ -28,8 +28,8 @@ return new class extends Migration
             $table->bigInteger('estado_baja_id')->nullable();
             $table->bigInteger('detalle_inmueble_id')->nullable();
             $table->char('accion',1);
-            // $table->bigInteger('usuario_id');
-            // $table->string('usuario_nombre');
+            $table->bigInteger('usuario_id');
+            $table->string('usuario_nombre');
             $table->timestamps();
         });
     }

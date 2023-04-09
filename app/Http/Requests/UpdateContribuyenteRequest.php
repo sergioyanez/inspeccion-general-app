@@ -31,9 +31,9 @@ class UpdateContribuyenteRequest extends FormRequest
             'dni'=>'required|string|max:8',
             'fecha_nacimiento'=>'required|date',
             'telefono'=>'string|nullable|max:20', 
-            'nombre_conyuge'=>'string|nullable|max:20',
-            'apellido_conyuge'=>'string|nullable|max:20',
-            'dni_conyuge'=>'string|nullable|max:8',
+         //   'nombre_conyuge'=>'string|nullable|max:20',
+          //  'apellido_conyuge'=>'string|nullable|max:20',
+          //  'dni_conyuge'=>'string|nullable|max:8',
         ];
     }
 

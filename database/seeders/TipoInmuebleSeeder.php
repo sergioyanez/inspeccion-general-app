@@ -16,7 +16,7 @@ class TipoInmuebleSeeder extends Seeder
     public function run()
     {
         $inmueble1 = new Tipo_inmueble();
-        $inmueble1->descripcion = "Alquilado";
+        $inmueble1->descripcion = "Contrato";
         $inmueble1->save();
 
         $inmueble2 = new Tipo_inmueble();

@@ -27,8 +27,8 @@ class LogsInformeDependenciaController extends Controller {
         $logs_informe_dependencia->fecha_informe = $informe_dependencia->fecha_informe;
         $logs_informe_dependencia->observaciones = $informe_dependencia->observaciones;
         $logs_informe_dependencia->accion = $char;
-        //$logs_informe_dependencia->usuario_id = $user->id; -> PORBAR CON USUARIO
-        //$logs_informe_dependencia->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
+        $logs_informe_dependencia->usuario_id = $user->id;
+        $logs_informe_dependencia->usuario_nombre = $user->usuario;
 
         return $logs_informe_dependencia->save();
     }

@@ -108,10 +108,10 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="basic-default-fullname">Telèfono</label>
+                                <label class="form-label" for="basic-default-fullname">Teléfono</label>
                                 <input type="text" name="telefono" class="form-control" id="basic-default-nombreCompleto" value="{{$contribuyente->telefono}}"/>
                             </div>
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Nombre del cònyuge</label>
                                 <input type="text" name="nombre_conyuge" class="form-control" id="basic-default-nombreCompleto" value="{{$contribuyente->nombre_conyuge}}"/>
                             </div>
@@ -122,7 +122,7 @@
                             <div class="mb-3">
                                 <label class="form-label" for="basic-default-fullname">Dni del conyuge</label>
                                 <input type="text" name="dni_conyuge" class="form-control" id="basic-default-nombreCompleto" value="{{$contribuyente->dni_conyuge}}"/>
-                            </div>
+                            </div> --}}
 
                             <button type="submit" class="btn btn-primary">Enviar</button>
                         </form>

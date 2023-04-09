@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('nro_expediente');
             $table->string('nro_comercio');
             $table->string('actividad_ppal');
-            //$table->string('anexo')->nullable();
+            $table->string('anexo')->nullable();
             $table->string('pdf_solicitud');
             $table->longText('bienes_de_uso')->nullable();
             $table->longText('observaciones_grales')->nullable();

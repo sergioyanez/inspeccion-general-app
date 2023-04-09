@@ -23,9 +23,8 @@ class LogsTipoBajaController extends Controller {
         $logs_tipo_baja->tipo_baja_id = $tipo_baja->id;
         $logs_tipo_baja->descripcion = $tipo_baja->descripcion;
         $logs_tipo_baja->accion = $char;
-
-        //$logs_tipo_permiso->usuario_id = $user->id; -> PORBAR CON USUARIO
-        //$logs_tipo_permiso->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
+        $logs_tipo_baja->usuario_id = $user->id;
+        $logs_tipo_baja->usuario_nombre = $user->usuario;
 
         $logs_tipo_baja->save();
 

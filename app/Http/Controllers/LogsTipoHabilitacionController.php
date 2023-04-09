@@ -18,14 +18,14 @@ class LogsTipoHabilitacionController extends Controller
     {
         $logsTipoHabilitacion = new logs_tipo_habilitacion();
 
-        //$user= Auth::user();
+        $user= Auth::user();
 
         $logsTipoHabilitacion->tipo_habilitacion_id = $tipoHabilitacion->id;
         $logsTipoHabilitacion->descripcion = $tipoHabilitacion->descripcion;
         $logsTipoHabilitacion->plazo_vencimiento = $tipoHabilitacion->plazo_vencimiento;
         $logsTipoHabilitacion->accion = $char;
-        //$logs_tipo_habilitacion->usuario_id = $user->id;
-        //$logs_tipo_habilitacion->usuario_nombre = $user->usuario;
+        $logsTipoHabilitacion->usuario_id = $user->id;
+        $logsTipoHabilitacion->usuario_nombre = $user->usuario;
 
         return $logsTipoHabilitacion->save();
     }

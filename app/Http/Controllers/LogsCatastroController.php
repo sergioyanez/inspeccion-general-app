@@ -33,8 +33,8 @@ class LogsCatastroController extends Controller {
         $logs_catastro->fecha_informe = $catastro->fecha_informe;
         $logs_catastro->pdf_informe = $catastro->pdf_informe;
         $logs_catastro->accion = $char;
-        // $logs_catastro->usuario_id = $user->id;
-        // $logs_catastro->usuario_nombre = $user->usuario;
+        $logs_catastro->usuario_id = $user->id;
+        $logs_catastro->usuario_nombre = $user->usuario;
         $logs_catastro->save();
 
         return 'guardado';

@@ -55,6 +55,9 @@ Route::controller(PdfController::class)->middleware('auth')->group(function(){
     Route::post('expediente-pdf', 'generarExpedientePdf')->name('generar-expediente-pdf');
     Route::post('reportes-habilitaciones-vencidas-pdf', 'generarReporteHabilitacionesVencidasPdf')->name('generar-reportes-habilitaciones-vencidas-pdf');
     Route::post('reportes-habilitaciones-a-vencer-pdf', 'generarReporteHabilitacionesAvencerPdf')->name('generar-reportes-habilitaciones-a-vencer-pdf');
+    Route::post('reportes-habilitaciones-en-tramite-pdf', 'generarReporteHabilitacionesEnTramitePdf')->name('generar-reportes-habilitaciones-en-tramite-pdf');
+
+
 });
 
 // RUTA PAGINA PRINCIPAL
@@ -72,6 +75,7 @@ Route::controller(BusquedaExpedienteController::class)->middleware('auth')->grou
 Route::controller(ReportesController::class)->middleware('auth')->group(function(){
     Route::post('habilitaciones-proximas-a-vencer','proximasVencer')->name('habilitaciones-proximas-a-vencer');
     Route::get('habilitaciones-vencidas','vencidas')->name('habilitaciones-vencidas');
+    Route::get('habilitaciones-en-tramite','enTramite')->name('habilitaciones-en-tramite');
 });
 
 // RUTA PAGINA DE avisos

@@ -32,4 +32,12 @@ class AvisosStore extends FormRequest
             'pdf_file' => 'required_if:tipo_comunicacion,nota|mimes:pdf'
         ];
     }
+
+    public function messages() {
+        return [
+            'fecha_aviso.required' => 'fecha requerida',
+           
+           
+        ];
+    }
 }
