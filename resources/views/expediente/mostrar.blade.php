@@ -39,7 +39,7 @@
                                 @else
                                     @forelse ($expedientesContribuyentes as $expedContrib)
                                             @if ($expedContrib->expediente_id ==$expediente->id)
-                                            <span class="p-2 m-1"> 
+                                            <span class="p-2 m-1">
                                                 {{$expedContrib->contribuyente->nombre}}  {{$expedContrib->contribuyente->apellido}} /
                                                 {{$expedContrib->contribuyente->dni}} <a href="{{route('expedientesContribuyentes-eliminar', $expedContrib->id)}}"class="ms-2 btn btn-danger btn-sm">Eliminar</a>
                                             </span>
@@ -59,10 +59,10 @@
                                     <div class="col-5 m-0">
                                         <input  type="text" name="buscarpor" class="form-control" placeholder="Número de documento" />
                                     </div>
-                                    <div class="col-3 m-0">
-                                        <input  class="btn btn-orange" type="submit" value="Buscar">
-                                    </div>
 
+                                    <div class="col-3 m-0">
+                                        <input   class="btn btn-orange" type="submit" value="Buscar">
+                                    </div>
                                 </form>
                             </div>
 

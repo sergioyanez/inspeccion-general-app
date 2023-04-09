@@ -36,8 +36,7 @@ class AvisosStore extends FormRequest
     public function messages() {
         return [
             'fecha_aviso.required' => 'fecha requerida',
-           
-           
+
         ];
     }
 }

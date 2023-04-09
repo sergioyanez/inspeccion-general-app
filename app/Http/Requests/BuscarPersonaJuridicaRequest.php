@@ -24,16 +24,16 @@ class BuscarPersonaJuridicaRequest extends FormRequest
     public function rules()
     {
         return [
-            'buscarpor1' => 'min:11|max:11',
-           
+            'buscarpor1' => 'min:8|max:11',
+
         ];
     }
 
     public function messages() {
         return [
-            'buscarpor1.min' => 'el campo número de documento debe tener 11 dígitos',
+            'buscarpor1.required' => 'este campo debe estar completo',
+            'buscarpor1.min' => 'el campo número de documento debe tener 8 dígitos',
             'buscarpor1.max' => 'el campo número de documento debe tener 11 dígitos',
-           
         ];
     }
 }

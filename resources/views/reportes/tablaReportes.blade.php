@@ -16,6 +16,8 @@
         <th>Fecha de vencimiento</th>
         <th>Estado</th>
         <th>Fecha último aviso</th>
+        <th>Avisos</th>
+        <th>Expedientes</th>
         </tr>
     </thead>
     <tbody>
@@ -54,7 +56,7 @@
                     {{-- @else
                        <span class="text-secondary">Sin datos..</span> --}}
                    @endif
-                 
+
 
                  </td>
                 <td> {{$reporte->observaciones_grales}}</td>
