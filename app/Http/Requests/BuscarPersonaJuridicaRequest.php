@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AvisosStore extends FormRequest
+class BuscarPersonaJuridicaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,19 +24,15 @@ class AvisosStore extends FormRequest
     public function rules()
     {
         return [
-            'fecha_aviso' => 'required|date',
-            'expediente_id' => 'required|exists:expedientes,id',
-            'nro_expediente' => 'required',
-            'tipo_comunicacion' => 'required|string',
-            'detalle' => 'required_if:tipo_comunicacion,telefonica',
-            'pdf_file' => 'required_if:tipo_comunicacion,nota|mimes:pdf'
+            'buscarpor1' => 'min:11|max:11',
+           
         ];
     }
 
     public function messages() {
         return [
-            'fecha_aviso.required' => 'fecha requerida',
-           
+            'buscarpor1.min' => 'el campo número de documento debe tener 11 dígitos',
+            'buscarpor1.max' => 'el campo número de documento debe tener 11 dígitos',
            
         ];
     }

@@ -39,9 +39,9 @@ class UpdateexpedienteRequest extends FormRequest
 
     public function messages() {
         return [
-            'nro_expediente1.required' => 'el campo nùmero de expediente no puede estar vacio',
+            'nro_expediente1.required' => 'el campo número de expediente no puede estar vacío',
             //'nro_expediente.unique' => 'no se permiten nùmeros de expedientes repetidos',
-            'nro_comercio1.required' => 'el campo nùmero de comercio no puede estar vacio',
+            'nro_comercio1.required' => 'el campo número de comercio no puede estar vacío',
             //'nro_comercio.unique' => 'no se permiten nùmeros de comercio repetidos',
             'actividad_ppal.required' => 'El campo actividad principal es obligatorio',
             'actividad_ppal.alpha' => 'El campo actividad principal solo acepta letras',

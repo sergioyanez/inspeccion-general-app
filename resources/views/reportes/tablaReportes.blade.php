@@ -8,7 +8,8 @@
 <table class="table table-striped">
     <thead class="resultadoBusqueda">
         <tr>
-        <th>N° comercio</th>
+        <th>N° Expediente</th>
+        <th>N° Comercio</th>
         <th>Contribuyente</th>
         <th>Teléfono</th>
         <th>Observaciones</th>
@@ -21,23 +22,40 @@
         @foreach ($reportes as $reporte)
             <tr>
                 <td> {{$reporte->nro_expediente}}</td>
+                <td> {{$reporte->nro_comercio}}</td>
                 <td>
                    @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())
                         @foreach ($reporte->contribuyentes as $c)
                             <p>{{$c->nombre}} {{$c->apellido}}<p>
                         @endforeach
-                    @else
-                    <span class="text-secondary">Sin datos..</span>
+                    {{-- @else
+                    <span class="text-secondary">Sin datos..</span> --}}
                    @endif
+                   @if (isset($reporte->personasJuridicas) and $reporte->personasJuridicas->count())
+                   @foreach ($reporte->personasJuridicas as $p)
+                       <p>{{$p->nombre_persona_juridica}} {{$p->nombre_representante}}{{$p->apellido_representante}}<p>
+                   @endforeach
+               {{-- @else
+               <span class="text-secondary">Sin datos..</span> --}}
+              @endif
                 </td>
                 <td>
                     @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())
                      @foreach ($reporte->contribuyentes as $c)
                         <p>{{$c->telefono}}</p>
                      @endforeach
-                     @else
-                        <span class="text-secondary">Sin datos..</span>
+                     {{-- @else
+                        <span class="text-secondary">Sin datos..</span> --}}
                     @endif
+                    @if (isset($reporte->personasJuridicas) and $reporte->personasJuridicas->count())
+                    @foreach ($reporte->personasJuridicas as $p)
+                       <p>{{$p->telefono}}</p>
+                    @endforeach
+                    {{-- @else
+                       <span class="text-secondary">Sin datos..</span> --}}
+                   @endif
+                 
+
                  </td>
                 <td> {{$reporte->observaciones_grales}}</td>
                 <td> {{$reporte->detalleHabilitacion->fecha_vencimiento}}</td>

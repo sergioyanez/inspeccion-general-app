@@ -13,6 +13,7 @@ use App\Http\Requests\StorePersona_juridicaRequest;
 use App\Http\Requests\UpdatePersona_juridicaRequest;
 use App\Http\Controllers\LogsPersonaJuridicaController;
 use Illuminate\Http\Request;
+use App\Http\Requests\BuscarPersonaJuridicaRequest;
 
 class PersonaJuridicaController extends Controller {
 
@@ -26,7 +27,7 @@ class PersonaJuridicaController extends Controller {
         return view('personaJuridica.personasJuridicas', ['personasJuridicas' => $personasJuridicas]);
     }
 
-    public function indexBuscar(Request $request)
+    public function indexBuscar(BuscarPersonaJuridicaRequest $request)
     {
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();

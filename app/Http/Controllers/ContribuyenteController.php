@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\LogsContribuyenteController;
 use App\Http\Requests\StoreContribuyenteRequest;
 use App\Http\Requests\UpdateContribuyenteRequest;
+use App\Http\Requests\BuscarContribuyenteRequest;
 use App\Models\ExpedienteContribuyente;
 use App\Models\ExpedientePersonaJuridica;
 
@@ -29,7 +30,7 @@ class ContribuyenteController extends Controller
         return view('contribuyente.contribuyentes', ['contribuyentes' => $contribuyentes]);
     }
 
-    public function indexBuscar(Request $request)
+    public function indexBuscar(BuscarContribuyenteRequest $request)
     {
         $buscar = $request->buscarpor;
         $contribuyentes = Contribuyente::orderBy('apellido', 'asc')

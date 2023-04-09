@@ -73,6 +73,7 @@ class ExpedienteController extends Controller
                 ->orWhereHas('personasJuridicas', function ($p) {
                     $p->where('nombre_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
                     $p->orwhere('apellido_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                    $p->orwhere('nombre_persona_juridica', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
                     }
                 );
             })
@@ -664,9 +665,15 @@ class ExpedienteController extends Controller
     {
         // SE ACTUALIZA DETALLE DE HABILITACION
         $detalleHabilitacion = Detalle_habilitacion::find($request->detalle_habilitacion);
+        if(isset($request->fecha_vencimiento) && $request->fecha_vencimiento<now()){
+            $detalleHabilitacion->tipo_estado_id = 3;
+        } else {
+            $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
+        }
+        
         if($request->tipo_habilitacion_id != "-- Seleccione --")
             $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
-        $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
+      //  $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
         $detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
         $detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
         if($request->hasFile('certificado_nuevo')) {

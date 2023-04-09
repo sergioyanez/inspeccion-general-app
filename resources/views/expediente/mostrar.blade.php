@@ -39,7 +39,8 @@
                                 @else
                                     @forelse ($expedientesContribuyentes as $expedContrib)
                                             @if ($expedContrib->expediente_id ==$expediente->id)
-                                            <span class="p-2 m-1">  {{$expedContrib->contribuyente->nombre}}  {{$expedContrib->contribuyente->apellido}} /
+                                            <span class="p-2 m-1"> 
+                                                {{$expedContrib->contribuyente->nombre}}  {{$expedContrib->contribuyente->apellido}} /
                                                 {{$expedContrib->contribuyente->dni}} <a href="{{route('expedientesContribuyentes-eliminar', $expedContrib->id)}}"class="ms-2 btn btn-danger btn-sm">Eliminar</a>
                                             </span>
                                             @endif
@@ -130,7 +131,7 @@
                                     @csrf
                                     <label class="mb-2 ms-1">Buscar y agregar persona jurídica</label>
                                     <div class="col-5 m-0">
-                                        <input  type="text" name="buscarpor1" class="form-control" placeholder="Número de documento"/>
+                                        <input  type="text" name="buscarpor1" class="form-control" placeholder="Número de documento, CUIT o CUIL"/>
                                     </div>
                                     <div class="col-3 m-0">
                                         <input  class="btn btn-orange" type="submit" value="Buscar">
@@ -305,10 +306,10 @@
                                 @enderror
                             </div>
 
-                            {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
+                            {{-- ANTECEDENTES ( antes llamado BIENES DE USO Y OBSERVACIONES GENERALES --}}
                             <div class="col-12 mb-3">
                                 <label class="form-label" for="basic-default-fullname">Antecedentes</label>
-                                <textarea placeholder="Detalle de bienes de uso.." name="bienes_de_uso" class="form-control">{{$expediente->bienes_de_uso}}</textarea>
+                                <textarea placeholder="Detalle de antecedentes.." name="bienes_de_uso" class="form-control">{{$expediente->bienes_de_uso}}</textarea>
                             </div>
                             <div class="col-12 mb-3">
                                 <label class="form-label" for="basic-default-fullname">Observaciones Generales</label>

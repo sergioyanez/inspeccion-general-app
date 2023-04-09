@@ -65,6 +65,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>N° expediente</th>
                 <th>N° comercio</th>
                 <th>Contribuyente</th>
                 <th>Teléfono</th>
@@ -78,6 +79,7 @@
             @foreach ($reportes as $reporte)
                 <tr>
                     <td> {{ $reporte->nro_expediente }}</td>
+                    <td> {{ $reporte->nro_comercio }}</td>
                     <td>
                         @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())
                             @foreach ($reporte->contribuyentes as $c)
@@ -85,6 +87,12 @@
                                 <p>
                             @endforeach
                         @endif
+                        @if (isset($reporte->personasJuridicas) and $reporte->personasJuridicas->count())
+                        @foreach ($reporte->personasJuridicas as $p)
+                            <p>{{ $p->nombre_persona_juridica }} {{ $p->nombre_representante }}  {{ $p->apellido_representante }}
+                            <p>
+                        @endforeach
+                    @endif
                     </td>
                     <td>
                         @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())
@@ -92,6 +100,11 @@
                                 <p>{{ $c->telefono }}</p>
                             @endforeach
                         @endif
+                        @if (isset($reporte->personasJuridicas) and $reporte->personasJuridicas->count())
+                        @foreach ($reporte->personasJuridicas as $p)
+                            <p>{{ $p->telefono }}</p>
+                        @endforeach
+                    @endif
                     </td>
                     <td> {{ $reporte->observaciones_grales }}</td>
                     <td> {{ $reporte->detalleHabilitacion->fecha_vencimiento }}</td>

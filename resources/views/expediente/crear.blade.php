@@ -137,12 +137,14 @@
                                 {{-- ANTECEDENTES ( antes llamado BIENES DE USO) Y OBSERVACIONES GENERALES --}}
                                 <div class="col-12 mb-3">
                                     <label class="form-label" for="basic-default-fullname">Antecedentes</label>
-                                    <textarea placeholder="Detalle de antecedentes.." name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto"></textarea>
+                                    <textarea  placeholder="Detalle de antecedentes.." name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto"></textarea>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label class="form-label" for="basic-default-fullname">Observaciones Generales</label>
                                     <textarea cols="40" rows="5" placeholder="Observaciones.." name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto"></textarea>
                                 </div>
+
+                                
 
                                 {{-- DETALLE HABILITACION --}}
                                 <div class="col-2 mb-3">
