@@ -24,7 +24,7 @@ class BuscarPersonaJuridicaRequest extends FormRequest
     public function rules()
     {
         return [
-            'buscarpor1' => ['required','min:7','max:8'],
+            'buscarpor1' => ['required','min:7','max:11'],
         ];
     }
 
