@@ -57,7 +57,12 @@
                                     @csrf
                                     <label class="mb-2 ms-1">Buscar y agregar contribuyente</label>
                                     <div class="col-5 m-0">
-                                        <input  type="text" name="buscarpor" class="form-control" placeholder="Número de documento" />
+                                        <input  type="text" name="buscarpor" class="form-control @error('buscarpor') is-invalid @enderror" placeholder="Número de documento" />
+                                        @error('buscarpor')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                        @enderror
                                     </div>
 
                                     <div class="col-3 m-0">
@@ -131,7 +136,12 @@
                                     @csrf
                                     <label class="mb-2 ms-1">Buscar y agregar persona jurídica</label>
                                     <div class="col-5 m-0">
-                                        <input  type="text" name="buscarpor1" class="form-control" placeholder="Número de documento, CUIT o CUIL"/>
+                                        <input  type="text" name="buscarpor1" class="form-control @error('buscarpor1') is-invalid @enderror" placeholder="Número de documento, CUIT o CUIL"/>
+                                        @error('buscarpor1')
+                                        <div class="invalid-feedback">
+                                            {{$message}}
+                                        </div>
+                                        @enderror
                                     </div>
                                     <div class="col-3 m-0">
                                         <input  class="btn btn-orange" type="submit" value="Buscar">

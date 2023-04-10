@@ -158,10 +158,10 @@
                                         @endforeach
                                     </select>
                                 </div>
-
+                                <a href="{{route('pagina-principal')}}" class="ms-1 mt-4 me-3 btn btn-secondary btn-salir">Volver</a>
+                                <button type="submit" class="mt-4 btn btn-success btn-salir">Comenzar a cargar</button>
                             </div>
-                            <a href="{{route('pagina-principal')}}" class="ms-1 mt-4 me-3 btn btn-secondary btn-salir">Volver</a>
-                            <button type="submit" class="mt-4 btn btn-success btn-salir">Comenzar a cargar</button>
+
                         </form>
 
                     </div>
