@@ -8,36 +8,56 @@
 <table class="table table-striped">
     <thead class="resultadoBusqueda">
         <tr>
-        <th>N° comercio</th>
+        <th>N° Expediente</th>
+        <th>N° Comercio</th>
         <th>Contribuyente</th>
         <th>Teléfono</th>
         <th>Observaciones</th>
         <th>Fecha de vencimiento</th>
         <th>Estado</th>
         <th>Fecha último aviso</th>
+        <th>Avisos</th>
+        <th>Expedientes</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($reportes as $reporte)
             <tr>
                 <td> {{$reporte->nro_expediente}}</td>
+                <td> {{$reporte->nro_comercio}}</td>
                 <td>
                    @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())
                         @foreach ($reporte->contribuyentes as $c)
                             <p>{{$c->nombre}} {{$c->apellido}}<p>
                         @endforeach
-                    @else
-                    <span class="text-secondary">Sin datos..</span>
+                    {{-- @else
+                    <span class="text-secondary">Sin datos..</span> --}}
                    @endif
+                   @if (isset($reporte->personasJuridicas) and $reporte->personasJuridicas->count())
+                   @foreach ($reporte->personasJuridicas as $p)
+                       <p>{{$p->nombre_persona_juridica}} {{$p->nombre_representante}}{{$p->apellido_representante}}<p>
+                   @endforeach
+               {{-- @else
+               <span class="text-secondary">Sin datos..</span> --}}
+              @endif
                 </td>
                 <td>
                     @if (isset($reporte->contribuyentes) and $reporte->contribuyentes->count())
                      @foreach ($reporte->contribuyentes as $c)
                         <p>{{$c->telefono}}</p>
                      @endforeach
-                     @else
-                        <span class="text-secondary">Sin datos..</span>
+                     {{-- @else
+                        <span class="text-secondary">Sin datos..</span> --}}
                     @endif
+                    @if (isset($reporte->personasJuridicas) and $reporte->personasJuridicas->count())
+                    @foreach ($reporte->personasJuridicas as $p)
+                       <p>{{$p->telefono}}</p>
+                    @endforeach
+                    {{-- @else
+                       <span class="text-secondary">Sin datos..</span> --}}
+                   @endif
+
+
                  </td>
                 <td> {{$reporte->observaciones_grales}}</td>
                 <td> {{$reporte->detalleHabilitacion->fecha_vencimiento}}</td>
@@ -82,6 +102,16 @@
         @endisset
         <button type="submit" class="btn btn-warning">Generar PDF Habilitaciones a vencer</button>
     </form>
+
+    @elseif (isset($tramite))
+    <form method="POST" action="{{route('generar-reportes-habilitaciones-en-tramite-pdf')}}" enctype="multipart/form-data">
+        @csrf
+        @isset($reportes)
+            <input type="hidden" name="reportes" value="{{$reportes}}">
+        @endisset
+        <button type="submit" class="btn btn-success">Generar PDF Habilitaciones en trámite</button>
+    </form>
+
     @else
     <form method="POST" action="{{route('generar-reportes-habilitaciones-vencidas-pdf')}}" enctype="multipart/form-data">
         @csrf
@@ -90,6 +120,7 @@
         @endisset
         <button type="submit" class="btn btn-danger">Generar PDF Habilitaciones vencidas</button>
     </form>
+
     @endif
     </div>
 

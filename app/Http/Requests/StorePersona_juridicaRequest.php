@@ -24,24 +24,31 @@ class StorePersona_juridicaRequest extends FormRequest
     public function rules()
     {
         return [
-            'cuit'=>'required|string',
-            'nombre_representante'=>'required|string|max:50',
-            'apellido_representante'=>'required|string|max:50',
-            'dni_representante'=>'string|max:10|nullable',
-            'telefono'=>'required|string',
+            'cuit'=>'required|string|unique:personas_juridicas',
+            'nombre_persona_juridica' =>'required|string|max:50',
+            // 'nombre_representante'=>'string|max:50',
+            // 'apellido_representante'=>'string|max:50',
+            // 'dni_representante'=>'string|max:10|nullable',
+            // 'telefono'=>'string',
         ];
     }
 
     public function messages() {
         return [
             'cuit.required' => 'El campo cuit no puede estar vacio.',
+            'cuit.unique' => 'La persona jurídica ya se encuentra cargada.',
+            'nombre_persona_juridica.required' => 'El campo nombre persona jurídica no puede estar vacio.',
+            'nombre_persona_juridica.max' => 'El campo nombre persona jurídica acepta solo 50 caracteres.',
+
+
             //'cuit.numeric' => 'el campo cuit solo acepta nùmeros',
-            'nombre_representante.required' => 'El campo nombre del representante no puede estar vacio.',
-            'nombre_representante.max' => 'El campo nombre del representante acepta solo 50 caracteres.',
-            'apellido_representante.required' => 'El campo apellido del representante no puede estar vacio.', 
-            'apellido_representante.max' => 'El campo apellido del representante acepta solo 50 caracteres.',
-            'dni_representante.max' => 'El campo dni del representante acepta solo 10 caracteres.',
-            'telefono.required' => 'El campo telefono no puede estar vacio.',
+            //'nombre_representante.required' => 'El campo nombre del representante no puede estar vacio.',
+            //'nombre_representante.max' => 'El campo nombre del representante acepta solo 50 caracteres.',
+            //'apellido_representante.required' => 'El campo apellido del representante no puede estar vacio.', 
+            //'apellido_representante.max' => 'El campo apellido del representante acepta solo 50 caracteres.',
+            //'dni_representante.max' => 'El campo dni del representante acepta solo 10 caracteres.',
+            //'telefono.required' => 'El campo telefono no puede estar vacio.',
+            
             //'telefono.numeric' => 'el campo telefono solo acepta nùmeros',
         ];
     }

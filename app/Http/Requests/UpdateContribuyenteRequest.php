@@ -31,25 +31,25 @@ class UpdateContribuyenteRequest extends FormRequest
             'dni'=>'required|string|max:8',
             'fecha_nacimiento'=>'required|date',
             'telefono'=>'string|nullable|max:20', 
-            'nombre_conyuge'=>'string|nullable|max:20',
-            'apellido_conyuge'=>'string|nullable|max:20',
-            'dni_conyuge'=>'string|nullable|max:8',
+         //   'nombre_conyuge'=>'string|nullable|max:20',
+          //  'apellido_conyuge'=>'string|nullable|max:20',
+          //  'dni_conyuge'=>'string|nullable|max:8',
         ];
     }
 
     public function messages() {
         return [
-            'cuit.required' => 'el campo cuit no puede estar vacio',
-            'cuit.max' => 'el campo cuit tiene un maximo de 11 caracteres',
-            'ingresos_brutos.required' => 'el campo ingresos brutos no puede estar vacio',
-            'ingresos_brutos.max' => 'el campo ingresos brutos tiene un maximo de 11 caracteres',
-            'nombre.required' => 'el campo nombre no puede estar vacio',
-            'nombre.max' => 'el campo nombre tiene un maximo de 20 caracteres',
-            'apellido.required' => 'el campo apellido no puede estar vacio',
-            'apellido.max' => 'el campo apellido tiene un maximo de 20 caracteres',
-            'dni.required' => 'el campo dni no puede estar vacio',
-            'dni.max' => 'el campo cuit tiene un maximo de 8 caracteres',
-            'fecha_nacimiento.required' => ' el campo fecha de nacimiento no puede estar vacio',
+            'cuit.required' => 'El campo cuit no puede estar vacio',
+            'cuit.max' => 'El campo cuit tiene un maximo de 11 caracteres',
+            'ingresos_brutos.required' => 'El campo ingresos brutos no puede estar vacio',
+            'ingresos_brutos.max' => 'El campo ingresos brutos tiene un maximo de 11 caracteres',
+            'nombre.required' => 'El campo nombre no puede estar vacio',
+            'nombre.max' => 'El campo nombre tiene un maximo de 20 caracteres',
+            'apellido.required' => 'El campo apellido no puede estar vacio',
+            'apellido.max' => 'El campo apellido tiene un maximo de 20 caracteres',
+            'dni.required' => 'El campo dni no puede estar vacio',
+            'dni.max' => 'El campo cuit tiene un maximo de 8 caracteres',
+            'fecha_nacimiento.required' => 'El campo fecha de nacimiento no puede estar vacio',
         ];
     }
 }

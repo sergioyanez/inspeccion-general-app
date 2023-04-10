@@ -33,7 +33,7 @@ class LogsExpedienteController extends Controller
         $logs_expediente->nro_expediente = $expediente->nro_expediente;
         $logs_expediente->nro_comercio = $expediente->nro_comercio;
         $logs_expediente->actividad_ppal = $expediente->actividad_ppal;
-        //$logs_expediente->anexo = $expediente->anexo;
+        $logs_expediente->anexo = $expediente->anexo;
         $logs_expediente->pdf_solicitud = $expediente->pdf_solicitud;
         $logs_expediente->bienes_de_uso = $expediente->bienes_de_uso;
         $logs_expediente->observaciones_grales = $expediente->observaciones_grales;
@@ -41,8 +41,8 @@ class LogsExpedienteController extends Controller
         $logs_expediente->estado_baja_id = $expediente->estado_baja_id;
         $logs_expediente->detalle_inmueble_id = $expediente->detalle_inmueble_id;
         $logs_expediente->accion = $char;
-        // $logs_expediente->usuario_id = $user->id;
-        // $logs_expediente->usuario_nombre = $user->usuario;
+        $logs_expediente->usuario_id = $user->id;
+        $logs_expediente->usuario_nombre = $user->usuario;
         $logs_expediente->save();
 
         return 'guardado';

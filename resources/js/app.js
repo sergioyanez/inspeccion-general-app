@@ -5,7 +5,7 @@ import * as bootstrap from "bootstrap";
 // ES6 Modules or TypeScript
 import Swal from "sweetalert2";
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
 
     let selectCasado = document.getElementById('selectCasado');
     let divConyuge2 = document.getElementById('divConyuge2');
@@ -58,16 +58,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    if(selectCasado){
+    if (selectCasado) {
         divConyuge2.style.display = 'none';
         divConyuge.style.display = 'none';
-    
-        selectCasado.addEventListener("change", function () {
+
+        selectCasado.addEventListener("change", function() {
             if (Number(selectCasado.value) === 2) {
                 divConyuge2.style.display = 'block';
                 divConyuge.style.display = 'block';
-            }
-            else{
+            } else {
                 divConyuge2.style.display = 'none';
                 divConyuge.style.display = 'none';
             }
@@ -77,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (tipoBaja) {
         console.log(fechaVencimientoProvisoria.value);
 
-        if(Number(tipoBaja.value) === 1){
+        if (Number(tipoBaja.value) === 1) {
             cajaBajaProvisoria("block");
             cajaBajaPermanente("none");
             fechaVencimientoProvisoria.required = true;
@@ -96,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
             fechaVencimientoProvisoria.required = false;
             fechaVencimientoPermanente.required = true;
         }
-        tipoBaja.addEventListener("change", function () {
+        tipoBaja.addEventListener("change", function() {
             if (Number(this.value) === 1) {
                 cajaBajaProvisoria("block");
                 cajaBajaPermanente("none");
@@ -132,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function () {
             cajaFechaVencimiento("none");
             fechaVencimiento.required = false;
         }
-        tipo.addEventListener("change", function () {
+        tipo.addEventListener("change", function() {
             if (Number(this.value) === 1) {
                 cajaFechaVencimiento("block");
                 fechaVencimiento.required = true;
@@ -147,15 +146,15 @@ document.addEventListener("DOMContentLoaded", function () {
     let cajaPDFAviso = document.getElementById("cajaPDFAviso");
     let cajaDetalleAviso = document.getElementById("cajaDetalleAviso");
 
-    if(selectAviso){
-        if(selectAviso.value == 'telefonica'){
+    if (selectAviso) {
+        if (selectAviso.value == 'telefonica') {
             cajaPDFAviso.style.display = "none";
             cajaDetalleAviso.style.display = "block";
-        }else {
+        } else {
             cajaPDFAviso.style.display = "block";
             cajaDetalleAviso.style.display = "none";
         }
-        selectAviso.addEventListener("change", function () {
+        selectAviso.addEventListener("change", function() {
             if (this.value === 'telefonica') {
                 cajaPDFAviso.style.display = "none";
                 cajaDetalleAviso.style.display = "block";
@@ -243,7 +242,7 @@ function alertSuccess(mensaje) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     let fechaPrimerHabilitacion = document.getElementById(
         "fechaPrimerHabilitacion"
     );

@@ -85,6 +85,7 @@ class ExpedienteController extends Controller
                 ->orWhereHas('personasJuridicas', function ($p) {
                     $p->where('nombre_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
                     $p->orwhere('apellido_representante', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
+                    $p->orwhere('nombre_persona_juridica', 'LIKE', '%' . request('buscarporcontribuyente') . '%');
                     }
                 );
             })
@@ -141,16 +142,18 @@ class ExpedienteController extends Controller
         $expediente->nro_expediente = $numero_expediente;
         $numero_comercio = $request->nro_comercio . $request->nro_comercio1 . $request->nro_comercio3 . $request->nro_comercio2;
         $expediente->nro_comercio = $numero_comercio;
-        $expediente->actividad_ppal = $request->actividad_ppal;     
+        $expediente->actividad_ppal = $request->actividad_ppal;
+        $expediente->anexo = $request->anexo;
+
         if($request->hasFile('pdf_solicitud')) {
             $archivo1 = $request->file('pdf_solicitud');
             //$archivo1_name = $archivo1->getClientOriginalName();
             $archivo1->move(public_path().'/archivos/', $archivo1->getClientOriginalName());
             $expediente->pdf_solicitud = '/archivos/' . $archivo1->getClientOriginalName();
-            
+
         }
-        $expediente->bienes_de_uso = $request->bienes_de_uso;       
-        $expediente->observaciones_grales = $request->observaciones_grales;     
+        $expediente->bienes_de_uso = $request->bienes_de_uso;
+        $expediente->observaciones_grales = $request->observaciones_grales;
         $expediente->detalle_habilitacion_id = $detalleHabilitacion_id;
         $expediente->detalle_inmueble_id = $detalleInmueble_id;
 
@@ -194,7 +197,7 @@ class ExpedienteController extends Controller
                 $log8->store($infomeDependencias, 'c');
             }
 
-            // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
+            // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE
             $infomeDependencias = new Informe_dependencias;
             $infomeDependencias->expediente_id = $expediente->id;
             $infomeDependencias->tipo_dependencia_id = 6;
@@ -239,7 +242,7 @@ class ExpedienteController extends Controller
                 $log13->store($infomeDependencias, 'c');
             }
 
-            return redirect()->route('expedientes-mostrar', [$expediente->id]);
+            return redirect()->route('expedientes-mostrar', [$expediente->id])->with('success','Creado con éxito');
         }
         return back()->with('fail','No se pudo crear el expediente');
     }
@@ -258,8 +261,8 @@ class ExpedienteController extends Controller
         $tiposInmuebles = Tipo_inmueble::all();
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
-        $expedientesContribuyentes = ExpedienteContribuyente::all(); 
-        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();   
+        $expedientesContribuyentes = ExpedienteContribuyente::all();
+        $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
 
         return view('expediente.mostrar', ['expediente'=>$expediente,
                                         'detalleHabilitaciones'=>$detalleHabilitaciones,
@@ -364,11 +367,11 @@ class ExpedienteController extends Controller
         }
         $expediente->bienes_de_uso = $request->bienes_de_uso;
         $expediente->observaciones_grales = $request->observaciones_grales;
-        
+
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
-            return redirect()->route('expedientes-mostrar1', [$expediente->id]);
+            return redirect()->route('expedientes-mostrar1', [$expediente->id]) /*->with('success','Editado con éxito')*/;
 
         }
         return back()->with('fail','No se pudo editar el expediente');
@@ -442,11 +445,11 @@ class ExpedienteController extends Controller
 
         // SE CREA/ACTUALIZA EL EXPEDIENTE
         $expediente = Expediente::find($request->expediente_id);
-        
+
         if(isset($catastro->id)) {
             $expediente->catastro_id = $catastro->id;
         }
-        
+
         if ($expediente->save()){
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
@@ -547,7 +550,7 @@ class ExpedienteController extends Controller
                 }
             }
 
-            // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE/HABILITACIÒN COMERCIAL
+            // TASA POR INSPECCIÒN DE SEGURIDAD E HIGIENE
             if($request->inspeccion_id != null) {
                 $infomeDependencias = Informe_dependencias::find($request->inspeccion_id);
                 $infomeDependencias->expediente_id = $expediente->id;
@@ -666,7 +669,7 @@ class ExpedienteController extends Controller
                     $log13->store($infomeDependencias, 'u');
                 }
             }
-            return redirect()->route('expedientes-mostrar2', [$expediente->id]);
+            return redirect()->route('expedientes-mostrar2', [$expediente->id])/*->with('success','Editado con éxito')*/;
         }
     }
 
@@ -674,9 +677,15 @@ class ExpedienteController extends Controller
     {
         // SE ACTUALIZA DETALLE DE HABILITACION
         $detalleHabilitacion = Detalle_habilitacion::find($request->detalle_habilitacion);
+        if(isset($request->fecha_vencimiento) && $request->fecha_vencimiento<now()){
+            $detalleHabilitacion->tipo_estado_id = 3;
+        } else {
+            $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
+        }
+        
         if($request->tipo_habilitacion_id != "-- Seleccione --")
             $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
-        $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
+      //  $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
         $detalleHabilitacion->fecha_vencimiento = $request->fecha_vencimiento;
         $detalleHabilitacion->fecha_primer_habilitacion = $request->fecha_primer_habilitacion;
         if($request->hasFile('certificado_nuevo')) {
@@ -809,7 +818,7 @@ class ExpedienteController extends Controller
             $log = new LogsExpedienteController();
             $log->store($expediente, 'u');
 
-            return redirect()->route('pagina-principal');
+            return redirect()->route('pagina-principal')->with('success','Expediente guardado con éxito');
         }
     }
 

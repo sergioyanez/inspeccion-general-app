@@ -36,13 +36,15 @@ class LogsPersonaJuridicaController extends Controller {
 
         $logs_persona_juridica->persona_juridica_id = $persona_juridica->id;
         $logs_persona_juridica->cuit = $persona_juridica->cuit;
+        $logs_persona_juridica->nombre_persona_juridica = $persona_juridica->nombre_persona_juridica;
+
         $logs_persona_juridica->nombre_representante = $persona_juridica->nombre_representante;
         $logs_persona_juridica->apellido_representante = $persona_juridica->apellido_representante;
         $logs_persona_juridica->dni_representante = $persona_juridica->dni_representante;
         $logs_persona_juridica->telefono = $persona_juridica->telefono;
         $logs_persona_juridica->accion = $char;
-        //$logs_persona_juridica->usuario_id = $user->id; -> PORBAR CON USUARIO
-        //$logs_persona_juridica->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
+        $logs_persona_juridica->usuario_id = $user->id;
+        $logs_persona_juridica->usuario_nombre = $user->usuario;
 
         $logs_persona_juridica->save();
 

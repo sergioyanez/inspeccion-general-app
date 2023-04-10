@@ -13,6 +13,7 @@ use App\Http\Requests\StorePersona_juridicaRequest;
 use App\Http\Requests\UpdatePersona_juridicaRequest;
 use App\Http\Controllers\LogsPersonaJuridicaController;
 use Illuminate\Http\Request;
+use App\Http\Requests\BuscarPersonaJuridicaRequest;
 
 /**
  * Controller de PersonaJuridica: brinda acceso a los servicios de persona jurídica.
@@ -38,7 +39,7 @@ class PersonaJuridicaController extends Controller {
         return view('personaJuridica.personasJuridicas', ['personasJuridicas' => $personasJuridicas]);
     }
 
-    public function indexBuscar(Request $request)
+    public function indexBuscar(BuscarPersonaJuridicaRequest $request)
     {
         $tiposEstados = Tipo_estado::all();
         $tiposhabilitaciones = Tipo_habilitacion::all();
@@ -86,6 +87,7 @@ class PersonaJuridicaController extends Controller {
 
         $personaJuridica = new Persona_juridica();
         $personaJuridica->cuit = $request->cuit;
+        $personaJuridica->nombre_persona_juridica = $request->nombre_persona_juridica;
         $personaJuridica->nombre_representante = $request->nombre_representante;
         $personaJuridica->apellido_representante = $request->apellido_representante;
         $personaJuridica->dni_representante = $request->dni_representante;
@@ -137,6 +139,7 @@ class PersonaJuridicaController extends Controller {
 
         $personaJuridica = Persona_juridica::find($request->id);
         $personaJuridica->cuit = $request->cuit;
+        $personaJuridica->nombre_persona_juridica = $request->nombre_persona_juridica;
         $personaJuridica->nombre_representante = $request->nombre_representante;
         $personaJuridica->apellido_representante = $request->apellido_representante;
         $personaJuridica->dni_representante = $request->dni_representante;

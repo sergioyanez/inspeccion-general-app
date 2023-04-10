@@ -53,28 +53,21 @@ class ComposerAutoloaderInit4a0ea7c4a18909ce599204054bf1fb40
         $loader->register(true);
 
         if ($useStaticLoader) {
-            $includeFiles = Composer\Autoload\ComposerStaticInit4a0ea7c4a18909ce599204054bf1fb40::$files;
+            $filesToLoad = Composer\Autoload\ComposerStaticInit4a0ea7c4a18909ce599204054bf1fb40::$files;
         } else {
             $includeFiles = require __DIR__ . '/autoload_files.php';
         }
-        foreach ($includeFiles as $fileIdentifier => $file) {
-            composerRequire4a0ea7c4a18909ce599204054bf1fb40($fileIdentifier, $file);
+        $requireFile = \Closure::bind(static function ($fileIdentifier, $file) {
+            if (empty($GLOBALS['__composer_autoload_files'][$fileIdentifier])) {
+                $GLOBALS['__composer_autoload_files'][$fileIdentifier] = true;
+
+                require $file;
+            }
+        }, null, null);
+        foreach ($filesToLoad as $fileIdentifier => $file) {
+            $requireFile($fileIdentifier, $file);
         }
 
         return $loader;
-    }
-}
-
-/**
- * @param string $fileIdentifier
- * @param string $file
- * @return void
- */
-function composerRequire4a0ea7c4a18909ce599204054bf1fb40($fileIdentifier, $file)
-{
-    if (empty($GLOBALS['__composer_autoload_files'][$fileIdentifier])) {
-        $GLOBALS['__composer_autoload_files'][$fileIdentifier] = true;
-
-        require $file;
     }
 }

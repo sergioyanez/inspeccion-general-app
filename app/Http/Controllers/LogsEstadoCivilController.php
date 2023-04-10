@@ -36,8 +36,8 @@ class LogsEstadoCivilController extends Controller
         $logs_estado_civil->estado_civil_id = $estado_civil->id;
         $logs_estado_civil->descripcion = $estado_civil->descripcion;
         $logs_estado_civil->accion = $char;
-        // $logs_estado_civil->usuario_id = $user->id;
-        // $logs_estado_civil->usuario_nombre = $user->usuario;
+        $logs_estado_civil->usuario_id = $user->id;
+        $logs_estado_civil->usuario_nombre = $user->usuario;
 
         return $logs_estado_civil->save();
     }

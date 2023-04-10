@@ -37,12 +37,9 @@ class LogsTipoDependenciaController extends Controller {
         $logs_tipo_dependencia->tipo_dependencia_id = $tipo_dependencia->id;
         $logs_tipo_dependencia->nombre = $tipo_dependencia->nombre;
         $logs_tipo_dependencia->accion = $char;
-        //$logs_tipo_dependencia->usuario_id = $user->id; -> PORBAR CON USUARIO
-        //$logs_tipo_dependencia->usuario_nombre = $user->usuario; -> IDEM ANTERIOR
-
+        $logs_tipo_dependencia->usuario_id = $user->id;
+        $logs_tipo_dependencia->usuario_nombre = $user->usuario;
         $logs_tipo_dependencia->save();
-
-
         return 'guardado';
     }
 

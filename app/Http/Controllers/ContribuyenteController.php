@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\LogsContribuyenteController;
 use App\Http\Requests\StoreContribuyenteRequest;
 use App\Http\Requests\UpdateContribuyenteRequest;
+use App\Http\Requests\BuscarContribuyenteRequest;
 use App\Models\ExpedienteContribuyente;
 use App\Models\ExpedientePersonaJuridica;
 
@@ -42,9 +43,9 @@ class ContribuyenteController extends Controller
         return view('contribuyente.contribuyentes', ['contribuyentes' => $contribuyentes]);
     }
 
-    public function indexBuscar(Request $request)
+    public function indexBuscar(BuscarContribuyenteRequest $request)
     {
-        $buscar = $request->buscarpor;
+        $buscar = $request->validated(['buscarpor']);
         $contribuyentes = Contribuyente::orderBy('apellido', 'asc')
         ->where('dni', 'LIKE', '%' . $buscar . '%')
         ->paginate(200);
@@ -55,7 +56,7 @@ class ContribuyenteController extends Controller
         $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
 
         // return redirect()->route('expedientes-mostrar', [$expediente->id]);
-        
+
         return view('expediente.mostrar', ['contribuyentes' => $contribuyentes,
                                         'expediente'=>$expediente,
                                         'expedientesPersonasJuridicas'=>$expedientesPersonasJuridicas,
@@ -73,8 +74,8 @@ class ContribuyenteController extends Controller
         $tiposDni = Tipo_dni::all();
         $expediente = false;
         $tiposInmuebles = Tipo_inmueble::all();
-        return view('contribuyente.crear', ['estados'=>$estadosCivil, 
-                                            'tipos'=>$tiposDni, 
+        return view('contribuyente.crear', ['estados'=>$estadosCivil,
+                                            'tipos'=>$tiposDni,
                                             'expediente'=>$expediente,
                                             'tiposInmuebles' => $tiposInmuebles]);
     }
@@ -92,7 +93,7 @@ class ContribuyenteController extends Controller
         $expedientesContribuyentes= ExpedienteContribuyente::all();
         $expedientesPersonasJuridicas = ExpedientePersonaJuridica::all();
         $expediente = true;
-        return view('contribuyente.crear', ['estados'=>$estadosCivil, 
+        return view('contribuyente.crear', ['estados'=>$estadosCivil,
                                             'tipos'=>$tiposDni]);
                                             //'expediente'=>$expediente,
                                             //'tiposInmuebles' => $tiposInmuebles,

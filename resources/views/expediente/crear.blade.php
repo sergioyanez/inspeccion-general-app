@@ -1,4 +1,4 @@
-    
+
 @include('header.header')
     <div class="container">
         <div class="row">
@@ -27,7 +27,7 @@
                                             @enderror
                                         </div>
                                         <div class="col-1">
-                                            <input readonly type="text" name="nro_expediente2" class="form-control" value="/{{ now()->year }}"/>
+                                            <input type="text" name="nro_expediente2" class="form-control" value="/{{ now()->year }}"/>
                                         </div>
                                     </div>
                                 </div>
@@ -56,10 +56,11 @@
                                                 </div>
                                             @enderror
                                         </div>
-                                        
+
                                     </div>
                                 </div>
-                                <div class="col-3 mb-3">
+                                <div class="row">
+                                <div class="col-5 mb-3">
                                     <label class="form-label" for="basic-default-fullname">Actividad principal <span class="text-muted">(obligatorio)</span></label>
                                     <input type="text" name="actividad_ppal" class="form-control @error('actividad_ppal') is-invalid @enderror" id="basic-default-nombreCompleto" value="{{ old('actividad_ppal') }}"/>
                                     @error('actividad_ppal')
@@ -67,14 +68,18 @@
                                             {{$message}}
                                         </div>
                                     @enderror
-                                    {{-- <label class="form-label" for="basic-default-fullname">Anexo</label>
+                                </div>
+                                <div class="col-5 mb-3">
+                                 <label class="form-label" for="basic-default-fullname">Anexo</label>
                                     <input  type="text" name="anexo" class="form-control" id="basic-default-nombreCompleto" value="{{ old('anexo') }}"/>
                                     @error('anexo')
-                                        
+
                                         <div>
                                             {{$message}}
                                         </div>
-                                    @enderror --}}
+                                    @enderror
+                                </div>
+                            </div>
                                 </div>
 
                                 {{-- DATOS DEL INMUEBLE --}}
@@ -129,16 +134,18 @@
                                     @enderror
                                 </div>
 
-                                {{-- BIENES DE USO Y OBSERVACIONES GENERALES --}}
+                                {{-- ANTECEDENTES ( antes llamado BIENES DE USO) Y OBSERVACIONES GENERALES --}}
                                 <div class="col-12 mb-3">
-                                    <label class="form-label" for="basic-default-fullname">Bienes de uso</label>
-                                    <textarea placeholder="Detalle de bienes de uso.." name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto"></textarea>
+                                    <label class="form-label" for="basic-default-fullname">Antecedentes</label>
+                                    <textarea  placeholder="Detalle de antecedentes.." name="bienes_de_uso" class="form-control" id="basic-default-nombreCompleto"></textarea>
                                 </div>
                                 <div class="col-12 mb-3">
                                     <label class="form-label" for="basic-default-fullname">Observaciones Generales</label>
                                     <textarea cols="40" rows="5" placeholder="Observaciones.." name="observaciones_grales" class="form-control" id="basic-default-nombreCompleto"></textarea>
                                 </div>
+
                                 
+
                                 {{-- DETALLE HABILITACION --}}
                                 <div class="col-2 mb-3">
                                     <label class="form-label" for="basic-default-fullname">Estado de habilitación</label>
@@ -151,16 +158,16 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                
+                                <a href="{{route('pagina-principal')}}" class="ms-1 mt-4 me-3 btn btn-secondary btn-salir">Volver</a>
+                                <button type="submit" class="mt-4 btn btn-success btn-salir">Comenzar a cargar</button>
                             </div>
-                            <a href="{{route('pagina-principal')}}" class="ms-1 mt-4 me-3 btn btn-secondary btn-salir">Volver</a>
-                            <button type="submit" class="mt-4 btn btn-success btn-salir">Comenzar a cargar</button>
+
                         </form>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
    </div>
  @include('footer.footer')
-    
+

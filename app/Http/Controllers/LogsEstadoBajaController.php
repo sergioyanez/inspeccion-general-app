@@ -40,8 +40,8 @@ class LogsEstadoBajaController extends Controller {
         $logs_estado_baja->pdf_informe_deuda = $estadoBaja->pdf_informe_deuda;
         $logs_estado_baja->pdf_solicitud_baja = $estadoBaja->pdf_solicitud_baja;
         $logs_estado_baja->accion = $char;
-        // $logs_estado_baja->usuario_id = $user->id;
-        // $logs_estado_baja->usuario_nombre = $user->usuario;
+        $logs_estado_baja->usuario_id = $user->id;
+        $logs_estado_baja->usuario_nombre = $user->usuario;
         $logs_estado_baja->save();
         return "guardado";
     }

@@ -1,4 +1,4 @@
-@include('header.header') 
+@include('header.header')
 
 <div class="container">
 
@@ -7,27 +7,31 @@
         <table class="table table-striped">
             <thead>
                 <tr class="resultadoBusqueda">
+                    <th class="cabecera">Nº de expediente</th>
                     <th class="cabecera">Nº de comercio</th>
                     <th class="cabecera">Contribuyente</th>
-                    <th class="cabecera">Observaciones/detalles</th>
+                    <th class="cabecera">Observaciones</th>
                     <th class="cabecera">Estado de habilitación</th>
+                    <th class="cabecera">Accion</th>
                 </tr>
             </thead>
             <tbody class="table-border-bottom-0">
                 @forelse($expedientes as $expediente)
                     <tr>
+                        <td class="filas">{{$expediente->nro_expediente}}</td>
                         <td class="filas">{{$expediente->nro_comercio}}</td>
                         <td class="filas">
                             @foreach($expediente->contribuyentes as $registro)
                                 {{$registro->nombre}}
                                 {{$registro->apellido}}
-                                -
+
                             @endforeach
 
                             @foreach($expediente->personasJuridicas as $registro1)
+                                {{$registro1->nombre_persona_juridica}}
                                 {{$registro1->nombre_representante}}
                                 {{$registro1->apellido_representante}}
-                                -
+
                             @endforeach
                         </td>
                         <td class="filas">{{$expediente->observaciones_grales}}</td>
@@ -40,7 +44,7 @@
                 @endforelse
             </tbody>
         </table>
-                        
+
         <div class="col-12 d-flex justify-content-end">
             <a href="{{route('busqueda-expediente')}}" class="mt-4 me-5 btn btn-secondary btn-salir">Volver</a>
         </div>
