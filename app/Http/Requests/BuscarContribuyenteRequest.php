@@ -25,15 +25,15 @@ class BuscarContribuyenteRequest extends FormRequest
     {
         return [
        //    'buscarpor' => 'required|min:8|max:8',
-            'buscarpor' => ['required','min:8','max:8']
+            'buscarpor' => ['required','min:7','max:8']
         ];
     }
 
     public function messages() {
         return [
             'buscarpor.required' => 'este campo debe estar completo.',
-            'buscarpor.min' => 'el campo número de documento debe tener 8 dígitos.',
-            'buscarpor.max' => 'el campo número de documento debe tener 8 dígitos.'
+            'buscarpor.min' => 'el campo número de documento debe tener 7 dígitos como minimo.',
+            'buscarpor.max' => 'el campo número de documento debe tener 8 dígitos como máximo.'
 
         ];
     }
