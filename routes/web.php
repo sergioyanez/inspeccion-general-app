@@ -89,7 +89,7 @@ Route::controller(AvisosController::class)->middleware('auth')->group(function()
 // RUTA DE USUARIO
 Route::controller(UsuarioController::class)->middleware('auth')->group(function(){
     Route::get('usuario','index')->name('usuarios');
-    Route::get('usuario/create','create')->name('usuarios-crear');
+    Route::get('usuario/create','create')->middleware('verificar-rol')->name('usuarios-crear');
     Route::post('usuario/guardar','store')->name('usuarios-guardar');
     Route::get('usuario/mostrar/{id}','show')->name('usuarios-mostrar');
     Route::get('usuario/editar/{id}','edit')->name('usuarios-editar');

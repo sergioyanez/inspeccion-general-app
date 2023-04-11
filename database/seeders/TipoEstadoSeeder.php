@@ -30,6 +30,11 @@ class TipoEstadoSeeder extends Seeder
                 'descripcion' => "Vencida",
                 'created_at'=>now(),
                 'updated_at'=>now()
+            ],
+            [
+                'descripcion' => "De baja",
+                'created_at'=>now(),
+                'updated_at'=>now()
             ]
 
         ];
