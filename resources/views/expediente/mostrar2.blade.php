@@ -295,13 +295,13 @@
                                         @if($expediente->estado_baja_id != null)
                                             <input type="hidden" name="estado_baja_id" value="{{$expediente->estado_baja_id}}" id="estado_baja_id">
                                             <input type="hidden" name="tipo_baja_id" value="{{$expediente->estadoBaja->tipoBaja->id}}" id="tipo_baja_id">
-                                            <div class="col-6">
-                                                <label class="form-label" for="basic-default-fullname">Estado de baja</label>
-                                                @if ($expediente->estadoBaja->tipoBaja->descripcion == "Provisoria")
-                                                    <select readonly name="tipo_baja_id" class="form-control" id="tipo_baja">
-                                                        <option value="{{$tipo->id}}" selected >{{$expediente->estadoBaja->tipoBaja->descripcion}}</option>
-                                                    </select>
-                                            </div>
+                                                <div class="col-6">
+                                                    <label class="form-label" for="basic-default-fullname">Estado de baja</label>
+                                                    @if ($expediente->estadoBaja->tipoBaja->descripcion == "Provisoria")
+                                                        <select readonly name="tipo_baja_id" class="form-control" id="tipo_baja">
+                                                            <option value="{{$tipo->id}}" selected >{{$expediente->estadoBaja->tipoBaja->descripcion}}</option>
+                                                        </select>
+                                                </div>
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-fullname">Monto adeudado</label>
@@ -330,11 +330,12 @@
                                                 </div>
 
                                             @else
+
                                                 @if ($expediente->estadoBaja->tipoBaja->descripcion == "Permanente" || $expediente->estadoBaja->tipoBaja->descripcion == "De oficio")
                                                     <select readonly required name="estado_baja" class="form-select" id="tipo_baja">
                                                         <option value="{{$tipo->id}}" selected >{{$expediente->estadoBaja->tipoBaja->descripcion}}</option>
                                                     </select>
-                                                </div>
+
                                                 <div class="col-6">
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-default-fullname">Fecha de baja</label>

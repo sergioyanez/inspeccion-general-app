@@ -36,7 +36,7 @@
                         </td>
                         <td class="filas">{{$expediente->observaciones_grales}}</td>
                         {{-- <td><a class="btn-btn-danger" href="archivos/{{ $expediente->pdf_solicitud }}" target="blank_">Ver documento</td> --}}
-                        <td class="filas">@if(isset($expediente->detalleHabilitacion->fecha_vencimiento) && $expediente->detalleHabilitacion->fecha_vencimiento < now()) Vencida @else {{$expediente->detalleHabilitacion->tipoEstado->descripcion}} @endif</td>
+                        <td class="filas">@if($expediente->estado_baja_id != null)Baja {{$expediente->estadoBaja->tipoBaja->descripcion}} @elseif(isset($expediente->detalleHabilitacion->fecha_vencimiento) && $expediente->detalleHabilitacion->fecha_vencimiento < now()) Vencida @else {{$expediente->detalleHabilitacion->tipoEstado->descripcion}} @endif</td>
                         <td class="columnaBtn"><a href="{{route('expedientes-mostrar', $expediente->id)}}" class="d-flex justify-content-center btn btnVerMas">Ver más</></td>
                     </tr>
                 @empty
