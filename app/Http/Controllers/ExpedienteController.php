@@ -665,12 +665,15 @@ class ExpedienteController extends Controller
     {
         // SE ACTUALIZA DETALLE DE HABILITACION
         $detalleHabilitacion = Detalle_habilitacion::find($request->detalle_habilitacion);
-        if(isset($request->fecha_vencimiento) && $request->fecha_vencimiento<now()){
+        if(isset($request->tipo_baja_id)){
+            $detalleHabilitacion->tipo_estado_id = 4;
+        }
+        else if(isset($request->fecha_vencimiento) && $request->fecha_vencimiento<now()){
             $detalleHabilitacion->tipo_estado_id = 3;
         } else {
             $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
         }
-        
+
         if($request->tipo_habilitacion_id != "-- Seleccione --")
             $detalleHabilitacion->tipo_habilitacion_id = $request->tipo_habilitacion_id;
       //  $detalleHabilitacion->tipo_estado_id = $request->estado_habilitacion_id;
