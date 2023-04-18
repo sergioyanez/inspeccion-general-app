@@ -21,7 +21,7 @@ class UsuarioSeeder extends Seeder
         $usuario->tipo_permiso_id = 1;
         $usuario->email = 'tudai@gmail.com';
         $usuario->email_verified_at = now();
-        $usuario->password = '$2y$10$gJCmE3IYRjm7AbDDtbe4Ne0bI3L2TTX5QYUt1oJm.r/WFt./NQJxa';
+        $usuario->password = '$2y$10$DARcFZo7WO41ir3SIHwCeuh3Tp6PIo7YZuCWdPmPo/yk6BDdaAbBa';
         $usuario->remember_token = Str::random(10);
         $usuario->save();
     }

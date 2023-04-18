@@ -698,7 +698,7 @@ class ExpedienteController extends Controller
             $estadoBaja = Estado_baja::find($request->estado_baja_id);
             // PROVISORIA
             if( $request->tipo_baja_id ==1){
-
+            //   echo($request);
                 $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
                 $estadoBaja->deuda = $request->deuda;
                 $estadoBaja->fecha_baja = $request->fecha_baja_provisoria;
@@ -727,6 +727,7 @@ class ExpedienteController extends Controller
             }
             // PERMANENTE o de oficio
             else {
+             //   echo($request);
                 if($request->fecha_baja1 && $request->hasFile('acta_baja_nuevo1')){
                     $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
                     $estadoBaja->fecha_baja = $request->fecha_baja1;
