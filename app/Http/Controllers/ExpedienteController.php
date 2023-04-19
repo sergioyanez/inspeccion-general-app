@@ -777,7 +777,7 @@ class ExpedienteController extends Controller
                     $log5->store($estadoBaja, 'c');
                 }
             }
-            if($request->fecha_baja1 && $request->hasFile('acta_baja_nuevo1')){
+            if($request->fecha_baja1 && $request->hasFile('acta_baja1')){
                 $estadoBaja = new Estado_baja();
                 $estadoBaja->tipo_baja_id = $request->tipo_baja_id;
                 $estadoBaja->fecha_baja = $request->fecha_baja1;
