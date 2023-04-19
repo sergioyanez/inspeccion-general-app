@@ -24,7 +24,9 @@ class Update2expedienteRequest extends FormRequest
     public function rules()
     {
         return [
-            //'certificado_nuevo' => 'required',
+            // 'certificado_nuevo' => 'required',
+            // 'acta_baja_nuevo' => 'required',
+            // 'acta_baja_nuevo1' => 'required'
         ];
     }
 

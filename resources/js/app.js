@@ -27,18 +27,31 @@ document.addEventListener("DOMContentLoaded", function() {
     );
 
     let estado_baja_id = document.getElementById("estado_baja_id");
-    // let bajaProvisoria_1 = document.getElementById("provisoria_1");
-    // let fechaVencimientoProvisoria_1 = document.getElementById("fechaVencimientoProvisoria_1");
-    // let bajaPermanente_1 = document.getElementById("permanente_1");
-    // let fechaVencimientoPermanente_1 = document.getElementById("fechaVencimientoPermanente_1");
+    let tieneBaja = document.getElementById("tieneBaja");
+    let detalleHabilitacion = document.getElementById("detalleHabilitacion");
 
-    //console.log(tipoBaja.value);
     cajaFechaVencimiento("none");
     cajaBajaPermanente("none");
     cajaBajaProvisoria("none");
+    cajaBaja("none");
 
-    // cajaBajaProvisoria_1("none");
-    // cajaBajaPermanente_1("none");
+    function cajaBaja(d) {
+        if (tieneBaja) {
+            tieneBaja.style.display = d;
+        }
+    }
+    detalleHabilitacion.addEventListener("change", function() {
+        console.log("detalleHabilitacion " + detalleHabilitacion.value);
+        console.log("tieneBaja " + tieneBaja.value);
+        if (Number(this.value) === 4) {
+            cajaBaja("block");
+        } else {
+            cajaBaja("none");
+        }
+
+    });
+
+
 
     function cajaFechaVencimiento(d) {
         if (caja) {
@@ -96,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
             fechaVencimientoPermanente.required = true;
         }
         tipoBaja.addEventListener("change", function() {
+
             if (Number(this.value) === 1) {
                 cajaBajaProvisoria("block");
                 cajaBajaPermanente("none");
