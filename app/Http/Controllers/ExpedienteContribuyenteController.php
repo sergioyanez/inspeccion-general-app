@@ -10,6 +10,21 @@ use App\Http\Requests\Storeexpediente_contribuyenteRequest;
 use App\Http\Requests\Updateexpediente_contribuyenteRequest;
 use Illuminate\Http\Request;
 
+/**
+ * Controller de ExpedienteContribuyente: brinda acceso a los servicios relacionados a los expedientes y contribuyentes.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez01@gmail.com
+ * @see ExpedienteContribuyente
+ * @see Contribuyente
+ * @see Expediente
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class ExpedienteContribuyenteController extends Controller
 {
     /**

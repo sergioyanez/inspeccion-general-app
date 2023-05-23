@@ -1,0 +1,160 @@
+openapi: 3.0.0
+info:
+  title: 'Documentación API del Sistema de Gestión de Habilitaciones Municipales de Rauch'
+  description: 'Sistema de digitalización de expedientes de habilitaciones comerciales de la Municipalidad de Rauch'
+  version: 1.0.0
+paths:
+  /login:
+    post:
+      tags:
+        - auth
+      summary: 'Iniciar sesión en el sistema'
+      description: 'Logueo mediante email y password'
+      operationId: authLogin
+      requestBody:
+        description: 'Credenciales del ususario'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: usuario
+                password:
+                  type: string
+                  format: password
+                  example: PassWord12345
+                remember:
+                  type: boolean
+                  example: 'true'
+              type: object
+      responses:
+        200:
+          description: 'Credencial válida'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: []
+                type: string
+              example: 'Usuario válido.'
+        422:
+          description: 'Error en la credencial'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: []
+                type: string
+              example: 'Usuario no válido.'
+  /loguot:
+    post:
+      tags:
+        - auth
+      summary: 'Terminar sesión en el sistema'
+      description: 'Salir del sistema.'
+      operationId: authLogout
+      responses:
+        200:
+          description: 'Sesión terminada'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: []
+                type: string
+              example: 'Sesión terminada.'
+  '/avisos/{id}/{desde}/{hasta}':
+    get:
+      tags:
+        - avisos
+      summary: 'Lista de avisos delimitados por fechas.'
+      description: "Devuelve un listado de los avisos desde la fecha ingresada 'desde', hasta la fecha 'hasta'"
+      operationId: avisosGet
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del aviso'
+          required: true
+          example: '1'
+        -
+          name: desde
+          in: path
+          description: 'fecha desde la cual se filtran los avisos'
+          required: true
+        -
+          name: hasta
+          in: path
+          description: 'fecha hasta la cual se filtran los avisos'
+          required: true
+      responses:
+        200:
+          description: 'Lista de avisos'
+          content:
+            application/json:
+              schema:
+                properties:
+                  data: []
+                type: object
+  /avisos/guardar:
+    post:
+      tags:
+        - avisos
+      summary: 'Almacena un aviso.'
+      description: 'Guarda un aviso.'
+      operationId: avisoPost
+      requestBody:
+        description: 'Nuevo aviso'
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - fecha_aviso
+                - detalle
+                - expediente_id
+                - tipo_comunicacion
+              properties:
+                fecha_aviso:
+                  type: string
+                  format: YYYY-MM-DD
+                  example: '2023-12-25'
+                detalle:
+                  type: string
+                  example: 'Detalle de aviso'
+                expediente_id:
+                  type: integer
+                  example: '1'
+                tipo_comunicacion:
+                  type: integer
+                  example: '1'
+                file:
+                  type: string
+                  format: binary
+              type: object
+      responses:
+        200:
+          description: 'Guardado con éxito.'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message: []
+                type: string
+              example: 'Guardado con éxito.'
+  /index:
+    get:
+      tags:
+        - index
+      summary: 'Página principal del sistema.'
+      description: 'Ingreso al sistema luego del inicio de sesión.'
+      operationId: index
+      responses:
+        200:
+          description: 'Página principal'

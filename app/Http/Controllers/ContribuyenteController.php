@@ -18,7 +18,20 @@ use App\Http\Requests\BuscarContribuyenteRequest;
 use App\Models\ExpedienteContribuyente;
 use App\Models\ExpedientePersonaJuridica;
 
-
+/**
+ * Controller de Contribuyente: brinda acceso a los servicios de Contribuyente.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez01@gmail.com
+ * @see Contribuyente
+ * @see Expediente
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class ContribuyenteController extends Controller
 {
     /**

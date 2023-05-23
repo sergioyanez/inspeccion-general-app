@@ -15,6 +15,20 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Dompdf\Dompdf;
 
+/**
+ * Controller del creador de los pdf: brinda acceso a los servicios de gestión de pdf's.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez01@gmail.com
+ * @see Carbon - Dependencia de gestión de fechas 
+ * @see Dompdf - Componente encargado de generar PDF's
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class PdfController extends Controller
 {
     // public function generarPdf()

@@ -7,6 +7,19 @@ use App\Http\Requests\UpdateEstado_civilRequest;
 use App\Http\Requests\StoreEstado_civilRequest;
 use App\Http\Controllers\LogsEstadoCivilController;
 
+/**
+ * Controller de EstadoCivil: brinda acceso a los servicios de los estados civiles.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez01@gmail.com
+ * @see Estado_civil
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class EstadoCivilController extends Controller
 {
     /**

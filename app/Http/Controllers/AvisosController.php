@@ -10,8 +10,57 @@ use App\Http\Controllers\LogsAvisosController;
 use App\Models\Expediente;
 use Carbon\Carbon;
 
+/**
+ * Controller de Avisos: brinda acceso a los servicios de los avisos.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez01@gmail.com
+ * @see AvisoModel
+ * @see Contribuyente
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class AvisosController extends Controller
 {
+    /**
+    * @OA\Get(
+    * path="/avisos/{id}/{desde}/{hasta}",
+    * summary="Lista de avisos delimitados por fechas.",
+    * description="Devuelve un listado de los avisos desde la fecha ingresada 'desde', hasta la fecha 'hasta'",
+    * operationId="avisosGet",
+    * tags={"avisos"},
+    * @OA\Parameter(
+    *    description="ID del aviso",
+    *    in="path",
+    *    name="id",
+    *    required=true,
+    *    example="1",
+    * ),
+    * @OA\Parameter(
+    *    description="fecha desde la cual se filtran los avisos",
+    *    in="path",
+    *    name="desde",
+    *    required=true,
+    * ),
+    * @OA\Parameter(
+    *    description="fecha hasta la cual se filtran los avisos",
+    *    in="path",
+    *    name="hasta",
+    *    required=true,
+    * ),
+    * @OA\Response(
+    *    response=200,
+    *    description="Lista de avisos",       
+    *    @OA\JsonContent(
+    *      @OA\Property(property="data"), type="object",
+    *      )
+    *  )
+    * )
+    */
     public function index($id,$desde = 0,$hasta = 0)
     {
         $expediente = Expediente::find($id);
@@ -39,6 +88,34 @@ class AvisosController extends Controller
         }
     }
 
+    /**
+    * @OA\Post(
+    * path="/avisos/guardar",
+    * summary="Almacena un aviso.",
+    * description="Guarda un aviso.",
+    * operationId="avisoPost",
+    * tags={"avisos"},
+    * @OA\RequestBody(
+    *    required=true,
+    *    description="Nuevo aviso",
+    *    @OA\JsonContent(
+    *       required={"fecha_aviso","detalle","expediente_id","tipo_comunicacion"},
+    *       @OA\Property(property="fecha_aviso", type="date", format="YYYY-MM-DD", example="2023-12-25"),
+    *       @OA\Property(property="detalle", type="string", example="Detalle de aviso"),
+    *       @OA\Property(property="expediente_id", type="integer", example="1"),
+    *       @OA\Property(property="tipo_comunicacion", type="integer", example="1"),
+    *       @OA\Property(property="file", type="string", format="binary"),
+    *    ),
+    * ),
+    * @OA\Response(
+    *    response=200,
+    *    description="Guardado con éxito.",       
+    *    @OA\JsonContent(
+    *      @OA\Property(property="message"), type="string", example="Guardado con éxito."
+    *      )
+    *  )
+    * )
+    */
     public function store(AvisosStore $request)
     {
         if ($request->hasFile('pdf_file')) {

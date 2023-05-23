@@ -9,6 +9,19 @@ use App\Http\Controllers\LogsDetalleHabilitacionController;
 use App\Models\Tipo_estado;
 use App\Models\Tipo_habilitacion;
 
+/**
+ * Controller de DetalleHabilitacion: brinda acceso a los servicios de detalles de habilitación.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez01@gmail.com
+ * @see Detalle_habilitacion
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class DetalleHabilitacionController extends Controller
 {
     /**

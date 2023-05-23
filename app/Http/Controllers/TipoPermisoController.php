@@ -7,6 +7,19 @@ use App\Http\Requests\StoreTipo_permisoRequest;
 use App\Http\Requests\UpdateTipo_permisoRequest;
 use App\Http\Controllers\LogsTipoPermisoController;
 
+/**
+ * Controller de TipoPermiso: brinda acceso a los servicios de los tipos de permisos.
+ *
+ * @author  Sebastián Esains: sebaesains77@gmail.com
+ *          Alexis Galván: alexisleogalvan12@gmail.com
+ *          Elva Kheler: mekdy.20@gmail.com
+ *          Héctor Liceaga: lice2187@gmail.com
+ *          Eugenio Miller: eugeniomiller93@gmail.com
+ *          Sergio Yañez: sergiomyanez01@gmail.com
+ * @see Tipo_permiso
+ * @version 1.0
+ * @since 11/12/2022
+ */
 class TipoPermisoController extends Controller {
 
     /**
